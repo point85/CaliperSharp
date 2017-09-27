@@ -89,14 +89,14 @@ namespace CaliperSharp
 		private readonly int MAX_SYMBOL_LENGTH = 16;
 
 		// multiply, divide and power symbols
-		private static readonly char MULT = (char)0xB7;
-		private static readonly char DIV = '/';
-		private static readonly char POW = '^';
-		private static readonly char SQ = (char)0xB2;
-		private static readonly char CUBED = (char)0xB3;
-		private static readonly char LP = '(';
-		private static readonly char RP = ')';
-		private static readonly char ONE_CHAR = '1';
+		internal static readonly char MULT = (char)0xB7;
+		internal static readonly char DIV = '/';
+		internal static readonly char POW = '^';
+		internal static readonly char SQ = (char)0xB2;
+		internal static readonly char CUBED = (char)0xB3;
+		internal static readonly char LP = '(';
+		internal static readonly char RP = ')';
+		internal static readonly char ONE_CHAR = '1';
 
 		// registry of unit conversion factor
 		private Dictionary<UnitOfMeasure, decimal> ConversionRegistry = new Dictionary<UnitOfMeasure, decimal>();
@@ -131,23 +131,23 @@ namespace CaliperSharp
 		public UnitOfMeasure BridgeAbscissaUnit { get; set; }
 
 		// cached base symbol
-		private string baseSymbol;
+		private string BaseSymbol { get; set; }
 
 		// user-defined category
-		public string category { get; set; } = MeasurementSystem.getSystem().getSymbols().getstring("default.category.text");
+		public string Category { get; set; } = MeasurementSystem.GetUnitString("default.category.text");
 
 		// base UOMs and exponents for a product of two power UOMs follow
 		// power base unit, product multiplier or quotient dividend
-		private UnitOfMeasure uom1;
+		internal UnitOfMeasure UOM1 { get; set; }
 
 		// product multiplicand or quotient divisor
-		private UnitOfMeasure uom2;
+		internal UnitOfMeasure UOM2 { get; set; }
 
 		// exponent
-		private int exponent1;
+		internal Nullable<int> Exponent1 { get; set; }
 
 		// second exponent
-		private int exponent2;
+		internal Nullable<int> Exponent2 { get; set; }
 
 		/**
  * Construct a default unit of measure
@@ -157,9 +157,185 @@ namespace CaliperSharp
 
 		}
 
-		UnitOfMeasure(UnitType type, string name, string symbol, string description) : base(name, symbol, description)
+		internal UnitOfMeasure(UnitType type, string name, string symbol, string description) : base(name, symbol, description)
 		{
 			UnitType = type;
+		}
+
+		private void SetPowerProduct(UnitOfMeasure uom1, int exponent1)
+		{
+			UOM1 = uom1;
+			Exponent1 = exponent1;
+		}
+
+		private void SetPowerProduct(UnitOfMeasure uom1, int exponent1, UnitOfMeasure uom2, int exponent2)
+		{
+			UOM1 = uom1;
+			Exponent1 = exponent1;
+			UOM2 = uom2;
+			Exponent2 = exponent2;
+		}
+
+		/**
+ * Get the measurement type
+ * 
+ * @return {@link MeasurementType}
+ */
+		public MeasurementType GetMeasurementType()
+		{
+			MeasurementType type = MeasurementType.SCALAR;
+
+			if (Exponent2 != null && Exponent2 < 0)
+			{
+				type = MeasurementType.QUOTIENT;
+			}
+			else if (Exponent2 != null && Exponent2 > 0)
+			{
+				type = MeasurementType.PRODUCT;
+			}
+			else if (UOM1 != null && Exponent1 != null)
+			{
+				type = MeasurementType.POWER;
+			}
+
+			return type;
+		}
+
+		private Reducer GetBaseMap()
+		{
+			lock (new object())
+			{
+				Reducer reducer = new Reducer();
+				reducer.Explode(this);
+				return reducer;
+			}
+		}
+
+		/**
+	* Get the unit of measure's symbol in the fundamental units for that
+	* system. For example a Newton is a kg.m/s2.
+	* 
+	* @return Base symbol
+	* @throws Exception
+	*             Exception
+*/
+		public string GetBaseSymbol()
+		{
+			lock (new object())
+			{
+				if (BaseSymbol == null)
+				{
+					Reducer powerMap = GetBaseMap();
+					BaseSymbol = powerMap.BuildBaseString();
+				}
+				return BaseSymbol;
+			}
+		}
+
+		/**
+		* Get the exponent
+		* 
+		* @return Exponent
+*/
+		public Nullable<int> GetPowerExponent()
+		{
+			return Exponent1;
+		}
+
+		/**
+ * Check to see if this unit of measure has a conversion to another unit of
+ * measure other than itself.
+ * 
+ * @return True if it does not
+ */
+		public bool IsTerminal()
+		{
+			return this.Equals(AbscissaUnit) ? true : false;
+		}
+
+		UnitOfMeasure ClonePower(UnitOfMeasure uom)
+		{
+
+			UnitOfMeasure newUOM = new UnitOfMeasure();
+			newUOM.UnitType = UnitType;
+
+			// check if quotient
+			int? exponent = 1;
+			if (GetPowerExponent() != null)
+			{
+				exponent = GetPowerExponent();
+			}
+
+			UnitOfMeasure one = MeasurementSystem.GetSystem().GetOne();
+			if (GetMeasurementType().Equals(MeasurementType.QUOTIENT))
+			{
+				if (GetDividend().equals(one))
+				{
+					exponent = getExponent2();
+				}
+				else if (getDivisor().equals(one))
+				{
+					exponent = getExponent1();
+				}
+			}
+			newUOM.setPowerUnit(uom, exponent);
+			String symbol = UnitOfMeasure.generatePowerSymbol(uom, exponent);
+			newUOM.setSymbol(symbol);
+			newUOM.setName(symbol);
+
+			return newUOM;
+		}
+
+		// this method is for optimization of decimal multiplication
+		internal static decimal DecimalMultiply(decimal a, decimal b)
+		{
+			decimal value;
+
+			if (b.CompareTo(decimal.One) == 0)
+			{
+				value = a;
+			}
+			else
+			{
+				value = decimal.Multiply(a,b);
+			}
+			return value;
+		}
+
+		// this method is for optimization of decimal division
+		internal static decimal DecimalDivide(decimal a, decimal b)
+		{
+			decimal value;
+
+			if (b.CompareTo(decimal.One) == 0)
+			{
+				value = a;
+			}
+			else
+			{
+				value = decimal.Divide(a, b);
+			}
+			return value;
+		}
+
+		// this method is for optimization of decimal exponentiation
+		internal static decimal DecimalPower(decimal powerBase, int exponent)
+		{
+			decimal value;
+
+			if (exponent == 1)
+			{
+				value = powerBase;
+			}
+			else if (exponent == 0)
+			{
+				value = decimal.One;
+			}
+			else
+			{
+				value = (decimal)Math.Pow((double)powerBase, exponent);
+			}
+			return value;
 		}
 
 		public override int GetHashCode()
@@ -171,15 +347,17 @@ namespace CaliperSharp
 		}
 
 		/**
- * Compare this unit of measure to another one.
- * 
- * @param other
- *            unit of measure
- * @return -1 if less than, 0 if equal and 1 if greater than
- */
+		* Compare this unit of measure to another one.
+		* 
+		* @param other
+		*            unit of measure
+		* @return -1 if less than, 0 if equal and 1 if greater than
+*/
 		int IComparable<UnitOfMeasure>.CompareTo(UnitOfMeasure other)
 		{
 			return Symbol.CompareTo(other.Symbol);
 		}
-	}
-}
+
+
+	} // end UnitOfMeasure class
+} // end namespace

@@ -1,0 +1,18 @@
+# Translatable exception messages
+#
+must.be.same.as = The unit of measure {0} of type {1} must be the same as {2} of type {3}.
+amount.cannot.be.null = The amount cannot be null.
+symbol.cannot.be.null = The symbol cannot be null.
+factor.cannot.be.null = The conversion scaling factor cannot be null.
+offset.cannot.be.null = The conversion offset cannot be null.
+dividend.cannot.be.null = The dividend cannot be null for the quotient unit of measure with symbol {0}.
+divisor.cannot.be.null = The divisor cannot be null for the quotient unit of measure with symbol {0}.
+multiplier.cannot.be.null = The multiplier cannot be null for the product unit of measure with symbol {0}.
+multiplicand.cannot.be.null = The multiplicand cannot be null for the product unit of measure with symbol {0}.
+base.cannot.be.null = The base cannot be null for the power unit of measure with symbol {0}.
+unit.type.cannot.be.null = The type of the unit of measure cannot be null. 
+unit.cannot.be.null = The unit of measure cannot be null.
+offset.not.supported = The unit of measure {0} cannot have an offset.
+incompatible.units = The unit of measure {0} cannot be converted to {1}.
+conversion.not.allowed = The scaling factor must be 1 and the offset must be 0.
+circular.references = The unit of measure with symbol {0} has circular references and cannot be created.
