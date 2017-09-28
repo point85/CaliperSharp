@@ -330,7 +330,7 @@ namespace CaliperSharp
 			return sb.ToString();
 		}
 
-		UnitOfMeasure ClonePower(UnitOfMeasure uom)
+		internal UnitOfMeasure ClonePower(UnitOfMeasure uom)
 		{
 
 			UnitOfMeasure newUOM = new UnitOfMeasure();
@@ -389,7 +389,7 @@ namespace CaliperSharp
 			}
 
 			UnitOfMeasure newUOM = uom1.MultiplyOrDivide(uom2, invert);
-			newUOM.setUnitType(getUnitType());
+			newUOM.UOMType = UOMType;
 
 			return newUOM;
 		}
@@ -617,9 +617,23 @@ namespace CaliperSharp
 		 * @throws Exception
 		 *             Exception
 		 */
-		public UnitOfMeasure multiply(UnitOfMeasure multiplicand)
+		public UnitOfMeasure Multiply(UnitOfMeasure multiplicand)
 		{
-			return multiplyOrDivide(multiplicand, false);
+			return MultiplyOrDivide(multiplicand, false);
+		}
+
+		/**
+ * Divide two units of measure to create a third one.
+ * 
+ * @param divisor
+ *            {@link UnitOfMeasure}
+ * @return {@link UnitOfMeasure}
+ * @throws Exception
+ *             Exception
+ */
+		public UnitOfMeasure Divide(UnitOfMeasure divisor)
+		{
+			return MultiplyOrDivide(divisor, true);
 		}
 
 		// this method is for optimization of decimal addition
@@ -1053,7 +1067,29 @@ namespace CaliperSharp
 			ConversionRegistry[targetUOM] = cachedFactor;
 
 			return cachedFactor;
+		}
 
+		/**
+ * Invert a unit of measure to create a new one
+ * 
+ * @return {@link UnitOfMeasure}
+ * @throws Exception
+ *             Exception
+ */
+		public UnitOfMeasure Invert()
+		{
+			UnitOfMeasure inverted = null;
+
+			if (Exponent2 != null && Exponent2 < 0)
+			{
+				inverted = GetDivisor().Divide(GetDividend());
+			}
+			else
+			{
+				inverted = MeasurementSystem.GetSystem().GetOne().Divide(this);
+			}
+
+			return inverted;
 		}
 
 		// reduce a unit of measure to its most basic scalar units of measure.

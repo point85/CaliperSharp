@@ -113,7 +113,7 @@ namespace CaliperSharp
 		}
 
 		// get a particular unit string by its key
-		public static String GetUnitString(String key)
+		public static string GetUnitString(string key)
 		{
 			return UnitsManager.GetString(key);
 		}
@@ -133,7 +133,7 @@ namespace CaliperSharp
  * Get the unit of measure for unity 'one'
  * 
  * @return {@link UnitOfMeasure}
- * @throws Exception
+ * @
  *             Exception
  */
 		public UnitOfMeasure GetOne()
@@ -142,14 +142,62 @@ namespace CaliperSharp
 		}
 
 		/**
- * Get the unit of measure with this unique enumerated type
+ * Get the fundamental unit of measure of time
  * 
- * @param unit
- *            {@link Unit}
  * @return {@link UnitOfMeasure}
- * @throws Exception
+ * @
  *             Exception Exception
  */
+		public UnitOfMeasure GetSecond()
+		{
+			return GetUOM(Unit.SECOND);
+		}
+
+		/**
+		 * Get the unit of measure for a minute (60 seconds)
+		 * 
+		 * @return {@link UnitOfMeasure}
+		 * @
+		 *             Exception
+		 */
+		public UnitOfMeasure GetMinute()
+		{
+			return GetUOM(Unit.MINUTE);
+		}
+
+		/**
+		 * Get the unit of measure for an hour (60 minutes)
+		 * 
+		 * @return {@link UnitOfMeasure}
+		 * @
+		 *             Exception
+		 */
+		public UnitOfMeasure GetHour()
+		{
+			return GetUOM(Unit.HOUR);
+		}
+
+		/**
+		 * Get the unit of measure for one day (24 hours)
+		 * 
+		 * @return {@link UnitOfMeasure}
+		 * @
+		 *             Exception
+		 */
+		public UnitOfMeasure GetDay()
+		{
+			return GetUOM(Unit.DAY);
+		}
+
+		/**
+	* Get the unit of measure with this unique enumerated type
+	* 
+	* @param unit
+	*            {@link Unit}
+	* @return {@link UnitOfMeasure}
+	* @
+	*             Exception Exception
+*/
 		public UnitOfMeasure GetUOM(Unit unit)
 		{
 			UnitOfMeasure uom = UnitRegistry[unit];
@@ -183,6 +231,61 @@ namespace CaliperSharp
 		public UnitOfMeasure GetBaseUOM(string symbol)
 		{
 			return BaseRegistry[symbol];
+		}
+
+		/**
+ * Create or fetch a unit of measure linearly scaled by the {@link Prefix}
+ * against the target unit of measure.
+ * 
+ * @param prefix
+ *            {@link Prefix} Scaling prefix with the scaling factor, e.g.
+ *            1000
+ * @param tarGetUOM
+ *            abscissa {@link UnitOfMeasure}
+ * @return {@link UnitOfMeasure}
+ * @
+ *             Exception
+ */
+		public UnitOfMeasure GetUOM(Prefix prefix, UnitOfMeasure tarGetUOM)
+		{
+			string symbol = prefix.Symbol + tarGetUOM.Symbol;
+
+			UnitOfMeasure scaled = GetUOM(symbol);
+
+			// if not found, create it
+			if (scaled == null)
+			{
+				// generate a name and description
+				string name = prefix.Name + tarGetUOM.Name;
+				string description = prefix.Factor + " " + tarGetUOM.Name;
+
+				// scaling factor
+				decimal scalingFactor = UnitOfMeasure.DecimalMultiply(tarGetUOM.ScalingFactor,
+						prefix.Factor);
+
+				// create the unit of measure and set conversion
+				scaled = CreateScalarUOM(tarGetUOM.UOMType, null, name, symbol, description);
+				scaled.SetConversion(scalingFactor, tarGetUOM.AbscissaUnit);
+			}
+			return scaled;
+		}
+
+		/**
+		* Create or fetch a unit of measure linearly scaled by the {@link Prefix}
+		* against the target unit of measure.
+		* 
+		* @param prefix
+		*            {@link Prefix} Scaling prefix with the scaling factor, e.g.
+		*            1000
+		* @param unit
+		*            {@link Unit}
+		* @return {@link UnitOfMeasure}
+		* @
+		*             Exception
+*/
+		public UnitOfMeasure GetUOM(Prefix prefix, Unit unit)
+		{
+			return GetUOM(prefix, MeasurementSystem.GetSystem().GetUOM(unit));
 		}
 
 
@@ -243,493 +346,493 @@ namespace CaliperSharp
 				case Unit.ONE:
 					// unity
 					uom = CreateScalarUOM(UnitType.UNITY, Unit.ONE, UnitsManager.GetString("one.name"),
-							UnitsManager.GetString("one.symbol"), UnitsManager.GetString("one.desc"));
+							UnitsManager.GetString("one.symbol"), UnitsManager.GetString("one.desc");
 					break;
 
 				case Unit.SECOND:
 					// second
 					uom = CreateScalarUOM(UnitType.TIME, Unit.SECOND, UnitsManager.GetString("sec.name"),
-							UnitsManager.GetString("sec.symbol"), UnitsManager.GetString("sec.desc"));
+							UnitsManager.GetString("sec.symbol"), UnitsManager.GetString("sec.desc");
 					break;
 
 				case Unit.MINUTE:
 					// minute
 					uom = CreateScalarUOM(UnitType.TIME, Unit.MINUTE, UnitsManager.GetString("min.name"),
-							UnitsManager.GetString("min.symbol"), UnitsManager.GetString("min.desc"));
-					uom.SetConversion(Quantity.createAmount("60"), getUOM(Unit.SECOND));
+							UnitsManager.GetString("min.symbol"), UnitsManager.GetString("min.desc");
+					uom.SetConversion(Quantity.CreateAmount("60"), GetUOM(Unit.SECOND));
 					break;
 
 				case Unit.HOUR:
 					// hour
 					uom = CreateScalarUOM(UnitType.TIME, Unit.HOUR, UnitsManager.GetString("hr.name"),
-							UnitsManager.GetString("hr.symbol"), UnitsManager.GetString("hr.desc"));
-					uom.setConversion(Quantity.createAmount("3600"), getUOM(Unit.SECOND));
+							UnitsManager.GetString("hr.symbol"), UnitsManager.GetString("hr.desc");
+					uom.SetConversion(Quantity.CreateAmount("3600"), GetUOM(Unit.SECOND));
 					break;
 
 				case Unit.DAY:
 					// day
 					uom = CreateScalarUOM(UnitType.TIME, Unit.DAY, UnitsManager.GetString("day.name"),
-							UnitsManager.GetString("day.symbol"), UnitsManager.GetString("day.desc"));
-					uom.setConversion(Quantity.createAmount("86400"), getUOM(Unit.SECOND));
+							UnitsManager.GetString("day.symbol"), UnitsManager.GetString("day.desc");
+					uom.SetConversion(Quantity.CreateAmount("86400"), GetUOM(Unit.SECOND));
 					break;
 
 				case Unit.WEEK:
 					// week
 					uom = CreateScalarUOM(UnitType.TIME, Unit.WEEK, UnitsManager.GetString("week.name"),
-							UnitsManager.GetString("week.symbol"), UnitsManager.GetString("week.desc"));
-					uom.setConversion(Quantity.createAmount("604800"), getUOM(Unit.SECOND));
+							UnitsManager.GetString("week.symbol"), UnitsManager.GetString("week.desc");
+					uom.SetConversion(Quantity.CreateAmount("604800"), GetUOM(Unit.SECOND));
 					break;
 
 				case Unit.JULIAN_YEAR:
 					// Julian year
 					uom = CreateScalarUOM(UnitType.TIME, Unit.JULIAN_YEAR, UnitsManager.GetString("jyear.name"),
-							UnitsManager.GetString("jyear.symbol"), UnitsManager.GetString("jyear.desc"));
-					uom.setConversion(Quantity.createAmount("3.1557600E+07"), getUOM(Unit.SECOND));
+							UnitsManager.GetString("jyear.symbol"), UnitsManager.GetString("jyear.desc");
+					uom.SetConversion(Quantity.CreateAmount("3.1557600E+07"), GetUOM(Unit.SECOND));
 
 					break;
 
 				case Unit.SQUARE_SECOND:
 					// square second
-					uom = createPowerUOM(UnitType.TIME_SQUARED, Unit.SQUARE_SECOND, UnitsManager.GetString("s2.name"),
-							UnitsManager.GetString("s2.symbol"), UnitsManager.GetString("s2.desc"), getUOM(Unit.SECOND), 2);
+					uom = CreatePowerUOM(UnitType.TIME_SQUARED, Unit.SQUARE_SECOND, UnitsManager.GetString("s2.name"),
+							UnitsManager.GetString("s2.symbol"), UnitsManager.GetString("s2.desc"), GetUOM(Unit.SECOND), 2);
 					break;
 
 				case Unit.MOLE:
 					// substance amount
 					uom = CreateScalarUOM(UnitType.SUBSTANCE_AMOUNT, Unit.MOLE, UnitsManager.GetString("mole.name"),
-							UnitsManager.GetString("mole.symbol"), UnitsManager.GetString("mole.desc"));
+							UnitsManager.GetString("mole.symbol"), UnitsManager.GetString("mole.desc");
 					break;
 
 				case Unit.EQUIVALENT:
 					// substance amount
 					uom = CreateScalarUOM(UnitType.SUBSTANCE_AMOUNT, Unit.EQUIVALENT, UnitsManager.GetString("equivalent.name"),
-							UnitsManager.GetString("equivalent.symbol"), UnitsManager.GetString("equivalent.desc"));
+							UnitsManager.GetString("equivalent.symbol"), UnitsManager.GetString("equivalent.desc");
 					break;
 
 				case Unit.DECIBEL:
 					// decibel
 					uom = CreateScalarUOM(UnitType.INTENSITY, Unit.DECIBEL, UnitsManager.GetString("db.name"),
-							UnitsManager.GetString("db.symbol"), UnitsManager.GetString("db.desc"));
+							UnitsManager.GetString("db.symbol"), UnitsManager.GetString("db.desc");
 					break;
 
 				case Unit.RADIAN:
 					// plane angle radian (rad)
 					uom = CreateScalarUOM(UnitType.PLANE_ANGLE, Unit.RADIAN, UnitsManager.GetString("radian.name"),
-							UnitsManager.GetString("radian.symbol"), UnitsManager.GetString("radian.desc"));
-					uom.setConversion(getOne());
+							UnitsManager.GetString("radian.symbol"), UnitsManager.GetString("radian.desc");
+					uom.SetConversion(GetOne());
 					break;
 
 				case Unit.STERADIAN:
 					// solid angle steradian (sr)
 					uom = CreateScalarUOM(UnitType.SOLID_ANGLE, Unit.STERADIAN, UnitsManager.GetString("steradian.name"),
-							UnitsManager.GetString("steradian.symbol"), UnitsManager.GetString("steradian.desc"));
-					uom.setConversion(getOne());
+							UnitsManager.GetString("steradian.symbol"), UnitsManager.GetString("steradian.desc");
+					uom.SetConversion(GetOne());
 					break;
 
 				case Unit.DEGREE:
 					// degree of arc
 					uom = CreateScalarUOM(UnitType.PLANE_ANGLE, Unit.DEGREE, UnitsManager.GetString("degree.name"),
-							UnitsManager.GetString("degree.symbol"), UnitsManager.GetString("degree.desc"));
-					uom.setConversion(Quantity.divideAmounts(String.valueOf(Math.PI), "180"), getUOM(Unit.RADIAN));
+							UnitsManager.GetString("degree.symbol"), UnitsManager.GetString("degree.desc");
+					uom.SetConversion(UnitOfMeasure.DecimalDivide(new decimal(Math.PI), 180), GetUOM(Unit.RADIAN));
 					break;
 
 				case Unit.ARC_SECOND:
 					// degree of arc
 					uom = CreateScalarUOM(UnitType.PLANE_ANGLE, Unit.ARC_SECOND, UnitsManager.GetString("arcsec.name"),
-							UnitsManager.GetString("arcsec.symbol"), UnitsManager.GetString("arcsec.desc"));
-					uom.setConversion(Quantity.divideAmounts(String.valueOf(Math.PI), "648000"), getUOM(Unit.RADIAN));
+							UnitsManager.GetString("arcsec.symbol"), UnitsManager.GetString("arcsec.desc");
+					uom.SetConversion(UnitOfMeasure.DecimalDivide(new decimal(Math.PI), 648000), GetUOM(Unit.RADIAN));
 					break;
 
 				case Unit.METRE:
 					// fundamental length
 					uom = CreateScalarUOM(UnitType.LENGTH, Unit.METRE, UnitsManager.GetString("m.name"),
-							UnitsManager.GetString("m.symbol"), UnitsManager.GetString("m.desc"));
+							UnitsManager.GetString("m.symbol"), UnitsManager.GetString("m.desc");
 					break;
 
 				case Unit.DIOPTER:
 					// per metre
-					uom = createQuotientUOM(UnitType.RECIPROCAL_LENGTH, Unit.DIOPTER, UnitsManager.GetString("diopter.name"),
-							UnitsManager.GetString("diopter.symbol"), UnitsManager.GetString("diopter.desc"), getOne(),
-							getUOM(Unit.METRE));
+					uom = CreateQuotientUOM(UnitType.RECIPROCAL_LENGTH, Unit.DIOPTER, UnitsManager.GetString("diopter.name"),
+							UnitsManager.GetString("diopter.symbol"), UnitsManager.GetString("diopter.desc"), GetOne(),
+							GetUOM(Unit.METRE));
 					break;
 
 				case Unit.KILOGRAM:
 					// fundamental mass
 					uom = CreateScalarUOM(UnitType.MASS, Unit.KILOGRAM, UnitsManager.GetString("kg.name"),
-							UnitsManager.GetString("kg.symbol"), UnitsManager.GetString("kg.desc"));
+							UnitsManager.GetString("kg.symbol"), UnitsManager.GetString("kg.desc");
 					break;
 
 				case Unit.TONNE:
 					// mass
 					uom = CreateScalarUOM(UnitType.MASS, Unit.TONNE, UnitsManager.GetString("tonne.name"),
-							UnitsManager.GetString("tonne.symbol"), UnitsManager.GetString("tonne.desc"));
-					uom.setConversion(Prefix.KILO.getFactor(), getUOM(Unit.KILOGRAM));
+							UnitsManager.GetString("tonne.symbol"), UnitsManager.GetString("tonne.desc");
+					uom.SetConversion(Prefix.KILO.Factor, GetUOM(Unit.KILOGRAM));
 					break;
 
 				case Unit.KELVIN:
 					// fundamental temperature
 					uom = CreateScalarUOM(UnitType.TEMPERATURE, Unit.KELVIN, UnitsManager.GetString("kelvin.name"),
-							UnitsManager.GetString("kelvin.symbol"), UnitsManager.GetString("kelvin.desc"));
+							UnitsManager.GetString("kelvin.symbol"), UnitsManager.GetString("kelvin.desc");
 					break;
 
 				case Unit.AMPERE:
 					// electric current
 					uom = CreateScalarUOM(UnitType.ELECTRIC_CURRENT, Unit.AMPERE, UnitsManager.GetString("amp.name"),
-							UnitsManager.GetString("amp.symbol"), UnitsManager.GetString("amp.desc"));
+							UnitsManager.GetString("amp.symbol"), UnitsManager.GetString("amp.desc");
 					break;
 
 				case Unit.CANDELA:
 					// luminosity
 					uom = CreateScalarUOM(UnitType.LUMINOSITY, Unit.CANDELA, UnitsManager.GetString("cd.name"),
-							UnitsManager.GetString("cd.symbol"), UnitsManager.GetString("cd.desc"));
+							UnitsManager.GetString("cd.symbol"), UnitsManager.GetString("cd.desc");
 					break;
 
 				case Unit.PH:
 					// molar concentration
 					uom = CreateScalarUOM(UnitType.MOLAR_CONCENTRATION, Unit.PH, UnitsManager.GetString("ph.name"),
-							UnitsManager.GetString("ph.symbol"), UnitsManager.GetString("ph.desc"));
+							UnitsManager.GetString("ph.symbol"), UnitsManager.GetString("ph.desc");
 					break;
 
 				case Unit.GRAM: // gram
 					uom = CreateScalarUOM(UnitType.MASS, Unit.GRAM, UnitsManager.GetString("gram.name"),
-							UnitsManager.GetString("gram.symbol"), UnitsManager.GetString("gram.desc"));
-					uom.setConversion(Prefix.MILLI.getFactor(), getUOM(Unit.KILOGRAM));
+							UnitsManager.GetString("gram.symbol"), UnitsManager.GetString("gram.desc");
+					uom.SetConversion(Prefix.MILLI.Factor, GetUOM(Unit.KILOGRAM));
 					break;
 
 				case Unit.CARAT:
 					// carat
 					uom = CreateScalarUOM(UnitType.MASS, Unit.CARAT, UnitsManager.GetString("carat.name"),
-							UnitsManager.GetString("carat.symbol"), UnitsManager.GetString("carat.desc"));
-					uom.setConversion(Quantity.createAmount("0.2"), getUOM(Unit.GRAM));
+							UnitsManager.GetString("carat.symbol"), UnitsManager.GetString("carat.desc");
+					uom.SetConversion(Quantity.CreateAmount("0.2"), GetUOM(Unit.GRAM));
 					break;
 
 				case Unit.SQUARE_METRE:
 					// square metre
-					uom = createPowerUOM(UnitType.AREA, Unit.SQUARE_METRE, UnitsManager.GetString("m2.name"),
-							UnitsManager.GetString("m2.symbol"), UnitsManager.GetString("m2.desc"), getUOM(Unit.METRE), 2);
+					uom = CreatePowerUOM(UnitType.AREA, Unit.SQUARE_METRE, UnitsManager.GetString("m2.name"),
+							UnitsManager.GetString("m2.symbol"), UnitsManager.GetString("m2.desc"), GetUOM(Unit.METRE), 2);
 					break;
 
 				case Unit.HECTARE:
 					// hectare
 					uom = CreateScalarUOM(UnitType.AREA, Unit.HECTARE, UnitsManager.GetString("hectare.name"),
-							UnitsManager.GetString("hectare.symbol"), UnitsManager.GetString("hectare.desc"));
-					uom.setConversion(Quantity.createAmount("10000"), getUOM(Unit.SQUARE_METRE));
+							UnitsManager.GetString("hectare.symbol"), UnitsManager.GetString("hectare.desc");
+					uom.SetConversion(Quantity.CreateAmount("10000"), GetUOM(Unit.SQUARE_METRE));
 					break;
 
 				case Unit.METRE_PER_SEC:
 					// velocity
-					uom = createQuotientUOM(UnitType.VELOCITY, Unit.METRE_PER_SEC, UnitsManager.GetString("mps.name"),
-							UnitsManager.GetString("mps.symbol"), UnitsManager.GetString("mps.desc"), getUOM(Unit.METRE), getSecond());
+					uom = CreateQuotientUOM(UnitType.VELOCITY, Unit.METRE_PER_SEC, UnitsManager.GetString("mps.name"),
+							UnitsManager.GetString("mps.symbol"), UnitsManager.GetString("mps.desc"), GetUOM(Unit.METRE), GetSecond());
 					break;
 
 				case Unit.METRE_PER_SEC_SQUARED:
 					// acceleration
-					uom = createQuotientUOM(UnitType.ACCELERATION, Unit.METRE_PER_SEC_SQUARED, UnitsManager.GetString("mps2.name"),
-							UnitsManager.GetString("mps2.symbol"), UnitsManager.GetString("mps2.desc"), getUOM(Unit.METRE),
-							getUOM(Unit.SQUARE_SECOND));
+					uom = CreateQuotientUOM(UnitType.ACCELERATION, Unit.METRE_PER_SEC_SQUARED, UnitsManager.GetString("mps2.name"),
+							UnitsManager.GetString("mps2.symbol"), UnitsManager.GetString("mps2.desc"), GetUOM(Unit.METRE),
+							GetUOM(Unit.SQUARE_SECOND));
 					break;
 
 				case Unit.CUBIC_METRE:
 					// cubic metre
-					uom = createPowerUOM(UnitType.VOLUME, Unit.CUBIC_METRE, UnitsManager.GetString("m3.name"),
-							UnitsManager.GetString("m3.symbol"), UnitsManager.GetString("m3.desc"), getUOM(Unit.METRE), 3);
+					uom = CreatePowerUOM(UnitType.VOLUME, Unit.CUBIC_METRE, UnitsManager.GetString("m3.name"),
+							UnitsManager.GetString("m3.symbol"), UnitsManager.GetString("m3.desc"), GetUOM(Unit.METRE), 3);
 					break;
 
 				case Unit.LITRE:
 					// litre
 					uom = CreateScalarUOM(UnitType.VOLUME, Unit.LITRE, UnitsManager.GetString("litre.name"),
-							UnitsManager.GetString("litre.symbol"), UnitsManager.GetString("litre.desc"));
-					uom.setConversion(Prefix.MILLI.getFactor(), getUOM(Unit.CUBIC_METRE));
+							UnitsManager.GetString("litre.symbol"), UnitsManager.GetString("litre.desc");
+					uom.SetConversion(Prefix.MILLI.Factor, GetUOM(Unit.CUBIC_METRE));
 					break;
 
 				case Unit.CUBIC_METRE_PER_SEC:
 					// flow (volume)
-					uom = createQuotientUOM(UnitType.VOLUMETRIC_FLOW, Unit.CUBIC_METRE_PER_SEC,
+					uom = CreateQuotientUOM(UnitType.VOLUMETRIC_FLOW, Unit.CUBIC_METRE_PER_SEC,
 							UnitsManager.GetString("m3PerSec.name"), UnitsManager.GetString("m3PerSec.symbol"),
-							UnitsManager.GetString("m3PerSec.desc"), getUOM(Unit.CUBIC_METRE), getSecond());
+							UnitsManager.GetString("m3PerSec.desc"), GetUOM(Unit.CUBIC_METRE), GetSecond());
 					break;
 
 				case Unit.KILOGRAM_PER_SEC:
 					// flow (mass)
-					uom = createQuotientUOM(UnitType.MASS_FLOW, Unit.KILOGRAM_PER_SEC, UnitsManager.GetString("kgPerSec.name"),
-							UnitsManager.GetString("kgPerSec.symbol"), UnitsManager.GetString("kgPerSec.desc"), getUOM(Unit.KILOGRAM),
-							getSecond());
+					uom = CreateQuotientUOM(UnitType.MASS_FLOW, Unit.KILOGRAM_PER_SEC, UnitsManager.GetString("kgPerSec.name"),
+							UnitsManager.GetString("kgPerSec.symbol"), UnitsManager.GetString("kgPerSec.desc"), GetUOM(Unit.KILOGRAM),
+							GetSecond());
 					break;
 
 				case Unit.KILOGRAM_PER_CU_METRE:
 					// kg/m^3
-					uom = createQuotientUOM(UnitType.DENSITY, Unit.KILOGRAM_PER_CU_METRE, UnitsManager.GetString("kg_m3.name"),
-							UnitsManager.GetString("kg_m3.symbol"), UnitsManager.GetString("kg_m3.desc"), getUOM(Unit.KILOGRAM),
-							getUOM(Unit.CUBIC_METRE));
+					uom = CreateQuotientUOM(UnitType.DENSITY, Unit.KILOGRAM_PER_CU_METRE, UnitsManager.GetString("kg_m3.name"),
+							UnitsManager.GetString("kg_m3.symbol"), UnitsManager.GetString("kg_m3.desc"), GetUOM(Unit.KILOGRAM),
+							GetUOM(Unit.CUBIC_METRE));
 					break;
 
 				case Unit.PASCAL_SECOND:
 					// dynamic viscosity
-					uom = createProductUOM(UnitType.DYNAMIC_VISCOSITY, Unit.PASCAL_SECOND, UnitsManager.GetString("pascal_sec.name"),
-							UnitsManager.GetString("pascal_sec.symbol"), UnitsManager.GetString("pascal_sec.desc"), getUOM(Unit.PASCAL),
-							getSecond());
+					uom = CreateProductUOM(UnitType.DYNAMIC_VISCOSITY, Unit.PASCAL_SECOND, UnitsManager.GetString("pascal_sec.name"),
+							UnitsManager.GetString("pascal_sec.symbol"), UnitsManager.GetString("pascal_sec.desc"), GetUOM(Unit.PASCAL),
+							GetSecond());
 					break;
 
 				case Unit.SQUARE_METRE_PER_SEC:
 					// kinematic viscosity
-					uom = createQuotientUOM(UnitType.KINEMATIC_VISCOSITY, Unit.SQUARE_METRE_PER_SEC,
+					uom = CreateQuotientUOM(UnitType.KINEMATIC_VISCOSITY, Unit.SQUARE_METRE_PER_SEC,
 							UnitsManager.GetString("m2PerSec.name"), UnitsManager.GetString("m2PerSec.symbol"),
-							UnitsManager.GetString("m2PerSec.desc"), getUOM(Unit.SQUARE_METRE), getSecond());
+							UnitsManager.GetString("m2PerSec.desc"), GetUOM(Unit.SQUARE_METRE), GetSecond());
 					break;
 
 				case Unit.CALORIE:
 					// thermodynamic calorie
 					uom = CreateScalarUOM(UnitType.ENERGY, Unit.CALORIE, UnitsManager.GetString("calorie.name"),
-							UnitsManager.GetString("calorie.symbol"), UnitsManager.GetString("calorie.desc"));
-					uom.setConversion(Quantity.createAmount("4.184"), getUOM(Unit.JOULE));
+							UnitsManager.GetString("calorie.symbol"), UnitsManager.GetString("calorie.desc");
+					uom.SetConversion(Quantity.CreateAmount("4.184"), GetUOM(Unit.JOULE));
 					break;
 
 				case Unit.NEWTON:
 					// force F = m·A (newton)
-					uom = createProductUOM(UnitType.FORCE, Unit.NEWTON, UnitsManager.GetString("newton.name"),
-							UnitsManager.GetString("newton.symbol"), UnitsManager.GetString("newton.desc"), getUOM(Unit.KILOGRAM),
-							getUOM(Unit.METRE_PER_SEC_SQUARED));
+					uom = CreateProductUOM(UnitType.FORCE, Unit.NEWTON, UnitsManager.GetString("newton.name"),
+							UnitsManager.GetString("newton.symbol"), UnitsManager.GetString("newton.desc"), GetUOM(Unit.KILOGRAM),
+							GetUOM(Unit.METRE_PER_SEC_SQUARED));
 					break;
 
 				case Unit.NEWTON_METRE:
 					// newton-metre
-					uom = createProductUOM(UnitType.ENERGY, Unit.NEWTON_METRE, UnitsManager.GetString("n_m.name"),
-							UnitsManager.GetString("n_m.symbol"), UnitsManager.GetString("n_m.desc"), getUOM(Unit.NEWTON),
-							getUOM(Unit.METRE));
+					uom = CreateProductUOM(UnitType.ENERGY, Unit.NEWTON_METRE, UnitsManager.GetString("n_m.name"),
+							UnitsManager.GetString("n_m.symbol"), UnitsManager.GetString("n_m.desc"), GetUOM(Unit.NEWTON),
+							GetUOM(Unit.METRE));
 					break;
 
 				case Unit.JOULE:
 					// energy (joule)
-					uom = createProductUOM(UnitType.ENERGY, Unit.JOULE, UnitsManager.GetString("joule.name"),
-							UnitsManager.GetString("joule.symbol"), UnitsManager.GetString("joule.desc"), getUOM(Unit.NEWTON),
-							getUOM(Unit.METRE));
+					uom = CreateProductUOM(UnitType.ENERGY, Unit.JOULE, UnitsManager.GetString("joule.name"),
+							UnitsManager.GetString("joule.symbol"), UnitsManager.GetString("joule.desc"), GetUOM(Unit.NEWTON),
+							GetUOM(Unit.METRE));
 					break;
 
 				case Unit.ELECTRON_VOLT:
 					// ev
-					Quantity e = this.getQuantity(Constant.ELEMENTARY_CHARGE);
-					uom = createProductUOM(UnitType.ENERGY, Unit.ELECTRON_VOLT, UnitsManager.GetString("ev.name"),
-								UnitsManager.GetString("ev.symbol"), UnitsManager.GetString("ev.desc"), e.getUOM(), getUOM(Unit.VOLT));
+					Quantity e = this.GetQuantity(Constant.ELEMENTARY_CHARGE);
+					uom = CreateProductUOM(UnitType.ENERGY, Unit.ELECTRON_VOLT, UnitsManager.GetString("ev.name"),
+								UnitsManager.GetString("ev.symbol"), UnitsManager.GetString("ev.desc"), e.GetUOM(), GetUOM(Unit.VOLT));
 					uom.setScalingFactor(e.getAmount());
 					break;
 
 				case Unit.WATT_HOUR:
 					// watt-hour
-					uom = createProductUOM(UnitType.ENERGY, Unit.WATT_HOUR, UnitsManager.GetString("wh.name"),
-							UnitsManager.GetString("wh.symbol"), UnitsManager.GetString("wh.desc"), getUOM(Unit.WATT), getHour());
+					uom = CreateProductUOM(UnitType.ENERGY, Unit.WATT_HOUR, UnitsManager.GetString("wh.name"),
+							UnitsManager.GetString("wh.symbol"), UnitsManager.GetString("wh.desc"), GetUOM(Unit.WATT), getHour());
 					break;
 
 				case Unit.WATT:
 					// power (watt)
-					uom = createQuotientUOM(UnitType.POWER, Unit.WATT, UnitsManager.GetString("watt.name"),
-							UnitsManager.GetString("watt.symbol"), UnitsManager.GetString("watt.desc"), getUOM(Unit.JOULE), getSecond());
+					uom = CreateQuotientUOM(UnitType.POWER, Unit.WATT, UnitsManager.GetString("watt.name"),
+							UnitsManager.GetString("watt.symbol"), UnitsManager.GetString("watt.desc"), GetUOM(Unit.JOULE), GetSecond());
 					break;
 
 				case Unit.HERTZ:
 					// frequency (hertz)
-					uom = createQuotientUOM(UnitType.FREQUENCY, Unit.HERTZ, UnitsManager.GetString("hertz.name"),
-							UnitsManager.GetString("hertz.symbol"), UnitsManager.GetString("hertz.desc"), getOne(), getSecond());
+					uom = CreateQuotientUOM(UnitType.FREQUENCY, Unit.HERTZ, UnitsManager.GetString("hertz.name"),
+							UnitsManager.GetString("hertz.symbol"), UnitsManager.GetString("hertz.desc"), GetOne(), GetSecond());
 					break;
 
 				case Unit.RAD_PER_SEC:
 					// angular frequency
-					uom = createQuotientUOM(UnitType.FREQUENCY, Unit.RAD_PER_SEC, UnitsManager.GetString("radpers.name"),
-							UnitsManager.GetString("radpers.symbol"), UnitsManager.GetString("radpers.desc"), getUOM(Unit.RADIAN),
-							getSecond());
-					BigDecimal twoPi = new BigDecimal("2").multiply(new BigDecimal(Math.PI), UnitOfMeasure.MATH_CONTEXT);
-					uom.setConversion(BigDecimal.ONE.divide(twoPi, UnitOfMeasure.MATH_CONTEXT), getUOM(Unit.HERTZ));
+					uom = CreateQuotientUOM(UnitType.FREQUENCY, Unit.RAD_PER_SEC, UnitsManager.GetString("radpers.name"),
+							UnitsManager.GetString("radpers.symbol"), UnitsManager.GetString("radpers.desc"), GetUOM(Unit.RADIAN),
+							GetSecond());
+					decimal twoPi = new decimal("2").Multiply(new decimal(Math.PI), UnitOfMeasure.MATH_CONTEXT);
+					uom.SetConversion(decimal.ONE.divide(twoPi, UnitOfMeasure.MATH_CONTEXT), GetUOM(Unit.HERTZ));
 					break;
 
 				case Unit.PASCAL:
 					// pressure
-					uom = createQuotientUOM(UnitType.PRESSURE, Unit.PASCAL, UnitsManager.GetString("pascal.name"),
-							UnitsManager.GetString("pascal.symbol"), UnitsManager.GetString("pascal.desc"), getUOM(Unit.NEWTON),
-							getUOM(Unit.SQUARE_METRE));
+					uom = CreateQuotientUOM(UnitType.PRESSURE, Unit.PASCAL, UnitsManager.GetString("pascal.name"),
+							UnitsManager.GetString("pascal.symbol"), UnitsManager.GetString("pascal.desc"), GetUOM(Unit.NEWTON),
+							GetUOM(Unit.SQUARE_METRE));
 					break;
 
 				case Unit.ATMOSPHERE:
 					// pressure
 					uom = CreateScalarUOM(UnitType.PRESSURE, Unit.ATMOSPHERE, UnitsManager.GetString("atm.name"),
-							UnitsManager.GetString("atm.symbol"), UnitsManager.GetString("atm.desc"));
-					uom.setConversion(Quantity.createAmount("101325"), getUOM(Unit.PASCAL));
+							UnitsManager.GetString("atm.symbol"), UnitsManager.GetString("atm.desc");
+					uom.SetConversion(Quantity.CreateAmount("101325"), GetUOM(Unit.PASCAL));
 					break;
 
 				case Unit.BAR:
 					// pressure
 					uom = CreateScalarUOM(UnitType.PRESSURE, Unit.BAR, UnitsManager.GetString("bar.name"),
-							UnitsManager.GetString("bar.symbol"), UnitsManager.GetString("bar.desc"));
-					uom.setConversion(BigDecimal.ONE, getUOM(Unit.PASCAL), Quantity.createAmount("1.0E+05"));
+							UnitsManager.GetString("bar.symbol"), UnitsManager.GetString("bar.desc");
+					uom.SetConversion(decimal.ONE, GetUOM(Unit.PASCAL), Quantity.CreateAmount("1.0E+05");
 					break;
 
 				case Unit.COULOMB:
 					// charge (coulomb)
-					uom = createProductUOM(UnitType.ELECTRIC_CHARGE, Unit.COULOMB, UnitsManager.GetString("coulomb.name"),
-							UnitsManager.GetString("coulomb.symbol"), UnitsManager.GetString("coulomb.desc"), getUOM(Unit.AMPERE),
-							getSecond());
+					uom = CreateProductUOM(UnitType.ELECTRIC_CHARGE, Unit.COULOMB, UnitsManager.GetString("coulomb.name"),
+							UnitsManager.GetString("coulomb.symbol"), UnitsManager.GetString("coulomb.desc"), GetUOM(Unit.AMPERE),
+							GetSecond());
 					break;
 
 				case Unit.VOLT:
 					// voltage (volt)
-					uom = createQuotientUOM(UnitType.ELECTROMOTIVE_FORCE, Unit.VOLT, UnitsManager.GetString("volt.name"),
-							UnitsManager.GetString("volt.symbol"), UnitsManager.GetString("volt.desc"), getUOM(Unit.WATT),
-							getUOM(Unit.AMPERE));
+					uom = CreateQuotientUOM(UnitType.ELECTROMOTIVE_FORCE, Unit.VOLT, UnitsManager.GetString("volt.name"),
+							UnitsManager.GetString("volt.symbol"), UnitsManager.GetString("volt.desc"), GetUOM(Unit.WATT),
+							GetUOM(Unit.AMPERE));
 					break;
 
 				case Unit.OHM:
 					// resistance (ohm)
-					uom = createQuotientUOM(UnitType.ELECTRIC_RESISTANCE, Unit.OHM, UnitsManager.GetString("ohm.name"),
-							UnitsManager.GetString("ohm.symbol"), UnitsManager.GetString("ohm.desc"), getUOM(Unit.VOLT),
-							getUOM(Unit.AMPERE));
+					uom = CreateQuotientUOM(UnitType.ELECTRIC_RESISTANCE, Unit.OHM, UnitsManager.GetString("ohm.name"),
+							UnitsManager.GetString("ohm.symbol"), UnitsManager.GetString("ohm.desc"), GetUOM(Unit.VOLT),
+							GetUOM(Unit.AMPERE));
 					break;
 
 				case Unit.FARAD:
 					// capacitance (farad)
-					uom = createQuotientUOM(UnitType.ELECTRIC_CAPACITANCE, Unit.FARAD, UnitsManager.GetString("farad.name"),
-							UnitsManager.GetString("farad.symbol"), UnitsManager.GetString("farad.desc"), getUOM(Unit.COULOMB),
-							getUOM(Unit.VOLT));
+					uom = CreateQuotientUOM(UnitType.ELECTRIC_CAPACITANCE, Unit.FARAD, UnitsManager.GetString("farad.name"),
+							UnitsManager.GetString("farad.symbol"), UnitsManager.GetString("farad.desc"), GetUOM(Unit.COULOMB),
+							GetUOM(Unit.VOLT));
 					break;
 
 				case Unit.FARAD_PER_METRE:
 					// electric permittivity (farad/metre)
-					uom = createQuotientUOM(UnitType.ELECTRIC_PERMITTIVITY, Unit.FARAD_PER_METRE,
+					uom = CreateQuotientUOM(UnitType.ELECTRIC_PERMITTIVITY, Unit.FARAD_PER_METRE,
 							UnitsManager.GetString("fperm.name"), UnitsManager.GetString("fperm.symbol"), UnitsManager.GetString("fperm.desc"),
-							getUOM(Unit.FARAD), getUOM(Unit.METRE));
+							GetUOM(Unit.FARAD), GetUOM(Unit.METRE));
 					break;
 
 				case Unit.AMPERE_PER_METRE:
 					// electric field strength(ampere/metre)
-					uom = createQuotientUOM(UnitType.ELECTRIC_FIELD_STRENGTH, Unit.AMPERE_PER_METRE,
+					uom = CreateQuotientUOM(UnitType.ELECTRIC_FIELD_STRENGTH, Unit.AMPERE_PER_METRE,
 							UnitsManager.GetString("aperm.name"), UnitsManager.GetString("aperm.symbol"), UnitsManager.GetString("aperm.desc"),
-							getUOM(Unit.AMPERE), getUOM(Unit.METRE));
+							GetUOM(Unit.AMPERE), GetUOM(Unit.METRE));
 					break;
 
 				case Unit.WEBER:
 					// magnetic flux (weber)
-					uom = createProductUOM(UnitType.MAGNETIC_FLUX, Unit.WEBER, UnitsManager.GetString("weber.name"),
-							UnitsManager.GetString("weber.symbol"), UnitsManager.GetString("weber.desc"), getUOM(Unit.VOLT), getSecond());
+					uom = CreateProductUOM(UnitType.MAGNETIC_FLUX, Unit.WEBER, UnitsManager.GetString("weber.name"),
+							UnitsManager.GetString("weber.symbol"), UnitsManager.GetString("weber.desc"), GetUOM(Unit.VOLT), GetSecond());
 					break;
 
 				case Unit.TESLA:
 					// magnetic flux density (tesla)
-					uom = createQuotientUOM(UnitType.MAGNETIC_FLUX_DENSITY, Unit.TESLA, UnitsManager.GetString("tesla.name"),
-							UnitsManager.GetString("tesla.symbol"), UnitsManager.GetString("tesla.desc"), getUOM(Unit.WEBER),
-							getUOM(Unit.SQUARE_METRE));
+					uom = CreateQuotientUOM(UnitType.MAGNETIC_FLUX_DENSITY, Unit.TESLA, UnitsManager.GetString("tesla.name"),
+							UnitsManager.GetString("tesla.symbol"), UnitsManager.GetString("tesla.desc"), GetUOM(Unit.WEBER),
+							GetUOM(Unit.SQUARE_METRE));
 					break;
 
 				case Unit.HENRY:
 					// inductance (henry)
-					uom = createQuotientUOM(UnitType.ELECTRIC_INDUCTANCE, Unit.HENRY, UnitsManager.GetString("henry.name"),
-							UnitsManager.GetString("henry.symbol"), UnitsManager.GetString("henry.desc"), getUOM(Unit.WEBER),
-							getUOM(Unit.AMPERE));
+					uom = CreateQuotientUOM(UnitType.ELECTRIC_INDUCTANCE, Unit.HENRY, UnitsManager.GetString("henry.name"),
+							UnitsManager.GetString("henry.symbol"), UnitsManager.GetString("henry.desc"), GetUOM(Unit.WEBER),
+							GetUOM(Unit.AMPERE));
 					break;
 
 				case Unit.SIEMENS:
 					// electrical conductance (siemens)
-					uom = createQuotientUOM(UnitType.ELECTRIC_CONDUCTANCE, Unit.SIEMENS, UnitsManager.GetString("siemens.name"),
-							UnitsManager.GetString("siemens.symbol"), UnitsManager.GetString("siemens.desc"), getUOM(Unit.AMPERE),
-							getUOM(Unit.VOLT));
+					uom = CreateQuotientUOM(UnitType.ELECTRIC_CONDUCTANCE, Unit.SIEMENS, UnitsManager.GetString("siemens.name"),
+							UnitsManager.GetString("siemens.symbol"), UnitsManager.GetString("siemens.desc"), GetUOM(Unit.AMPERE),
+							GetUOM(Unit.VOLT));
 					break;
 
 				case Unit.CELSIUS:
 					// °C = °K - 273.15
 					uom = CreateScalarUOM(UnitType.TEMPERATURE, Unit.CELSIUS, UnitsManager.GetString("celsius.name"),
-							UnitsManager.GetString("celsius.symbol"), UnitsManager.GetString("celsius.desc"));
-					uom.setConversion(BigDecimal.ONE, getUOM(Unit.KELVIN), Quantity.createAmount("273.15"));
+							UnitsManager.GetString("celsius.symbol"), UnitsManager.GetString("celsius.desc");
+					uom.SetConversion(decimal.ONE, GetUOM(Unit.KELVIN), Quantity.CreateAmount("273.15");
 					break;
 
 				case Unit.LUMEN:
 					// luminous flux (lumen)
-					uom = createProductUOM(UnitType.LUMINOUS_FLUX, Unit.LUMEN, UnitsManager.GetString("lumen.name"),
-							UnitsManager.GetString("lumen.symbol"), UnitsManager.GetString("lumen.desc"), getUOM(Unit.CANDELA),
-							getUOM(Unit.STERADIAN));
+					uom = CreateProductUOM(UnitType.LUMINOUS_FLUX, Unit.LUMEN, UnitsManager.GetString("lumen.name"),
+							UnitsManager.GetString("lumen.symbol"), UnitsManager.GetString("lumen.desc"), GetUOM(Unit.CANDELA),
+							GetUOM(Unit.STERADIAN));
 					break;
 
 				case Unit.LUX:
 					// illuminance (lux)
-					uom = createQuotientUOM(UnitType.ILLUMINANCE, Unit.LUX, UnitsManager.GetString("lux.name"),
-							UnitsManager.GetString("lux.symbol"), UnitsManager.GetString("lux.desc"), getUOM(Unit.LUMEN),
-							getUOM(Unit.SQUARE_METRE));
+					uom = CreateQuotientUOM(UnitType.ILLUMINANCE, Unit.LUX, UnitsManager.GetString("lux.name"),
+							UnitsManager.GetString("lux.symbol"), UnitsManager.GetString("lux.desc"), GetUOM(Unit.LUMEN),
+							GetUOM(Unit.SQUARE_METRE));
 					break;
 
 				case Unit.BECQUEREL:
 					// radioactivity (becquerel). Same base symbol as Hertz
 					uom = CreateScalarUOM(UnitType.RADIOACTIVITY, Unit.BECQUEREL, UnitsManager.GetString("becquerel.name"),
-							UnitsManager.GetString("becquerel.symbol"), UnitsManager.GetString("becquerel.desc"));
+							UnitsManager.GetString("becquerel.symbol"), UnitsManager.GetString("becquerel.desc");
 					break;
 
 				case Unit.GRAY:
 					// gray (Gy)
-					uom = createQuotientUOM(UnitType.RADIATION_DOSE_ABSORBED, Unit.GRAY, UnitsManager.GetString("gray.name"),
-							UnitsManager.GetString("gray.symbol"), UnitsManager.GetString("gray.desc"), getUOM(Unit.JOULE),
-							getUOM(Unit.KILOGRAM));
+					uom = CreateQuotientUOM(UnitType.RADIATION_DOSE_ABSORBED, Unit.GRAY, UnitsManager.GetString("gray.name"),
+							UnitsManager.GetString("gray.symbol"), UnitsManager.GetString("gray.desc"), GetUOM(Unit.JOULE),
+							GetUOM(Unit.KILOGRAM));
 					break;
 
 				case Unit.SIEVERT:
 					// sievert (Sv)
-					uom = createQuotientUOM(UnitType.RADIATION_DOSE_EFFECTIVE, Unit.SIEVERT, UnitsManager.GetString("sievert.name"),
-							UnitsManager.GetString("sievert.symbol"), UnitsManager.GetString("sievert.desc"), getUOM(Unit.JOULE),
-							getUOM(Unit.KILOGRAM));
+					uom = CreateQuotientUOM(UnitType.RADIATION_DOSE_EFFECTIVE, Unit.SIEVERT, UnitsManager.GetString("sievert.name"),
+							UnitsManager.GetString("sievert.symbol"), UnitsManager.GetString("sievert.desc"), GetUOM(Unit.JOULE),
+							GetUOM(Unit.KILOGRAM));
 					break;
 
 				case Unit.SIEVERTS_PER_HOUR:
-					uom = createQuotientUOM(UnitType.RADIATION_DOSE_RATE, Unit.SIEVERTS_PER_HOUR, UnitsManager.GetString("sph.name"),
-							UnitsManager.GetString("sph.symbol"), UnitsManager.GetString("sph.desc"), getUOM(Unit.SIEVERT), getHour());
+					uom = CreateQuotientUOM(UnitType.RADIATION_DOSE_RATE, Unit.SIEVERTS_PER_HOUR, UnitsManager.GetString("sph.name"),
+							UnitsManager.GetString("sph.symbol"), UnitsManager.GetString("sph.desc"), GetUOM(Unit.SIEVERT), getHour());
 					break;
 
 				case Unit.KATAL:
 					// katal (kat)
-					uom = createQuotientUOM(UnitType.CATALYTIC_ACTIVITY, Unit.KATAL, UnitsManager.GetString("katal.name"),
-							UnitsManager.GetString("katal.symbol"), UnitsManager.GetString("katal.desc"), getUOM(Unit.MOLE), getSecond());
+					uom = CreateQuotientUOM(UnitType.CATALYTIC_ACTIVITY, Unit.KATAL, UnitsManager.GetString("katal.name"),
+							UnitsManager.GetString("katal.symbol"), UnitsManager.GetString("katal.desc"), GetUOM(Unit.MOLE), GetSecond());
 					break;
 
 				case Unit:
 					// Unit (U)
 					uom = CreateScalarUOM(UnitType.CATALYTIC_ACTIVITY, Unit.UNIT, UnitsManager.GetString("unit.name"),
-							UnitsManager.GetString("unit.symbol"), UnitsManager.GetString("unit.desc"));
-					uom.setConversion(Quantity.divideAmounts("1.0E-06", "60"), getUOM(Unit.KATAL));
+							UnitsManager.GetString("unit.symbol"), UnitsManager.GetString("unit.desc");
+					uom.SetConversion(Quantity.DivideAmounts("1.0E-06", "60"), GetUOM(Unit.KATAL));
 					break;
 
 				case Unit.INTERNATIONAL_UNIT:
 					uom = CreateScalarUOM(UnitType.SUBSTANCE_AMOUNT, Unit.INTERNATIONAL_UNIT, UnitsManager.GetString("iu.name"),
-							UnitsManager.GetString("iu.symbol"), UnitsManager.GetString("iu.desc"));
+							UnitsManager.GetString("iu.symbol"), UnitsManager.GetString("iu.desc");
 					break;
 
 				case Unit.ANGSTROM:
 					// length
 					uom = CreateScalarUOM(UnitType.LENGTH, Unit.ANGSTROM, UnitsManager.GetString("angstrom.name"),
-							UnitsManager.GetString("angstrom.symbol"), UnitsManager.GetString("angstrom.desc"));
-					uom.setConversion(Quantity.createAmount("0.1"), getUOM(Prefix.NANO, getUOM(Unit.METRE)));
+							UnitsManager.GetString("angstrom.symbol"), UnitsManager.GetString("angstrom.desc");
+					uom.SetConversion(Quantity.CreateAmount("0.1"), GetUOM(Prefix.NANO, GetUOM(Unit.METRE)));
 					break;
 
 				case Unit.BIT:
 					// computer bit
 					uom = CreateScalarUOM(UnitType.COMPUTER_SCIENCE, Unit.BIT, UnitsManager.GetString("bit.name"),
-							UnitsManager.GetString("bit.symbol"), UnitsManager.GetString("bit.desc"));
+							UnitsManager.GetString("bit.symbol"), UnitsManager.GetString("bit.desc");
 					break;
 
 				case Unit.BYTE:
 					// computer byte
 					uom = CreateScalarUOM(UnitType.COMPUTER_SCIENCE, Unit.BYTE, UnitsManager.GetString("byte.name"),
-							UnitsManager.GetString("byte.symbol"), UnitsManager.GetString("byte.desc"));
-					uom.setConversion(Quantity.createAmount("8"), getUOM(Unit.BIT));
+							UnitsManager.GetString("byte.symbol"), UnitsManager.GetString("byte.desc");
+					uom.SetConversion(Quantity.CreateAmount("8"), GetUOM(Unit.BIT));
 					break;
 
 				case Unit.WATTS_PER_SQ_METRE:
-					uom = createQuotientUOM(UnitType.IRRADIANCE, Unit.WATTS_PER_SQ_METRE, UnitsManager.GetString("wsm.name"),
-							UnitsManager.GetString("wsm.symbol"), UnitsManager.GetString("wsm.desc"), getUOM(Unit.WATT),
-							getUOM(Unit.SQUARE_METRE));
+					uom = CreateQuotientUOM(UnitType.IRRADIANCE, Unit.WATTS_PER_SQ_METRE, UnitsManager.GetString("wsm.name"),
+							UnitsManager.GetString("wsm.symbol"), UnitsManager.GetString("wsm.desc"), GetUOM(Unit.WATT),
+							GetUOM(Unit.SQUARE_METRE));
 					break;
 
 				case Unit.PARSEC:
 					uom = CreateScalarUOM(UnitType.LENGTH, Unit.PARSEC, UnitsManager.GetString("parsec.name"),
-							UnitsManager.GetString("parsec.symbol"), UnitsManager.GetString("parsec.desc"));
-					uom.setConversion(Quantity.createAmount("3.08567758149137E+16"), getUOM(Unit.METRE));
+							UnitsManager.GetString("parsec.symbol"), UnitsManager.GetString("parsec.desc");
+					uom.SetConversion(Quantity.CreateAmount("3.08567758149137E+16"), GetUOM(Unit.METRE));
 					break;
 
 				case Unit.ASTRONOMICAL_UNIT:
 					uom = CreateScalarUOM(UnitType.LENGTH, Unit.ASTRONOMICAL_UNIT, UnitsManager.GetString("au.name"),
-							UnitsManager.GetString("au.symbol"), UnitsManager.GetString("au.desc"));
-					uom.setConversion(Quantity.createAmount("1.49597870700E+11"), getUOM(Unit.METRE));
+							UnitsManager.GetString("au.symbol"), UnitsManager.GetString("au.desc");
+					uom.SetConversion(Quantity.CreateAmount("1.49597870700E+11"), GetUOM(Unit.METRE));
 					break;
 
 				default:
@@ -739,12 +842,12 @@ namespace CaliperSharp
 			return uom;
 		}
 
-		private UnitOfMeasure CreateUOM(UnitType type, Unit id, string name, string symbol, string description)
+		private UnitOfMeasure CreateUOM(UnitType type, Unit? id, string name, string symbol, string description)
 		{
 
 			if (symbol == null || symbol.Length == 0)
 			{
-				throw new Exception(MeasurementSystem.GetMessage("symbol.cannot.be.null"));
+				throw new Exception(MeasurementSystem.GetMessage("symbol.cannot.be.null");
 			}
 
 			UnitOfMeasure uom = null;
@@ -761,7 +864,7 @@ namespace CaliperSharp
 			return uom;
 		}
 
-		private UnitOfMeasure CreateScalarUOM(UnitType type, Unit id, string name, string symbol, string description)
+		private UnitOfMeasure CreateScalarUOM(UnitType type, Unit? id, string name, string symbol, string description)
 		{
 			UnitOfMeasure uom = CreateUOM(type, id, name, symbol, description);
 			uom.UnitEnumeration = id;
@@ -771,16 +874,435 @@ namespace CaliperSharp
 		}
 
 		/**
- * Cache this unit of measure
+ * Create a unit of measure that is not a power, product or quotient
  * 
- * @param uom
- *            {@link UnitOfMeasure} to cache
+ * @param type
+ *            {@link UnitType}
+ * @param name
+ *            Name of unit of measure
+ * @param symbol
+ *            Symbol (must be unique)
+ * @param description
+ *            Description of unit of measure
+ * @return {@link UnitOfMeasure}
+ * @
+ *             Exception
+ */
+		public UnitOfMeasure CreateScalarUOM(UnitType type, string name, string symbol, string description)
+
+		{
+			return CreateScalarUOM(type, null, name, symbol, description);
+		}
+
+		/**
+	* Create a unit of measure with a base raised to an integral power
+	* 
+	* @param type
+	*            {@link UnitType}
+	* @param id
+	*            {@link Unit}
+	* @param name
+	*            Name of unit of measure
+	* @param symbol
+	*            Symbol (must be unique)
+	* @param description
+	*            Description of unit of measure
+	* @param base
+	*            {@link UnitOfMeasure}
+	* @param power
+	*            Exponent
+	* @return {@link UnitOfMeasure}
+	* @
+	*             Exception
+*/
+		public UnitOfMeasure CreatePowerUOM(UnitType type, Unit? id, string name, string symbol, string description, UnitOfMeasure baseUOM, int power)
+		{
+			UnitOfMeasure uom = CreateUOM(type, id, name, symbol, description);
+			uom.SetPowerUnit(baseUOM, power);
+			uom.UnitEnumeration = id;
+			RegisterUnit(uom);
+			return uom;
+		}
+
+		/**
+		 * Create a unit of measure with a base raised to an integral exponent
+		 * 
+		 * @param type
+		 *            {@link UnitType}
+		 * @param name
+		 *            Name of unit of measure
+		 * @param symbol
+		 *            Symbol (must be unique)
+		 * @param description
+		 *            Description of unit of measure
+		 * @param base
+		 *            {@link UnitOfMeasure}
+		 * @param exponent
+		 *            Exponent
+		 * @return {@link UnitOfMeasure}
+		 * @
+		 *             Exception
+		 */
+		public UnitOfMeasure CreatePowerUOM(UnitType type, string name, string symbol, string description, UnitOfMeasure baseUOM, int exponent)
+		{
+			return CreatePowerUOM(type, null, name, symbol, description, baseUOM, exponent);
+		}
+
+		/**
+		 * Create a unit of measure with a base raised to an integral exponent
+		 * 
+		 * @param base
+		 *            {@link UnitOfMeasure}
+		 * @param exponent
+		 *            Exponent
+		 * @return {@link UnitOfMeasure}
+		 * @
+		 *             Exception
+		 */
+		public UnitOfMeasure CreatePowerUOM(UnitOfMeasure baseUOM, int exponent)
+		{
+			if (baseUOM == null)
+			{
+				string msg = String.Format(MeasurementSystem.GetMessage("base.cannot.be.null"), "");
+				throw new Exception(msg);
+			}
+
+			string symbol = UnitOfMeasure.GeneratePowerSymbol(baseUOM, exponent);
+			return CreatePowerUOM(UnitType.UNCLASSIFIED, null, null, symbol, null, baseUOM, exponent);
+		}
+
+		/**
+	 * Create a unit of measure that is the product of two other units of
+	 * measure
+	 * 
+	 * @param type
+	 *            {@link UnitType}
+	 * @param id
+	 *            {@link Unit}
+	 * @param name
+	 *            Name of unit of measure
+	 * @param symbol
+	 *            Symbol (must be unique)
+	 * @param description
+	 *            Description of unit of measure
+	 * @param multiplier
+	 *            {@link UnitOfMeasure} multiplier
+	 * @param multiplicand
+	 *            {@link UnitOfMeasure} multiplicand
+	 * @return {@link UnitOfMeasure}
+	 * @
+	 *             Exception
+	 */
+		public UnitOfMeasure CreateProductUOM(UnitType type, Unit? id, string name, string symbol, string description,
+				UnitOfMeasure multiplier, UnitOfMeasure multiplicand)
+		{
+
+			UnitOfMeasure uom = CreateUOM(type, id, name, symbol, description);
+			uom.SetProductUnits(multiplier, multiplicand);
+			uom.UnitEnumeration = id;
+			RegisterUnit(uom);
+			return uom;
+		}
+
+		/**
+		 * Create a unit of measure that is the product of two other units of
+		 * measure
+		 * 
+		 * @param type
+		 *            {@link UnitType}
+		 * @param name
+		 *            Name of unit of measure
+		 * @param symbol
+		 *            Symbol (must be unique)
+		 * @param description
+		 *            Description of unit of measure
+		 * @param multiplier
+		 *            {@link UnitOfMeasure} multiplier
+		 * @param multiplicand
+		 *            {@link UnitOfMeasure} multiplicand
+		 * @return {@link UnitOfMeasure}
+		 * @
+		 *             Exception
+		 */
+		public UnitOfMeasure CreateProductUOM(UnitType type, string name, string symbol, string description,
+				UnitOfMeasure multiplier, UnitOfMeasure multiplicand)
+		{
+			return CreateProductUOM(type, null, name, symbol, description, multiplier, multiplicand);
+		}
+
+		/**
+		 * Create a unit of measure that is the product of two other units of
+		 * measure
+		 * 
+		 * @param multiplier
+		 *            {@link UnitOfMeasure} multiplier
+		 * @param multiplicand
+		 *            {@link UnitOfMeasure} multiplicand
+		 * @return {@link UnitOfMeasure}
+		 * @
+		 *             Exception
+		 */
+		public UnitOfMeasure CreateProductUOM(UnitOfMeasure multiplier, UnitOfMeasure multiplicand)
+		{
+			if (multiplier == null)
+			{
+				string msg = String.Format(MeasurementSystem.GetMessage("multiplier.cannot.be.null"), "");
+				throw new Exception(msg);
+			}
+
+			if (multiplicand == null)
+			{
+				string msg = String.Format(MeasurementSystem.GetMessage("multiplicand.cannot.be.null"), "");
+				throw new Exception(msg);
+			}
+
+			string symbol = UnitOfMeasure.GenerateProductSymbol(multiplier, multiplicand);
+			return CreateProductUOM(UnitType.UNCLASSIFIED, null, null, symbol, null, multiplier, multiplicand);
+		}
+
+		/**
+	 * Create a unit of measure that is a unit divided by another unit
+	 * 
+	 * @param type
+	 *            {@link UnitType}
+	 * @param id
+	 *            {@link Unit}
+	 * @param name
+	 *            Name of unit of measure
+	 * @param symbol
+	 *            Symbol (must be unique)
+	 * @param description
+	 *            Description of unit of measure
+	 * @param dividend
+	 *            {@link UnitOfMeasure}
+	 * @param divisor
+	 *            {@link UnitOfMeasure}
+	 * @return {@link UnitOfMeasure}
+	 * @
+	 *             Exception
+	 */
+		public UnitOfMeasure CreateQuotientUOM(UnitType type, Unit? id, string name, string symbol, string description,
+				UnitOfMeasure dividend, UnitOfMeasure divisor)
+		{
+			UnitOfMeasure uom = CreateUOM(type, id, name, symbol, description);
+			uom.SetQuotientUnits(dividend, divisor);
+			uom.UnitEnumeration = id;
+			RegisterUnit(uom);
+			return uom;
+		}
+
+		/**
+		 * Create a unit of measure that is a unit divided by another unit
+		 * 
+		 * @param type
+		 *            {@link UnitType}
+		 * @param name
+		 *            Name of unit of measure
+		 * @param symbol
+		 *            Symbol (must be unique)
+		 * @param description
+		 *            Description of unit of measure
+		 * @param dividend
+		 *            {@link UnitOfMeasure}
+		 * @param divisor
+		 *            {@link UnitOfMeasure}
+		 * @return {@link UnitOfMeasure}
+		 * @
+		 *             Exception
+		 */
+		public UnitOfMeasure CreateQuotientUOM(UnitType type, string name, string symbol, string description,
+				UnitOfMeasure dividend, UnitOfMeasure divisor)
+		{
+			return this.CreateQuotientUOM(type, null, name, symbol, description, dividend, divisor);
+		}
+
+		/**
+		 * Create a unit of measure that is a unit divided by another unit
+		 * 
+		 * @param dividend
+		 *            {@link UnitOfMeasure}
+		 * @param divisor
+		 *            {@link UnitOfMeasure}
+		 * @return {@link UnitOfMeasure}
+		 * @
+		 *             Exception
+		 */
+		public UnitOfMeasure CreateQuotientUOM(UnitOfMeasure dividend, UnitOfMeasure divisor)
+		{
+			if (dividend == null)
+			{
+				string msg = String.Format(MeasurementSystem.GetMessage("dividend.cannot.be.null"), "");
+				throw new Exception(msg);
+			}
+
+			if (divisor == null)
+			{
+				string msg = String.Format(MeasurementSystem.GetMessage("divisor.cannot.be.null"), "");
+				throw new Exception(msg);
+			}
+
+			string symbol = UnitOfMeasure.GenerateQuotientSymbol(dividend, divisor);
+			return CreateQuotientUOM(UnitType.UNCLASSIFIED, null, null, symbol, null, dividend, divisor);
+		}
+
+		/**
+ * Get the quantity defined as a contant value
+ * 
+ * @param constant
+ *            {@link Constant}
+ * @return {@link Quantity}
  * @throws Exception
  *             Exception
  */
+		public Quantity GetQuantity(Constant constant)
+		{
+			Quantity named = null;
+
+			switch (constant)
+			{
+				case Constant.LIGHT_VELOCITY:
+					named = new Quantity(Quantity.CreateAmount("299792458"), GetUOM(Unit.METRE_PER_SEC));
+					named.Name = UnitsManager.GetString("light.name");
+					named.Symbol = UnitsManager.GetString("light.symbol");
+					named.Description = UnitsManager.GetString("light.desc");
+					break;
+
+				case Constant.LIGHT_YEAR:
+					Quantity year = new Quantity(decimal.One, GetUOM(Unit.JULIAN_YEAR));
+					named = GetQuantity(Constant.LIGHT_VELOCITY).Multiply(year);
+					named.Name = UnitsManager.GetString("ly.name");
+					named.Symbol = UnitsManager.GetString("ly.symbol");
+					named.Description = UnitsManager.GetString("ly.desc");
+					break;
+
+				case Constant.GRAVITY:
+					named = new Quantity(Quantity.CreateAmount("9.80665"), GetUOM(Unit.METRE_PER_SEC_SQUARED));
+					named.Name = UnitsManager.GetString("gravity.name");
+					named.Symbol = UnitsManager.GetString("gravity.symbol");
+					named.Description = UnitsManager.GetString("gravity.desc");
+					break;
+
+				case Constant.PLANCK_CONSTANT:
+					UnitOfMeasure js = CreateProductUOM(GetUOM(Unit.JOULE), GetSecond());
+					named = new Quantity(Quantity.CreateAmount("6.62607004081E-34"), js);
+					named.Name = UnitsManager.GetString("planck.name");
+					named.Symbol = UnitsManager.GetString("planck.symbol");
+					named.Description = UnitsManager.GetString("planck.desc");
+					break;
+
+				case Constant.BOLTZMANN_CONSTANT:
+					UnitOfMeasure jk = CreateQuotientUOM(GetUOM(Unit.JOULE), GetUOM(Unit.KELVIN));
+					named = new Quantity(Quantity.CreateAmount("1.3806485279E-23"), jk);
+					named.Name = UnitsManager.GetString("boltzmann.name");
+					named.Symbol = UnitsManager.GetString("boltzmann.symbol");
+					named.Description = UnitsManager.GetString("boltzmann.desc");
+					break;
+
+				case Constant.AVAGADRO_CONSTANT:
+					// NA
+					named = new Quantity(Quantity.CreateAmount("6.02214085774E+23"), GetOne());
+					named.Name = UnitsManager.GetString("avo.name");
+					named.Symbol = UnitsManager.GetString("avo.symbol");
+					named.Description = UnitsManager.GetString("avo.desc");
+					break;
+
+				case Constant.GAS_CONSTANT:
+					// R
+					named = GetQuantity(Constant.BOLTZMANN_CONSTANT).Multiply(GetQuantity(Constant.AVAGADRO_CONSTANT));
+					named.Name = UnitsManager.GetString("gas.name");
+					named.Symbol = UnitsManager.GetString("gas.symbol");
+					named.Description = UnitsManager.GetString("gas.desc");
+					break;
+
+				case Constant.ELEMENTARY_CHARGE:
+					// e
+					named = new Quantity(Quantity.CreateAmount("1.602176620898E-19"), GetUOM(Unit.COULOMB));
+					named.Name = UnitsManager.GetString("e.name");
+					named.Symbol = UnitsManager.GetString("e.symbol");
+					named.Description = UnitsManager.GetString("e.desc");
+					break;
+
+				case Constant.FARADAY_CONSTANT:
+					// F = e.NA
+					Quantity qe = GetQuantity(Constant.ELEMENTARY_CHARGE);
+					named = qe.Multiply(GetQuantity(Constant.AVAGADRO_CONSTANT));
+					named.Name = UnitsManager.GetString("faraday.name");
+					named.Symbol = UnitsManager.GetString("faraday.symbol");
+					named.Description = UnitsManager.GetString("faraday.desc");
+					break;
+
+				case Constant.ELECTRIC_PERMITTIVITY:
+					// epsilon0 = 1/(mu0*c^2)
+					Quantity vc = GetQuantity(Constant.LIGHT_VELOCITY);
+					named = GetQuantity(Constant.MAGNETIC_PERMEABILITY).Multiply(vc).Multiply(vc).Invert();
+					named.Name = UnitsManager.GetString("eps0.name");
+					named.Symbol = UnitsManager.GetString("eps0.symbol");
+					named.Description = UnitsManager.GetString("eps0.desc");
+					break;
+
+				case Constant.MAGNETIC_PERMEABILITY:
+					// mu0
+					UnitOfMeasure hm = CreateQuotientUOM(GetUOM(Unit.HENRY), GetUOM(Unit.METRE));
+					decimal fourPi = new decimal(4.0E-07 * Math.PI);
+					named = new Quantity(fourPi, hm);
+					named.Name = UnitsManager.GetString("mu0.name");
+					named.Symbol = UnitsManager.GetString("mu0.symbol");
+					named.Description = UnitsManager.GetString("mu0.desc");
+					break;
+
+				case Constant.ELECTRON_MASS:
+					// me
+					named = new Quantity(Quantity.CreateAmount("9.1093835611E-28"), GetUOM(Unit.GRAM));
+					named.Name = UnitsManager.GetString("me.name");
+					named.Symbol = UnitsManager.GetString("me.symbol");
+					named.Description = UnitsManager.GetString("me.desc");
+					break;
+
+				case Constant.PROTON_MASS:
+					// mp
+					named = new Quantity(Quantity.CreateAmount("1.67262189821E-24"), GetUOM(Unit.GRAM));
+					named.Name = UnitsManager.GetString("mp.name");
+					named.Symbol = UnitsManager.GetString("mp.symbol");
+					named.Description = UnitsManager.GetString("mp.desc");
+					break;
+
+				case Constant.STEFAN_BOLTZMANN:
+					UnitOfMeasure k4 = CreatePowerUOM(GetUOM(Unit.KELVIN), 4);
+					UnitOfMeasure sb = CreateQuotientUOM(GetUOM(Unit.WATTS_PER_SQ_METRE), k4);
+					named = new Quantity(Quantity.CreateAmount("5.67036713E-08"), sb);
+					named.Name = UnitsManager.GetString("sb.name");
+					named.Symbol = UnitsManager.GetString("sb.symbol");
+					named.Description = UnitsManager.GetString("sb.desc");
+					break;
+
+				case Constant.HUBBLE_CONSTANT:
+					UnitOfMeasure kps = GetUOM(Prefix.KILO, GetUOM(Unit.METRE_PER_SEC));
+					UnitOfMeasure mpc = GetUOM(Prefix.MEGA, GetUOM(Unit.PARSEC));
+					UnitOfMeasure hubble = CreateQuotientUOM(kps, mpc);
+					named = new Quantity(Quantity.CreateAmount("71.9"), hubble);
+					named.Name = UnitsManager.GetString("hubble.name");
+					named.Symbol = UnitsManager.GetString("hubble.symbol");
+					named.Description = UnitsManager.GetString("hubble.desc");
+					break;
+
+				default:
+					break;
+			}
+
+			return named;
+		}
+
+		/**
+		* Cache this unit of measure
+		* 
+		* @param uom
+		*            {@link UnitOfMeasure} to cache
+		* @
+		*             Exception
+*/
 		public void RegisterUnit(UnitOfMeasure uom)
 		{
-			String key = uom.Symbol;
+			string key = uom.Symbol;
 
 			// get first by symbol
 			UnitOfMeasure current = SymbolRegistry[key];
@@ -812,13 +1334,13 @@ namespace CaliperSharp
 		}
 
 		/**
- * Remove a unit from the cache
- * 
- * @param uom
- *            {@link UnitOfMeasure} to remove
- * @throws Exception
- *             Exception
- */
+	* Remove a unit from the cache
+	* 
+	* @param uom
+	*            {@link UnitOfMeasure} to remove
+	* @
+	*             Exception
+*/
 		public void UnregisterUnit(UnitOfMeasure uom)
 		{
 			if (uom == null)
@@ -829,9 +1351,9 @@ namespace CaliperSharp
 			lock (new object())
 			{
 				UnitOfMeasure removedUOM;
-				if (uom.UnitEnumeration != null)
+				if (uom.UnitEnumeration.HasValue)
 				{
-					UnitRegistry.TryRemove(uom.UnitEnumeration, out removedUOM);
+					UnitRegistry.TryRemove(uom.UnitEnumeration.Value, out removedUOM);
 				}
 
 				// remove by symbol and base symbol

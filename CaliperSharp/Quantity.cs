@@ -42,7 +42,7 @@ namespace CaliperSharp
  * @author Kent Randall
  *
  */
-	class Quantity : Symbolic
+	public class Quantity : Symbolic
 	{
 		// the amount
 		private decimal Amount;
@@ -98,7 +98,7 @@ namespace CaliperSharp
 		 */
 		public Quantity(string amount, UnitOfMeasure uom)
 		{
-			Amount = createAmount(amount);
+			Amount = CreateAmount(amount);
 			UOM = uom;
 		}
 
@@ -126,7 +126,7 @@ namespace CaliperSharp
 		 * @
 		 *             Exception
 		 */
-		public Quantity(string amount, Unit unit) : this(createAmount(amount), MeasurementSystem.GetSystem().GetUOM(unit))
+		public Quantity(string amount, Unit unit) : this(CreateAmount(amount), MeasurementSystem.GetSystem().GetUOM(unit))
 		{
 		}
 
@@ -184,7 +184,7 @@ namespace CaliperSharp
 			{
 				throw new Exception(MeasurementSystem.GetMessage("amount.cannot.be.null"));
 			}
-			return Convert.ToDecimal(value);
+			return System.Convert.ToDecimal(value);
 		}
 
 		/**
@@ -199,17 +199,28 @@ namespace CaliperSharp
 		{
 			decimal result = 0;
 
-			if (number is decimal) {
+			if (number is decimal)
+			{
 				result = (decimal)number;
-			} else if (number is int) {
+			}
+			else if (number is int)
+			{
 				result = new decimal((int)number);
-			} else if (number is double) {
+			}
+			else if (number is double)
+			{
 				result = new decimal((double)number);
-			} else if (number is float) {
+			}
+			else if (number is float)
+			{
 				result = new decimal((float)number);
-			} else if (number is long) {
+			}
+			else if (number is long)
+			{
 				result = new decimal((long)number);
-			} else if (number is short) {
+			}
+			else if (number is short)
+			{
 				result = new decimal((short)number);
 			}
 
@@ -263,8 +274,8 @@ namespace CaliperSharp
 		 */
 		public Quantity Subtract(Quantity other)
 		{
-			Quantity toSubtract = other.convert(UOM);
-			decimal amount = UnitOfMeasure.decimalSubtract(getAmount(), toSubtract.getAmount());
+			Quantity toSubtract = other.Convert(UOM);
+			decimal amount = UnitOfMeasure.DecimalSubtract(Amount, toSubtract.Amount);
 			Quantity quantity = new Quantity(amount, this.UOM);
 			return quantity;
 		}
@@ -278,10 +289,10 @@ namespace CaliperSharp
 		 * @
 		 *             Exception
 		 */
-		public Quantity add(Quantity other)
+		public Quantity Add(Quantity other)
 		{
-			Quantity toAdd = other.convert(UOM);
-			decimal amount = UnitOfMeasure.decimalAdd(getAmount(), toAdd.getAmount());
+			Quantity toAdd = other.Convert(UOM);
+			decimal amount = UnitOfMeasure.DecimalAdd(Amount, toAdd.Amount);
 			Quantity quantity = new Quantity(amount, this.UOM);
 			return quantity;
 		}
@@ -295,12 +306,12 @@ namespace CaliperSharp
 		 * @
 		 *             Exception
 		 */
-		public Quantity divide(Quantity other)
+		public Quantity Divide(Quantity other)
 		{
 			Quantity toDivide = other;
 
-			decimal amount = UnitOfMeasure.decimalDivide(getAmount(), toDivide.getAmount());
-			UnitOfMeasure newUOM = UOM.divide(toDivide.UOM);
+			decimal amount = UnitOfMeasure.DecimalDivide(Amount, toDivide.Amount);
+			UnitOfMeasure newUOM = UOM.Divide(toDivide.UOM);
 
 			Quantity quantity = new Quantity(amount, newUOM);
 			return quantity;
@@ -315,9 +326,9 @@ namespace CaliperSharp
 		 * @
 		 *             Exception
 		 */
-		public Quantity divide(decimal divisor)
+		public Quantity Divide(decimal divisor)
 		{
-			decimal amount = UnitOfMeasure.decimalDivide(getAmount(), divisor);
+			decimal amount = UnitOfMeasure.DecimalDivide(Amount, divisor);
 			Quantity quantity = new Quantity(amount, UOM);
 			return quantity;
 		}
@@ -331,12 +342,12 @@ namespace CaliperSharp
 		 * @
 		 *             Exception
 		 */
-		public Quantity multiply(Quantity other)
+		public Quantity Multiply(Quantity other)
 		{
 			Quantity toMultiply = other;
 
-			decimal amount = UnitOfMeasure.decimalMultiply(getAmount(), toMultiply.getAmount());
-			UnitOfMeasure newUOM = UOM.multiply(toMultiply.UOM);
+			decimal amount = UnitOfMeasure.DecimalMultiply(Amount, toMultiply.Amount);
+			UnitOfMeasure newUOM = UOM.Multiply(toMultiply.UOM);
 
 			Quantity quantity = new Quantity(amount, newUOM);
 			return quantity;
@@ -351,10 +362,10 @@ namespace CaliperSharp
 		 * @
 		 *             Exception
 		 */
-		public Quantity power(int exponent)
+		public Quantity Power(int exponent)
 		{
-			decimal amount = UnitOfMeasure.decimalPower(getAmount(), exponent);
-			UnitOfMeasure newUOM = MeasurementSystem.GetSystem().createPowerUOM(UOM, exponent);
+			decimal amount = UnitOfMeasure.DecimalPower(Amount, exponent);
+			UnitOfMeasure newUOM = MeasurementSystem.GetSystem().CreatePowerUOM(UOM, exponent);
 
 			Quantity quantity = new Quantity(amount, newUOM);
 			return quantity;
@@ -369,9 +380,9 @@ namespace CaliperSharp
 		 * @
 		 *             Exception
 		 */
-		public Quantity multiply(decimal multiplier)
+		public Quantity Multiply(decimal multiplier)
 		{
-			decimal amount = UnitOfMeasure.decimalMultiply(getAmount(), multiplier);
+			decimal amount = UnitOfMeasure.DecimalMultiply(Amount, multiplier);
 			Quantity quantity = new Quantity(amount, UOM);
 			return quantity;
 		}
@@ -384,10 +395,10 @@ namespace CaliperSharp
 		 * @
 		 *             Exception
 		 */
-		public Quantity invert()
+		public Quantity Invert()
 		{
-			decimal amount = UnitOfMeasure.decimalDivide(decimal.ONE, getAmount());
-			UnitOfMeasure uom = UOM.invert();
+			decimal amount = UnitOfMeasure.DecimalDivide(decimal.One, Amount);
+			UnitOfMeasure uom = UOM.Invert();
 
 			Quantity quantity = new Quantity(amount, uom);
 			return quantity;
@@ -450,11 +461,11 @@ namespace CaliperSharp
 		 * @
 		 *             exception
 		 */
-		public Quantity convertToPower(UnitOfMeasure uom)
+		public Quantity ConvertToPower(UnitOfMeasure uom)
 		{
 			UnitOfMeasure newUOM = UOM.ClonePower(uom);
 
-			return convert(newUOM);
+			return Convert(newUOM);
 		}
 
 		/**
@@ -466,9 +477,9 @@ namespace CaliperSharp
 		 * @
 		 *             Exception
 		 */
-		public Quantity convert(Unit unit)
+		public Quantity Convert(Unit unit)
 		{
-			return convert(MeasurementSystem.GetSystem().GetUOM(unit));
+			return Convert(MeasurementSystem.GetSystem().GetUOM(unit));
 		}
 
 		/**
@@ -482,21 +493,20 @@ namespace CaliperSharp
 		 * @
 		 *             Exception
 		 */
-		public Quantity convert(Prefix prefix, Unit unit)
+		public Quantity Convert(Prefix prefix, Unit unit)
 		{
-			return convert(MeasurementSystem.GetSystem().GetUOM(prefix, unit));
+			return Convert(MeasurementSystem.GetSystem().GetUOM(prefix, unit));
 		}
 
 		/**
 		 * Create a string representation of this Quantity
 		 */
-		@Override
-	public string tostring()
+		public override string ToString()
 		{
-			stringBuffer sb = new stringBuffer();
-			sb.append(this.getAmount()).append(", [").append(UOM.tostring()).append("] ");
-			sb.append(super.tostring());
-			return sb.tostring();
+			StringBuilder sb = new StringBuilder();
+			sb.Append(Amount.ToString()).Append(", [").Append(UOM.ToString()).Append("] ");
+			sb.Append(base.ToString());
+			return sb.ToString();
 		}
 
 		/**
@@ -508,17 +518,17 @@ namespace CaliperSharp
 		 * @
 		 *             If the quantities cannot be compared.
 		 */
-		public int compare(Quantity other)
+		public int Compare(Quantity other)
 		{
 			Quantity toCompare = other;
 
-			if (!UOM.equals(other.UOM))
+			if (!UOM.Equals(other.UOM))
 			{
 				// first try converting the units
-				toCompare = other.convert(this.UOM);
+				toCompare = other.Convert(this.UOM);
 			}
 
-			return getAmount().compareTo(toCompare.getAmount());
+			return Amount.CompareTo(toCompare.Amount);
 		}
 
 	}
