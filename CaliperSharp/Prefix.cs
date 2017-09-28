@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CaliperSharp
+namespace org.point85.uom
 {
 	/*
 	MIT License

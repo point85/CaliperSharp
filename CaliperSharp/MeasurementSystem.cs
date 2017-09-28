@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Resources;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Resources;
 
 /*
 MIT License
@@ -30,7 +27,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace CaliperSharp
+namespace org.point85.uom
 {
 	/**
  * A MeasurementSystem is a collection of units of measure that have a linear

@@ -1,4 +1,4 @@
-﻿namespace CaliperSharp
+﻿namespace org.point85.uom
 {
 	/**
 	 * This enumeration contains the values for fundamental constants commonly used

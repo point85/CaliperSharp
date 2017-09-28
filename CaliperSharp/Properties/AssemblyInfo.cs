@@ -6,10 +6,10 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("CaliperSharp")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Units of Measure and their conversions.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("CaliperSharp")]
+[assembly: AssemblyCompany("Point85 LLC")]
+[assembly: AssemblyProduct("Caliper in C#")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
