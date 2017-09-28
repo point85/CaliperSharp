@@ -31,7 +31,7 @@ namespace CaliperSharp
  * @author Kent Randall
  *
  */
-	internal abstract class Symbolic
+	public abstract class Symbolic
 	{
 		protected Symbolic()
 		{

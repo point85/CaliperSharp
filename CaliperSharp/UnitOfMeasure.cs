@@ -338,7 +338,7 @@ namespace CaliperSharp
 
 			// check if quotient
 			int exponent = 1;
-			if (GetPowerExponent() != null)
+			if (GetPowerExponent().HasValue)
 			{
 				exponent = GetPowerExponent().Value;
 			}
@@ -504,19 +504,19 @@ namespace CaliperSharp
 				UnitOfMeasure thisUOM = thisEntry.Key;
 				int thisPower = thisEntry.Value;
 
-				int otherPower = otherMap[thisUOM];
+				int? otherPower = otherMap[thisUOM];
 
-				if (otherPower != null)
+				if (otherPower.HasValue)
 				{
 					if (!invert)
 					{
 						// add to multiplier's power
-						thisPower += otherPower;
+						thisPower += otherPower.Value;
 					}
 					else
 					{
 						// subtract from dividend's power
-						thisPower -= otherPower;
+						thisPower -= otherPower.Value;
 					}
 
 					// remove multiplicand or divisor UOM
@@ -973,11 +973,11 @@ namespace CaliperSharp
 			UnitOfMeasure targetBase = targetParameters.PathUOM;
 
 			// check for a base conversion unit bridge
-			decimal bridgeFactor = thisBase.GetBridgeFactor(targetBase);
+			decimal? bridgeFactor = thisBase.GetBridgeFactor(targetBase);
 
-			if (bridgeFactor != null)
+			if (bridgeFactor.HasValue)
 			{
-				thisPathFactor = DecimalMultiply(thisPathFactor, bridgeFactor);
+				thisPathFactor = DecimalMultiply(thisPathFactor, bridgeFactor.Value);
 			}
 
 			// new path amount
@@ -1090,6 +1090,29 @@ namespace CaliperSharp
 			}
 
 			return inverted;
+		}
+
+		/**
+ * Set the conversion to another fundamental unit of measure
+ * 
+ * @param scalingFactor
+ *            Scaling factor
+ * @param abscissaUnit
+ *            X-axis unit
+ * @param offset
+ *            Offset
+ * @throws Exception
+ *             Exception
+ */
+		public void SetBridgeConversion(decimal scalingFactor, UnitOfMeasure abscissaUnit, decimal? offset)
+		{
+			BridgeScalingFactor = scalingFactor;
+			BridgeAbscissaUnit = abscissaUnit;
+
+			if (offset.HasValue)
+			{
+				BridgeOffset = offset.Value;
+			}
 		}
 
 		// reduce a unit of measure to its most basic scalar units of measure.

@@ -45,10 +45,10 @@ namespace CaliperSharp
 	public class Quantity : Symbolic
 	{
 		// the amount
-		private decimal Amount;
+		public decimal Amount { get; set; }
 
 		// and its unit of measure
-		private UnitOfMeasure UOM;
+		public UnitOfMeasure UOM { get; set; }
 
 		/**
 		 * Default constructor
