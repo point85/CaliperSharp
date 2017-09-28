@@ -173,6 +173,17 @@ namespace CaliperSharp
 			return SymbolRegistry[symbol];
 		}
 
+		/**
+ * Get the unit of measure with this base symbol
+ * 
+ * @param symbol
+ *            Base symbol
+ * @return {@link UnitOfMeasure}
+ */
+		public UnitOfMeasure GetBaseUOM(string symbol)
+		{
+			return BaseRegistry[symbol];
+		}
 
 
 		private UnitOfMeasure CreateUOM(Unit enumeration)
@@ -753,7 +764,7 @@ namespace CaliperSharp
 		private UnitOfMeasure CreateScalarUOM(UnitType type, Unit id, string name, string symbol, string description)
 		{
 			UnitOfMeasure uom = CreateUOM(type, id, name, symbol, description);
-			uom.Unit = id;
+			uom.UnitEnumeration = id;
 			RegisterUnit(uom);
 
 			return uom;
@@ -784,7 +795,7 @@ namespace CaliperSharp
 			SymbolRegistry[key] = uom;
 
 			// next by unit enumeration
-			Unit? id = uom.Unit;
+			Unit? id = uom.UnitEnumeration;
 
 			if (id != null)
 			{
@@ -818,9 +829,9 @@ namespace CaliperSharp
 			lock (new object())
 			{
 				UnitOfMeasure removedUOM;
-				if (uom.Unit != null)
+				if (uom.UnitEnumeration != null)
 				{
-					UnitRegistry.TryRemove(uom.Unit, out removedUOM);
+					UnitRegistry.TryRemove(uom.UnitEnumeration, out removedUOM);
 				}
 
 				// remove by symbol and base symbol

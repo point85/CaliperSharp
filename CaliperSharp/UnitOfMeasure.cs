@@ -89,14 +89,14 @@ namespace CaliperSharp
 		private const int MAX_SYMBOL_LENGTH = 16;
 
 		// multiply, divide and power symbols
-		internal static readonly char MULT = (char)0xB7;
-		internal static readonly char DIV = '/';
-		internal static readonly char POW = '^';
-		internal static readonly char SQ = (char)0xB2;
-		internal static readonly char CUBED = (char)0xB3;
-		internal static readonly char LP = '(';
-		internal static readonly char RP = ')';
-		internal static readonly char ONE_CHAR = '1';
+		internal const char MULT = (char)0xB7;
+		internal const char DIV = '/';
+		internal const char POW = '^';
+		internal const char SQ = (char)0xB2;
+		internal const char CUBED = (char)0xB3;
+		internal const char LP = '(';
+		internal const char RP = ')';
+		internal const char ONE_CHAR = '1';
 
 		// registry of unit conversion factor
 		private Dictionary<UnitOfMeasure, decimal> ConversionRegistry = new Dictionary<UnitOfMeasure, decimal>();
@@ -116,10 +116,10 @@ namespace CaliperSharp
 		public UnitOfMeasure AbscissaUnit { get; set; }
 
 		// unit enumerations for the various systems of measurement, e.g. KILOGRAM
-		public Unit Unit { get; set; }
+		public Nullable<Unit> UnitEnumeration { get; set; }
 
 		// unit type, e.g. MASS
-		public UnitType UnitType { get; set; } = UnitType.UNCLASSIFIED;
+		public UnitType UOMType { get; set; } = UnitType.UNCLASSIFIED;
 
 		// conversion to another Unit of Measure in a different measurement system
 		public decimal BridgeScalingFactor { get; set; }
@@ -159,7 +159,7 @@ namespace CaliperSharp
 
 		internal UnitOfMeasure(UnitType type, string name, string symbol, string description) : base(name, symbol, description)
 		{
-			UnitType = type;
+			UOMType = type;
 		}
 
 		private void SetPowerProduct(UnitOfMeasure uom1, int exponent1)
@@ -334,7 +334,7 @@ namespace CaliperSharp
 		{
 
 			UnitOfMeasure newUOM = new UnitOfMeasure();
-			newUOM.UnitType = UnitType;
+			newUOM.UOMType = UOMType;
 
 			// check if quotient
 			int exponent = 1;
@@ -362,6 +362,298 @@ namespace CaliperSharp
 			newUOM.Name = symbol;
 
 			return newUOM;
+		}
+
+		internal UnitOfMeasure ClonePowerProduct(UnitOfMeasure uom1, UnitOfMeasure uom2)
+		{
+			bool invert = false;
+			UnitOfMeasure one = MeasurementSystem.GetSystem().GetOne();
+
+			// check if quotient
+			if (GetMeasurementType().Equals(MeasurementType.QUOTIENT))
+			{
+				if (uom2.Equals(one))
+				{
+					String msg = String.Format(MeasurementSystem.GetMessage("incompatible.units"), this, one);
+					throw new Exception(msg);
+				}
+				invert = true;
+			}
+			else
+			{
+				if (uom1.Equals(one) || uom2.Equals(one))
+				{
+					String msg = String.Format(MeasurementSystem.GetMessage("incompatible.units"), this, one);
+					throw new Exception(msg);
+				}
+			}
+
+			UnitOfMeasure newUOM = uom1.MultiplyOrDivide(uom2, invert);
+			newUOM.setUnitType(getUnitType());
+
+			return newUOM;
+		}
+
+		private void CheckOffset(UnitOfMeasure other)
+		{
+			if (other.Offset.CompareTo(decimal.Zero) != 0)
+			{
+				String msg = String.Format(MeasurementSystem.GetMessage("offset.not.supported"), other.ToString());
+				throw new Exception(msg);
+			}
+		}
+
+		/**
+ * Set the multiplier and multiplicand
+ * 
+ * @param multiplier
+ *            Multiplier
+ * @param multiplicand
+ *            Multiplicand
+ * @throws Exception
+ *             Exception
+ */
+		public void SetProductUnits(UnitOfMeasure multiplier, UnitOfMeasure multiplicand)
+		{
+			if (multiplier == null)
+			{
+				String msg = String.Format(MeasurementSystem.GetMessage("multiplier.cannot.be.null"), Symbol);
+				throw new Exception(msg);
+			}
+
+			if (multiplicand == null)
+			{
+				String msg = String.Format(MeasurementSystem.GetMessage("multiplicand.cannot.be.null"), Symbol);
+				throw new Exception(msg);
+			}
+
+			SetPowerProduct(multiplier, 1, multiplicand, 1);
+		}
+
+		/**
+ * Set the dividend and divisor
+ * 
+ * @param dividend
+ *            Dividend
+ * @param divisor
+ *            Divisor
+ * @throws Exception
+ *             Exception
+ */
+		public void SetQuotientUnits(UnitOfMeasure dividend, UnitOfMeasure divisor)
+		{
+			if (dividend == null)
+			{
+
+				String msg = String.Format(MeasurementSystem.GetMessage("dividend.cannot.be.null"), Symbol);
+				throw new Exception(msg);
+			}
+
+			if (divisor == null)
+			{
+				String msg = String.Format(MeasurementSystem.GetMessage("divisor.cannot.be.null"), Symbol);
+				throw new Exception(msg);
+			}
+
+			SetPowerProduct(dividend, 1, divisor, -1);
+		}
+
+		private UnitOfMeasure MultiplyOrDivide(UnitOfMeasure other, bool invert)
+		{
+			if (other == null)
+			{
+				throw new Exception(MeasurementSystem.GetMessage("unit.cannot.be.null"));
+			}
+
+			if (other.Equals(MeasurementSystem.GetSystem().GetOne()))
+			{
+				return this;
+			}
+
+			CheckOffset(this);
+			CheckOffset(other);
+
+			// product or quotient
+			UnitOfMeasure result = new UnitOfMeasure();
+
+			if (!invert)
+			{
+				result.SetProductUnits(this, other);
+			}
+			else
+			{
+				result.SetQuotientUnits(this, other);
+			}
+
+			// this base symbol map
+			Reducer thisPowerMap = GetBaseMap();
+			Dictionary<UnitOfMeasure, int> thisMap = thisPowerMap.Terms;
+			decimal thisFactor = thisPowerMap.MapScalingFactor;
+
+			// other base symbol map
+			Reducer otherPowerMap = other.GetBaseMap();
+			Dictionary<UnitOfMeasure, int> otherMap = otherPowerMap.Terms;
+			decimal otherFactor = otherPowerMap.MapScalingFactor;
+
+			// create a map of the unit of measure powers
+			Dictionary<UnitOfMeasure, int> resultMap = new Dictionary<UnitOfMeasure, int>();
+
+			// iterate over the multiplier's unit map
+			foreach (KeyValuePair<UnitOfMeasure, int> thisEntry in thisMap)
+			{
+				UnitOfMeasure thisUOM = thisEntry.Key;
+				int thisPower = thisEntry.Value;
+
+				int otherPower = otherMap[thisUOM];
+
+				if (otherPower != null)
+				{
+					if (!invert)
+					{
+						// add to multiplier's power
+						thisPower += otherPower;
+					}
+					else
+					{
+						// subtract from dividend's power
+						thisPower -= otherPower;
+					}
+
+					// remove multiplicand or divisor UOM
+					otherMap.Remove(thisUOM);
+				}
+
+				if (thisPower != 0)
+				{
+					resultMap[thisUOM] = thisPower;
+				}
+			}
+
+			// add any remaining multiplicand terms and invert any remaining divisor
+			// terms
+			foreach (KeyValuePair<UnitOfMeasure, int> otherEntry in otherMap)
+			{
+				UnitOfMeasure otherUOM = otherEntry.Key;
+				int otherPower = otherEntry.Value;
+
+				if (!invert)
+				{
+					resultMap[otherUOM] = otherPower;
+				}
+				else
+				{
+					resultMap[otherUOM] = -otherPower;
+				}
+			}
+
+			// get the base symbol and possibly base UOM
+			Reducer resultPowerMap = new Reducer();
+			resultPowerMap.Terms = resultMap;
+
+			String baseSymbol = resultPowerMap.BuildBaseString();
+			UnitOfMeasure baseUOM = MeasurementSystem.GetSystem().GetBaseUOM(baseSymbol);
+
+			if (baseUOM != null)
+			{
+				// there is a conversion to the base UOM
+				decimal resultFactor;
+				if (!invert)
+				{
+					resultFactor = DecimalMultiply(thisFactor, otherFactor);
+				}
+				else
+				{
+					resultFactor = DecimalDivide(thisFactor, otherFactor);
+				}
+				result.ScalingFactor = resultFactor;
+				result.AbscissaUnit = baseUOM;
+				result.UOMType = baseUOM.UOMType;
+			}
+
+			if (!invert)
+			{
+				result.Symbol = GenerateProductSymbol(result.GetMultiplier(), result.GetMultiplicand());
+			}
+			else
+			{
+				result.Symbol = GenerateQuotientSymbol(result.GetDividend(), result.GetDivisor());
+			}
+
+			// constrain to a maximum length
+			if (result.Symbol.Length > MAX_SYMBOL_LENGTH)
+			{
+				result.Symbol = GenerateIntermediateSymbol();
+			}
+
+			return result;
+		}
+
+		/**
+		 * Get the multiplier
+		 * 
+		 * @return {@link UnitOfMeasure}
+		 */
+		public UnitOfMeasure GetMultiplier()
+		{
+			return UOM1;
+		}
+
+		/**
+		 * Get the multiplicand
+		 * 
+		 * @return {@link UnitOfMeasure}
+		 */
+		public UnitOfMeasure GetMultiplicand()
+		{
+			return UOM2;
+		}
+
+		/**
+		 * Multiply two units of measure to create a third one.
+		 * 
+		 * @param multiplicand
+		 *            {@link UnitOfMeasure}
+		 * @return {@link UnitOfMeasure}
+		 * @throws Exception
+		 *             Exception
+		 */
+		public UnitOfMeasure multiply(UnitOfMeasure multiplicand)
+		{
+			return multiplyOrDivide(multiplicand, false);
+		}
+
+		// this method is for optimization of decimal addition
+		internal static decimal DecimalAdd(decimal a, decimal b)
+		{
+			decimal value;
+
+			if (b.CompareTo(decimal.Zero) == 0)
+			{
+				value = a;
+			}
+			else
+			{
+				value = decimal.Add(a, b);
+			}
+
+			return value;
+		}
+
+		// this method is for optimization of decimal subtraction
+		internal static decimal DecimalSubtract(decimal a, decimal b)
+		{
+			decimal value;
+
+			if (b.CompareTo(decimal.Zero) == 0)
+			{
+				value = a;
+			}
+			else
+			{
+				value = decimal.Subtract(a, b);
+			}
+
+			return value;
 		}
 
 		// this method is for optimization of decimal multiplication
@@ -447,14 +739,14 @@ namespace CaliperSharp
 
 			// unit has been previously cached, so first remove it, then cache again
 			MeasurementSystem.GetSystem().UnregisterUnit(this);
-			baseSymbol = null;
+			BaseSymbol = null;
 
-			this.scalingFactor = scalingFactor;
-			this.abscissaUnit = abscissaUnit;
-			this.offset = offset;
+			ScalingFactor = scalingFactor;
+			AbscissaUnit = abscissaUnit;
+			Offset = offset;
 
 			// re-cache
-			MeasurementSystem.GetSystem().registerUnit(this);
+			MeasurementSystem.GetSystem().RegisterUnit(this);
 		}
 
 		/**
@@ -466,9 +758,9 @@ namespace CaliperSharp
 		 * @
 		 *             Exception
 		 */
-		public void setConversion(UnitOfMeasure abscissaUnit)
+		public void SetConversion(UnitOfMeasure abscissaUnit)
 		{
-			this.setConversion(decimal.ONE, abscissaUnit, decimal.ZERO);
+			this.SetConversion(decimal.One, abscissaUnit, decimal.Zero);
 		}
 
 		/**
@@ -482,9 +774,9 @@ namespace CaliperSharp
 		 * @
 		 *             Exception
 		 */
-		public void setConversion(decimal scalingFactor, UnitOfMeasure abscissaUnit)
+		public void SetConversion(decimal scalingFactor, UnitOfMeasure abscissaUnit)
 		{
-			this.setConversion(scalingFactor, abscissaUnit, decimal.ZERO);
+			this.SetConversion(scalingFactor, abscissaUnit, decimal.Zero);
 		}
 
 		/**
@@ -498,9 +790,9 @@ namespace CaliperSharp
 		 * @
 		 *             Exception
 		 */
-		public void setConversion(String scalingFactor, UnitOfMeasure abscissaUnit)
+		public void SetConversion(string scalingFactor, UnitOfMeasure abscissaUnit)
 		{
-			this.setConversion(Quantity.createAmount(scalingFactor), abscissaUnit);
+			this.SetConversion(Quantity.CreateAmount(scalingFactor), abscissaUnit);
 		}
 
 
@@ -519,7 +811,6 @@ namespace CaliperSharp
  */
 		public override bool Equals(Object other)
 		{
-
 			if (other == null || GetType() != other.GetType())
 			{
 				return false;
@@ -527,8 +818,8 @@ namespace CaliperSharp
 			UnitOfMeasure otherUnit = (UnitOfMeasure)other;
 
 			// same enumerations
-			Unit? thisEnumeration = Unit;
-			Unit? otherEnumeration = otherUnit.Unit;
+			Unit? thisEnumeration = UnitEnumeration;
+			Unit? otherEnumeration = otherUnit.UnitEnumeration;
 
 			if (thisEnumeration != null && otherEnumeration != null && !thisEnumeration.Equals(otherEnumeration))
 			{
@@ -571,22 +862,216 @@ namespace CaliperSharp
 			return Symbol.CompareTo(other.Symbol);
 		}
 
+		private static void CheckTypes(UnitOfMeasure uom1, UnitOfMeasure uom2)
+		{
+			UnitType thisType = uom1.UOMType;
+			UnitType targetType = uom2.UOMType;
+
+			if (thisType != UnitType.UNCLASSIFIED && targetType != UnitType.UNCLASSIFIED && !thisType.Equals(UnitType.UNITY)
+					&& !targetType.Equals(UnitType.UNITY) && !thisType.Equals(targetType))
+			{
+				String msg = String.Format(MeasurementSystem.GetMessage("must.be.same.as"), uom1, uom1.UOMType,
+						uom2, uom2.UOMType);
+				throw new Exception(msg);
+			}
+		}
+
+		private decimal ConvertScalarToScalar(UnitOfMeasure targetUOM)
+		{
+			UnitOfMeasure thisAbscissa = AbscissaUnit;
+			decimal thisFactor = ScalingFactor;
+
+			decimal scalingFactor;
+
+			if (thisAbscissa.Equals(targetUOM))
+			{
+				// direct conversion
+				scalingFactor = thisFactor;
+			}
+			else
+			{
+				// indirect conversion
+				scalingFactor = ConvertUnit(targetUOM);
+			}
+			return scalingFactor;
+		}
+
+		private PathParameters TraversePath()
+		{
+			UnitOfMeasure pathUOM = this;
+			decimal pathFactor = decimal.One;
+
+			while (true)
+			{
+				decimal scalingFactor = pathUOM.ScalingFactor;
+				UnitOfMeasure abscissa = pathUOM.AbscissaUnit;
+
+				pathFactor = DecimalMultiply(pathFactor, scalingFactor);
+
+				if (pathUOM.Equals(abscissa))
+				{
+					break;
+				}
+
+				// next UOM on path
+				pathUOM = abscissa;
+			}
+
+			return new PathParameters(pathUOM, pathFactor);
+		}
+
+		private decimal GetBridgeFactor(UnitOfMeasure uom)
+		{
+			decimal factor = decimal.One;
+
+			// check for our bridge
+			if (BridgeAbscissaUnit != null)
+			{
+				factor = BridgeScalingFactor;
+			}
+			else
+			{
+				// try other side
+				if (uom.BridgeAbscissaUnit != null)
+				{
+					UnitOfMeasure toUOM = uom.BridgeAbscissaUnit;
+
+					if (toUOM.Equals(this))
+					{
+						factor = DecimalDivide(decimal.One, uom.BridgeScalingFactor);
+					}
+				}
+			}
+
+			return factor;
+		}
+
+		private decimal ConvertUnit(UnitOfMeasure targetUOM)
+		{
+			// get path factors in each system
+			PathParameters thisParameters = TraversePath();
+			PathParameters targetParameters = targetUOM.TraversePath();
+
+			decimal thisPathFactor = thisParameters.PathFactor;
+			UnitOfMeasure thisBase = thisParameters.PathUOM;
+
+			decimal targetPathFactor = targetParameters.PathFactor;
+			UnitOfMeasure targetBase = targetParameters.PathUOM;
+
+			// check for a base conversion unit bridge
+			decimal bridgeFactor = thisBase.GetBridgeFactor(targetBase);
+
+			if (bridgeFactor != null)
+			{
+				thisPathFactor = DecimalMultiply(thisPathFactor, bridgeFactor);
+			}
+
+			// new path amount
+			decimal scalingFactor = DecimalDivide(thisPathFactor, targetPathFactor);
+
+			return scalingFactor;
+		}
+
+		/**
+		* Get the factor to convert to the unit of measure
+		* 
+		* @param targetUOM
+		*            Target {@link UnitOfMeasure}
+		* @return conversion factor
+		* @
+		*             Exception
+*/
+		public decimal GetConversionFactor(UnitOfMeasure targetUOM)
+		{
+			if (targetUOM == null)
+			{
+				throw new Exception(MeasurementSystem.GetMessage("unit.cannot.be.null"));
+			}
+
+			// first check the cache
+			decimal cachedFactor;
+
+			if (ConversionRegistry.TryGetValue(targetUOM, out cachedFactor))
+			{
+				return cachedFactor;
+			}
+
+			CheckTypes(this, targetUOM);
+
+			Reducer fromPowerMap = GetBaseMap();
+			Reducer toPowerMap = targetUOM.GetBaseMap();
+
+			Dictionary<UnitOfMeasure, int> fromMap = fromPowerMap.Terms;
+			Dictionary<UnitOfMeasure, int> toMap = toPowerMap.Terms;
+
+			if (fromMap.Count != toMap.Count)
+			{
+				String msg = String.Format(MeasurementSystem.GetMessage("incompatible.units"), this, targetUOM);
+				throw new Exception(msg);
+			}
+
+			decimal fromFactor = fromPowerMap.MapScalingFactor;
+			decimal toFactor = toPowerMap.MapScalingFactor;
+
+			decimal factor = decimal.One;
+
+			// compute map factor
+			int matchCount = 0;
+
+			foreach (KeyValuePair<UnitOfMeasure, int> fromEntry in fromMap)
+			{
+				UnitType fromType = fromEntry.Key.UOMType;
+				UnitOfMeasure fromUOM = fromEntry.Key;
+				int fromPower = fromEntry.Value;
+
+				foreach (KeyValuePair<UnitOfMeasure, int> toEntry in toMap)
+				{
+					UnitType toType = toEntry.Key.UOMType;
+
+					if (fromType.Equals(toType))
+					{
+						matchCount++;
+						UnitOfMeasure toUOM = toEntry.Key;
+						decimal bd = fromUOM.ConvertScalarToScalar(toUOM);
+						bd = DecimalPower(bd, fromPower);
+						factor = DecimalMultiply(factor, bd);
+						break;
+					}
+				} // to map
+			} // from map
+
+			if (matchCount != fromMap.Count)
+			{
+				String msg = String.Format(MeasurementSystem.GetMessage("incompatible.units"), this, targetUOM);
+				throw new Exception(msg);
+			}
+
+			decimal scaling = DecimalDivide(fromFactor, toFactor);
+			cachedFactor = DecimalMultiply(factor, scaling);
+
+			// cache it
+			ConversionRegistry[targetUOM] = cachedFactor;
+
+			return cachedFactor;
+
+		}
+
 		// reduce a unit of measure to its most basic scalar units of measure.
 		private class Reducer
 		{
-			private static readonly int MAX_RECURSIONS = 100;
+			private const int MAX_RECURSIONS = 100;
 
 			// starting level
-			private static readonly int STARTING_LEVEL = -1;
+			private const int STARTING_LEVEL = -1;
 
 			// UOMs and their exponents
-			private Dictionary<UnitOfMeasure, int> Terms { get; set; } = new Dictionary<UnitOfMeasure, int>();
+			internal Dictionary<UnitOfMeasure, int> Terms { get; set; } = new Dictionary<UnitOfMeasure, int>();
 
 			// the overall scaling factor
-			private decimal MapScalingFactor { get; set; } = decimal.One;
+			internal decimal MapScalingFactor { get; set; } = decimal.One;
 
 			// list of exponents down a path to the leaf UOM
-			private List<int> PathExponents = new List<int>();
+			internal List<int> PathExponents = new List<int>();
 
 			// recursion counter
 			private int Counter = 0;
@@ -863,23 +1348,13 @@ namespace CaliperSharp
 		// UOM, scaling factor and power cumulative along a conversion path
 		private class PathParameters
 		{
-			private UnitOfMeasure PathUOM;
-			private decimal PathFactor;
+			internal UnitOfMeasure PathUOM { get; private set; }
+			internal decimal PathFactor { get; private set; }
 
-			private PathParameters(UnitOfMeasure pathUOM, decimal pathFactor)
+			internal PathParameters(UnitOfMeasure pathUOM, decimal pathFactor)
 			{
 				PathUOM = pathUOM;
 				PathFactor = pathFactor;
-			}
-
-			private UnitOfMeasure GetPathUOM()
-			{
-				return PathUOM;
-			}
-
-			private decimal GetPathFactor()
-			{
-				return PathFactor;
 			}
 		}
 
