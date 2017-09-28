@@ -216,7 +216,7 @@ namespace CaliperSharp
 	* system. For example a Newton is a kg.m/s2.
 	* 
 	* @return Base symbol
-	* @throws Exception
+	* @
 	*             Exception
 */
 		public string GetBaseSymbol()
@@ -280,7 +280,7 @@ namespace CaliperSharp
  *            Base unit of measure
  * @param exponent
  *            Exponent
- * @throws Exception
+ * @
  *             Exception
  */
 		public void SetPowerUnit(UnitOfMeasure baseUOM, int exponent)
@@ -416,12 +416,147 @@ namespace CaliperSharp
 			return value;
 		}
 
+		/**
+ * Define a conversion with the specified scaling factor, abscissa unit of
+ * measure and scaling factor.
+ * 
+ * @param scalingFactor
+ *            Factor
+ * @param abscissaUnit
+ *            {@link UnitOfMeasure}
+ * @param offset
+ *            Offset
+ * @
+ *             Exception
+ */
+		public void SetConversion(decimal scalingFactor, UnitOfMeasure abscissaUnit, decimal offset)
+		{
+			if (abscissaUnit == null)
+			{
+				throw new Exception(MeasurementSystem.GetMessage("unit.cannot.be.null"));
+			}
+
+			// self conversion is special
+			if (this.Equals(abscissaUnit))
+			{
+				if (scalingFactor.CompareTo(decimal.One) != 0 || offset.CompareTo(decimal.Zero) != 0)
+				{
+					throw new Exception(MeasurementSystem.GetMessage("conversion.not.allowed"));
+				}
+			}
+
+			// unit has been previously cached, so first remove it, then cache again
+			MeasurementSystem.GetSystem().UnregisterUnit(this);
+			baseSymbol = null;
+
+			this.scalingFactor = scalingFactor;
+			this.abscissaUnit = abscissaUnit;
+			this.offset = offset;
+
+			// re-cache
+			MeasurementSystem.GetSystem().registerUnit(this);
+		}
+
+		/**
+		 * Define a conversion with a scaling factor of 1 and offset of 0 for the
+		 * specified abscissa unit of measure.
+		 * 
+		 * @param abscissaUnit
+		 *            {@link UnitOfMeasure}
+		 * @
+		 *             Exception
+		 */
+		public void setConversion(UnitOfMeasure abscissaUnit)
+		{
+			this.setConversion(decimal.ONE, abscissaUnit, decimal.ZERO);
+		}
+
+		/**
+		 * Define a conversion with an offset of 0 for the specified scaling factor
+		 * and abscissa unit of measure.
+		 * 
+		 * @param scalingFactor
+		 *            Factor
+		 * @param abscissaUnit
+		 *            {@link UnitOfMeasure}
+		 * @
+		 *             Exception
+		 */
+		public void setConversion(decimal scalingFactor, UnitOfMeasure abscissaUnit)
+		{
+			this.setConversion(scalingFactor, abscissaUnit, decimal.ZERO);
+		}
+
+		/**
+		 * Construct a conversion with an offset of 0 for the specified scaling
+		 * factor and abscissa unit of measure.
+		 * 
+		 * @param scalingFactor
+		 *            Factor
+		 * @param abscissaUnit
+		 *            {@link UnitOfMeasure}
+		 * @
+		 *             Exception
+		 */
+		public void setConversion(String scalingFactor, UnitOfMeasure abscissaUnit)
+		{
+			this.setConversion(Quantity.createAmount(scalingFactor), abscissaUnit);
+		}
+
+
 		public override int GetHashCode()
 		{
 			int hashName = Name == null ? 0 : Name.GetHashCode();
 			int hashAge = Symbol.GetHashCode();
 
 			return hashName ^ hashAge;
+		}
+
+		/**
+ * Compare this unit of measure to another
+ * 
+ * @return true if equal
+ */
+		public override bool Equals(Object other)
+		{
+
+			if (other == null || GetType() != other.GetType())
+			{
+				return false;
+			}
+			UnitOfMeasure otherUnit = (UnitOfMeasure)other;
+
+			// same enumerations
+			Unit? thisEnumeration = Unit;
+			Unit? otherEnumeration = otherUnit.Unit;
+
+			if (thisEnumeration != null && otherEnumeration != null && !thisEnumeration.Equals(otherEnumeration))
+			{
+				return false;
+			}
+
+			// same abscissa unit symbols
+			String thisSymbol = AbscissaUnit.Symbol;
+			String otherSymbol = otherUnit.AbscissaUnit.Symbol;
+
+			if (!thisSymbol.Equals(otherSymbol))
+			{
+				return false;
+			}
+
+			// same factors
+			if (ScalingFactor.CompareTo(otherUnit.ScalingFactor) != 0)
+			{
+				return false;
+			}
+
+			// same offsets
+			if (Offset.CompareTo(otherUnit.Offset) != 0)
+			{
+				return false;
+			}
+
+			return true;
 		}
 
 		/**

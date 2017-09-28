@@ -173,6 +173,8 @@ namespace CaliperSharp
 			return SymbolRegistry[symbol];
 		}
 
+
+
 		private UnitOfMeasure CreateUOM(Unit enumeration)
 		{
 			UnitOfMeasure uom = null;
@@ -229,493 +231,493 @@ namespace CaliperSharp
 
 				case Unit.ONE:
 					// unity
-					uom = CreateScalarUOM(UnitType.UNITY, Unit.ONE, units.getString("one.name"),
-							units.getString("one.symbol"), units.getString("one.desc"));
+					uom = CreateScalarUOM(UnitType.UNITY, Unit.ONE, UnitsManager.GetString("one.name"),
+							UnitsManager.GetString("one.symbol"), UnitsManager.GetString("one.desc"));
 					break;
 
-				case SECOND:
+				case Unit.SECOND:
 					// second
-					uom = createScalarUOM(UnitType.TIME, Unit.SECOND, units.getString("sec.name"),
-							units.getString("sec.symbol"), units.getString("sec.desc"));
+					uom = CreateScalarUOM(UnitType.TIME, Unit.SECOND, UnitsManager.GetString("sec.name"),
+							UnitsManager.GetString("sec.symbol"), UnitsManager.GetString("sec.desc"));
 					break;
 
-				case MINUTE:
+				case Unit.MINUTE:
 					// minute
-					uom = createScalarUOM(UnitType.TIME, Unit.MINUTE, units.getString("min.name"),
-							units.getString("min.symbol"), units.getString("min.desc"));
-					uom.setConversion(Quantity.createAmount("60"), getUOM(Unit.SECOND));
+					uom = CreateScalarUOM(UnitType.TIME, Unit.MINUTE, UnitsManager.GetString("min.name"),
+							UnitsManager.GetString("min.symbol"), UnitsManager.GetString("min.desc"));
+					uom.SetConversion(Quantity.createAmount("60"), getUOM(Unit.SECOND));
 					break;
 
-				case HOUR:
+				case Unit.HOUR:
 					// hour
-					uom = createScalarUOM(UnitType.TIME, Unit.HOUR, units.getString("hr.name"),
-							units.getString("hr.symbol"), units.getString("hr.desc"));
+					uom = CreateScalarUOM(UnitType.TIME, Unit.HOUR, UnitsManager.GetString("hr.name"),
+							UnitsManager.GetString("hr.symbol"), UnitsManager.GetString("hr.desc"));
 					uom.setConversion(Quantity.createAmount("3600"), getUOM(Unit.SECOND));
 					break;
 
-				case DAY:
+				case Unit.DAY:
 					// day
-					uom = createScalarUOM(UnitType.TIME, Unit.DAY, units.getString("day.name"),
-							units.getString("day.symbol"), units.getString("day.desc"));
+					uom = CreateScalarUOM(UnitType.TIME, Unit.DAY, UnitsManager.GetString("day.name"),
+							UnitsManager.GetString("day.symbol"), UnitsManager.GetString("day.desc"));
 					uom.setConversion(Quantity.createAmount("86400"), getUOM(Unit.SECOND));
 					break;
 
-				case WEEK:
+				case Unit.WEEK:
 					// week
-					uom = createScalarUOM(UnitType.TIME, Unit.WEEK, units.getString("week.name"),
-							units.getString("week.symbol"), units.getString("week.desc"));
+					uom = CreateScalarUOM(UnitType.TIME, Unit.WEEK, UnitsManager.GetString("week.name"),
+							UnitsManager.GetString("week.symbol"), UnitsManager.GetString("week.desc"));
 					uom.setConversion(Quantity.createAmount("604800"), getUOM(Unit.SECOND));
 					break;
 
-				case JULIAN_YEAR:
+				case Unit.JULIAN_YEAR:
 					// Julian year
-					uom = createScalarUOM(UnitType.TIME, Unit.JULIAN_YEAR, units.getString("jyear.name"),
-							units.getString("jyear.symbol"), units.getString("jyear.desc"));
+					uom = CreateScalarUOM(UnitType.TIME, Unit.JULIAN_YEAR, UnitsManager.GetString("jyear.name"),
+							UnitsManager.GetString("jyear.symbol"), UnitsManager.GetString("jyear.desc"));
 					uom.setConversion(Quantity.createAmount("3.1557600E+07"), getUOM(Unit.SECOND));
 
 					break;
 
-				case SQUARE_SECOND:
+				case Unit.SQUARE_SECOND:
 					// square second
-					uom = createPowerUOM(UnitType.TIME_SQUARED, Unit.SQUARE_SECOND, units.getString("s2.name"),
-							units.getString("s2.symbol"), units.getString("s2.desc"), getUOM(Unit.SECOND), 2);
+					uom = createPowerUOM(UnitType.TIME_SQUARED, Unit.SQUARE_SECOND, UnitsManager.GetString("s2.name"),
+							UnitsManager.GetString("s2.symbol"), UnitsManager.GetString("s2.desc"), getUOM(Unit.SECOND), 2);
 					break;
 
-				case MOLE:
+				case Unit.MOLE:
 					// substance amount
-					uom = createScalarUOM(UnitType.SUBSTANCE_AMOUNT, Unit.MOLE, units.getString("mole.name"),
-							units.getString("mole.symbol"), units.getString("mole.desc"));
+					uom = CreateScalarUOM(UnitType.SUBSTANCE_AMOUNT, Unit.MOLE, UnitsManager.GetString("mole.name"),
+							UnitsManager.GetString("mole.symbol"), UnitsManager.GetString("mole.desc"));
 					break;
 
-				case EQUIVALENT:
+				case Unit.EQUIVALENT:
 					// substance amount
-					uom = createScalarUOM(UnitType.SUBSTANCE_AMOUNT, Unit.EQUIVALENT, units.getString("equivalent.name"),
-							units.getString("equivalent.symbol"), units.getString("equivalent.desc"));
+					uom = CreateScalarUOM(UnitType.SUBSTANCE_AMOUNT, Unit.EQUIVALENT, UnitsManager.GetString("equivalent.name"),
+							UnitsManager.GetString("equivalent.symbol"), UnitsManager.GetString("equivalent.desc"));
 					break;
 
-				case DECIBEL:
+				case Unit.DECIBEL:
 					// decibel
-					uom = createScalarUOM(UnitType.INTENSITY, Unit.DECIBEL, units.getString("db.name"),
-							units.getString("db.symbol"), units.getString("db.desc"));
+					uom = CreateScalarUOM(UnitType.INTENSITY, Unit.DECIBEL, UnitsManager.GetString("db.name"),
+							UnitsManager.GetString("db.symbol"), UnitsManager.GetString("db.desc"));
 					break;
 
-				case RADIAN:
+				case Unit.RADIAN:
 					// plane angle radian (rad)
-					uom = createScalarUOM(UnitType.PLANE_ANGLE, Unit.RADIAN, units.getString("radian.name"),
-							units.getString("radian.symbol"), units.getString("radian.desc"));
+					uom = CreateScalarUOM(UnitType.PLANE_ANGLE, Unit.RADIAN, UnitsManager.GetString("radian.name"),
+							UnitsManager.GetString("radian.symbol"), UnitsManager.GetString("radian.desc"));
 					uom.setConversion(getOne());
 					break;
 
-				case STERADIAN:
+				case Unit.STERADIAN:
 					// solid angle steradian (sr)
-					uom = createScalarUOM(UnitType.SOLID_ANGLE, Unit.STERADIAN, units.getString("steradian.name"),
-							units.getString("steradian.symbol"), units.getString("steradian.desc"));
+					uom = CreateScalarUOM(UnitType.SOLID_ANGLE, Unit.STERADIAN, UnitsManager.GetString("steradian.name"),
+							UnitsManager.GetString("steradian.symbol"), UnitsManager.GetString("steradian.desc"));
 					uom.setConversion(getOne());
 					break;
 
-				case DEGREE:
+				case Unit.DEGREE:
 					// degree of arc
-					uom = createScalarUOM(UnitType.PLANE_ANGLE, Unit.DEGREE, units.getString("degree.name"),
-							units.getString("degree.symbol"), units.getString("degree.desc"));
+					uom = CreateScalarUOM(UnitType.PLANE_ANGLE, Unit.DEGREE, UnitsManager.GetString("degree.name"),
+							UnitsManager.GetString("degree.symbol"), UnitsManager.GetString("degree.desc"));
 					uom.setConversion(Quantity.divideAmounts(String.valueOf(Math.PI), "180"), getUOM(Unit.RADIAN));
 					break;
 
-				case ARC_SECOND:
+				case Unit.ARC_SECOND:
 					// degree of arc
-					uom = createScalarUOM(UnitType.PLANE_ANGLE, Unit.ARC_SECOND, units.getString("arcsec.name"),
-							units.getString("arcsec.symbol"), units.getString("arcsec.desc"));
+					uom = CreateScalarUOM(UnitType.PLANE_ANGLE, Unit.ARC_SECOND, UnitsManager.GetString("arcsec.name"),
+							UnitsManager.GetString("arcsec.symbol"), UnitsManager.GetString("arcsec.desc"));
 					uom.setConversion(Quantity.divideAmounts(String.valueOf(Math.PI), "648000"), getUOM(Unit.RADIAN));
 					break;
 
-				case METRE:
+				case Unit.METRE:
 					// fundamental length
-					uom = createScalarUOM(UnitType.LENGTH, Unit.METRE, units.getString("m.name"),
-							units.getString("m.symbol"), units.getString("m.desc"));
+					uom = CreateScalarUOM(UnitType.LENGTH, Unit.METRE, UnitsManager.GetString("m.name"),
+							UnitsManager.GetString("m.symbol"), UnitsManager.GetString("m.desc"));
 					break;
 
-				case DIOPTER:
+				case Unit.DIOPTER:
 					// per metre
-					uom = createQuotientUOM(UnitType.RECIPROCAL_LENGTH, Unit.DIOPTER, units.getString("diopter.name"),
-							units.getString("diopter.symbol"), units.getString("diopter.desc"), getOne(),
+					uom = createQuotientUOM(UnitType.RECIPROCAL_LENGTH, Unit.DIOPTER, UnitsManager.GetString("diopter.name"),
+							UnitsManager.GetString("diopter.symbol"), UnitsManager.GetString("diopter.desc"), getOne(),
 							getUOM(Unit.METRE));
 					break;
 
-				case KILOGRAM:
+				case Unit.KILOGRAM:
 					// fundamental mass
-					uom = createScalarUOM(UnitType.MASS, Unit.KILOGRAM, units.getString("kg.name"),
-							units.getString("kg.symbol"), units.getString("kg.desc"));
+					uom = CreateScalarUOM(UnitType.MASS, Unit.KILOGRAM, UnitsManager.GetString("kg.name"),
+							UnitsManager.GetString("kg.symbol"), UnitsManager.GetString("kg.desc"));
 					break;
 
-				case TONNE:
+				case Unit.TONNE:
 					// mass
-					uom = createScalarUOM(UnitType.MASS, Unit.TONNE, units.getString("tonne.name"),
-							units.getString("tonne.symbol"), units.getString("tonne.desc"));
+					uom = CreateScalarUOM(UnitType.MASS, Unit.TONNE, UnitsManager.GetString("tonne.name"),
+							UnitsManager.GetString("tonne.symbol"), UnitsManager.GetString("tonne.desc"));
 					uom.setConversion(Prefix.KILO.getFactor(), getUOM(Unit.KILOGRAM));
 					break;
 
-				case KELVIN:
+				case Unit.KELVIN:
 					// fundamental temperature
-					uom = createScalarUOM(UnitType.TEMPERATURE, Unit.KELVIN, units.getString("kelvin.name"),
-							units.getString("kelvin.symbol"), units.getString("kelvin.desc"));
+					uom = CreateScalarUOM(UnitType.TEMPERATURE, Unit.KELVIN, UnitsManager.GetString("kelvin.name"),
+							UnitsManager.GetString("kelvin.symbol"), UnitsManager.GetString("kelvin.desc"));
 					break;
 
-				case AMPERE:
+				case Unit.AMPERE:
 					// electric current
-					uom = createScalarUOM(UnitType.ELECTRIC_CURRENT, Unit.AMPERE, units.getString("amp.name"),
-							units.getString("amp.symbol"), units.getString("amp.desc"));
+					uom = CreateScalarUOM(UnitType.ELECTRIC_CURRENT, Unit.AMPERE, UnitsManager.GetString("amp.name"),
+							UnitsManager.GetString("amp.symbol"), UnitsManager.GetString("amp.desc"));
 					break;
 
-				case CANDELA:
+				case Unit.CANDELA:
 					// luminosity
-					uom = createScalarUOM(UnitType.LUMINOSITY, Unit.CANDELA, units.getString("cd.name"),
-							units.getString("cd.symbol"), units.getString("cd.desc"));
+					uom = CreateScalarUOM(UnitType.LUMINOSITY, Unit.CANDELA, UnitsManager.GetString("cd.name"),
+							UnitsManager.GetString("cd.symbol"), UnitsManager.GetString("cd.desc"));
 					break;
 
-				case PH:
+				case Unit.PH:
 					// molar concentration
-					uom = createScalarUOM(UnitType.MOLAR_CONCENTRATION, Unit.PH, units.getString("ph.name"),
-							units.getString("ph.symbol"), units.getString("ph.desc"));
+					uom = CreateScalarUOM(UnitType.MOLAR_CONCENTRATION, Unit.PH, UnitsManager.GetString("ph.name"),
+							UnitsManager.GetString("ph.symbol"), UnitsManager.GetString("ph.desc"));
 					break;
 
-				case GRAM: // gram
-					uom = createScalarUOM(UnitType.MASS, Unit.GRAM, units.getString("gram.name"),
-							units.getString("gram.symbol"), units.getString("gram.desc"));
+				case Unit.GRAM: // gram
+					uom = CreateScalarUOM(UnitType.MASS, Unit.GRAM, UnitsManager.GetString("gram.name"),
+							UnitsManager.GetString("gram.symbol"), UnitsManager.GetString("gram.desc"));
 					uom.setConversion(Prefix.MILLI.getFactor(), getUOM(Unit.KILOGRAM));
 					break;
 
-				case CARAT:
+				case Unit.CARAT:
 					// carat
-					uom = createScalarUOM(UnitType.MASS, Unit.CARAT, units.getString("carat.name"),
-							units.getString("carat.symbol"), units.getString("carat.desc"));
+					uom = CreateScalarUOM(UnitType.MASS, Unit.CARAT, UnitsManager.GetString("carat.name"),
+							UnitsManager.GetString("carat.symbol"), UnitsManager.GetString("carat.desc"));
 					uom.setConversion(Quantity.createAmount("0.2"), getUOM(Unit.GRAM));
 					break;
 
-				case SQUARE_METRE:
+				case Unit.SQUARE_METRE:
 					// square metre
-					uom = createPowerUOM(UnitType.AREA, Unit.SQUARE_METRE, units.getString("m2.name"),
-							units.getString("m2.symbol"), units.getString("m2.desc"), getUOM(Unit.METRE), 2);
+					uom = createPowerUOM(UnitType.AREA, Unit.SQUARE_METRE, UnitsManager.GetString("m2.name"),
+							UnitsManager.GetString("m2.symbol"), UnitsManager.GetString("m2.desc"), getUOM(Unit.METRE), 2);
 					break;
 
-				case HECTARE:
+				case Unit.HECTARE:
 					// hectare
-					uom = createScalarUOM(UnitType.AREA, Unit.HECTARE, units.getString("hectare.name"),
-							units.getString("hectare.symbol"), units.getString("hectare.desc"));
+					uom = CreateScalarUOM(UnitType.AREA, Unit.HECTARE, UnitsManager.GetString("hectare.name"),
+							UnitsManager.GetString("hectare.symbol"), UnitsManager.GetString("hectare.desc"));
 					uom.setConversion(Quantity.createAmount("10000"), getUOM(Unit.SQUARE_METRE));
 					break;
 
-				case METRE_PER_SEC:
+				case Unit.METRE_PER_SEC:
 					// velocity
-					uom = createQuotientUOM(UnitType.VELOCITY, Unit.METRE_PER_SEC, units.getString("mps.name"),
-							units.getString("mps.symbol"), units.getString("mps.desc"), getUOM(Unit.METRE), getSecond());
+					uom = createQuotientUOM(UnitType.VELOCITY, Unit.METRE_PER_SEC, UnitsManager.GetString("mps.name"),
+							UnitsManager.GetString("mps.symbol"), UnitsManager.GetString("mps.desc"), getUOM(Unit.METRE), getSecond());
 					break;
 
-				case METRE_PER_SEC_SQUARED:
+				case Unit.METRE_PER_SEC_SQUARED:
 					// acceleration
-					uom = createQuotientUOM(UnitType.ACCELERATION, Unit.METRE_PER_SEC_SQUARED, units.getString("mps2.name"),
-							units.getString("mps2.symbol"), units.getString("mps2.desc"), getUOM(Unit.METRE),
+					uom = createQuotientUOM(UnitType.ACCELERATION, Unit.METRE_PER_SEC_SQUARED, UnitsManager.GetString("mps2.name"),
+							UnitsManager.GetString("mps2.symbol"), UnitsManager.GetString("mps2.desc"), getUOM(Unit.METRE),
 							getUOM(Unit.SQUARE_SECOND));
 					break;
 
-				case CUBIC_METRE:
+				case Unit.CUBIC_METRE:
 					// cubic metre
-					uom = createPowerUOM(UnitType.VOLUME, Unit.CUBIC_METRE, units.getString("m3.name"),
-							units.getString("m3.symbol"), units.getString("m3.desc"), getUOM(Unit.METRE), 3);
+					uom = createPowerUOM(UnitType.VOLUME, Unit.CUBIC_METRE, UnitsManager.GetString("m3.name"),
+							UnitsManager.GetString("m3.symbol"), UnitsManager.GetString("m3.desc"), getUOM(Unit.METRE), 3);
 					break;
 
-				case LITRE:
+				case Unit.LITRE:
 					// litre
-					uom = createScalarUOM(UnitType.VOLUME, Unit.LITRE, units.getString("litre.name"),
-							units.getString("litre.symbol"), units.getString("litre.desc"));
+					uom = CreateScalarUOM(UnitType.VOLUME, Unit.LITRE, UnitsManager.GetString("litre.name"),
+							UnitsManager.GetString("litre.symbol"), UnitsManager.GetString("litre.desc"));
 					uom.setConversion(Prefix.MILLI.getFactor(), getUOM(Unit.CUBIC_METRE));
 					break;
 
-				case CUBIC_METRE_PER_SEC:
+				case Unit.CUBIC_METRE_PER_SEC:
 					// flow (volume)
 					uom = createQuotientUOM(UnitType.VOLUMETRIC_FLOW, Unit.CUBIC_METRE_PER_SEC,
-							units.getString("m3PerSec.name"), units.getString("m3PerSec.symbol"),
-							units.getString("m3PerSec.desc"), getUOM(Unit.CUBIC_METRE), getSecond());
+							UnitsManager.GetString("m3PerSec.name"), UnitsManager.GetString("m3PerSec.symbol"),
+							UnitsManager.GetString("m3PerSec.desc"), getUOM(Unit.CUBIC_METRE), getSecond());
 					break;
 
-				case KILOGRAM_PER_SEC:
+				case Unit.KILOGRAM_PER_SEC:
 					// flow (mass)
-					uom = createQuotientUOM(UnitType.MASS_FLOW, Unit.KILOGRAM_PER_SEC, units.getString("kgPerSec.name"),
-							units.getString("kgPerSec.symbol"), units.getString("kgPerSec.desc"), getUOM(Unit.KILOGRAM),
+					uom = createQuotientUOM(UnitType.MASS_FLOW, Unit.KILOGRAM_PER_SEC, UnitsManager.GetString("kgPerSec.name"),
+							UnitsManager.GetString("kgPerSec.symbol"), UnitsManager.GetString("kgPerSec.desc"), getUOM(Unit.KILOGRAM),
 							getSecond());
 					break;
 
-				case KILOGRAM_PER_CU_METRE:
+				case Unit.KILOGRAM_PER_CU_METRE:
 					// kg/m^3
-					uom = createQuotientUOM(UnitType.DENSITY, Unit.KILOGRAM_PER_CU_METRE, units.getString("kg_m3.name"),
-							units.getString("kg_m3.symbol"), units.getString("kg_m3.desc"), getUOM(Unit.KILOGRAM),
+					uom = createQuotientUOM(UnitType.DENSITY, Unit.KILOGRAM_PER_CU_METRE, UnitsManager.GetString("kg_m3.name"),
+							UnitsManager.GetString("kg_m3.symbol"), UnitsManager.GetString("kg_m3.desc"), getUOM(Unit.KILOGRAM),
 							getUOM(Unit.CUBIC_METRE));
 					break;
 
-				case PASCAL_SECOND:
+				case Unit.PASCAL_SECOND:
 					// dynamic viscosity
-					uom = createProductUOM(UnitType.DYNAMIC_VISCOSITY, Unit.PASCAL_SECOND, units.getString("pascal_sec.name"),
-							units.getString("pascal_sec.symbol"), units.getString("pascal_sec.desc"), getUOM(Unit.PASCAL),
+					uom = createProductUOM(UnitType.DYNAMIC_VISCOSITY, Unit.PASCAL_SECOND, UnitsManager.GetString("pascal_sec.name"),
+							UnitsManager.GetString("pascal_sec.symbol"), UnitsManager.GetString("pascal_sec.desc"), getUOM(Unit.PASCAL),
 							getSecond());
 					break;
 
-				case SQUARE_METRE_PER_SEC:
+				case Unit.SQUARE_METRE_PER_SEC:
 					// kinematic viscosity
 					uom = createQuotientUOM(UnitType.KINEMATIC_VISCOSITY, Unit.SQUARE_METRE_PER_SEC,
-							units.getString("m2PerSec.name"), units.getString("m2PerSec.symbol"),
-							units.getString("m2PerSec.desc"), getUOM(Unit.SQUARE_METRE), getSecond());
+							UnitsManager.GetString("m2PerSec.name"), UnitsManager.GetString("m2PerSec.symbol"),
+							UnitsManager.GetString("m2PerSec.desc"), getUOM(Unit.SQUARE_METRE), getSecond());
 					break;
 
-				case CALORIE:
+				case Unit.CALORIE:
 					// thermodynamic calorie
-					uom = createScalarUOM(UnitType.ENERGY, Unit.CALORIE, units.getString("calorie.name"),
-							units.getString("calorie.symbol"), units.getString("calorie.desc"));
+					uom = CreateScalarUOM(UnitType.ENERGY, Unit.CALORIE, UnitsManager.GetString("calorie.name"),
+							UnitsManager.GetString("calorie.symbol"), UnitsManager.GetString("calorie.desc"));
 					uom.setConversion(Quantity.createAmount("4.184"), getUOM(Unit.JOULE));
 					break;
 
-				case NEWTON:
+				case Unit.NEWTON:
 					// force F = m·A (newton)
-					uom = createProductUOM(UnitType.FORCE, Unit.NEWTON, units.getString("newton.name"),
-							units.getString("newton.symbol"), units.getString("newton.desc"), getUOM(Unit.KILOGRAM),
+					uom = createProductUOM(UnitType.FORCE, Unit.NEWTON, UnitsManager.GetString("newton.name"),
+							UnitsManager.GetString("newton.symbol"), UnitsManager.GetString("newton.desc"), getUOM(Unit.KILOGRAM),
 							getUOM(Unit.METRE_PER_SEC_SQUARED));
 					break;
 
-				case NEWTON_METRE:
+				case Unit.NEWTON_METRE:
 					// newton-metre
-					uom = createProductUOM(UnitType.ENERGY, Unit.NEWTON_METRE, units.getString("n_m.name"),
-							units.getString("n_m.symbol"), units.getString("n_m.desc"), getUOM(Unit.NEWTON),
+					uom = createProductUOM(UnitType.ENERGY, Unit.NEWTON_METRE, UnitsManager.GetString("n_m.name"),
+							UnitsManager.GetString("n_m.symbol"), UnitsManager.GetString("n_m.desc"), getUOM(Unit.NEWTON),
 							getUOM(Unit.METRE));
 					break;
 
-				case JOULE:
+				case Unit.JOULE:
 					// energy (joule)
-					uom = createProductUOM(UnitType.ENERGY, Unit.JOULE, units.getString("joule.name"),
-							units.getString("joule.symbol"), units.getString("joule.desc"), getUOM(Unit.NEWTON),
+					uom = createProductUOM(UnitType.ENERGY, Unit.JOULE, UnitsManager.GetString("joule.name"),
+							UnitsManager.GetString("joule.symbol"), UnitsManager.GetString("joule.desc"), getUOM(Unit.NEWTON),
 							getUOM(Unit.METRE));
 					break;
 
-				case ELECTRON_VOLT:
+				case Unit.ELECTRON_VOLT:
 					// ev
 					Quantity e = this.getQuantity(Constant.ELEMENTARY_CHARGE);
-					uom = createProductUOM(UnitType.ENERGY, Unit.ELECTRON_VOLT, units.getString("ev.name"),
-								units.getString("ev.symbol"), units.getString("ev.desc"), e.getUOM(), getUOM(Unit.VOLT));
+					uom = createProductUOM(UnitType.ENERGY, Unit.ELECTRON_VOLT, UnitsManager.GetString("ev.name"),
+								UnitsManager.GetString("ev.symbol"), UnitsManager.GetString("ev.desc"), e.getUOM(), getUOM(Unit.VOLT));
 					uom.setScalingFactor(e.getAmount());
 					break;
 
-				case WATT_HOUR:
+				case Unit.WATT_HOUR:
 					// watt-hour
-					uom = createProductUOM(UnitType.ENERGY, Unit.WATT_HOUR, units.getString("wh.name"),
-							units.getString("wh.symbol"), units.getString("wh.desc"), getUOM(Unit.WATT), getHour());
+					uom = createProductUOM(UnitType.ENERGY, Unit.WATT_HOUR, UnitsManager.GetString("wh.name"),
+							UnitsManager.GetString("wh.symbol"), UnitsManager.GetString("wh.desc"), getUOM(Unit.WATT), getHour());
 					break;
 
-				case WATT:
+				case Unit.WATT:
 					// power (watt)
-					uom = createQuotientUOM(UnitType.POWER, Unit.WATT, units.getString("watt.name"),
-							units.getString("watt.symbol"), units.getString("watt.desc"), getUOM(Unit.JOULE), getSecond());
+					uom = createQuotientUOM(UnitType.POWER, Unit.WATT, UnitsManager.GetString("watt.name"),
+							UnitsManager.GetString("watt.symbol"), UnitsManager.GetString("watt.desc"), getUOM(Unit.JOULE), getSecond());
 					break;
 
-				case HERTZ:
+				case Unit.HERTZ:
 					// frequency (hertz)
-					uom = createQuotientUOM(UnitType.FREQUENCY, Unit.HERTZ, units.getString("hertz.name"),
-							units.getString("hertz.symbol"), units.getString("hertz.desc"), getOne(), getSecond());
+					uom = createQuotientUOM(UnitType.FREQUENCY, Unit.HERTZ, UnitsManager.GetString("hertz.name"),
+							UnitsManager.GetString("hertz.symbol"), UnitsManager.GetString("hertz.desc"), getOne(), getSecond());
 					break;
 
-				case RAD_PER_SEC:
+				case Unit.RAD_PER_SEC:
 					// angular frequency
-					uom = createQuotientUOM(UnitType.FREQUENCY, Unit.RAD_PER_SEC, units.getString("radpers.name"),
-							units.getString("radpers.symbol"), units.getString("radpers.desc"), getUOM(Unit.RADIAN),
+					uom = createQuotientUOM(UnitType.FREQUENCY, Unit.RAD_PER_SEC, UnitsManager.GetString("radpers.name"),
+							UnitsManager.GetString("radpers.symbol"), UnitsManager.GetString("radpers.desc"), getUOM(Unit.RADIAN),
 							getSecond());
 					BigDecimal twoPi = new BigDecimal("2").multiply(new BigDecimal(Math.PI), UnitOfMeasure.MATH_CONTEXT);
 					uom.setConversion(BigDecimal.ONE.divide(twoPi, UnitOfMeasure.MATH_CONTEXT), getUOM(Unit.HERTZ));
 					break;
 
-				case PASCAL:
+				case Unit.PASCAL:
 					// pressure
-					uom = createQuotientUOM(UnitType.PRESSURE, Unit.PASCAL, units.getString("pascal.name"),
-							units.getString("pascal.symbol"), units.getString("pascal.desc"), getUOM(Unit.NEWTON),
+					uom = createQuotientUOM(UnitType.PRESSURE, Unit.PASCAL, UnitsManager.GetString("pascal.name"),
+							UnitsManager.GetString("pascal.symbol"), UnitsManager.GetString("pascal.desc"), getUOM(Unit.NEWTON),
 							getUOM(Unit.SQUARE_METRE));
 					break;
 
-				case ATMOSPHERE:
+				case Unit.ATMOSPHERE:
 					// pressure
-					uom = createScalarUOM(UnitType.PRESSURE, Unit.ATMOSPHERE, units.getString("atm.name"),
-							units.getString("atm.symbol"), units.getString("atm.desc"));
+					uom = CreateScalarUOM(UnitType.PRESSURE, Unit.ATMOSPHERE, UnitsManager.GetString("atm.name"),
+							UnitsManager.GetString("atm.symbol"), UnitsManager.GetString("atm.desc"));
 					uom.setConversion(Quantity.createAmount("101325"), getUOM(Unit.PASCAL));
 					break;
 
-				case BAR:
+				case Unit.BAR:
 					// pressure
-					uom = createScalarUOM(UnitType.PRESSURE, Unit.BAR, units.getString("bar.name"),
-							units.getString("bar.symbol"), units.getString("bar.desc"));
+					uom = CreateScalarUOM(UnitType.PRESSURE, Unit.BAR, UnitsManager.GetString("bar.name"),
+							UnitsManager.GetString("bar.symbol"), UnitsManager.GetString("bar.desc"));
 					uom.setConversion(BigDecimal.ONE, getUOM(Unit.PASCAL), Quantity.createAmount("1.0E+05"));
 					break;
 
-				case COULOMB:
+				case Unit.COULOMB:
 					// charge (coulomb)
-					uom = createProductUOM(UnitType.ELECTRIC_CHARGE, Unit.COULOMB, units.getString("coulomb.name"),
-							units.getString("coulomb.symbol"), units.getString("coulomb.desc"), getUOM(Unit.AMPERE),
+					uom = createProductUOM(UnitType.ELECTRIC_CHARGE, Unit.COULOMB, UnitsManager.GetString("coulomb.name"),
+							UnitsManager.GetString("coulomb.symbol"), UnitsManager.GetString("coulomb.desc"), getUOM(Unit.AMPERE),
 							getSecond());
 					break;
 
-				case VOLT:
+				case Unit.VOLT:
 					// voltage (volt)
-					uom = createQuotientUOM(UnitType.ELECTROMOTIVE_FORCE, Unit.VOLT, units.getString("volt.name"),
-							units.getString("volt.symbol"), units.getString("volt.desc"), getUOM(Unit.WATT),
+					uom = createQuotientUOM(UnitType.ELECTROMOTIVE_FORCE, Unit.VOLT, UnitsManager.GetString("volt.name"),
+							UnitsManager.GetString("volt.symbol"), UnitsManager.GetString("volt.desc"), getUOM(Unit.WATT),
 							getUOM(Unit.AMPERE));
 					break;
 
-				case OHM:
+				case Unit.OHM:
 					// resistance (ohm)
-					uom = createQuotientUOM(UnitType.ELECTRIC_RESISTANCE, Unit.OHM, units.getString("ohm.name"),
-							units.getString("ohm.symbol"), units.getString("ohm.desc"), getUOM(Unit.VOLT),
+					uom = createQuotientUOM(UnitType.ELECTRIC_RESISTANCE, Unit.OHM, UnitsManager.GetString("ohm.name"),
+							UnitsManager.GetString("ohm.symbol"), UnitsManager.GetString("ohm.desc"), getUOM(Unit.VOLT),
 							getUOM(Unit.AMPERE));
 					break;
 
-				case FARAD:
+				case Unit.FARAD:
 					// capacitance (farad)
-					uom = createQuotientUOM(UnitType.ELECTRIC_CAPACITANCE, Unit.FARAD, units.getString("farad.name"),
-							units.getString("farad.symbol"), units.getString("farad.desc"), getUOM(Unit.COULOMB),
+					uom = createQuotientUOM(UnitType.ELECTRIC_CAPACITANCE, Unit.FARAD, UnitsManager.GetString("farad.name"),
+							UnitsManager.GetString("farad.symbol"), UnitsManager.GetString("farad.desc"), getUOM(Unit.COULOMB),
 							getUOM(Unit.VOLT));
 					break;
 
-				case FARAD_PER_METRE:
+				case Unit.FARAD_PER_METRE:
 					// electric permittivity (farad/metre)
 					uom = createQuotientUOM(UnitType.ELECTRIC_PERMITTIVITY, Unit.FARAD_PER_METRE,
-							units.getString("fperm.name"), units.getString("fperm.symbol"), units.getString("fperm.desc"),
+							UnitsManager.GetString("fperm.name"), UnitsManager.GetString("fperm.symbol"), UnitsManager.GetString("fperm.desc"),
 							getUOM(Unit.FARAD), getUOM(Unit.METRE));
 					break;
 
-				case AMPERE_PER_METRE:
+				case Unit.AMPERE_PER_METRE:
 					// electric field strength(ampere/metre)
 					uom = createQuotientUOM(UnitType.ELECTRIC_FIELD_STRENGTH, Unit.AMPERE_PER_METRE,
-							units.getString("aperm.name"), units.getString("aperm.symbol"), units.getString("aperm.desc"),
+							UnitsManager.GetString("aperm.name"), UnitsManager.GetString("aperm.symbol"), UnitsManager.GetString("aperm.desc"),
 							getUOM(Unit.AMPERE), getUOM(Unit.METRE));
 					break;
 
-				case WEBER:
+				case Unit.WEBER:
 					// magnetic flux (weber)
-					uom = createProductUOM(UnitType.MAGNETIC_FLUX, Unit.WEBER, units.getString("weber.name"),
-							units.getString("weber.symbol"), units.getString("weber.desc"), getUOM(Unit.VOLT), getSecond());
+					uom = createProductUOM(UnitType.MAGNETIC_FLUX, Unit.WEBER, UnitsManager.GetString("weber.name"),
+							UnitsManager.GetString("weber.symbol"), UnitsManager.GetString("weber.desc"), getUOM(Unit.VOLT), getSecond());
 					break;
 
-				case TESLA:
+				case Unit.TESLA:
 					// magnetic flux density (tesla)
-					uom = createQuotientUOM(UnitType.MAGNETIC_FLUX_DENSITY, Unit.TESLA, units.getString("tesla.name"),
-							units.getString("tesla.symbol"), units.getString("tesla.desc"), getUOM(Unit.WEBER),
+					uom = createQuotientUOM(UnitType.MAGNETIC_FLUX_DENSITY, Unit.TESLA, UnitsManager.GetString("tesla.name"),
+							UnitsManager.GetString("tesla.symbol"), UnitsManager.GetString("tesla.desc"), getUOM(Unit.WEBER),
 							getUOM(Unit.SQUARE_METRE));
 					break;
 
-				case HENRY:
+				case Unit.HENRY:
 					// inductance (henry)
-					uom = createQuotientUOM(UnitType.ELECTRIC_INDUCTANCE, Unit.HENRY, units.getString("henry.name"),
-							units.getString("henry.symbol"), units.getString("henry.desc"), getUOM(Unit.WEBER),
+					uom = createQuotientUOM(UnitType.ELECTRIC_INDUCTANCE, Unit.HENRY, UnitsManager.GetString("henry.name"),
+							UnitsManager.GetString("henry.symbol"), UnitsManager.GetString("henry.desc"), getUOM(Unit.WEBER),
 							getUOM(Unit.AMPERE));
 					break;
 
-				case SIEMENS:
+				case Unit.SIEMENS:
 					// electrical conductance (siemens)
-					uom = createQuotientUOM(UnitType.ELECTRIC_CONDUCTANCE, Unit.SIEMENS, units.getString("siemens.name"),
-							units.getString("siemens.symbol"), units.getString("siemens.desc"), getUOM(Unit.AMPERE),
+					uom = createQuotientUOM(UnitType.ELECTRIC_CONDUCTANCE, Unit.SIEMENS, UnitsManager.GetString("siemens.name"),
+							UnitsManager.GetString("siemens.symbol"), UnitsManager.GetString("siemens.desc"), getUOM(Unit.AMPERE),
 							getUOM(Unit.VOLT));
 					break;
 
-				case CELSIUS:
+				case Unit.CELSIUS:
 					// °C = °K - 273.15
-					uom = createScalarUOM(UnitType.TEMPERATURE, Unit.CELSIUS, units.getString("celsius.name"),
-							units.getString("celsius.symbol"), units.getString("celsius.desc"));
+					uom = CreateScalarUOM(UnitType.TEMPERATURE, Unit.CELSIUS, UnitsManager.GetString("celsius.name"),
+							UnitsManager.GetString("celsius.symbol"), UnitsManager.GetString("celsius.desc"));
 					uom.setConversion(BigDecimal.ONE, getUOM(Unit.KELVIN), Quantity.createAmount("273.15"));
 					break;
 
-				case LUMEN:
+				case Unit.LUMEN:
 					// luminous flux (lumen)
-					uom = createProductUOM(UnitType.LUMINOUS_FLUX, Unit.LUMEN, units.getString("lumen.name"),
-							units.getString("lumen.symbol"), units.getString("lumen.desc"), getUOM(Unit.CANDELA),
+					uom = createProductUOM(UnitType.LUMINOUS_FLUX, Unit.LUMEN, UnitsManager.GetString("lumen.name"),
+							UnitsManager.GetString("lumen.symbol"), UnitsManager.GetString("lumen.desc"), getUOM(Unit.CANDELA),
 							getUOM(Unit.STERADIAN));
 					break;
 
-				case LUX:
+				case Unit.LUX:
 					// illuminance (lux)
-					uom = createQuotientUOM(UnitType.ILLUMINANCE, Unit.LUX, units.getString("lux.name"),
-							units.getString("lux.symbol"), units.getString("lux.desc"), getUOM(Unit.LUMEN),
+					uom = createQuotientUOM(UnitType.ILLUMINANCE, Unit.LUX, UnitsManager.GetString("lux.name"),
+							UnitsManager.GetString("lux.symbol"), UnitsManager.GetString("lux.desc"), getUOM(Unit.LUMEN),
 							getUOM(Unit.SQUARE_METRE));
 					break;
 
-				case BECQUEREL:
+				case Unit.BECQUEREL:
 					// radioactivity (becquerel). Same base symbol as Hertz
-					uom = createScalarUOM(UnitType.RADIOACTIVITY, Unit.BECQUEREL, units.getString("becquerel.name"),
-							units.getString("becquerel.symbol"), units.getString("becquerel.desc"));
+					uom = CreateScalarUOM(UnitType.RADIOACTIVITY, Unit.BECQUEREL, UnitsManager.GetString("becquerel.name"),
+							UnitsManager.GetString("becquerel.symbol"), UnitsManager.GetString("becquerel.desc"));
 					break;
 
-				case GRAY:
+				case Unit.GRAY:
 					// gray (Gy)
-					uom = createQuotientUOM(UnitType.RADIATION_DOSE_ABSORBED, Unit.GRAY, units.getString("gray.name"),
-							units.getString("gray.symbol"), units.getString("gray.desc"), getUOM(Unit.JOULE),
+					uom = createQuotientUOM(UnitType.RADIATION_DOSE_ABSORBED, Unit.GRAY, UnitsManager.GetString("gray.name"),
+							UnitsManager.GetString("gray.symbol"), UnitsManager.GetString("gray.desc"), getUOM(Unit.JOULE),
 							getUOM(Unit.KILOGRAM));
 					break;
 
-				case SIEVERT:
+				case Unit.SIEVERT:
 					// sievert (Sv)
-					uom = createQuotientUOM(UnitType.RADIATION_DOSE_EFFECTIVE, Unit.SIEVERT, units.getString("sievert.name"),
-							units.getString("sievert.symbol"), units.getString("sievert.desc"), getUOM(Unit.JOULE),
+					uom = createQuotientUOM(UnitType.RADIATION_DOSE_EFFECTIVE, Unit.SIEVERT, UnitsManager.GetString("sievert.name"),
+							UnitsManager.GetString("sievert.symbol"), UnitsManager.GetString("sievert.desc"), getUOM(Unit.JOULE),
 							getUOM(Unit.KILOGRAM));
 					break;
 
-				case SIEVERTS_PER_HOUR:
-					uom = createQuotientUOM(UnitType.RADIATION_DOSE_RATE, Unit.SIEVERTS_PER_HOUR, units.getString("sph.name"),
-							units.getString("sph.symbol"), units.getString("sph.desc"), getUOM(Unit.SIEVERT), getHour());
+				case Unit.SIEVERTS_PER_HOUR:
+					uom = createQuotientUOM(UnitType.RADIATION_DOSE_RATE, Unit.SIEVERTS_PER_HOUR, UnitsManager.GetString("sph.name"),
+							UnitsManager.GetString("sph.symbol"), UnitsManager.GetString("sph.desc"), getUOM(Unit.SIEVERT), getHour());
 					break;
 
-				case KATAL:
+				case Unit.KATAL:
 					// katal (kat)
-					uom = createQuotientUOM(UnitType.CATALYTIC_ACTIVITY, Unit.KATAL, units.getString("katal.name"),
-							units.getString("katal.symbol"), units.getString("katal.desc"), getUOM(Unit.MOLE), getSecond());
+					uom = createQuotientUOM(UnitType.CATALYTIC_ACTIVITY, Unit.KATAL, UnitsManager.GetString("katal.name"),
+							UnitsManager.GetString("katal.symbol"), UnitsManager.GetString("katal.desc"), getUOM(Unit.MOLE), getSecond());
 					break;
 
-				case UNIT:
+				case Unit:
 					// Unit (U)
-					uom = createScalarUOM(UnitType.CATALYTIC_ACTIVITY, Unit.UNIT, units.getString("unit.name"),
-							units.getString("unit.symbol"), units.getString("unit.desc"));
+					uom = CreateScalarUOM(UnitType.CATALYTIC_ACTIVITY, Unit.UNIT, UnitsManager.GetString("unit.name"),
+							UnitsManager.GetString("unit.symbol"), UnitsManager.GetString("unit.desc"));
 					uom.setConversion(Quantity.divideAmounts("1.0E-06", "60"), getUOM(Unit.KATAL));
 					break;
 
-				case INTERNATIONAL_UNIT:
-					uom = createScalarUOM(UnitType.SUBSTANCE_AMOUNT, Unit.INTERNATIONAL_UNIT, units.getString("iu.name"),
-							units.getString("iu.symbol"), units.getString("iu.desc"));
+				case Unit.INTERNATIONAL_UNIT:
+					uom = CreateScalarUOM(UnitType.SUBSTANCE_AMOUNT, Unit.INTERNATIONAL_UNIT, UnitsManager.GetString("iu.name"),
+							UnitsManager.GetString("iu.symbol"), UnitsManager.GetString("iu.desc"));
 					break;
 
-				case ANGSTROM:
+				case Unit.ANGSTROM:
 					// length
-					uom = createScalarUOM(UnitType.LENGTH, Unit.ANGSTROM, units.getString("angstrom.name"),
-							units.getString("angstrom.symbol"), units.getString("angstrom.desc"));
+					uom = CreateScalarUOM(UnitType.LENGTH, Unit.ANGSTROM, UnitsManager.GetString("angstrom.name"),
+							UnitsManager.GetString("angstrom.symbol"), UnitsManager.GetString("angstrom.desc"));
 					uom.setConversion(Quantity.createAmount("0.1"), getUOM(Prefix.NANO, getUOM(Unit.METRE)));
 					break;
 
-				case BIT:
+				case Unit.BIT:
 					// computer bit
-					uom = createScalarUOM(UnitType.COMPUTER_SCIENCE, Unit.BIT, units.getString("bit.name"),
-							units.getString("bit.symbol"), units.getString("bit.desc"));
+					uom = CreateScalarUOM(UnitType.COMPUTER_SCIENCE, Unit.BIT, UnitsManager.GetString("bit.name"),
+							UnitsManager.GetString("bit.symbol"), UnitsManager.GetString("bit.desc"));
 					break;
 
-				case BYTE:
+				case Unit.BYTE:
 					// computer byte
-					uom = createScalarUOM(UnitType.COMPUTER_SCIENCE, Unit.BYTE, units.getString("byte.name"),
-							units.getString("byte.symbol"), units.getString("byte.desc"));
+					uom = CreateScalarUOM(UnitType.COMPUTER_SCIENCE, Unit.BYTE, UnitsManager.GetString("byte.name"),
+							UnitsManager.GetString("byte.symbol"), UnitsManager.GetString("byte.desc"));
 					uom.setConversion(Quantity.createAmount("8"), getUOM(Unit.BIT));
 					break;
 
-				case WATTS_PER_SQ_METRE:
-					uom = createQuotientUOM(UnitType.IRRADIANCE, Unit.WATTS_PER_SQ_METRE, units.getString("wsm.name"),
-							units.getString("wsm.symbol"), units.getString("wsm.desc"), getUOM(Unit.WATT),
+				case Unit.WATTS_PER_SQ_METRE:
+					uom = createQuotientUOM(UnitType.IRRADIANCE, Unit.WATTS_PER_SQ_METRE, UnitsManager.GetString("wsm.name"),
+							UnitsManager.GetString("wsm.symbol"), UnitsManager.GetString("wsm.desc"), getUOM(Unit.WATT),
 							getUOM(Unit.SQUARE_METRE));
 					break;
 
-				case PARSEC:
-					uom = createScalarUOM(UnitType.LENGTH, Unit.PARSEC, units.getString("parsec.name"),
-							units.getString("parsec.symbol"), units.getString("parsec.desc"));
+				case Unit.PARSEC:
+					uom = CreateScalarUOM(UnitType.LENGTH, Unit.PARSEC, UnitsManager.GetString("parsec.name"),
+							UnitsManager.GetString("parsec.symbol"), UnitsManager.GetString("parsec.desc"));
 					uom.setConversion(Quantity.createAmount("3.08567758149137E+16"), getUOM(Unit.METRE));
 					break;
 
-				case ASTRONOMICAL_UNIT:
-					uom = createScalarUOM(UnitType.LENGTH, Unit.ASTRONOMICAL_UNIT, units.getString("au.name"),
-							units.getString("au.symbol"), units.getString("au.desc"));
+				case Unit.ASTRONOMICAL_UNIT:
+					uom = CreateScalarUOM(UnitType.LENGTH, Unit.ASTRONOMICAL_UNIT, UnitsManager.GetString("au.name"),
+							UnitsManager.GetString("au.symbol"), UnitsManager.GetString("au.desc"));
 					uom.setConversion(Quantity.createAmount("1.49597870700E+11"), getUOM(Unit.METRE));
 					break;
 
@@ -769,33 +771,62 @@ namespace CaliperSharp
 		{
 			String key = uom.Symbol;
 
-		// get first by symbol
-		UnitOfMeasure current = SymbolRegistry[key];
+			// get first by symbol
+			UnitOfMeasure current = SymbolRegistry[key];
 
-		if (current != null) {
-			// already cached
-			return;
+			if (current != null)
+			{
+				// already cached
+				return;
+			}
+
+			// cache it
+			SymbolRegistry[key] = uom;
+
+			// next by unit enumeration
+			Unit? id = uom.Unit;
+
+			if (id != null)
+			{
+				UnitRegistry[id.Value] = uom;
+			}
+
+			// finally by base symbol
+			key = uom.GetBaseSymbol();
+
+			if (BaseRegistry[key] == null)
+			{
+				BaseRegistry[key] = uom;
+			}
 		}
 
-		// cache it
-		SymbolRegistry[key] = uom;
+		/**
+ * Remove a unit from the cache
+ * 
+ * @param uom
+ *            {@link UnitOfMeasure} to remove
+ * @throws Exception
+ *             Exception
+ */
+		public void UnregisterUnit(UnitOfMeasure uom)
+		{
+			if (uom == null)
+			{
+				return;
+			}
 
-		// next by unit enumeration
-		Unit? id = uom.Unit;
+			lock (new object())
+			{
+				UnitOfMeasure removedUOM;
+				if (uom.Unit != null)
+				{
+					UnitRegistry.TryRemove(uom.Unit, out removedUOM);
+				}
 
-		if (id != null) {
-			UnitRegistry[id.Value] = uom;
+				// remove by symbol and base symbol
+				SymbolRegistry.TryRemove(uom.Symbol, out removedUOM);
+				BaseRegistry.TryRemove(uom.GetBaseSymbol(), out removedUOM);
+			}
 		}
-
-	// finally by base symbol
-	key = uom.GetBaseSymbol();
-
-		if (baseRegistry.get(key) == null) {
-			baseRegistry.put(key, uom);
-		}
-	}
-
-
-
 	}
 }
