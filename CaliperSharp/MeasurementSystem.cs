@@ -79,10 +79,10 @@ namespace CaliperSharp
 		private static readonly string UNIT_RESOURCE_NAME = "Unit";
 
 		// resource manager for exception messages
-		private static ResourceManager MessagesManager;
+		internal static ResourceManager MessagesManager;
 
 		// resource manager for units
-		private static ResourceManager UnitsManager;
+		internal static ResourceManager UnitsManager;
 
 		// standard unified system
 		private static MeasurementSystem UnifiedSystem = new MeasurementSystem();
@@ -1822,5 +1822,365 @@ namespace CaliperSharp
 				BaseRegistry.TryRemove(uom.GetBaseSymbol(), out removedUOM);
 			}
 		}
-	}
-}
+
+		/**
+ * Remove all cached units of measure
+ */
+		public void ClearCache()
+		{
+			SymbolRegistry.Clear();
+			BaseRegistry.Clear();
+			UnitRegistry.Clear();
+		}
+
+		/**
+ * Get all units currently cached by this measurement system
+ * 
+ * @return List of {@link UnitOfMeasure}
+ */
+		public List<UnitOfMeasure> GetRegisteredUnits()
+		{
+			ICollection<UnitOfMeasure> units = SymbolRegistry.Values;
+			List<UnitOfMeasure> list = new List<UnitOfMeasure>(units);
+			list.Sort();
+			return list;
+		}
+
+		/**
+ * Get all the units of measure of the specified type
+ * 
+ * @param type
+ *            {@link UnitType}
+ * @return List of {@link UnitOfMeasure}
+ * @throws Exception
+ *             Exception
+ */
+		public List<UnitOfMeasure> GetUnitsOfMeasure(UnitType type)
+		{
+			List<UnitOfMeasure> units = new List<UnitOfMeasure>();
+
+			switch (type)
+			{
+				case UnitType.LENGTH:
+					// SI
+					units.Add(GetUOM(Unit.METRE));
+					units.Add(GetUOM(Unit.ANGSTROM));
+					units.Add(GetUOM(Unit.PARSEC));
+					units.Add(GetUOM(Unit.ASTRONOMICAL_UNIT));
+
+					// customary
+					units.Add(GetUOM(Unit.FOOT));
+					units.Add(GetUOM(Unit.INCH));
+					units.Add(GetUOM(Unit.MIL));
+					units.Add(GetUOM(Unit.POINT));
+					units.Add(GetUOM(Unit.YARD));
+					units.Add(GetUOM(Unit.MILE));
+					units.Add(GetUOM(Unit.NAUTICAL_MILE));
+					units.Add(GetUOM(Unit.FATHOM));
+					break;
+
+				case UnitType.MASS:
+					// SI
+					units.Add(GetUOM(Unit.KILOGRAM));
+					units.Add(GetUOM(Unit.TONNE));
+					units.Add(GetUOM(Unit.CARAT));
+
+					// customary
+					units.Add(GetUOM(Unit.POUND_MASS));
+					units.Add(GetUOM(Unit.OUNCE));
+					units.Add(GetUOM(Unit.TROY_OUNCE));
+					units.Add(GetUOM(Unit.SLUG));
+					units.Add(GetUOM(Unit.GRAIN));
+
+					// US
+					units.Add(GetUOM(Unit.US_TON));
+
+					// British
+					units.Add(GetUOM(Unit.BR_TON));
+					break;
+
+				case UnitType.TIME:
+					units.Add(GetUOM(Unit.SECOND));
+					units.Add(GetUOM(Unit.MINUTE));
+					units.Add(GetUOM(Unit.HOUR));
+					units.Add(GetUOM(Unit.DAY));
+					units.Add(GetUOM(Unit.WEEK));
+					units.Add(GetUOM(Unit.JULIAN_YEAR));
+
+					break;
+
+				case UnitType.ACCELERATION:
+					units.Add(GetUOM(Unit.METRE_PER_SEC_SQUARED));
+					units.Add(GetUOM(Unit.FEET_PER_SEC_SQUARED));
+					break;
+
+				case UnitType.AREA:
+					// customary
+					units.Add(GetUOM(Unit.SQUARE_INCH));
+					units.Add(GetUOM(Unit.SQUARE_FOOT));
+					units.Add(GetUOM(Unit.SQUARE_YARD));
+					units.Add(GetUOM(Unit.ACRE));
+
+					// SI
+					units.Add(GetUOM(Unit.SQUARE_METRE));
+					units.Add(GetUOM(Unit.HECTARE));
+
+					break;
+
+				case UnitType.CATALYTIC_ACTIVITY:
+					units.Add(GetUOM(Unit.KATAL));
+					units.Add(GetUOM(Unit.UNIT));
+					break;
+
+				case UnitType.COMPUTER_SCIENCE:
+					units.Add(GetUOM(Unit.BIT));
+					units.Add(GetUOM(Unit.BYTE));
+					break;
+
+				case UnitType.DENSITY:
+					units.Add(GetUOM(Unit.KILOGRAM_PER_CU_METRE));
+					break;
+
+				case UnitType.DYNAMIC_VISCOSITY:
+					units.Add(GetUOM(Unit.PASCAL_SECOND));
+					break;
+
+				case UnitType.ELECTRIC_CAPACITANCE:
+					units.Add(GetUOM(Unit.FARAD));
+					break;
+
+				case UnitType.ELECTRIC_CHARGE:
+					units.Add(GetUOM(Unit.COULOMB));
+					break;
+
+				case UnitType.ELECTRIC_CONDUCTANCE:
+					units.Add(GetUOM(Unit.SIEMENS));
+					break;
+
+				case UnitType.ELECTRIC_CURRENT:
+					units.Add(GetUOM(Unit.AMPERE));
+					break;
+
+				case UnitType.ELECTRIC_FIELD_STRENGTH:
+					units.Add(GetUOM(Unit.AMPERE_PER_METRE));
+					break;
+
+				case UnitType.ELECTRIC_INDUCTANCE:
+					units.Add(GetUOM(Unit.HENRY));
+					break;
+
+				case UnitType.ELECTRIC_PERMITTIVITY:
+					units.Add(GetUOM(Unit.FARAD_PER_METRE));
+					break;
+
+				case UnitType.ELECTRIC_RESISTANCE:
+					units.Add(GetUOM(Unit.OHM));
+					break;
+
+				case UnitType.ELECTROMOTIVE_FORCE:
+					units.Add(GetUOM(Unit.VOLT));
+					break;
+
+				case UnitType.ENERGY:
+					// customary
+					units.Add(GetUOM(Unit.BTU));
+					units.Add(GetUOM(Unit.FOOT_POUND_FORCE));
+
+					// SI
+					units.Add(GetUOM(Unit.CALORIE));
+					units.Add(GetUOM(Unit.NEWTON_METRE));
+					units.Add(GetUOM(Unit.JOULE));
+					units.Add(GetUOM(Unit.WATT_HOUR));
+					units.Add(GetUOM(Unit.ELECTRON_VOLT));
+					break;
+
+				case UnitType.CURRENCY:
+					units.Add(GetUOM(Unit.US_DOLLAR));
+					units.Add(GetUOM(Unit.EURO));
+					units.Add(GetUOM(Unit.YUAN));
+					break;
+
+				case UnitType.FORCE:
+					// customary
+					units.Add(GetUOM(Unit.POUND_FORCE));
+
+					// SI
+					units.Add(GetUOM(Unit.NEWTON));
+					break;
+
+				case UnitType.FREQUENCY:
+					units.Add(GetUOM(Unit.REV_PER_MIN));
+					units.Add(GetUOM(Unit.HERTZ));
+					units.Add(GetUOM(Unit.RAD_PER_SEC));
+					break;
+
+				case UnitType.ILLUMINANCE:
+					units.Add(GetUOM(Unit.LUX));
+					break;
+
+				case UnitType.INTENSITY:
+					units.Add(GetUOM(Unit.DECIBEL));
+					break;
+
+				case UnitType.IRRADIANCE:
+					units.Add(GetUOM(Unit.WATTS_PER_SQ_METRE));
+					break;
+
+				case UnitType.KINEMATIC_VISCOSITY:
+					units.Add(GetUOM(Unit.SQUARE_METRE_PER_SEC));
+					break;
+
+				case UnitType.LUMINOSITY:
+					units.Add(GetUOM(Unit.CANDELA));
+					break;
+
+				case UnitType.LUMINOUS_FLUX:
+					units.Add(GetUOM(Unit.LUMEN));
+					break;
+
+				case UnitType.MAGNETIC_FLUX:
+					units.Add(GetUOM(Unit.WEBER));
+					break;
+
+				case UnitType.MAGNETIC_FLUX_DENSITY:
+					units.Add(GetUOM(Unit.TESLA));
+					break;
+
+				case UnitType.MASS_FLOW:
+					units.Add(GetUOM(Unit.KILOGRAM_PER_SEC));
+					break;
+
+				case UnitType.MOLAR_CONCENTRATION:
+					units.Add(GetUOM(Unit.PH));
+					break;
+
+				case UnitType.PLANE_ANGLE:
+					units.Add(GetUOM(Unit.DEGREE));
+					units.Add(GetUOM(Unit.RADIAN));
+					units.Add(GetUOM(Unit.ARC_SECOND));
+					break;
+
+				case UnitType.POWER:
+					units.Add(GetUOM(Unit.HP));
+					units.Add(GetUOM(Unit.WATT));
+					break;
+
+				case UnitType.PRESSURE:
+					// customary
+					units.Add(GetUOM(Unit.PSI));
+					units.Add(GetUOM(Unit.IN_HG));
+
+					// SI
+					units.Add(GetUOM(Unit.PASCAL));
+					units.Add(GetUOM(Unit.ATMOSPHERE));
+					units.Add(GetUOM(Unit.BAR));
+					break;
+
+				case UnitType.RADIATION_DOSE_ABSORBED:
+					units.Add(GetUOM(Unit.GRAY));
+					break;
+
+				case UnitType.RADIATION_DOSE_EFFECTIVE:
+					units.Add(GetUOM(Unit.SIEVERT));
+					break;
+
+				case UnitType.RADIATION_DOSE_RATE:
+					units.Add(GetUOM(Unit.SIEVERTS_PER_HOUR));
+					break;
+
+				case UnitType.RADIOACTIVITY:
+					units.Add(GetUOM(Unit.BECQUEREL));
+					break;
+
+				case UnitType.RECIPROCAL_LENGTH:
+					units.Add(GetUOM(Unit.DIOPTER));
+					break;
+
+				case UnitType.SOLID_ANGLE:
+					units.Add(GetUOM(Unit.STERADIAN));
+					break;
+
+				case UnitType.SUBSTANCE_AMOUNT:
+					units.Add(GetUOM(Unit.MOLE));
+					units.Add(GetUOM(Unit.EQUIVALENT));
+					units.Add(GetUOM(Unit.INTERNATIONAL_UNIT));
+					break;
+
+				case UnitType.TEMPERATURE:
+					// customary
+					units.Add(GetUOM(Unit.RANKINE));
+					units.Add(GetUOM(Unit.FAHRENHEIT));
+
+					// SI
+					units.Add(GetUOM(Unit.KELVIN));
+					units.Add(GetUOM(Unit.CELSIUS));
+					break;
+
+				case UnitType.TIME_SQUARED:
+					units.Add(GetUOM(Unit.SQUARE_SECOND));
+					break;
+
+				case UnitType.UNCLASSIFIED:
+					break;
+
+				case UnitType.UNITY:
+					units.Add(GetUOM(Unit.ONE));
+					units.Add(GetUOM(Unit.PERCENT));
+					break;
+
+				case UnitType.VELOCITY:
+					// customary
+					units.Add(GetUOM(Unit.FEET_PER_SEC));
+					units.Add(GetUOM(Unit.MILES_PER_HOUR));
+					units.Add(GetUOM(Unit.KNOT));
+
+					// SI
+					units.Add(GetUOM(Unit.METRE_PER_SEC));
+					break;
+
+				case UnitType.VOLUME:
+					// British
+					units.Add(GetUOM(Unit.BR_BUSHEL));
+					units.Add(GetUOM(Unit.BR_CUP));
+					units.Add(GetUOM(Unit.BR_FLUID_OUNCE));
+					units.Add(GetUOM(Unit.BR_GALLON));
+					units.Add(GetUOM(Unit.BR_PINT));
+					units.Add(GetUOM(Unit.BR_QUART));
+					units.Add(GetUOM(Unit.BR_TABLESPOON));
+					units.Add(GetUOM(Unit.BR_TEASPOON));
+
+					// customary
+					units.Add(GetUOM(Unit.CUBIC_FOOT));
+					units.Add(GetUOM(Unit.CUBIC_YARD));
+					units.Add(GetUOM(Unit.CUBIC_INCH));
+					units.Add(GetUOM(Unit.CORD));
+
+					// SI
+					units.Add(GetUOM(Unit.CUBIC_METRE));
+					units.Add(GetUOM(Unit.LITRE));
+
+					// US
+					units.Add(GetUOM(Unit.US_BARREL));
+					units.Add(GetUOM(Unit.US_BUSHEL));
+					units.Add(GetUOM(Unit.US_CUP));
+					units.Add(GetUOM(Unit.US_FLUID_OUNCE));
+					units.Add(GetUOM(Unit.US_GALLON));
+					units.Add(GetUOM(Unit.US_PINT));
+					units.Add(GetUOM(Unit.US_QUART));
+					units.Add(GetUOM(Unit.US_TABLESPOON));
+					units.Add(GetUOM(Unit.US_TEASPOON));
+					break;
+
+				case UnitType.VOLUMETRIC_FLOW:
+					units.Add(GetUOM(Unit.CUBIC_METRE_PER_SEC));
+					units.Add(GetUOM(Unit.CUBIC_FEET_PER_SEC));
+					break;
+
+				default:
+					break;
+			}
+
+			return units;
+		}
+	} // end MeasurementSystem
+} // end namespace

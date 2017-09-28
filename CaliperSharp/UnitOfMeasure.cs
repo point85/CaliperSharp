@@ -1115,6 +1115,85 @@ namespace CaliperSharp
 			}
 		}
 
+		/**
+ * Remove all cached conversions
+ */
+		public void ClearCache()
+		{
+			ConversionRegistry.Clear();
+		}
+
+		/**
+ * Get the unit of measure corresponding to the base symbol
+ * 
+ * @return {@link UnitOfMeasure}
+ * @throws Exception
+ *             Exception
+ */
+		public UnitOfMeasure GetBaseUOM()
+		{
+			string baseSymbol = GetBaseSymbol();
+			return MeasurementSystem.GetSystem().GetBaseUOM(baseSymbol);
+		}
+
+		/**
+ * Get the base unit of measure for the power
+ * 
+ * @return {@link UnitOfMeasure}
+ */
+		public UnitOfMeasure GetPowerBase()
+		{
+			return UOM1;
+		}
+
+		/**
+ * Create a String representation of this unit of measure
+ * 
+ * @return String representation
+ */
+		public override string ToString()
+		{
+			StringBuilder sb = new StringBuilder();
+
+			// type
+			sb.Append(MeasurementSystem.UnitsManager.GetString("unit.type.text")).Append(' ').Append(UOMType.ToString()).Append(", ");
+
+			// unit enumeration
+			if (UnitEnumeration.HasValue)
+			{
+				sb.Append(MeasurementSystem.UnitsManager.GetString("enum.text")).Append(' ').Append(UnitEnumeration.ToString()).Append(", ");
+			}
+
+			// symbol
+			sb.Append(MeasurementSystem.UnitsManager.GetString("symbol.text")).Append(' ').Append(Symbol);
+			sb.Append(", ").Append(MeasurementSystem.UnitsManager.GetString("conversion.text")).Append(' ');
+
+			// scaling factor
+			if (ScalingFactor.CompareTo(decimal.One) != 0)
+			{
+				sb.Append(ScalingFactor.ToString()).Append(MULT);
+			}
+
+			// abscissa unit
+			if (AbscissaUnit != null)
+			{
+				sb.Append(AbscissaUnit.Symbol);
+			}
+
+			// offset
+			if (Offset.CompareTo(decimal.Zero) != 0)
+			{
+				sb.Append(" + ").Append(Offset.ToString());
+			}
+
+			sb.Append(", ").Append(MeasurementSystem.UnitsManager.GetString("base.text")).Append(' ');
+
+			// base symbol
+			sb.Append(GetBaseSymbol());
+
+			return sb.ToString();
+		}
+
 		// reduce a unit of measure to its most basic scalar units of measure.
 		private class Reducer
 		{
