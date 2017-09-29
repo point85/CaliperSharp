@@ -85,20 +85,11 @@ namespace org.point85.uom
 		//
 		public static readonly Prefix GIBI = new Prefix("gibi", "Gi", 1.073741824E+09);
 
-		// name
-		//private String prefixName;
-
-		// symbol
-		//private String symbol;
-
-		// Decimal factor
-		//private Decimal decimalFactor;
-
 		public Prefix(string prefixName, string symbol, double factor)
 		{
-			this.Name = prefixName;
-			this.Symbol = symbol;
-			this.Factor = new Decimal(factor);
+			Name = prefixName;
+			Symbol = symbol;
+			Factor = factor;
 
 			prefixes.Add(this);
 		}
@@ -123,7 +114,7 @@ namespace org.point85.uom
 		 * 
 		 * @return Scaling factor
 		 */
-		public decimal Factor { get; set; }
+		public double Factor { get; set; }
 
 		/**
 		 * Find the prefix with the specified name
@@ -155,7 +146,7 @@ namespace org.point85.uom
 		 *            Scaling factor
 		 * @return {@link Prefix}
 		 */
-		public static Prefix FromFactor(decimal factor)
+		public static Prefix FromFactor(double factor)
 		{
 			Prefix prefix = null;
 

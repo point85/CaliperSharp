@@ -30,9 +30,9 @@ namespace org.point85.uom
  * The Quantity class represents an amount and {@link UnitOfMeasure}. A constant
  * quantity can be named and given a symbol, e.g. the speed of light.
  * <p>
- * The amount is expressed as a decimal in order to control the precision of
+ * The amount is expressed as a double in order to control the precision of
  * floating point arithmetic. A MathContext is used with a precision setting
- * matching the IEEE 754R Decimal64 format, 16 digits, and a rounding mode of
+ * matching the IEEE 754R double64 format, 16 digits, and a rounding mode of
  * HALF_EVEN, the IEEE 754R default.
  * </p>
  * 
@@ -42,7 +42,7 @@ namespace org.point85.uom
 	public class Quantity : Symbolic
 	{
 		// the amount
-		public decimal Amount { get; set; }
+		public double Amount { get; set; }
 
 		// and its unit of measure
 		public UnitOfMeasure UOM { get; set; }
@@ -62,7 +62,7 @@ namespace org.point85.uom
 		 * @param uom
 		 *            {@link UnitOfMeasure}
 		 */
-		public Quantity(decimal amount, UnitOfMeasure uom)
+		public Quantity(double amount, UnitOfMeasure uom)
 		{
 			Amount = amount;
 			UOM = uom;
@@ -79,7 +79,7 @@ namespace org.point85.uom
 		 *            {@link Unit}
 		 * @ Exception
 		 */
-		public Quantity(decimal amount, Prefix prefix, Unit unit) : this(amount, MeasurementSystem.GetSystem().GetUOM(prefix, unit))
+		public Quantity(double amount, Prefix prefix, Unit unit) : this(amount, MeasurementSystem.GetSystem().GetUOM(prefix, unit))
 		{
 		}
 
@@ -93,11 +93,13 @@ namespace org.point85.uom
 		 * @
 		 *             Exception
 		 */
+		 /*
 		public Quantity(string amount, UnitOfMeasure uom)
 		{
 			Amount = CreateAmount(amount);
 			UOM = uom;
 		}
+		*/
 
 		/**
 		 * Create a quantity with an amount and unit
@@ -109,7 +111,7 @@ namespace org.point85.uom
 		 * @
 		 *             Exception
 		 */
-		public Quantity(decimal amount, Unit unit) : this(amount, MeasurementSystem.GetSystem().GetUOM(unit))
+		public Quantity(double amount, Unit unit) : this(amount, MeasurementSystem.GetSystem().GetUOM(unit))
 		{
 		}
 
@@ -123,9 +125,11 @@ namespace org.point85.uom
 		 * @
 		 *             Exception
 		 */
+		 /*
 		public Quantity(string amount, Unit unit) : this(CreateAmount(amount), MeasurementSystem.GetSystem().GetUOM(unit))
 		{
 		}
+		*/
 
 		/**
 		 * Create a hash code
@@ -173,7 +177,7 @@ namespace org.point85.uom
 		 * @
 		 *             Exception
 		 */
-		public static decimal CreateAmount(string value)
+		public static double CreateAmount(string value)
 		{
 			// use string constructor for exact precision with rounding mode in math
 			// context
@@ -181,7 +185,7 @@ namespace org.point85.uom
 			{
 				throw new Exception(MeasurementSystem.GetMessage("amount.cannot.be.null"));
 			}
-			return System.Convert.ToDecimal(value);
+			return System.Convert.ToDouble(value);
 		}
 
 		/**
@@ -192,36 +196,9 @@ namespace org.point85.uom
 		 *            Value
 		 * @return Amount
 		 */
-		public static decimal CreateAmount(ValueType number)
+		public static double CreateAmount(decimal number)
 		{
-			decimal result = 0;
-
-			if (number is decimal)
-			{
-				result = (decimal)number;
-			}
-			else if (number is int)
-			{
-				result = new decimal((int)number);
-			}
-			else if (number is double)
-			{
-				result = new decimal((double)number);
-			}
-			else if (number is float)
-			{
-				result = new decimal((float)number);
-			}
-			else if (number is long)
-			{
-				result = new decimal((long)number);
-			}
-			else if (number is short)
-			{
-				result = new decimal((short)number);
-			}
-
-			return result;
+			return decimal.ToDouble(number);
 		}
 
 		/**
@@ -235,12 +212,14 @@ namespace org.point85.uom
 		 * @
 		 *             Exception
 		 */
-		static public decimal DivideAmounts(string dividendAmount, string divisorAmount)
+		 /*
+		static public double DivideAmounts(string dividendAmount, string divisorAmount)
 		{
-			decimal dividend = Quantity.CreateAmount(dividendAmount);
-			decimal divisor = Quantity.CreateAmount(divisorAmount);
-			return UnitOfMeasure.DecimalDivide(dividend, divisor);
+			double dividend = Quantity.CreateAmount(dividendAmount);
+			double divisor = Quantity.CreateAmount(divisorAmount);
+			return dividend / divisor;
 		}
+		*/
 
 		/**
 		 * Create an amount by multiplying two amounts represented by strings
@@ -253,12 +232,14 @@ namespace org.point85.uom
 		 * @
 		 *             Exception
 		 */
-		static public decimal MultiplyAmounts(string multiplierAmount, string multiplicandAmount)
+		 /*
+		static public double MultiplyAmounts(string multiplierAmount, string multiplicandAmount)
 		{
-			decimal multiplier = Quantity.CreateAmount(multiplierAmount);
-			decimal multiplicand = Quantity.CreateAmount(multiplicandAmount);
-			return UnitOfMeasure.DecimalMultiply(multiplier, multiplicand);
+			double multiplier = Quantity.CreateAmount(multiplierAmount);
+			double multiplicand = Quantity.CreateAmount(multiplicandAmount);
+			return multiplier * multiplicand;
 		}
+		*/
 
 		/**
 		 * Subtract a quantity from this quantity
@@ -272,7 +253,7 @@ namespace org.point85.uom
 		public Quantity Subtract(Quantity other)
 		{
 			Quantity toSubtract = other.Convert(UOM);
-			decimal amount = UnitOfMeasure.DecimalSubtract(Amount, toSubtract.Amount);
+			double amount = Amount - toSubtract.Amount;
 			Quantity quantity = new Quantity(amount, this.UOM);
 			return quantity;
 		}
@@ -289,7 +270,7 @@ namespace org.point85.uom
 		public Quantity Add(Quantity other)
 		{
 			Quantity toAdd = other.Convert(UOM);
-			decimal amount = UnitOfMeasure.DecimalAdd(Amount, toAdd.Amount);
+			double amount = Amount + toAdd.Amount;
 			Quantity quantity = new Quantity(amount, this.UOM);
 			return quantity;
 		}
@@ -307,7 +288,7 @@ namespace org.point85.uom
 		{
 			Quantity toDivide = other;
 
-			decimal amount = UnitOfMeasure.DecimalDivide(Amount, toDivide.Amount);
+			double amount = Amount / toDivide.Amount;
 			UnitOfMeasure newUOM = UOM.Divide(toDivide.UOM);
 
 			Quantity quantity = new Quantity(amount, newUOM);
@@ -323,9 +304,9 @@ namespace org.point85.uom
 		 * @
 		 *             Exception
 		 */
-		public Quantity Divide(decimal divisor)
+		public Quantity Divide(double divisor)
 		{
-			decimal amount = UnitOfMeasure.DecimalDivide(Amount, divisor);
+			double amount = Amount / divisor;
 			Quantity quantity = new Quantity(amount, UOM);
 			return quantity;
 		}
@@ -343,7 +324,7 @@ namespace org.point85.uom
 		{
 			Quantity toMultiply = other;
 
-			decimal amount = UnitOfMeasure.DecimalMultiply(Amount, toMultiply.Amount);
+			double amount = Amount * toMultiply.Amount;
 			UnitOfMeasure newUOM = UOM.Multiply(toMultiply.UOM);
 
 			Quantity quantity = new Quantity(amount, newUOM);
@@ -361,7 +342,7 @@ namespace org.point85.uom
 		 */
 		public Quantity Power(int exponent)
 		{
-			decimal amount = UnitOfMeasure.DecimalPower(Amount, exponent);
+			double amount = Math.Pow(Amount, exponent);
 			UnitOfMeasure newUOM = MeasurementSystem.GetSystem().CreatePowerUOM(UOM, exponent);
 
 			Quantity quantity = new Quantity(amount, newUOM);
@@ -377,9 +358,9 @@ namespace org.point85.uom
 		 * @
 		 *             Exception
 		 */
-		public Quantity Multiply(decimal multiplier)
+		public Quantity Multiply(double multiplier)
 		{
-			decimal amount = UnitOfMeasure.DecimalMultiply(Amount, multiplier);
+			double amount = Amount * multiplier;
 			Quantity quantity = new Quantity(amount, UOM);
 			return quantity;
 		}
@@ -394,7 +375,7 @@ namespace org.point85.uom
 		 */
 		public Quantity Invert()
 		{
-			decimal amount = UnitOfMeasure.DecimalDivide(decimal.One, Amount);
+			double amount = 1 / Amount;
 			UnitOfMeasure uom = UOM.Invert();
 
 			Quantity quantity = new Quantity(amount, uom);
@@ -412,18 +393,18 @@ namespace org.point85.uom
 		 */
 		public Quantity Convert(UnitOfMeasure toUOM)
 		{
-			decimal multiplier = UOM.GetConversionFactor(toUOM);
-			decimal thisOffset = UOM.Offset;
-			decimal targetOffset = toUOM.Offset;
+			double multiplier = UOM.GetConversionFactor(toUOM);
+			double thisOffset = UOM.Offset;
+			double targetOffset = toUOM.Offset;
 
 			// adjust for a non-zero "this" offset
-			decimal offsetAmount = UnitOfMeasure.DecimalAdd(Amount, thisOffset);
+			double offsetAmount = Amount + thisOffset;
 
 			// new path amount
-			decimal newAmount = UnitOfMeasure.DecimalMultiply(offsetAmount, multiplier);
+			double newAmount = offsetAmount * multiplier;
 
 			// adjust for non-zero target offset
-			newAmount = UnitOfMeasure.DecimalSubtract(newAmount, targetOffset);
+			newAmount = newAmount - targetOffset;
 
 			// create the quantity now
 			return new Quantity(newAmount, toUOM);

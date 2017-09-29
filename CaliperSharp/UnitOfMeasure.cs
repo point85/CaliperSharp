@@ -75,7 +75,7 @@ namespace org.point85.uom
  * @author Kent Randall
  *
  */
-	public sealed class UnitOfMeasure : Symbolic, IComparable<UnitOfMeasure>
+	public class UnitOfMeasure : Symbolic, IComparable<UnitOfMeasure>
 	{
 		// UOM types
 		public enum MeasurementType
@@ -97,17 +97,17 @@ namespace org.point85.uom
 		internal const char ONE_CHAR = '1';
 
 		// registry of unit conversion factor
-		private Dictionary<UnitOfMeasure, decimal> ConversionRegistry = new Dictionary<UnitOfMeasure, decimal>();
+		private Dictionary<UnitOfMeasure, double> ConversionRegistry = new Dictionary<UnitOfMeasure, double>();
 
 		// conversion to another Unit of Measure in the same recognized measurement
 		// system (y = ax + b)
 		// scaling factor (a)
-		//private decimal ScalingFactor;
-		public decimal ScalingFactor { get; set; }
+		//private double ScalingFactor;
+		public double ScalingFactor { get; set; }
 
 		// offset (b)
-		//private decimal offset;
-		public decimal Offset { get; set; }
+		//private double offset;
+		public double Offset { get; set; }
 
 		// x-axis unit
 		//private UnitOfMeasure abscissaUnit;
@@ -120,10 +120,10 @@ namespace org.point85.uom
 		public UnitType UOMType { get; set; } = UnitType.UNCLASSIFIED;
 
 		// conversion to another Unit of Measure in a different measurement system
-		public decimal BridgeScalingFactor { get; set; }
+		public double BridgeScalingFactor { get; set; }
 
 		// offset (b)
-		public decimal BridgeOffset { get; set; }
+		public double BridgeOffset { get; set; }
 
 		// x-axis unit
 		public UnitOfMeasure BridgeAbscissaUnit { get; set; }
@@ -152,7 +152,6 @@ namespace org.point85.uom
  */
 		public UnitOfMeasure() : base()
 		{
-
 		}
 
 		internal UnitOfMeasure(UnitType type, string name, string symbol, string description) : base(name, symbol, description)
@@ -285,7 +284,7 @@ namespace org.point85.uom
 		{
 			if (baseUOM == null)
 			{
-				String msg = String.Format(MeasurementSystem.GetMessage("base.cannot.be.null"), Symbol);
+				string msg = String.Format(MeasurementSystem.GetMessage("base.cannot.be.null"), Symbol);
 				throw new Exception(msg);
 			}
 			SetPowerProduct(baseUOM, exponent);
@@ -299,7 +298,7 @@ namespace org.point85.uom
 			return Environment.TickCount.ToString("X");
 		}
 
-		internal static String GeneratePowerSymbol(UnitOfMeasure baseUOM, int exponent)
+		internal static string GeneratePowerSymbol(UnitOfMeasure baseUOM, int exponent)
 		{
 			StringBuilder sb = new StringBuilder();
 			sb.Append(baseUOM.Symbol).Append(POW).Append(exponent);
@@ -355,7 +354,7 @@ namespace org.point85.uom
 			}
 
 			newUOM.SetPowerUnit(uom, exponent);
-			String symbol = UnitOfMeasure.GeneratePowerSymbol(uom, exponent);
+			string symbol = UnitOfMeasure.GeneratePowerSymbol(uom, exponent);
 			newUOM.Symbol = symbol;
 			newUOM.Name = symbol;
 
@@ -372,7 +371,7 @@ namespace org.point85.uom
 			{
 				if (uom2.Equals(one))
 				{
-					String msg = String.Format(MeasurementSystem.GetMessage("incompatible.units"), this, one);
+					string msg = String.Format(MeasurementSystem.GetMessage("incompatible.units"), this, one);
 					throw new Exception(msg);
 				}
 				invert = true;
@@ -381,7 +380,7 @@ namespace org.point85.uom
 			{
 				if (uom1.Equals(one) || uom2.Equals(one))
 				{
-					String msg = String.Format(MeasurementSystem.GetMessage("incompatible.units"), this, one);
+					string msg = String.Format(MeasurementSystem.GetMessage("incompatible.units"), this, one);
 					throw new Exception(msg);
 				}
 			}
@@ -394,9 +393,9 @@ namespace org.point85.uom
 
 		private void CheckOffset(UnitOfMeasure other)
 		{
-			if (other.Offset.CompareTo(decimal.Zero) != 0)
+			if (other.Offset.CompareTo(0) != 0)
 			{
-				String msg = String.Format(MeasurementSystem.GetMessage("offset.not.supported"), other.ToString());
+				string msg = String.Format(MeasurementSystem.GetMessage("offset.not.supported"), other.ToString());
 				throw new Exception(msg);
 			}
 		}
@@ -415,13 +414,13 @@ namespace org.point85.uom
 		{
 			if (multiplier == null)
 			{
-				String msg = String.Format(MeasurementSystem.GetMessage("multiplier.cannot.be.null"), Symbol);
+				string msg = String.Format(MeasurementSystem.GetMessage("multiplier.cannot.be.null"), Symbol);
 				throw new Exception(msg);
 			}
 
 			if (multiplicand == null)
 			{
-				String msg = String.Format(MeasurementSystem.GetMessage("multiplicand.cannot.be.null"), Symbol);
+				string msg = String.Format(MeasurementSystem.GetMessage("multiplicand.cannot.be.null"), Symbol);
 				throw new Exception(msg);
 			}
 
@@ -443,13 +442,13 @@ namespace org.point85.uom
 			if (dividend == null)
 			{
 
-				String msg = String.Format(MeasurementSystem.GetMessage("dividend.cannot.be.null"), Symbol);
+				string msg = String.Format(MeasurementSystem.GetMessage("dividend.cannot.be.null"), Symbol);
 				throw new Exception(msg);
 			}
 
 			if (divisor == null)
 			{
-				String msg = String.Format(MeasurementSystem.GetMessage("divisor.cannot.be.null"), Symbol);
+				string msg = String.Format(MeasurementSystem.GetMessage("divisor.cannot.be.null"), Symbol);
 				throw new Exception(msg);
 			}
 
@@ -486,12 +485,12 @@ namespace org.point85.uom
 			// this base symbol map
 			Reducer thisPowerMap = GetBaseMap();
 			Dictionary<UnitOfMeasure, int> thisMap = thisPowerMap.Terms;
-			decimal thisFactor = thisPowerMap.MapScalingFactor;
+			double thisFactor = thisPowerMap.MapScalingFactor;
 
 			// other base symbol map
 			Reducer otherPowerMap = other.GetBaseMap();
 			Dictionary<UnitOfMeasure, int> otherMap = otherPowerMap.Terms;
-			decimal otherFactor = otherPowerMap.MapScalingFactor;
+			double otherFactor = otherPowerMap.MapScalingFactor;
 
 			// create a map of the unit of measure powers
 			Dictionary<UnitOfMeasure, int> resultMap = new Dictionary<UnitOfMeasure, int>();
@@ -548,20 +547,20 @@ namespace org.point85.uom
 			Reducer resultPowerMap = new Reducer();
 			resultPowerMap.Terms = resultMap;
 
-			String baseSymbol = resultPowerMap.BuildBaseString();
+			string baseSymbol = resultPowerMap.BuildBaseString();
 			UnitOfMeasure baseUOM = MeasurementSystem.GetSystem().GetBaseUOM(baseSymbol);
 
 			if (baseUOM != null)
 			{
 				// there is a conversion to the base UOM
-				decimal resultFactor;
+				double resultFactor;
 				if (!invert)
 				{
-					resultFactor = DecimalMultiply(thisFactor, otherFactor);
+					resultFactor = thisFactor * otherFactor;
 				}
 				else
 				{
-					resultFactor = DecimalDivide(thisFactor, otherFactor);
+					resultFactor = thisFactor / otherFactor;
 				}
 				result.ScalingFactor = resultFactor;
 				result.AbscissaUnit = baseUOM;
@@ -634,76 +633,82 @@ namespace org.point85.uom
 			return MultiplyOrDivide(divisor, true);
 		}
 
-		// this method is for optimization of decimal addition
-		internal static decimal DecimalAdd(decimal a, decimal b)
+		// this method is for optimization of double addition
+		/*
+		internal static double DoubleAdd(double a, double b)
 		{
-			decimal value;
+			double value;
 
-			if (b.CompareTo(decimal.Zero) == 0)
+			if (b.CompareTo(0) == 0)
 			{
 				value = a;
 			}
 			else
 			{
-				value = decimal.Add(a, b);
+				value = a + b;
 			}
 
 			return value;
 		}
-
-		// this method is for optimization of decimal subtraction
-		internal static decimal DecimalSubtract(decimal a, decimal b)
+		*/
+		/*
+		// this method is for optimization of double subtraction
+		internal static double DoubleSubtract(double a, double b)
 		{
-			decimal value;
+			double value;
 
-			if (b.CompareTo(decimal.Zero) == 0)
+			if (b.CompareTo(0) == 0)
 			{
 				value = a;
 			}
 			else
 			{
-				value = decimal.Subtract(a, b);
+				value = a - b;
 			}
 
 			return value;
 		}
-
-		// this method is for optimization of decimal multiplication
-		internal static decimal DecimalMultiply(decimal a, decimal b)
+		*/
+		/*
+		// this method is for optimization of double multiplication
+		internal static double DoubleMultiply(double a, double b)
 		{
-			decimal value;
+			double value;
 
-			if (b.CompareTo(decimal.One) == 0)
+			if (b.CompareTo(1) == 0)
 			{
 				value = a;
 			}
 			else
 			{
-				value = decimal.Multiply(a, b);
+				value = a * b;
 			}
 			return value;
 		}
-
-		// this method is for optimization of decimal division
-		internal static decimal DecimalDivide(decimal a, decimal b)
+		*/
+		/*
+		// this method is for optimization of double division
+		internal static double DoubleDivide(double a, double b)
 		{
-			decimal value;
+			double value;
 
-			if (b.CompareTo(decimal.One) == 0)
+			if (b.CompareTo(1) == 0)
 			{
 				value = a;
 			}
 			else
 			{
-				value = decimal.Divide(a, b);
+				value = a / b;
 			}
 			return value;
 		}
+		*/
 
-		// this method is for optimization of decimal exponentiation
-		internal static decimal DecimalPower(decimal powerBase, int exponent)
+			/*
+		// this method is for optimization of double exponentiation
+		internal static double DoublePower(double powerBase, int exponent)
 		{
-			decimal value;
+			double value;
 
 			if (exponent == 1)
 			{
@@ -711,14 +716,15 @@ namespace org.point85.uom
 			}
 			else if (exponent == 0)
 			{
-				value = decimal.One;
+				value = 1;
 			}
 			else
 			{
-				value = (decimal)Math.Pow((double)powerBase, exponent);
+				value = (double)Math.Pow((double)powerBase, exponent);
 			}
 			return value;
 		}
+		*/
 
 		/**
  * Define a conversion with the specified scaling factor, abscissa unit of
@@ -733,7 +739,7 @@ namespace org.point85.uom
  * @
  *             Exception
  */
-		public void SetConversion(decimal scalingFactor, UnitOfMeasure abscissaUnit, decimal offset)
+		public void SetConversion(double scalingFactor, UnitOfMeasure abscissaUnit, double offset)
 		{
 			if (abscissaUnit == null)
 			{
@@ -743,7 +749,7 @@ namespace org.point85.uom
 			// self conversion is special
 			if (this.Equals(abscissaUnit))
 			{
-				if (scalingFactor.CompareTo(decimal.One) != 0 || offset.CompareTo(decimal.Zero) != 0)
+				if (scalingFactor.CompareTo(1) != 0 || offset.CompareTo(0) != 0)
 				{
 					throw new Exception(MeasurementSystem.GetMessage("conversion.not.allowed"));
 				}
@@ -772,7 +778,7 @@ namespace org.point85.uom
 		 */
 		public void SetConversion(UnitOfMeasure abscissaUnit)
 		{
-			this.SetConversion(decimal.One, abscissaUnit, decimal.Zero);
+			this.SetConversion(1, abscissaUnit, 0);
 		}
 
 		/**
@@ -786,9 +792,9 @@ namespace org.point85.uom
 		 * @
 		 *             Exception
 		 */
-		public void SetConversion(decimal scalingFactor, UnitOfMeasure abscissaUnit)
+		public void SetConversion(double scalingFactor, UnitOfMeasure abscissaUnit)
 		{
-			this.SetConversion(scalingFactor, abscissaUnit, decimal.Zero);
+			this.SetConversion(scalingFactor, abscissaUnit, 0);
 		}
 
 		/**
@@ -839,8 +845,8 @@ namespace org.point85.uom
 			}
 
 			// same abscissa unit symbols
-			String thisSymbol = AbscissaUnit.Symbol;
-			String otherSymbol = otherUnit.AbscissaUnit.Symbol;
+			string thisSymbol = AbscissaUnit.Symbol;
+			string otherSymbol = otherUnit.AbscissaUnit.Symbol;
 
 			if (!thisSymbol.Equals(otherSymbol))
 			{
@@ -869,7 +875,13 @@ namespace org.point85.uom
 		*            unit of measure
 		* @return -1 if less than, 0 if equal and 1 if greater than
 */
-		int IComparable<UnitOfMeasure>.CompareTo(UnitOfMeasure other)
+		public int CompareTo(UnitOfMeasure other)
+		{
+			//return Symbol.CompareTo(other.Symbol);
+			return Compare(other);
+		}
+
+		protected int Compare(UnitOfMeasure other)
 		{
 			return Symbol.CompareTo(other.Symbol);
 		}
@@ -882,18 +894,18 @@ namespace org.point85.uom
 			if (thisType != UnitType.UNCLASSIFIED && targetType != UnitType.UNCLASSIFIED && !thisType.Equals(UnitType.UNITY)
 					&& !targetType.Equals(UnitType.UNITY) && !thisType.Equals(targetType))
 			{
-				String msg = String.Format(MeasurementSystem.GetMessage("must.be.same.as"), uom1, uom1.UOMType,
+				string msg = String.Format(MeasurementSystem.GetMessage("must.be.same.as"), uom1, uom1.UOMType,
 						uom2, uom2.UOMType);
 				throw new Exception(msg);
 			}
 		}
 
-		private decimal ConvertScalarToScalar(UnitOfMeasure targetUOM)
+		private double ConvertScalarToScalar(UnitOfMeasure targetUOM)
 		{
 			UnitOfMeasure thisAbscissa = AbscissaUnit;
-			decimal thisFactor = ScalingFactor;
+			double thisFactor = ScalingFactor;
 
-			decimal scalingFactor;
+			double scalingFactor;
 
 			if (thisAbscissa.Equals(targetUOM))
 			{
@@ -911,14 +923,14 @@ namespace org.point85.uom
 		private PathParameters TraversePath()
 		{
 			UnitOfMeasure pathUOM = this;
-			decimal pathFactor = decimal.One;
+			double pathFactor = 1;
 
 			while (true)
 			{
-				decimal scalingFactor = pathUOM.ScalingFactor;
+				double scalingFactor = pathUOM.ScalingFactor;
 				UnitOfMeasure abscissa = pathUOM.AbscissaUnit;
 
-				pathFactor = DecimalMultiply(pathFactor, scalingFactor);
+				pathFactor = pathFactor * scalingFactor;
 
 				if (pathUOM.Equals(abscissa))
 				{
@@ -932,9 +944,9 @@ namespace org.point85.uom
 			return new PathParameters(pathUOM, pathFactor);
 		}
 
-		private decimal GetBridgeFactor(UnitOfMeasure uom)
+		private double GetBridgeFactor(UnitOfMeasure uom)
 		{
-			decimal factor = decimal.One;
+			double factor = 1;
 
 			// check for our bridge
 			if (BridgeAbscissaUnit != null)
@@ -950,7 +962,7 @@ namespace org.point85.uom
 
 					if (toUOM.Equals(this))
 					{
-						factor = DecimalDivide(decimal.One, uom.BridgeScalingFactor);
+						factor = (double)1 / uom.BridgeScalingFactor;
 					}
 				}
 			}
@@ -958,28 +970,28 @@ namespace org.point85.uom
 			return factor;
 		}
 
-		private decimal ConvertUnit(UnitOfMeasure targetUOM)
+		private double ConvertUnit(UnitOfMeasure targetUOM)
 		{
 			// get path factors in each system
 			PathParameters thisParameters = TraversePath();
 			PathParameters targetParameters = targetUOM.TraversePath();
 
-			decimal thisPathFactor = thisParameters.PathFactor;
+			double thisPathFactor = thisParameters.PathFactor;
 			UnitOfMeasure thisBase = thisParameters.PathUOM;
 
-			decimal targetPathFactor = targetParameters.PathFactor;
+			double targetPathFactor = targetParameters.PathFactor;
 			UnitOfMeasure targetBase = targetParameters.PathUOM;
 
 			// check for a base conversion unit bridge
-			decimal? bridgeFactor = thisBase.GetBridgeFactor(targetBase);
+			double? bridgeFactor = thisBase.GetBridgeFactor(targetBase);
 
 			if (bridgeFactor.HasValue)
 			{
-				thisPathFactor = DecimalMultiply(thisPathFactor, bridgeFactor.Value);
+				thisPathFactor = thisPathFactor * bridgeFactor.Value;
 			}
 
 			// new path amount
-			decimal scalingFactor = DecimalDivide(thisPathFactor, targetPathFactor);
+			double scalingFactor = thisPathFactor / targetPathFactor;
 
 			return scalingFactor;
 		}
@@ -993,7 +1005,7 @@ namespace org.point85.uom
 		* @
 		*             Exception
 */
-		public decimal GetConversionFactor(UnitOfMeasure targetUOM)
+		public double GetConversionFactor(UnitOfMeasure targetUOM)
 		{
 			if (targetUOM == null)
 			{
@@ -1001,7 +1013,7 @@ namespace org.point85.uom
 			}
 
 			// first check the cache
-			decimal cachedFactor;
+			double cachedFactor;
 
 			if (ConversionRegistry.TryGetValue(targetUOM, out cachedFactor))
 			{
@@ -1018,14 +1030,14 @@ namespace org.point85.uom
 
 			if (fromMap.Count != toMap.Count)
 			{
-				String msg = String.Format(MeasurementSystem.GetMessage("incompatible.units"), this, targetUOM);
+				string msg = String.Format(MeasurementSystem.GetMessage("incompatible.units"), this, targetUOM);
 				throw new Exception(msg);
 			}
 
-			decimal fromFactor = fromPowerMap.MapScalingFactor;
-			decimal toFactor = toPowerMap.MapScalingFactor;
+			double fromFactor = fromPowerMap.MapScalingFactor;
+			double toFactor = toPowerMap.MapScalingFactor;
 
-			decimal factor = decimal.One;
+			double factor = 1;
 
 			// compute map factor
 			int matchCount = 0;
@@ -1044,9 +1056,9 @@ namespace org.point85.uom
 					{
 						matchCount++;
 						UnitOfMeasure toUOM = toEntry.Key;
-						decimal bd = fromUOM.ConvertScalarToScalar(toUOM);
-						bd = DecimalPower(bd, fromPower);
-						factor = DecimalMultiply(factor, bd);
+						double bd = fromUOM.ConvertScalarToScalar(toUOM);
+						bd = Math.Pow(bd, fromPower);
+						factor = factor * bd;
 						break;
 					}
 				} // to map
@@ -1054,12 +1066,11 @@ namespace org.point85.uom
 
 			if (matchCount != fromMap.Count)
 			{
-				String msg = String.Format(MeasurementSystem.GetMessage("incompatible.units"), this, targetUOM);
+				string msg = String.Format(MeasurementSystem.GetMessage("incompatible.units"), this, targetUOM);
 				throw new Exception(msg);
 			}
 
-			decimal scaling = DecimalDivide(fromFactor, toFactor);
-			cachedFactor = DecimalMultiply(factor, scaling);
+			cachedFactor = factor * (fromFactor / toFactor);
 
 			// cache it
 			ConversionRegistry[targetUOM] = cachedFactor;
@@ -1102,7 +1113,7 @@ namespace org.point85.uom
  * @throws Exception
  *             Exception
  */
-		public void SetBridgeConversion(decimal scalingFactor, UnitOfMeasure abscissaUnit, decimal? offset)
+		public void SetBridgeConversion(double scalingFactor, UnitOfMeasure abscissaUnit, double? offset)
 		{
 			BridgeScalingFactor = scalingFactor;
 			BridgeAbscissaUnit = abscissaUnit;
@@ -1167,7 +1178,7 @@ namespace org.point85.uom
 			sb.Append(", ").Append(MeasurementSystem.UnitsManager.GetString("conversion.text")).Append(' ');
 
 			// scaling factor
-			if (ScalingFactor.CompareTo(decimal.One) != 0)
+			if (ScalingFactor.CompareTo(1) != 0)
 			{
 				sb.Append(ScalingFactor.ToString()).Append(MULT);
 			}
@@ -1179,7 +1190,7 @@ namespace org.point85.uom
 			}
 
 			// offset
-			if (Offset.CompareTo(decimal.Zero) != 0)
+			if (Offset.CompareTo(0) != 0)
 			{
 				sb.Append(" + ").Append(Offset.ToString());
 			}
@@ -1204,7 +1215,7 @@ namespace org.point85.uom
 			internal Dictionary<UnitOfMeasure, int> Terms { get; set; } = new Dictionary<UnitOfMeasure, int>();
 
 			// the overall scaling factor
-			internal decimal MapScalingFactor { get; set; } = decimal.One;
+			internal double MapScalingFactor { get; set; } = 1;
 
 			// list of exponents down a path to the leaf UOM
 			internal List<int> PathExponents = new List<int>();
@@ -1235,7 +1246,7 @@ namespace org.point85.uom
 				level++;
 
 				// scaling factor to abscissa unit
-				decimal scalingFactor = unit.ScalingFactor;
+				double scalingFactor = unit.ScalingFactor;
 
 				// explode the abscissa unit
 				UnitOfMeasure abscissaUnit = unit.AbscissaUnit;
@@ -1252,19 +1263,19 @@ namespace org.point85.uom
 					int lastExponent = PathExponents[PathExponents.Count - 1];
 
 					// compute the overall scaling factor
-					decimal factor = decimal.One;
+					double factor = 1;
 					for (int i = 0; i < Math.Abs(lastExponent); i++)
 					{
-						factor = UnitOfMeasure.DecimalMultiply(factor, scalingFactor);
+						factor = factor * scalingFactor;
 					}
 
 					if (lastExponent < 0)
 					{
-						MapScalingFactor = UnitOfMeasure.DecimalDivide(MapScalingFactor, factor);
+						MapScalingFactor = MapScalingFactor / factor;
 					}
 					else
 					{
-						MapScalingFactor = UnitOfMeasure.DecimalMultiply(MapScalingFactor, factor);
+						MapScalingFactor = MapScalingFactor * factor;
 					}
 				}
 				else
@@ -1277,10 +1288,10 @@ namespace org.point85.uom
 					if (!abscissaUnit.IsTerminal())
 					{
 						// keep exploding down the conversion path
-						decimal currentMapFactor = MapScalingFactor;
-						MapScalingFactor = decimal.One;
+						double currentMapFactor = MapScalingFactor;
+						MapScalingFactor = 1;
 						ExplodeRecursively(abscissaUnit, STARTING_LEVEL);
-						MapScalingFactor = UnitOfMeasure.DecimalMultiply(MapScalingFactor, currentMapFactor);
+						MapScalingFactor = MapScalingFactor * currentMapFactor;
 					}
 					else
 					{
@@ -1485,9 +1496,9 @@ namespace org.point85.uom
 		private class PathParameters
 		{
 			internal UnitOfMeasure PathUOM { get; private set; }
-			internal decimal PathFactor { get; private set; }
+			internal double PathFactor { get; private set; }
 
-			internal PathParameters(UnitOfMeasure pathUOM, decimal pathFactor)
+			internal PathParameters(UnitOfMeasure pathUOM, double pathFactor)
 			{
 				PathUOM = pathUOM;
 				PathFactor = pathFactor;
