@@ -57,10 +57,10 @@
     <Compile Include="UnitType.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Unit.resources" />
-    <None Include="Message.resources" />
+    <EmbeddedResource Include="Unit.resources" />
+    <EmbeddedResource Include="Message.resources" />
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>

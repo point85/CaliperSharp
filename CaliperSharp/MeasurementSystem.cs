@@ -95,10 +95,45 @@ namespace org.point85.uom
 
 		private MeasurementSystem()
 		{
+			/*
+			 * global::System.Resources.ResourceManager temp = 
+     new global::System.Resources.ResourceManager(
+          "ProblemAssembly.Controls.Properties.Stuff", typeof(Stuff).Assembly);
+			 */
 			// common unit strings
 			MessagesManager = new ResourceManager(MESSAGE_RESOURCE_NAME, typeof(MeasurementSystem).Assembly);
 
 			UnitsManager = new ResourceManager(UNIT_RESOURCE_NAME, typeof(MeasurementSystem).Assembly);
+		}
+
+		/**
+ * Get the units of measure cached by their symbol
+ * 
+ * @return Symbol cache
+ */
+		public ConcurrentDictionary<string, UnitOfMeasure> GetSymbolCache()
+		{
+			return SymbolRegistry;
+		}
+
+		/**
+ * Get the units of measure cached by their base symbol
+ * 
+ * @return Base symbol cache
+ */
+		public ConcurrentDictionary<string, UnitOfMeasure> GetBaseSymbolCache()
+		{
+			return BaseRegistry;
+		}
+
+		/**
+		 * Get the units of measure cached by their {@link Unit} enumeration
+		 * 
+		 * @return Enumeration cache
+		 */
+		public ConcurrentDictionary<Unit, UnitOfMeasure> GetEnumerationCache()
+		{
+			return UnitRegistry;
 		}
 
 		// get a particular message by its key
