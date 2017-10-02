@@ -292,11 +292,11 @@ namespace org.point85.uom
 				string description = prefix.Factor + " " + targetUOM.Name;
 
 				// scaling factor
-				double scalingFactor = targetUOM.ScalingFactor * prefix.Factor;
+				double scalingFactor = targetUOM.GetScalingFactor() * prefix.Factor;
 
 				// create the unit of measure and set conversion
 				scaled = CreateScalarUOM(targetUOM.UOMType, null, name, symbol, description);
-				scaled.SetConversion(scalingFactor, targetUOM.AbscissaUnit);
+				scaled.SetConversion(scalingFactor, targetUOM.GetAbscissaUnit());
 			}
 			return scaled;
 		}
@@ -649,7 +649,7 @@ namespace org.point85.uom
 					Quantity e = this.GetQuantity(Constant.ELEMENTARY_CHARGE);
 					uom = CreateProductUOM(UnitType.ENERGY, Unit.ELECTRON_VOLT, UnitsManager.GetString("ev.name"),
 								UnitsManager.GetString("ev.symbol"), UnitsManager.GetString("ev.desc"), e.UOM, GetUOM(Unit.VOLT));
-					uom.ScalingFactor = e.Amount;
+					uom.SetScalingFactor(e.Amount);
 					break;
 
 				case Unit.WATT_HOUR:
@@ -1087,7 +1087,7 @@ namespace org.point85.uom
 					uom = CreateProductUOM(UnitType.POWER, Unit.HP, UnitsManager.GetString("hp.name"),
 							UnitsManager.GetString("hp.symbol"), UnitsManager.GetString("hp.desc"), GetUOM(Unit.POUND_FORCE),
 							GetUOM(Unit.FEET_PER_SEC));
-					uom.ScalingFactor = 550;
+					uom.SetScalingFactor(550);
 					break;
 
 				case Unit.BTU:
@@ -1112,7 +1112,7 @@ namespace org.point85.uom
 
 					// factor is acceleration of gravity
 					Quantity gravity = GetQuantity(Constant.GRAVITY).Convert(GetUOM(Unit.FEET_PER_SEC_SQUARED));
-					uom.ScalingFactor = gravity.Amount;
+					uom.SetScalingFactor(gravity.Amount);
 					break;
 
 				case Unit.GRAIN:
@@ -1356,7 +1356,7 @@ namespace org.point85.uom
 		private UnitOfMeasure CreateScalarUOM(UnitType type, Unit? id, string name, string symbol, string description)
 		{
 			UnitOfMeasure uom = CreateUOM(type, id, name, symbol, description);
-			uom.UnitEnumeration = id;
+			uom.SetEnumeration(id);
 			RegisterUnit(uom);
 
 			return uom;
@@ -1408,7 +1408,7 @@ namespace org.point85.uom
 		{
 			UnitOfMeasure uom = CreateUOM(type, id, name, symbol, description);
 			uom.SetPowerUnit(baseUOM, exponent);
-			uom.UnitEnumeration = id;
+			uom.SetEnumeration(id);
 			RegisterUnit(uom);
 			return uom;
 		}
@@ -1488,7 +1488,7 @@ namespace org.point85.uom
 
 			UnitOfMeasure uom = CreateUOM(type, id, name, symbol, description);
 			uom.SetProductUnits(multiplier, multiplicand);
-			uom.UnitEnumeration = id;
+			uom.SetEnumeration(id);
 			RegisterUnit(uom);
 			return uom;
 		}
@@ -1575,7 +1575,7 @@ namespace org.point85.uom
 		{
 			UnitOfMeasure uom = CreateUOM(type, id, name, symbol, description);
 			uom.SetQuotientUnits(dividend, divisor);
-			uom.UnitEnumeration = id;
+			uom.SetEnumeration(id);
 			RegisterUnit(uom);
 			return uom;
 		}
@@ -1804,7 +1804,7 @@ namespace org.point85.uom
 			SymbolRegistry[key] = uom;
 
 			// next by unit enumeration
-			Unit? id = uom.UnitEnumeration;
+			Unit? id = uom.GetEnumeration();
 
 			if (id.HasValue)
 			{
@@ -1838,9 +1838,9 @@ namespace org.point85.uom
 			lock (new object())
 			{
 				UnitOfMeasure removedUOM;
-				if (uom.UnitEnumeration.HasValue)
+				if (uom.GetEnumeration().HasValue)
 				{
-					UnitRegistry.TryRemove(uom.UnitEnumeration.Value, out removedUOM);
+					UnitRegistry.TryRemove(uom.GetEnumeration().Value, out removedUOM);
 				}
 
 				// remove by symbol and base symbol

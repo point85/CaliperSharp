@@ -394,8 +394,8 @@ namespace org.point85.uom
 		public Quantity Convert(UnitOfMeasure toUOM)
 		{
 			double multiplier = UOM.GetConversionFactor(toUOM);
-			double thisOffset = UOM.Offset;
-			double targetOffset = toUOM.Offset;
+			double thisOffset = UOM.GetOffset();
+			double targetOffset = toUOM.GetOffset();
 
 			// adjust for a non-zero "this" offset
 			double offsetAmount = Amount + thisOffset;

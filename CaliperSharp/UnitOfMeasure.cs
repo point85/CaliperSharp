@@ -87,14 +87,14 @@ namespace org.point85.uom
 		private const int MAX_SYMBOL_LENGTH = 16;
 
 		// multiply, divide and power symbols
-		internal const char MULT = (char)0xB7;
-		internal const char DIV = '/';
-		internal const char POW = '^';
-		internal const char SQ = (char)0xB2;
-		internal const char CUBED = (char)0xB3;
-		internal const char LP = '(';
-		internal const char RP = ')';
-		internal const char ONE_CHAR = '1';
+		private const char MULT = (char)0xB7;
+		private const char DIV = '/';
+		private const char POW = '^';
+		private const char SQ = (char)0xB2;
+		private const char CUBED = (char)0xB3;
+		private const char LP = '(';
+		private const char RP = ')';
+		private const char ONE_CHAR = '1';
 
 		// registry of unit conversion factor
 		private Dictionary<UnitOfMeasure, double> ConversionRegistry = new Dictionary<UnitOfMeasure, double>();
@@ -102,31 +102,28 @@ namespace org.point85.uom
 		// conversion to another Unit of Measure in the same recognized measurement
 		// system (y = ax + b)
 		// scaling factor (a)
-		//private double ScalingFactor;
-		public double ScalingFactor { get; set; }
+		private double ScalingFactor = double.MinValue;
 
 		// offset (b)
-		//private double offset;
-		public double Offset { get; set; }
+		private double Offset = double.MinValue;
 
 		// x-axis unit
-		//private UnitOfMeasure abscissaUnit;
-		public UnitOfMeasure AbscissaUnit { get; set; }
+		private UnitOfMeasure AbscissaUnit;
 
 		// unit enumerations for the various systems of measurement, e.g. KILOGRAM
-		public Nullable<Unit> UnitEnumeration { get; set; }
-
+		private Nullable<Unit> UnitEnumeration;
+start here
 		// unit type, e.g. MASS
 		public UnitType UOMType { get; set; } = UnitType.UNCLASSIFIED;
 
 		// conversion to another Unit of Measure in a different measurement system
-		public double BridgeScalingFactor { get; set; }
+		private double BridgeScalingFactor;
 
 		// offset (b)
-		public double BridgeOffset { get; set; }
+		private double BridgeOffset;
 
 		// x-axis unit
-		public UnitOfMeasure BridgeAbscissaUnit { get; set; }
+		private UnitOfMeasure BridgeAbscissaUnit;
 
 		// cached base symbol
 		private string BaseSymbol { get; set; }
@@ -157,6 +154,94 @@ namespace org.point85.uom
 		internal UnitOfMeasure(UnitType type, string name, string symbol, string description) : base(name, symbol, description)
 		{
 			UOMType = type;
+		}
+
+		/**
+ * Get the unit of measure's x-axis unit of measure for the relation y = ax
+ * + b.
+ * 
+ * @return {@link UnitOfMeasure}
+ */
+		public UnitOfMeasure GetAbscissaUnit()
+		{
+			return AbscissaUnit != null ? AbscissaUnit : this;
+		}
+
+		/**
+ * Set the unit of measure's x-axis unit of measure for the relation y = ax
+ * + b.
+ * 
+ * @param abscissaUnit
+ *            {@link UnitOfMeasure}
+ */
+		public void SetAbscissaUnit(UnitOfMeasure abscissaUnit)
+		{
+			this.AbscissaUnit = abscissaUnit;
+		}
+
+		/**
+ * Get the unit of measure's 'a' factor (slope) for the relation y = ax + b.
+ * 
+ * @return Factor
+ */
+		public double GetScalingFactor()
+		{
+			return ScalingFactor != double.MinValue ? ScalingFactor : 1;
+		}
+
+		/**
+ * Set the unit of measure's 'a' factor (slope) for the relation y = ax + b.
+ * 
+ * @param scalingFactor
+ *            Scaling factor
+ */
+		public void SetScalingFactor(double scalingFactor)
+		{
+			ScalingFactor = scalingFactor;
+		}
+
+		/**
+ * Get the unit of measure's 'b' offset (intercept) for the relation y = ax
+ * + b.
+ * 
+ * @return Offset
+ */
+		public double GetOffset()
+		{
+			return Offset != double.MinValue ? Offset : 0;
+		}
+
+		/**
+ * Set the unit of measure's 'b' offset (intercept) for the relation y = ax
+ * + b.
+ * 
+ * @param offset
+ *            Offset
+ */
+		public void SetOffset(double offset)
+		{
+			Offset = offset;
+		}
+
+		/**
+ * Get the unit's enumerated type
+ * 
+ * @return {@link Unit}
+ */
+		public Unit? GetEnumeration()
+		{
+			return UnitEnumeration;
+		}
+
+		/**
+		 * Set the unit's enumerated type
+		 * 
+		 * @param unit
+		 *            {@link Unit}
+		 */
+		public void SetEnumeration(Unit? unit)
+		{
+			UnitEnumeration = unit;
 		}
 
 		private void SetPowerProduct(UnitOfMeasure uom1, int exponent1)
@@ -237,7 +322,7 @@ namespace org.point85.uom
  */
 		public bool IsTerminal()
 		{
-			return this.Equals(AbscissaUnit) ? true : false;
+			return this.Equals(GetAbscissaUnit()) ? true : false;
 		}
 
 		/**
@@ -393,7 +478,7 @@ namespace org.point85.uom
 
 		private void CheckOffset(UnitOfMeasure other)
 		{
-			if (other.Offset.CompareTo(0) != 0)
+			if (other.GetOffset().CompareTo(0) != 0)
 			{
 				string msg = String.Format(MeasurementSystem.GetMessage("offset.not.supported"), other.ToString());
 				throw new Exception(msg);
@@ -562,8 +647,8 @@ namespace org.point85.uom
 				{
 					resultFactor = thisFactor / otherFactor;
 				}
-				result.ScalingFactor = resultFactor;
-				result.AbscissaUnit = baseUOM;
+				result.SetScalingFactor(resultFactor);
+				result.SetAbscissaUnit(baseUOM);
 				result.UOMType = baseUOM.UOMType;
 			}
 
@@ -704,27 +789,27 @@ namespace org.point85.uom
 		}
 		*/
 
-			/*
-		// this method is for optimization of double exponentiation
-		internal static double DoublePower(double powerBase, int exponent)
-		{
-			double value;
+		/*
+	// this method is for optimization of double exponentiation
+	internal static double DoublePower(double powerBase, int exponent)
+	{
+		double value;
 
-			if (exponent == 1)
-			{
-				value = powerBase;
-			}
-			else if (exponent == 0)
-			{
-				value = 1;
-			}
-			else
-			{
-				value = (double)Math.Pow((double)powerBase, exponent);
-			}
-			return value;
+		if (exponent == 1)
+		{
+			value = powerBase;
 		}
-		*/
+		else if (exponent == 0)
+		{
+			value = 1;
+		}
+		else
+		{
+			value = (double)Math.Pow((double)powerBase, exponent);
+		}
+		return value;
+	}
+	*/
 
 		/**
  * Define a conversion with the specified scaling factor, abscissa unit of
@@ -759,9 +844,9 @@ namespace org.point85.uom
 			MeasurementSystem.GetSystem().UnregisterUnit(this);
 			BaseSymbol = null;
 
-			ScalingFactor = scalingFactor;
-			AbscissaUnit = abscissaUnit;
-			Offset = offset;
+			SetScalingFactor(scalingFactor);
+			SetAbscissaUnit(abscissaUnit);
+			SetOffset(offset);
 
 			// re-cache
 			MeasurementSystem.GetSystem().RegisterUnit(this);
@@ -836,8 +921,8 @@ namespace org.point85.uom
 			UnitOfMeasure otherUnit = (UnitOfMeasure)other;
 
 			// same enumerations
-			Unit? thisEnumeration = UnitEnumeration;
-			Unit? otherEnumeration = otherUnit.UnitEnumeration;
+			Unit? thisEnumeration = GetEnumeration();
+			Unit? otherEnumeration = otherUnit.GetEnumeration();
 
 			if (thisEnumeration != null && otherEnumeration != null && !thisEnumeration.Equals(otherEnumeration))
 			{
@@ -845,8 +930,8 @@ namespace org.point85.uom
 			}
 
 			// same abscissa unit symbols
-			string thisSymbol = AbscissaUnit.Symbol;
-			string otherSymbol = otherUnit.AbscissaUnit.Symbol;
+			string thisSymbol = GetAbscissaUnit().Symbol;
+			string otherSymbol = otherUnit.GetAbscissaUnit().Symbol;
 
 			if (!thisSymbol.Equals(otherSymbol))
 			{
@@ -854,13 +939,13 @@ namespace org.point85.uom
 			}
 
 			// same factors
-			if (ScalingFactor.CompareTo(otherUnit.ScalingFactor) != 0)
+			if (GetScalingFactor().CompareTo(otherUnit.GetScalingFactor()) != 0)
 			{
 				return false;
 			}
 
 			// same offsets
-			if (Offset.CompareTo(otherUnit.Offset) != 0)
+			if (GetOffset().CompareTo(otherUnit.GetOffset()) != 0)
 			{
 				return false;
 			}
@@ -902,8 +987,8 @@ namespace org.point85.uom
 
 		private double ConvertScalarToScalar(UnitOfMeasure targetUOM)
 		{
-			UnitOfMeasure thisAbscissa = AbscissaUnit;
-			double thisFactor = ScalingFactor;
+			UnitOfMeasure thisAbscissa = GetAbscissaUnit();
+			double thisFactor = GetScalingFactor();
 
 			double scalingFactor;
 
@@ -927,8 +1012,8 @@ namespace org.point85.uom
 
 			while (true)
 			{
-				double scalingFactor = pathUOM.ScalingFactor;
-				UnitOfMeasure abscissa = pathUOM.AbscissaUnit;
+				double scalingFactor = pathUOM.GetScalingFactor();
+				UnitOfMeasure abscissa = pathUOM.GetAbscissaUnit();
 
 				pathFactor = pathFactor * scalingFactor;
 
@@ -1168,9 +1253,9 @@ namespace org.point85.uom
 			sb.Append(MeasurementSystem.UnitsManager.GetString("unit.type.text")).Append(' ').Append(UOMType.ToString()).Append(", ");
 
 			// unit enumeration
-			if (UnitEnumeration.HasValue)
+			if (GetEnumeration().HasValue)
 			{
-				sb.Append(MeasurementSystem.UnitsManager.GetString("enum.text")).Append(' ').Append(UnitEnumeration.ToString()).Append(", ");
+				sb.Append(MeasurementSystem.UnitsManager.GetString("enum.text")).Append(' ').Append(GetEnumeration().ToString()).Append(", ");
 			}
 
 			// symbol
@@ -1178,21 +1263,21 @@ namespace org.point85.uom
 			sb.Append(", ").Append(MeasurementSystem.UnitsManager.GetString("conversion.text")).Append(' ');
 
 			// scaling factor
-			if (ScalingFactor.CompareTo(1) != 0)
+			if (GetScalingFactor().CompareTo(1) != 0)
 			{
-				sb.Append(ScalingFactor.ToString()).Append(MULT);
+				sb.Append(GetScalingFactor().ToString()).Append(MULT);
 			}
 
 			// abscissa unit
-			if (AbscissaUnit != null)
+			if (GetAbscissaUnit() != null)
 			{
-				sb.Append(AbscissaUnit.Symbol);
+				sb.Append(GetAbscissaUnit().Symbol);
 			}
 
 			// offset
-			if (Offset.CompareTo(0) != 0)
+			if (GetOffset().CompareTo(0) != 0)
 			{
-				sb.Append(" + ").Append(Offset.ToString());
+				sb.Append(" + ").Append(GetOffset().ToString());
 			}
 
 			sb.Append(", ").Append(MeasurementSystem.UnitsManager.GetString("base.text")).Append(' ');
@@ -1246,10 +1331,10 @@ namespace org.point85.uom
 				level++;
 
 				// scaling factor to abscissa unit
-				double scalingFactor = unit.ScalingFactor;
+				double scalingFactor = unit.GetScalingFactor();
 
 				// explode the abscissa unit
-				UnitOfMeasure abscissaUnit = unit.AbscissaUnit;
+				UnitOfMeasure abscissaUnit = unit.GetAbscissaUnit();
 
 				UnitOfMeasure uom1 = abscissaUnit.UOM1;
 				UnitOfMeasure uom2 = abscissaUnit.UOM2;
