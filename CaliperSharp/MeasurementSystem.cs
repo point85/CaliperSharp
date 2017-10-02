@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Resources;
 
 /*
@@ -69,17 +70,17 @@ namespace org.point85.uom
  */
 	public class MeasurementSystem
 	{
-		// name of resource bundle with translatable strings for exception messages
-		private const string MESSAGE_RESOURCE_NAME = "Message";
+		// name of resource with translatable strings for exception messages
+		private const string MESSAGE_RESOURCE_NAME = "./Resources/Message.properties";
 
-		// name of resource set with translatable strings for UOMs (e.g. time)
-		private const string UNIT_RESOURCE_NAME = "Unit";
+		// name of resource with translatable strings for UOMs (e.g. time)
+		private const string UNIT_RESOURCE_NAME = "./Resources/Unit.properties";
 
 		// resource manager for exception messages
-		internal static ResourceManager MessagesManager;
+		internal static PropertyManager MessagesManager;
 
 		// resource manager for units
-		internal static ResourceManager UnitsManager;
+		internal static PropertyManager UnitsManager;
 
 		// standard unified system
 		private static MeasurementSystem UnifiedSystem = new MeasurementSystem();
@@ -95,15 +96,16 @@ namespace org.point85.uom
 
 		private MeasurementSystem()
 		{
-			/*
-			 * global::System.Resources.ResourceManager temp = 
-     new global::System.Resources.ResourceManager(
-          "ProblemAssembly.Controls.Properties.Stuff", typeof(Stuff).Assembly);
-			 */
 			// common unit strings
-			MessagesManager = new ResourceManager(MESSAGE_RESOURCE_NAME, typeof(MeasurementSystem).Assembly);
+			//Assembly localisationAssembly = Assembly.Load("CaliperSharp");
+			MessagesManager = new PropertyManager(MESSAGE_RESOURCE_NAME);
+			//ResourceManager.CreateFileBasedResourceManager(MESSAGE_RESOURCE_NAME, "../Resources", null);
 
-			UnitsManager = new ResourceManager(UNIT_RESOURCE_NAME, typeof(MeasurementSystem).Assembly);
+
+
+			UnitsManager = new PropertyManager(UNIT_RESOURCE_NAME);
+			//ResourceManager.CreateFileBasedResourceManager(UNIT_RESOURCE_NAME, "../Resources", null);
+			//
 		}
 
 		/**
@@ -1792,9 +1794,7 @@ namespace org.point85.uom
 			string key = uom.Symbol;
 
 			// get first by symbol
-			UnitOfMeasure current = SymbolRegistry[key];
-
-			if (current != null)
+			if (SymbolRegistry.ContainsKey(key))
 			{
 				// already cached
 				return;
@@ -1814,7 +1814,7 @@ namespace org.point85.uom
 			// finally by base symbol
 			key = uom.GetBaseSymbol();
 
-			if (BaseRegistry[key] == null)
+			if (!BaseRegistry.ContainsKey(key))
 			{
 				BaseRegistry[key] = uom;
 			}

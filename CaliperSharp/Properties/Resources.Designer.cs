@@ -59,25 +59,5 @@ namespace org.point85.uom.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        public static byte[] Message {
-            get {
-                object obj = ResourceManager.GetObject("Message", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        public static byte[] Unit {
-            get {
-                object obj = ResourceManager.GetObject("Unit", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
     }
 }
