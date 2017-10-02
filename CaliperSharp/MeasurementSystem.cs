@@ -96,16 +96,9 @@ namespace org.point85.uom
 
 		private MeasurementSystem()
 		{
-			// common unit strings
-			//Assembly localisationAssembly = Assembly.Load("CaliperSharp");
+			// localizable string managers
 			MessagesManager = new PropertyManager(MESSAGE_RESOURCE_NAME);
-			//ResourceManager.CreateFileBasedResourceManager(MESSAGE_RESOURCE_NAME, "../Resources", null);
-
-
-
 			UnitsManager = new PropertyManager(UNIT_RESOURCE_NAME);
-			//ResourceManager.CreateFileBasedResourceManager(UNIT_RESOURCE_NAME, "../Resources", null);
-			//
 		}
 
 		/**
@@ -283,7 +276,7 @@ namespace org.point85.uom
  */
 		public UnitOfMeasure GetUOM(Prefix prefix, UnitOfMeasure targetUOM)
 		{
-			string symbol = prefix.Symbol + targetUOM.Symbol;
+			string symbol = prefix.Symbol + targetUOM.GetSymbol();
 
 			UnitOfMeasure scaled = GetUOM(symbol);
 
@@ -291,14 +284,14 @@ namespace org.point85.uom
 			if (scaled == null)
 			{
 				// generate a name and description
-				string name = prefix.Name + targetUOM.Name;
-				string description = prefix.Factor + " " + targetUOM.Name;
+				string name = prefix.Name + targetUOM.GetName();
+				string description = prefix.Factor + " " + targetUOM.GetName();
 
 				// scaling factor
 				double scalingFactor = targetUOM.GetScalingFactor() * prefix.Factor;
 
 				// create the unit of measure and set conversion
-				scaled = CreateScalarUOM(targetUOM.UOMType, null, name, symbol, description);
+				scaled = CreateScalarUOM(targetUOM.GetUnitType(), null, name, symbol, description);
 				scaled.SetConversion(scalingFactor, targetUOM.GetAbscissaUnit());
 			}
 			return scaled;
@@ -651,8 +644,8 @@ namespace org.point85.uom
 					// ev
 					Quantity e = this.GetQuantity(Constant.ELEMENTARY_CHARGE);
 					uom = CreateProductUOM(UnitType.ENERGY, Unit.ELECTRON_VOLT, UnitsManager.GetString("ev.name"),
-								UnitsManager.GetString("ev.symbol"), UnitsManager.GetString("ev.desc"), e.UOM, GetUOM(Unit.VOLT));
-					uom.SetScalingFactor(e.Amount);
+								UnitsManager.GetString("ev.symbol"), UnitsManager.GetString("ev.desc"), e.GetUOM(), GetUOM(Unit.VOLT));
+					uom.SetScalingFactor(e.GetAmount());
 					break;
 
 				case Unit.WATT_HOUR:
@@ -930,7 +923,7 @@ namespace org.point85.uom
 					uom = CreateScalarUOM(UnitType.MASS, Unit.SLUG, UnitsManager.GetString("slug.name"),
 							UnitsManager.GetString("slug.symbol"), UnitsManager.GetString("slug.desc"));
 					Quantity g = GetQuantity(Constant.GRAVITY).Convert(GetUOM(Unit.FEET_PER_SEC_SQUARED));
-					uom.SetConversion(g.Amount, GetUOM(Unit.POUND_MASS));
+					uom.SetConversion(g.GetAmount(), GetUOM(Unit.POUND_MASS));
 					break;
 
 				case Unit.FOOT:
@@ -1115,7 +1108,7 @@ namespace org.point85.uom
 
 					// factor is acceleration of gravity
 					Quantity gravity = GetQuantity(Constant.GRAVITY).Convert(GetUOM(Unit.FEET_PER_SEC_SQUARED));
-					uom.SetScalingFactor(gravity.Amount);
+					uom.SetScalingFactor(gravity.GetAmount());
 					break;
 
 				case Unit.GRAIN:
@@ -1650,82 +1643,82 @@ namespace org.point85.uom
 			{
 				case Constant.LIGHT_VELOCITY:
 					named = new Quantity(299792458, GetUOM(Unit.METRE_PER_SEC));
-					named.Name = UnitsManager.GetString("light.name");
-					named.Symbol = UnitsManager.GetString("light.symbol");
-					named.Description = UnitsManager.GetString("light.desc");
+					named.SetName(UnitsManager.GetString("light.name"));
+					named.SetSymbol(UnitsManager.GetString("light.symbol"));
+					named.SetDescription(UnitsManager.GetString("light.desc"));
 					break;
 
 				case Constant.LIGHT_YEAR:
 					Quantity year = new Quantity(1, GetUOM(Unit.JULIAN_YEAR));
 					named = GetQuantity(Constant.LIGHT_VELOCITY).Multiply(year);
-					named.Name = UnitsManager.GetString("ly.name");
-					named.Symbol = UnitsManager.GetString("ly.symbol");
-					named.Description = UnitsManager.GetString("ly.desc");
+					named.SetName(UnitsManager.GetString("ly.name"));
+					named.SetSymbol(UnitsManager.GetString("ly.symbol"));
+					named.SetDescription(UnitsManager.GetString("ly.desc"));
 					break;
 
 				case Constant.GRAVITY:
 					named = new Quantity(9.80665, GetUOM(Unit.METRE_PER_SEC_SQUARED));
-					named.Name = UnitsManager.GetString("gravity.name");
-					named.Symbol = UnitsManager.GetString("gravity.symbol");
-					named.Description = UnitsManager.GetString("gravity.desc");
+					named.SetName(UnitsManager.GetString("gravity.name"));
+					named.SetSymbol(UnitsManager.GetString("gravity.symbol"));
+					named.SetDescription(UnitsManager.GetString("gravity.desc"));
 					break;
 
 				case Constant.PLANCK_CONSTANT:
 					UnitOfMeasure js = CreateProductUOM(GetUOM(Unit.JOULE), GetSecond());
 					named = new Quantity(6.62607004081E-34, js);
-					named.Name = UnitsManager.GetString("planck.name");
-					named.Symbol = UnitsManager.GetString("planck.symbol");
-					named.Description = UnitsManager.GetString("planck.desc");
+					named.SetName(UnitsManager.GetString("planck.name"));
+					named.SetSymbol(UnitsManager.GetString("planck.symbol"));
+					named.SetDescription(UnitsManager.GetString("planck.desc"));
 					break;
 
 				case Constant.BOLTZMANN_CONSTANT:
 					UnitOfMeasure jk = CreateQuotientUOM(GetUOM(Unit.JOULE), GetUOM(Unit.KELVIN));
 					named = new Quantity(1.3806485279E-23, jk);
-					named.Name = UnitsManager.GetString("boltzmann.name");
-					named.Symbol = UnitsManager.GetString("boltzmann.symbol");
-					named.Description = UnitsManager.GetString("boltzmann.desc");
+					named.SetName(UnitsManager.GetString("boltzmann.name"));
+					named.SetSymbol(UnitsManager.GetString("boltzmann.symbol"));
+					named.SetDescription(UnitsManager.GetString("boltzmann.desc"));
 					break;
 
 				case Constant.AVAGADRO_CONSTANT:
 					// NA
 					named = new Quantity(6.02214085774E+23, GetOne());
-					named.Name = UnitsManager.GetString("avo.name");
-					named.Symbol = UnitsManager.GetString("avo.symbol");
-					named.Description = UnitsManager.GetString("avo.desc");
+					named.SetName(UnitsManager.GetString("avo.name"));
+					named.SetSymbol(UnitsManager.GetString("avo.symbol"));
+					named.SetDescription(UnitsManager.GetString("avo.desc"));
 					break;
 
 				case Constant.GAS_CONSTANT:
 					// R
 					named = GetQuantity(Constant.BOLTZMANN_CONSTANT).Multiply(GetQuantity(Constant.AVAGADRO_CONSTANT));
-					named.Name = UnitsManager.GetString("gas.name");
-					named.Symbol = UnitsManager.GetString("gas.symbol");
-					named.Description = UnitsManager.GetString("gas.desc");
+					named.SetName(UnitsManager.GetString("gas.name"));
+					named.SetSymbol(UnitsManager.GetString("gas.symbol"));
+					named.SetDescription(UnitsManager.GetString("gas.desc"));
 					break;
 
 				case Constant.ELEMENTARY_CHARGE:
 					// e
 					named = new Quantity(1.602176620898E-19, GetUOM(Unit.COULOMB));
-					named.Name = UnitsManager.GetString("e.name");
-					named.Symbol = UnitsManager.GetString("e.symbol");
-					named.Description = UnitsManager.GetString("e.desc");
+					named.SetName(UnitsManager.GetString("e.name"));
+					named.SetSymbol(UnitsManager.GetString("e.symbol"));
+					named.SetDescription(UnitsManager.GetString("e.desc"));
 					break;
 
 				case Constant.FARADAY_CONSTANT:
 					// F = e.NA
 					Quantity qe = GetQuantity(Constant.ELEMENTARY_CHARGE);
 					named = qe.Multiply(GetQuantity(Constant.AVAGADRO_CONSTANT));
-					named.Name = UnitsManager.GetString("faraday.name");
-					named.Symbol = UnitsManager.GetString("faraday.symbol");
-					named.Description = UnitsManager.GetString("faraday.desc");
+					named.SetName(UnitsManager.GetString("faraday.name"));
+					named.SetSymbol(UnitsManager.GetString("faraday.symbol"));
+					named.SetDescription(UnitsManager.GetString("faraday.desc"));
 					break;
 
 				case Constant.ELECTRIC_PERMITTIVITY:
 					// epsilon0 = 1/(mu0*c^2)
 					Quantity vc = GetQuantity(Constant.LIGHT_VELOCITY);
 					named = GetQuantity(Constant.MAGNETIC_PERMEABILITY).Multiply(vc).Multiply(vc).Invert();
-					named.Name = UnitsManager.GetString("eps0.name");
-					named.Symbol = UnitsManager.GetString("eps0.symbol");
-					named.Description = UnitsManager.GetString("eps0.desc");
+					named.SetName(UnitsManager.GetString("eps0.name"));
+					named.SetSymbol(UnitsManager.GetString("eps0.symbol"));
+					named.SetDescription(UnitsManager.GetString("eps0.desc"));
 					break;
 
 				case Constant.MAGNETIC_PERMEABILITY:
@@ -1733,34 +1726,34 @@ namespace org.point85.uom
 					UnitOfMeasure hm = CreateQuotientUOM(GetUOM(Unit.HENRY), GetUOM(Unit.METRE));
 					double fourPi = 4.0E-07 * Math.PI;
 					named = new Quantity(fourPi, hm);
-					named.Name = UnitsManager.GetString("mu0.name");
-					named.Symbol = UnitsManager.GetString("mu0.symbol");
-					named.Description = UnitsManager.GetString("mu0.desc");
+					named.SetName(UnitsManager.GetString("mu0.name"));
+					named.SetSymbol(UnitsManager.GetString("mu0.symbol"));
+					named.SetDescription(UnitsManager.GetString("mu0.desc"));
 					break;
 
 				case Constant.ELECTRON_MASS:
 					// me
 					named = new Quantity(9.1093835611E-28, GetUOM(Unit.GRAM));
-					named.Name = UnitsManager.GetString("me.name");
-					named.Symbol = UnitsManager.GetString("me.symbol");
-					named.Description = UnitsManager.GetString("me.desc");
+					named.SetName(UnitsManager.GetString("me.name"));
+					named.SetSymbol(UnitsManager.GetString("me.symbol"));
+					named.SetDescription(UnitsManager.GetString("me.desc"));
 					break;
 
 				case Constant.PROTON_MASS:
 					// mp
 					named = new Quantity(1.67262189821E-24, GetUOM(Unit.GRAM));
-					named.Name = UnitsManager.GetString("mp.name");
-					named.Symbol = UnitsManager.GetString("mp.symbol");
-					named.Description = UnitsManager.GetString("mp.desc");
+					named.SetName(UnitsManager.GetString("mp.name"));
+					named.SetSymbol(UnitsManager.GetString("mp.symbol"));
+					named.SetDescription(UnitsManager.GetString("mp.desc"));
 					break;
 
 				case Constant.STEFAN_BOLTZMANN:
 					UnitOfMeasure k4 = CreatePowerUOM(GetUOM(Unit.KELVIN), 4);
 					UnitOfMeasure sb = CreateQuotientUOM(GetUOM(Unit.WATTS_PER_SQ_METRE), k4);
 					named = new Quantity(5.67036713E-08, sb);
-					named.Name = UnitsManager.GetString("sb.name");
-					named.Symbol = UnitsManager.GetString("sb.symbol");
-					named.Description = UnitsManager.GetString("sb.desc");
+					named.SetName(UnitsManager.GetString("sb.name"));
+					named.SetSymbol(UnitsManager.GetString("sb.symbol"));
+					named.SetDescription(UnitsManager.GetString("sb.desc"));
 					break;
 
 				case Constant.HUBBLE_CONSTANT:
@@ -1768,9 +1761,9 @@ namespace org.point85.uom
 					UnitOfMeasure mpc = GetUOM(Prefix.MEGA, GetUOM(Unit.PARSEC));
 					UnitOfMeasure hubble = CreateQuotientUOM(kps, mpc);
 					named = new Quantity(71.9, hubble);
-					named.Name = UnitsManager.GetString("hubble.name");
-					named.Symbol = UnitsManager.GetString("hubble.symbol");
-					named.Description = UnitsManager.GetString("hubble.desc");
+					named.SetName(UnitsManager.GetString("hubble.name"));
+					named.SetSymbol(UnitsManager.GetString("hubble.symbol"));
+					named.SetDescription(UnitsManager.GetString("hubble.desc"));
 					break;
 
 				default:
@@ -1790,7 +1783,7 @@ namespace org.point85.uom
 */
 		public void RegisterUnit(UnitOfMeasure uom)
 		{
-			string key = uom.Symbol;
+			string key = uom.GetSymbol();
 
 			// get first by symbol
 			if (SymbolRegistry.ContainsKey(key))
@@ -1843,7 +1836,7 @@ namespace org.point85.uom
 				}
 
 				// remove by symbol and base symbol
-				SymbolRegistry.TryRemove(uom.Symbol, out removedUOM);
+				SymbolRegistry.TryRemove(uom.GetSymbol(), out removedUOM);
 				BaseRegistry.TryRemove(uom.GetBaseSymbol(), out removedUOM);
 			}
 		}

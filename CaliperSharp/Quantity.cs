@@ -42,10 +42,10 @@ namespace org.point85.uom
 	public class Quantity : Symbolic
 	{
 		// the amount
-		public double Amount { get; set; }
+		private double Amount;
 
 		// and its unit of measure
-		public UnitOfMeasure UOM { get; set; }
+		private UnitOfMeasure UOM;
 
 		/**
 		 * Default constructor
@@ -84,24 +84,6 @@ namespace org.point85.uom
 		}
 
 		/**
-		 * Create a quantity with a string amount and unit of measure
-		 * 
-		 * @param amount
-		 *            Amount
-		 * @param uom
-		 *            {@link UnitOfMeasure}
-		 * @
-		 *             Exception
-		 */
-		 /*
-		public Quantity(string amount, UnitOfMeasure uom)
-		{
-			Amount = CreateAmount(amount);
-			UOM = uom;
-		}
-		*/
-
-		/**
 		 * Create a quantity with an amount and unit
 		 * 
 		 * @param amount
@@ -116,20 +98,24 @@ namespace org.point85.uom
 		}
 
 		/**
-		 * Create a quantity with a string amount and unit
-		 * 
-		 * @param amount
-		 *            Amount
-		 * @param unit
-		 *            {@link Unit}
-		 * @
-		 *             Exception
-		 */
-		 /*
-		public Quantity(string amount, Unit unit) : this(CreateAmount(amount), MeasurementSystem.GetSystem().GetUOM(unit))
+ * Get the amount of this quantity
+ * 
+ * @return amount
+ */
+		public double GetAmount()
 		{
+			return Amount;
 		}
-		*/
+
+		/**
+		 * Get the unit of measure of this quantity
+		 * 
+		 * @return {@link UnitOfMeasure}
+		 */
+		public UnitOfMeasure GetUOM()
+		{
+			return UOM;
+		}
 
 		/**
 		 * Create a hash code

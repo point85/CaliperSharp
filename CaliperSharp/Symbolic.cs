@@ -35,7 +35,6 @@ namespace org.point85.uom
 	{
 		protected Symbolic()
 		{
-
 		}
 
 		protected Symbolic(string name, string symbol, string description)
@@ -46,19 +45,80 @@ namespace org.point85.uom
 		}
 
 		// name, for example "speed of light"
-		public string Name { get; set; }
+		protected string Name;
 
 		// symbol or abbreviation, e.g. "Vc"
-		public string Symbol { get; set; }
+		protected string Symbol;
 
 		// description
-		public string Description { get; set; }
+		protected string Description;
+
+		/**
+ * Get the symbol
+ * 
+ * @return Symbol
+ */
+		public string GetSymbol()
+		{
+			return Symbol;
+		}
+
+		/**
+		 * Set the symbol
+		 * 
+		 * @param symbol
+		 *            Symbol
+		 */
+		public void SetSymbol(string symbol)
+		{
+			Symbol = symbol;
+		}
+
+		/**
+		 * Get the name
+		 * 
+		 * @return Name
+		 */
+		public string GetName()
+		{
+			return Name;
+		}
+
+		/**
+		 * Set the name
+		 * 
+		 * @param name Name
+		 */
+		public void SetName(string name)
+		{
+			Name = name;
+		}
+
+		/**
+		 * Get the description
+		 * 
+		 * @return Description
+		 */
+		public string GetDescription()
+		{
+			return Description;
+		}
+
+		/**
+		 * Set the description
+		 * 
+		 * @param description
+		 *            Description
+		 */
+		public void SetDescription(string description)
+		{
+			Description = description;
+		}
 
 		/**
  * Create a String representation
  */
-		
-	public override string ToString()
+		public override string ToString()
 		{
 			StringBuilder sb = new StringBuilder();
 
@@ -82,7 +142,5 @@ namespace org.point85.uom
 
 			return sb.ToString();
 		}
-
-
 	}
 }

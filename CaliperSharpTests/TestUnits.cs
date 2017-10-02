@@ -192,8 +192,8 @@ namespace CaliperSharpTests
 			u = sys.CreateQuotientUOM(UnitType.UNCLASSIFIED, "1/1", "1/1", "", sys.GetOne(), sys.GetOne());
 			Quantity q1 = new Quantity(10, u);
 			Quantity q2 = q1.Convert(sys.GetOne());
-			Assert.IsTrue(IsCloseTo(q2.Amount, 10, DELTA6));
-			Assert.IsTrue(q2.UOM.Equals(sys.GetOne()));
+			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 10, DELTA6));
+			Assert.IsTrue(q2.GetUOM().Equals(sys.GetOne()));
 
 			u = sys.CreateProductUOM(UnitType.UNCLASSIFIED, "1x1", "1x1", "", sys.GetOne(), sys.GetOne());
 			double bd = u.GetConversionFactor(sys.GetOne());

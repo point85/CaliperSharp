@@ -112,9 +112,9 @@ namespace org.point85.uom
 
 		// unit enumerations for the various systems of measurement, e.g. KILOGRAM
 		private Nullable<Unit> UnitEnumeration;
-//start here
+
 		// unit type, e.g. MASS
-		public UnitType UOMType { get; set; } = UnitType.UNCLASSIFIED;
+		private UnitType UOMType = UnitType.UNCLASSIFIED;
 
 		// conversion to another Unit of Measure in a different measurement system
 		private double BridgeScalingFactor;
@@ -126,23 +126,23 @@ namespace org.point85.uom
 		private UnitOfMeasure BridgeAbscissaUnit;
 
 		// cached base symbol
-		private string BaseSymbol { get; set; }
+		private string BaseSymbol;
 
 		// user-defined category
-		public string Category { get; set; } = MeasurementSystem.GetUnitString("default.category.text");
+		private string Category = MeasurementSystem.GetUnitString("default.category.text");
 
 		// base UOMs and exponents for a product of two power UOMs follow
 		// power base unit, product multiplier or quotient dividend
-		internal UnitOfMeasure UOM1 { get; set; }
+		private UnitOfMeasure UOM1;
 
 		// product multiplicand or quotient divisor
-		internal UnitOfMeasure UOM2 { get; set; }
+		private UnitOfMeasure UOM2;
 
 		// exponent
-		internal Nullable<int> Exponent1 { get; set; }
+		private Nullable<int> Exponent1;
 
 		// second exponent
-		internal Nullable<int> Exponent2 { get; set; }
+		private Nullable<int> Exponent2;
 
 		/**
  * Construct a default unit of measure
@@ -153,7 +153,7 @@ namespace org.point85.uom
 
 		internal UnitOfMeasure(UnitType type, string name, string symbol, string description) : base(name, symbol, description)
 		{
-			UOMType = type;
+			SetUnitType(type);
 		}
 
 		/**
@@ -243,19 +243,150 @@ namespace org.point85.uom
 		{
 			UnitEnumeration = unit;
 		}
+		/**
+ * Get the type of the unit.
+ * 
+ * @return {@link UnitType}
+ */
+		public UnitType GetUnitType()
+		{
+			return UOMType;
+		}
+
+		/**
+		 * Set the type of the unit.
+		 * 
+		 * @param unitType
+		 *            {@link UnitType}
+		 */
+		public void SetUnitType(UnitType unitType)
+		{
+			UOMType = unitType;
+		}
+
+		/**
+ * Get the bridge UOM scaling factor
+ * 
+ * @return Scaling factor
+ */
+		public double GetBridgeScalingFactor()
+		{
+			return BridgeScalingFactor;
+		}
+
+		private void SetBridgeScalingFactor(double factor)
+		{
+			BridgeScalingFactor = factor;
+		}
+
+		/**
+		 * Get the bridge UOM abscissa UOM
+		 * 
+		 * @return {@link UnitOfMeasure}
+		 */
+		public UnitOfMeasure GetBridgeAbscissaUnit()
+		{
+			return BridgeAbscissaUnit;
+		}
+
+		private void SetBridgeAbscissaUnit(UnitOfMeasure uom)
+		{
+			BridgeAbscissaUnit = uom;
+		}
+
+		/**
+		 * Get the bridge UOM offset
+		 * 
+		 * @return Offset
+		 */
+		public double GetBridgeOffset()
+		{
+			return BridgeOffset;
+		}
+
+		private void SetBridgeOffset(double offset)
+		{
+			BridgeOffset = offset;
+		}
+
+		private void SetBaseSymbol(string symbol)
+		{
+			BaseSymbol = symbol;
+		}
+
+		/**
+ * Get the category
+ * 
+ * @return Category
+ */
+		public string GetCategory()
+		{
+			return Category;
+		}
+
+		/**
+		 * Set the category
+		 * 
+		 * @param category
+		 *            Category
+		 */
+		public void SetCategory(string category)
+		{
+			Category = category;
+		}
+
+		private UnitOfMeasure GetUOM1()
+		{
+			return UOM1;
+		}
+
+		private void SetUOM1(UnitOfMeasure uom)
+		{
+			UOM1 = uom;
+		}
+
+		private UnitOfMeasure GetUOM2()
+		{
+			return UOM2;
+		}
+
+		private void SetUOM2(UnitOfMeasure uom)
+		{
+			UOM2 = uom;
+		}
+
+		private int? GetExponent1()
+		{
+			return Exponent1;
+		}
+
+		private void SetExponent1(int exponent)
+		{
+			Exponent1 = exponent;
+		}
+
+		private int? GetExponent2()
+		{
+			return Exponent2;
+		}
+
+		private void SetExponent2(int exponent)
+		{
+			Exponent2 = exponent;
+		}
 
 		private void SetPowerProduct(UnitOfMeasure uom1, int exponent1)
 		{
-			UOM1 = uom1;
-			Exponent1 = exponent1;
+			SetUOM1(uom1);
+			SetExponent1(exponent1);
 		}
 
 		private void SetPowerProduct(UnitOfMeasure uom1, int exponent1, UnitOfMeasure uom2, int exponent2)
 		{
-			UOM1 = uom1;
-			Exponent1 = exponent1;
-			UOM2 = uom2;
-			Exponent2 = exponent2;
+			SetUOM1(uom1);
+			SetExponent1(exponent1);
+			SetUOM2(uom2);
+			SetExponent2(exponent2);
 		}
 
 		/**
@@ -267,15 +398,15 @@ namespace org.point85.uom
 		{
 			MeasurementType type = MeasurementType.SCALAR;
 
-			if (Exponent2 != null && Exponent2 < 0)
+			if (Exponent2.HasValue && Exponent2.Value < 0)
 			{
 				type = MeasurementType.QUOTIENT;
 			}
-			else if (Exponent2 != null && Exponent2 > 0)
+			else if (Exponent2.HasValue && Exponent2.Value > 0)
 			{
 				type = MeasurementType.PRODUCT;
 			}
-			else if (UOM1 != null && Exponent1 != null)
+			else if (GetUOM1() != null && Exponent1.HasValue)
 			{
 				type = MeasurementType.POWER;
 			}
@@ -332,7 +463,7 @@ namespace org.point85.uom
  */
 		public int? GetPowerExponent()
 		{
-			return Exponent1;
+			return GetExponent1();
 		}
 
 		/**
@@ -342,7 +473,7 @@ namespace org.point85.uom
  */
 		public UnitOfMeasure GetDividend()
 		{
-			return UOM1;
+			return GetUOM1();
 		}
 
 		/**
@@ -352,7 +483,7 @@ namespace org.point85.uom
 		 */
 		public UnitOfMeasure GetDivisor()
 		{
-			return UOM2;
+			return GetUOM2();
 		}
 
 		/**
@@ -416,7 +547,7 @@ namespace org.point85.uom
 		{
 
 			UnitOfMeasure newUOM = new UnitOfMeasure();
-			newUOM.UOMType = UOMType;
+			newUOM.SetUnitType(GetUnitType());
 
 			// check if quotient
 			int exponent = 1;
@@ -430,11 +561,11 @@ namespace org.point85.uom
 			{
 				if (GetDividend().Equals(one))
 				{
-					exponent = Exponent2.Value;
+					exponent = GetExponent2().Value;
 				}
 				else if (GetDivisor().Equals(one))
 				{
-					exponent = Exponent1.Value;
+					exponent = GetExponent1().Value;
 				}
 			}
 
@@ -471,7 +602,7 @@ namespace org.point85.uom
 			}
 
 			UnitOfMeasure newUOM = uom1.MultiplyOrDivide(uom2, invert);
-			newUOM.UOMType = UOMType;
+			newUOM.SetUnitType(GetUnitType());
 
 			return newUOM;
 		}
@@ -649,7 +780,7 @@ namespace org.point85.uom
 				}
 				result.SetScalingFactor(resultFactor);
 				result.SetAbscissaUnit(baseUOM);
-				result.UOMType = baseUOM.UOMType;
+				result.SetUnitType(baseUOM.GetUnitType());
 			}
 
 			if (!invert)
@@ -677,7 +808,7 @@ namespace org.point85.uom
 		 */
 		public UnitOfMeasure GetMultiplier()
 		{
-			return UOM1;
+			return GetUOM1();
 		}
 
 		/**
@@ -687,7 +818,7 @@ namespace org.point85.uom
 		 */
 		public UnitOfMeasure GetMultiplicand()
 		{
-			return UOM2;
+			return GetUOM2();
 		}
 
 		/**
@@ -842,7 +973,7 @@ namespace org.point85.uom
 
 			// unit has been previously cached, so first remove it, then cache again
 			MeasurementSystem.GetSystem().UnregisterUnit(this);
-			BaseSymbol = null;
+			SetBaseSymbol(null);
 
 			SetScalingFactor(scalingFactor);
 			SetAbscissaUnit(abscissaUnit);
@@ -973,14 +1104,14 @@ namespace org.point85.uom
 
 		private static void CheckTypes(UnitOfMeasure uom1, UnitOfMeasure uom2)
 		{
-			UnitType thisType = uom1.UOMType;
-			UnitType targetType = uom2.UOMType;
+			UnitType thisType = uom1.GetUnitType();
+			UnitType targetType = uom2.GetUnitType();
 
 			if (thisType != UnitType.UNCLASSIFIED && targetType != UnitType.UNCLASSIFIED && !thisType.Equals(UnitType.UNITY)
 					&& !targetType.Equals(UnitType.UNITY) && !thisType.Equals(targetType))
 			{
-				string msg = String.Format(MeasurementSystem.GetMessage("must.be.same.as"), uom1, uom1.UOMType,
-						uom2, uom2.UOMType);
+				string msg = String.Format(MeasurementSystem.GetMessage("must.be.same.as"), uom1, uom1.GetUnitType(),
+						uom2, uom2.GetUnitType());
 				throw new Exception(msg);
 			}
 		}
@@ -1034,20 +1165,20 @@ namespace org.point85.uom
 			double factor = 1;
 
 			// check for our bridge
-			if (BridgeAbscissaUnit != null)
+			if (GetBridgeAbscissaUnit() != null)
 			{
-				factor = BridgeScalingFactor;
+				factor = GetBridgeScalingFactor();
 			}
 			else
 			{
 				// try other side
-				if (uom.BridgeAbscissaUnit != null)
+				if (uom.GetBridgeAbscissaUnit() != null)
 				{
-					UnitOfMeasure toUOM = uom.BridgeAbscissaUnit;
+					UnitOfMeasure toUOM = uom.GetBridgeAbscissaUnit();
 
 					if (toUOM.Equals(this))
 					{
-						factor = (double)1 / uom.BridgeScalingFactor;
+						factor = (double)1 / uom.GetBridgeScalingFactor();
 					}
 				}
 			}
@@ -1129,13 +1260,13 @@ namespace org.point85.uom
 
 			foreach (KeyValuePair<UnitOfMeasure, int> fromEntry in fromMap)
 			{
-				UnitType fromType = fromEntry.Key.UOMType;
+				UnitType fromType = fromEntry.Key.GetUnitType();
 				UnitOfMeasure fromUOM = fromEntry.Key;
 				int fromPower = fromEntry.Value;
 
 				foreach (KeyValuePair<UnitOfMeasure, int> toEntry in toMap)
 				{
-					UnitType toType = toEntry.Key.UOMType;
+					UnitType toType = toEntry.Key.GetUnitType();
 
 					if (fromType.Equals(toType))
 					{
@@ -1174,7 +1305,7 @@ namespace org.point85.uom
 		{
 			UnitOfMeasure inverted = null;
 
-			if (Exponent2 != null && Exponent2 < 0)
+			if (GetExponent2().HasValue && GetExponent2().Value < 0)
 			{
 				inverted = GetDivisor().Divide(GetDividend());
 			}
@@ -1200,12 +1331,12 @@ namespace org.point85.uom
  */
 		public void SetBridgeConversion(double scalingFactor, UnitOfMeasure abscissaUnit, double? offset)
 		{
-			BridgeScalingFactor = scalingFactor;
-			BridgeAbscissaUnit = abscissaUnit;
+			SetBridgeScalingFactor(scalingFactor);
+			SetBridgeAbscissaUnit(abscissaUnit);
 
 			if (offset.HasValue)
 			{
-				BridgeOffset = offset.Value;
+				SetBridgeOffset(offset.Value);
 			}
 		}
 
@@ -1237,7 +1368,7 @@ namespace org.point85.uom
  */
 		public UnitOfMeasure GetPowerBase()
 		{
-			return UOM1;
+			return GetUOM1();
 		}
 
 		/**
@@ -1250,7 +1381,7 @@ namespace org.point85.uom
 			StringBuilder sb = new StringBuilder();
 
 			// type
-			sb.Append(MeasurementSystem.UnitsManager.GetString("unit.type.text")).Append(' ').Append(UOMType.ToString()).Append(", ");
+			sb.Append(MeasurementSystem.UnitsManager.GetString("unit.type.text")).Append(' ').Append(GetUnitType().ToString()).Append(", ");
 
 			// unit enumeration
 			if (GetEnumeration().HasValue)
@@ -1336,11 +1467,11 @@ namespace org.point85.uom
 				// explode the abscissa unit
 				UnitOfMeasure abscissaUnit = unit.GetAbscissaUnit();
 
-				UnitOfMeasure uom1 = abscissaUnit.UOM1;
-				UnitOfMeasure uom2 = abscissaUnit.UOM2;
+				UnitOfMeasure uom1 = abscissaUnit.GetUOM1();
+				UnitOfMeasure uom2 = abscissaUnit.GetUOM2();
 
-				int? exp1 = abscissaUnit.Exponent1;
-				int? exp2 = abscissaUnit.Exponent2;
+				int? exp1 = abscissaUnit.GetExponent1();
+				int? exp2 = abscissaUnit.GetExponent2();
 
 				// scaling
 				if (PathExponents.Count > 0)
