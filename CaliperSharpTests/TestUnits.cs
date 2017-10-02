@@ -28,7 +28,7 @@ namespace CaliperSharpTests
 			}
 		}
 
-		//[TestMethod]
+		[TestMethod]
 		public void TestExceptions()
 		{
 			UnitOfMeasure uom1 = sys.CreateScalarUOM(UnitType.UNCLASSIFIED, "uom1", "uom1", "");

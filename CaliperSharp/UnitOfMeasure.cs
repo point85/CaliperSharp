@@ -112,7 +112,7 @@ namespace org.point85.uom
 
 		// unit enumerations for the various systems of measurement, e.g. KILOGRAM
 		private Nullable<Unit> UnitEnumeration;
-start here
+//start here
 		// unit type, e.g. MASS
 		public UnitType UOMType { get; set; } = UnitType.UNCLASSIFIED;
 
