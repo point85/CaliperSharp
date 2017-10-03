@@ -716,20 +716,19 @@ namespace org.point85.uom
 			{
 				UnitOfMeasure thisUOM = thisEntry.Key;
 				int thisPower = thisEntry.Value;
+				bool inMap = otherMap.TryGetValue(thisUOM, out int otherPower);
 
-				int? otherPower = otherMap[thisUOM];
-
-				if (otherPower.HasValue)
+				if (inMap)
 				{
 					if (!invert)
 					{
 						// add to multiplier's power
-						thisPower += otherPower.Value;
+						thisPower += otherPower;
 					}
 					else
 					{
 						// subtract from dividend's power
-						thisPower -= otherPower.Value;
+						thisPower -= otherPower;
 					}
 
 					// remove multiplicand or divisor UOM
