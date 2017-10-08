@@ -623,7 +623,7 @@ namespace org.point85.uom
  *            Multiplier
  * @param multiplicand
  *            Multiplicand
- * @throws Exception
+ * @
  *             Exception
  */
 		public void SetProductUnits(UnitOfMeasure multiplier, UnitOfMeasure multiplicand)
@@ -650,7 +650,7 @@ namespace org.point85.uom
  *            Dividend
  * @param divisor
  *            Divisor
- * @throws Exception
+ * @
  *             Exception
  */
 		public void SetQuotientUnits(UnitOfMeasure dividend, UnitOfMeasure divisor)
@@ -700,13 +700,13 @@ namespace org.point85.uom
 
 			// this base symbol map
 			Reducer thisPowerMap = GetBaseMap();
-			Dictionary<UnitOfMeasure, int> thisMap = thisPowerMap.Terms;
-			double thisFactor = thisPowerMap.MapScalingFactor;
+			Dictionary<UnitOfMeasure, int> thisMap = thisPowerMap.GetTerms();
+			double thisFactor = thisPowerMap.GetScalingFactor();
 
 			// other base symbol map
 			Reducer otherPowerMap = other.GetBaseMap();
-			Dictionary<UnitOfMeasure, int> otherMap = otherPowerMap.Terms;
-			double otherFactor = otherPowerMap.MapScalingFactor;
+			Dictionary<UnitOfMeasure, int> otherMap = otherPowerMap.GetTerms();
+			double otherFactor = otherPowerMap.GetScalingFactor();
 
 			// create a map of the unit of measure powers
 			Dictionary<UnitOfMeasure, int> resultMap = new Dictionary<UnitOfMeasure, int>();
@@ -741,8 +741,8 @@ namespace org.point85.uom
 				}
 			}
 
-			// add any remaining multiplicand terms and invert any remaining divisor
-			// terms
+			// add any remaining multiplicand Terms and invert any remaining divisor
+			// Terms
 			foreach (KeyValuePair<UnitOfMeasure, int> otherEntry in otherMap)
 			{
 				UnitOfMeasure otherUOM = otherEntry.Key;
@@ -760,7 +760,7 @@ namespace org.point85.uom
 
 			// get the base symbol and possibly base UOM
 			Reducer resultPowerMap = new Reducer();
-			resultPowerMap.Terms = resultMap;
+			resultPowerMap.SetTerms(resultMap);
 
 			string baseSymbol = resultPowerMap.BuildBaseString();
 			UnitOfMeasure baseUOM = MeasurementSystem.GetSystem().GetBaseUOM(baseSymbol);
@@ -826,7 +826,7 @@ namespace org.point85.uom
 		 * @param multiplicand
 		 *            {@link UnitOfMeasure}
 		 * @return {@link UnitOfMeasure}
-		 * @throws Exception
+		 * @
 		 *             Exception
 		 */
 		public UnitOfMeasure Multiply(UnitOfMeasure multiplicand)
@@ -840,7 +840,7 @@ namespace org.point85.uom
  * @param divisor
  *            {@link UnitOfMeasure}
  * @return {@link UnitOfMeasure}
- * @throws Exception
+ * @
  *             Exception
  */
 		public UnitOfMeasure Divide(UnitOfMeasure divisor)
@@ -1240,8 +1240,8 @@ namespace org.point85.uom
 			Reducer fromPowerMap = GetBaseMap();
 			Reducer toPowerMap = targetUOM.GetBaseMap();
 
-			Dictionary<UnitOfMeasure, int> fromMap = fromPowerMap.Terms;
-			Dictionary<UnitOfMeasure, int> toMap = toPowerMap.Terms;
+			Dictionary<UnitOfMeasure, int> fromMap = fromPowerMap.GetTerms();
+			Dictionary<UnitOfMeasure, int> toMap = toPowerMap.GetTerms();
 
 			if (fromMap.Count != toMap.Count)
 			{
@@ -1249,8 +1249,8 @@ namespace org.point85.uom
 				throw new Exception(msg);
 			}
 
-			double fromFactor = fromPowerMap.MapScalingFactor;
-			double toFactor = toPowerMap.MapScalingFactor;
+			double fromFactor = fromPowerMap.GetScalingFactor();
+			double toFactor = toPowerMap.GetScalingFactor();
 
 			double factor = 1;
 
@@ -1297,7 +1297,7 @@ namespace org.point85.uom
  * Invert a unit of measure to create a new one
  * 
  * @return {@link UnitOfMeasure}
- * @throws Exception
+ * @
  *             Exception
  */
 		public UnitOfMeasure Invert()
@@ -1325,7 +1325,7 @@ namespace org.point85.uom
  *            X-axis unit
  * @param offset
  *            Offset
- * @throws Exception
+ * @
  *             Exception
  */
 		public void SetBridgeConversion(double scalingFactor, UnitOfMeasure abscissaUnit, double? offset)
@@ -1351,7 +1351,7 @@ namespace org.point85.uom
  * Get the unit of measure corresponding to the base symbol
  * 
  * @return {@link UnitOfMeasure}
- * @throws Exception
+ * @
  *             Exception
  */
 		public UnitOfMeasure GetBaseUOM()
@@ -1419,7 +1419,7 @@ namespace org.point85.uom
 		}
 
 		// reduce a unit of measure to its most basic scalar units of measure.
-		private class Reducer
+		internal class Reducer
 		{
 			private const int MAX_RECURSIONS = 100;
 
@@ -1427,20 +1427,35 @@ namespace org.point85.uom
 			private const int STARTING_LEVEL = -1;
 
 			// UOMs and their exponents
-			internal Dictionary<UnitOfMeasure, int> Terms { get; set; } = new Dictionary<UnitOfMeasure, int>();
+			private Dictionary<UnitOfMeasure, int> Terms = new Dictionary<UnitOfMeasure, int>();
 
 			// the overall scaling factor
-			internal double MapScalingFactor { get; set; } = 1;
+			private double MapScalingFactor = 1;
 
 			// list of exponents down a path to the leaf UOM
-			internal List<int> PathExponents = new List<int>();
+			private List<int> PathExponents = new List<int>();
 
-			// recursion counter
+			// recursion Counter
 			private int Counter = 0;
 
 			internal Reducer()
 			{
 
+			}
+
+			internal double GetScalingFactor()
+			{
+				return this.MapScalingFactor;
+			}
+
+			internal Dictionary<UnitOfMeasure, int> GetTerms()
+			{
+				return Terms;
+			}
+
+			internal void SetTerms(Dictionary<UnitOfMeasure, int> terms)
+			{
+				this.Terms = terms;
 			}
 
 			internal void Explode(UnitOfMeasure unit)
@@ -1452,8 +1467,8 @@ namespace org.point85.uom
 			{
 				if (++Counter > MAX_RECURSIONS)
 				{
-					string msg = String.Format(MeasurementSystem.GetMessage("circular.references"),
-							unit.Symbol);
+					String msg = String.Format(MeasurementSystem.GetMessage("circular.references"),
+							unit.GetSymbol());
 					throw new Exception(msg);
 				}
 
@@ -1547,7 +1562,7 @@ namespace org.point85.uom
 				level--;
 			}
 
-			// add a UOM and exponent pair to the map of reduced terms
+			// add a UOM and exponent pair to the map of reduced Terms
 			private void AddTerm(UnitOfMeasure uom, bool invert)
 			{
 				int unitPower = 1;
@@ -1602,7 +1617,7 @@ namespace org.point85.uom
 			}
 
 			// compose the base symbol
-			internal string BuildBaseString()
+			internal String BuildBaseString()
 			{
 				StringBuilder numerator = new StringBuilder();
 				StringBuilder denominator = new StringBuilder();
@@ -1611,23 +1626,24 @@ namespace org.point85.uom
 				int denominatorCount = 0;
 
 				// sort units by symbol (ascending)
-				SortedSet<UnitOfMeasure> keys = new SortedSet<UnitOfMeasure>(Terms.Keys);
+				SortedDictionary<UnitOfMeasure, int> keys = new SortedDictionary<UnitOfMeasure, int>(Terms);
 
-				foreach (UnitOfMeasure unit in keys)
+				foreach (KeyValuePair<UnitOfMeasure, int> pair in keys)
 				{
-					int power = Terms[unit];
+					UnitOfMeasure unit = pair.Key;
+					int power = pair.Value;
 
 					if (power < 0)
 					{
 						// negative, put in denominator
 						if (denominator.Length > 0)
 						{
-							denominator.Append(UnitOfMeasure.MULT);
+							denominator.Append(MULT);
 						}
 
 						if (!unit.Equals(MeasurementSystem.GetSystem().GetOne()))
 						{
-							denominator.Append(unit.Symbol);
+							denominator.Append(unit.GetSymbol());
 							denominatorCount++;
 						}
 
@@ -1635,15 +1651,15 @@ namespace org.point85.uom
 						{
 							if (power == -2)
 							{
-								denominator.Append(UnitOfMeasure.SQ);
+								denominator.Append(SQ);
 							}
 							else if (power == -3)
 							{
-								denominator.Append(UnitOfMeasure.CUBED);
+								denominator.Append(CUBED);
 							}
 							else
 							{
-								denominator.Append(UnitOfMeasure.POW).Append(Math.Abs(power));
+								denominator.Append(POW).Append(Math.Abs(power));
 							}
 						}
 					}
@@ -1652,25 +1668,25 @@ namespace org.point85.uom
 						// positive, put in numerator
 						if (numerator.Length > 0)
 						{
-							numerator.Append(UnitOfMeasure.MULT);
+							numerator.Append(MULT);
 						}
 
-						numerator.Append(unit.Symbol);
+						numerator.Append(unit.GetSymbol());
 						numeratorCount++;
 
 						if (power > 1)
 						{
 							if (power == 2)
 							{
-								numerator.Append(UnitOfMeasure.SQ);
+								numerator.Append(SQ);
 							}
 							else if (power == 3)
 							{
-								numerator.Append(UnitOfMeasure.CUBED);
+								numerator.Append(CUBED);
 							}
 							else
 							{
-								numerator.Append(UnitOfMeasure.POW).Append(power);
+								numerator.Append(POW).Append(power);
 							}
 						}
 					}
@@ -1682,10 +1698,10 @@ namespace org.point85.uom
 
 				if (numeratorCount == 0)
 				{
-					numerator.Append(UnitOfMeasure.ONE_CHAR);
+					numerator.Append(ONE_CHAR);
 				}
 
-				string result = null;
+				String result = null;
 
 				if (denominatorCount == 0)
 				{
@@ -1695,17 +1711,17 @@ namespace org.point85.uom
 				{
 					if (denominatorCount == 1)
 					{
-						result = numerator.Append(UnitOfMeasure.DIV).Append(denominator).ToString();
+						result = numerator.Append(DIV).Append(denominator).ToString();
 					}
 					else
 					{
-						result = numerator.Append(UnitOfMeasure.DIV).Append(UnitOfMeasure.LP).Append(denominator).Append(UnitOfMeasure.RP).ToString();
+						result = numerator.Append(DIV).Append(LP).Append(denominator).Append(RP).ToString();
 					}
 				}
 
 				return result;
 			} // end unit of measure iteration
-		} // end Reducer class
+		}
 
 		// UOM, scaling factor and power cumulative along a conversion path
 		private class PathParameters
