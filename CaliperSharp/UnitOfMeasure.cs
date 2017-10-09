@@ -716,9 +716,8 @@ namespace org.point85.uom
 			{
 				UnitOfMeasure thisUOM = thisEntry.Key;
 				int thisPower = thisEntry.Value;
-				bool inMap = otherMap.TryGetValue(thisUOM, out int otherPower);
 
-				if (inMap)
+				if (otherMap.TryGetValue(thisUOM, out int otherPower))
 				{
 					if (!invert)
 					{
@@ -741,8 +740,8 @@ namespace org.point85.uom
 				}
 			}
 
-			// add any remaining multiplicand Terms and invert any remaining divisor
-			// Terms
+			// add any remaining multiplicand terms and invert any remaining divisor
+			// terms
 			foreach (KeyValuePair<UnitOfMeasure, int> otherEntry in otherMap)
 			{
 				UnitOfMeasure otherUOM = otherEntry.Key;
@@ -762,7 +761,7 @@ namespace org.point85.uom
 			Reducer resultPowerMap = new Reducer();
 			resultPowerMap.SetTerms(resultMap);
 
-			string baseSymbol = resultPowerMap.BuildBaseString();
+			String baseSymbol = resultPowerMap.BuildBaseString();
 			UnitOfMeasure baseUOM = MeasurementSystem.GetSystem().GetBaseUOM(baseSymbol);
 
 			if (baseUOM != null)
@@ -784,17 +783,17 @@ namespace org.point85.uom
 
 			if (!invert)
 			{
-				result.Symbol = GenerateProductSymbol(result.GetMultiplier(), result.GetMultiplicand());
+				result.SetSymbol(GenerateProductSymbol(result.GetMultiplier(), result.GetMultiplicand()));
 			}
 			else
 			{
-				result.Symbol = GenerateQuotientSymbol(result.GetDividend(), result.GetDivisor());
+				result.SetSymbol(GenerateQuotientSymbol(result.GetDividend(), result.GetDivisor()));
 			}
 
 			// constrain to a maximum length
-			if (result.Symbol.Length > MAX_SYMBOL_LENGTH)
+			if (result.GetSymbol().Length > MAX_SYMBOL_LENGTH)
 			{
-				result.Symbol = GenerateIntermediateSymbol();
+				result.SetSymbol(GenerateIntermediateSymbol());
 			}
 
 			return result;
@@ -1547,7 +1546,7 @@ namespace org.point85.uom
 					// explode UOM #1
 					PathExponents.Add(exp1.Value);
 					ExplodeRecursively(uom1, level);
-					PathExponents.Remove(level);
+					PathExponents.RemoveAt(level);
 				}
 
 				if (uom2 != null)
@@ -1555,7 +1554,7 @@ namespace org.point85.uom
 					// explode UOM #2
 					PathExponents.Add(exp2.Value);
 					ExplodeRecursively(uom2, level);
-					PathExponents.Remove(level);
+					PathExponents.RemoveAt(level);
 				}
 
 				// up a level
