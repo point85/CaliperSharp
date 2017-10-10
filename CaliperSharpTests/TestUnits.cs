@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using org.point85.uom;
 using System.Text;
+using System.Diagnostics;
 
 namespace CaliperSharpTests
 {
@@ -190,7 +191,7 @@ namespace CaliperSharpTests
 			{
 			}
 
-			u = sys.CreateQuotientUOM(UnitType.UNCLASSIFIED, "1/1", "1/1", "", sys.GetOne(), sys.GetOne());
+			u = sys.CreateQuotientUOM(UnitType.UNCLASSIFIED, "1/1", "uno/one", "", sys.GetOne(), sys.GetOne());
 			Quantity q1 = new Quantity(10, u);
 			Quantity q2 = q1.Convert(sys.GetOne());
 			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 10, DELTA6));
@@ -1455,6 +1456,7 @@ namespace CaliperSharpTests
 		[TestMethod]
 		public void testPowers()
 		{
+			sys.ClearCache();
 
 			double bd;
 
@@ -1587,14 +1589,13 @@ namespace CaliperSharpTests
 			u2 = sys.GetOne().Divide(min);
 			Assert.IsTrue(IsCloseTo(u2.GetScalingFactor(), 1, DELTA6));
 
-			q1 = new Quantity(1, u2);
-			q2 = q1.Convert(hz);
-
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 0.0166666666666667, DELTA6));
-
 			u = u2.Multiply(u2);
 			double sf = u.GetScalingFactor();
 			Assert.IsTrue(IsCloseTo(sf, 1, DELTA6));
+
+			q1 = new Quantity(1, u2);
+			q2 = q1.Convert(hz);
+			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 0.0166666666666667, DELTA6));
 
 			q1 = new Quantity(1, u);
 			q2 = q1.Convert(s2.Invert());
@@ -1624,11 +1625,12 @@ namespace CaliperSharpTests
 			Assert.IsTrue(IsCloseTo(bd, 2.777777777777778e-4, DELTA6));
 
 			q2 = q2.Convert(min2);
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 10, DELTA6));
+			double amount = q2.GetAmount();
+			Assert.IsTrue(IsCloseTo(amount, 10, DELTA6));
 		}
 
 		[TestMethod]
-		public void testInversions()
+		public void TestInversions()
 		{
 			UnitOfMeasure uom = null;
 			UnitOfMeasure Inverted = null;
