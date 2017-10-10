@@ -710,7 +710,7 @@ namespace CaliperSharpTests
 		}
 
 		[TestMethod]
-		public void testSymbolCache()
+		public void TestSymbolCache()
 		{
 			UnitOfMeasure uom = sys.GetUOM(Unit.KILOGRAM);
 			UnitOfMeasure other = sys.GetUOM(uom.GetSymbol());
@@ -1679,7 +1679,7 @@ namespace CaliperSharpTests
 		}
 
 		[TestMethod]
-		public void testMedicalUnits()
+		public void TestMedicalUnits()
 		{
 			// Equivalent
 			UnitOfMeasure eq = sys.GetUOM(Unit.EQUIVALENT);

@@ -120,7 +120,7 @@ namespace org.point85.uom
 		private double BridgeScalingFactor;
 
 		// offset (b)
-		private double BridgeOffset;
+		private double BridgeOffset = double.MinValue;
 
 		// x-axis unit
 		private UnitOfMeasure BridgeAbscissaUnit;
@@ -139,10 +139,10 @@ namespace org.point85.uom
 		private UnitOfMeasure UOM2;
 
 		// exponent
-		private Nullable<int> Exponent1;
+		private int Exponent1 = int.MinValue;
 
 		// second exponent
-		private Nullable<int> Exponent2;
+		private int Exponent2 = int.MinValue;
 
 		/**
  * Construct a default unit of measure
@@ -154,6 +154,11 @@ namespace org.point85.uom
 		internal UnitOfMeasure(UnitType type, string name, string symbol, string description) : base(name, symbol, description)
 		{
 			SetUnitType(type);
+		}
+
+		public bool ExponentHasValue(int exponent)
+		{
+			return exponent == int.MinValue ? false : true;
 		}
 
 		/**
@@ -355,7 +360,7 @@ namespace org.point85.uom
 			UOM2 = uom;
 		}
 
-		private int? GetExponent1()
+		private int GetExponent1()
 		{
 			return Exponent1;
 		}
@@ -365,7 +370,7 @@ namespace org.point85.uom
 			Exponent1 = exponent;
 		}
 
-		private int? GetExponent2()
+		private int GetExponent2()
 		{
 			return Exponent2;
 		}
@@ -398,15 +403,15 @@ namespace org.point85.uom
 		{
 			MeasurementType type = MeasurementType.SCALAR;
 
-			if (Exponent2.HasValue && Exponent2.Value < 0)
+			if (ExponentHasValue(Exponent2) && Exponent2 < 0)
 			{
 				type = MeasurementType.QUOTIENT;
 			}
-			else if (Exponent2.HasValue && Exponent2.Value > 0)
+			else if (ExponentHasValue(Exponent2) && Exponent2 > 0)
 			{
 				type = MeasurementType.PRODUCT;
 			}
-			else if (GetUOM1() != null && Exponent1.HasValue)
+			else if (GetUOM1() != null && ExponentHasValue(Exponent1))
 			{
 				type = MeasurementType.POWER;
 			}
@@ -461,7 +466,7 @@ namespace org.point85.uom
  * 
  * @return Exponent
  */
-		public int? GetPowerExponent()
+		public int GetPowerExponent()
 		{
 			return GetExponent1();
 		}
@@ -551,9 +556,9 @@ namespace org.point85.uom
 
 			// check if quotient
 			int exponent = 1;
-			if (GetPowerExponent().HasValue)
+			if (ExponentHasValue(GetPowerExponent()))
 			{
-				exponent = GetPowerExponent().Value;
+				exponent = GetPowerExponent();
 			}
 
 			UnitOfMeasure one = MeasurementSystem.GetSystem().GetOne();
@@ -561,11 +566,11 @@ namespace org.point85.uom
 			{
 				if (GetDividend().Equals(one))
 				{
-					exponent = GetExponent2().Value;
+					exponent = GetExponent2();
 				}
 				else if (GetDivisor().Equals(one))
 				{
-					exponent = GetExponent1().Value;
+					exponent = GetExponent1();
 				}
 			}
 
@@ -1303,7 +1308,7 @@ namespace org.point85.uom
 		{
 			UnitOfMeasure inverted = null;
 
-			if (GetExponent2().HasValue && GetExponent2().Value < 0)
+			if (ExponentHasValue(GetExponent2()) && GetExponent2() < 0)
 			{
 				inverted = GetDivisor().Divide(GetDividend());
 			}
@@ -1483,8 +1488,8 @@ namespace org.point85.uom
 				UnitOfMeasure uom1 = abscissaUnit.GetUOM1();
 				UnitOfMeasure uom2 = abscissaUnit.GetUOM2();
 
-				int? exp1 = abscissaUnit.GetExponent1();
-				int? exp2 = abscissaUnit.GetExponent2();
+				int exp1 = abscissaUnit.GetExponent1();
+				int exp2 = abscissaUnit.GetExponent2();
 
 				// scaling
 				if (PathExponents.Count > 0)
@@ -1544,7 +1549,7 @@ namespace org.point85.uom
 				else
 				{
 					// explode UOM #1
-					PathExponents.Add(exp1.Value);
+					PathExponents.Add(exp1);
 					ExplodeRecursively(uom1, level);
 					PathExponents.RemoveAt(level);
 				}
@@ -1552,7 +1557,7 @@ namespace org.point85.uom
 				if (uom2 != null)
 				{
 					// explode UOM #2
-					PathExponents.Add(exp2.Value);
+					PathExponents.Add(exp2);
 					ExplodeRecursively(uom2, level);
 					PathExponents.RemoveAt(level);
 				}
