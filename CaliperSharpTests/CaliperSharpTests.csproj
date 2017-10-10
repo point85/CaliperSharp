@@ -59,6 +59,7 @@
     <Compile Include="TestFinancial.cs" />
     <Compile Include="TestNamedQuantity.cs" />
     <Compile Include="TestPerformance.cs" />
+    <Compile Include="UnitTest1.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
