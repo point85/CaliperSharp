@@ -225,8 +225,7 @@ namespace org.point85.uom
 */
 		public UnitOfMeasure GetUOM(Unit unit)
 		{
-			UnitOfMeasure uom;
-			UnitRegistry.TryGetValue(unit, out uom);
+			UnitRegistry.TryGetValue(unit, out UnitOfMeasure uom);
 
 			if (uom == null)
 			{
@@ -244,7 +243,9 @@ namespace org.point85.uom
 		 */
 		public UnitOfMeasure GetUOM(string symbol)
 		{
-			return SymbolRegistry[symbol];
+			UnitOfMeasure uom;
+			SymbolRegistry.TryGetValue(symbol, out uom);
+			return uom;
 		}
 
 		/**
@@ -256,8 +257,7 @@ namespace org.point85.uom
  */
 		public UnitOfMeasure GetBaseUOM(string symbol)
 		{
-			UnitOfMeasure uom;
-			BaseRegistry.TryGetValue(symbol, out uom);
+			BaseRegistry.TryGetValue(symbol, out UnitOfMeasure uom);
 			return uom;
 		}
 
@@ -1335,8 +1335,7 @@ namespace org.point85.uom
 				throw new Exception(MeasurementSystem.GetMessage("symbol.cannot.be.null"));
 			}
 
-			UnitOfMeasure uom;
-			SymbolRegistry.TryGetValue(symbol, out uom);
+			SymbolRegistry.TryGetValue(symbol, out UnitOfMeasure uom);
 			if (uom == null)
 			{
 				// create a new one

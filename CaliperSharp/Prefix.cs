@@ -99,7 +99,7 @@ namespace org.point85.uom
 		 * 
 		 * @return prefix name
 		 */
-		public string Name { get; set; }
+		public string Name;
 
 
 		/**
@@ -107,14 +107,44 @@ namespace org.point85.uom
 		 * 
 		 * @return symbol
 		 */
-		public string Symbol { get; set; }
+		public string Symbol;
 
 		/**
 		 * Get the scaling factor
 		 * 
 		 * @return Scaling factor
 		 */
-		public double Factor { get; set; }
+		public double Factor;
+
+		/**
+ * Get the name of the prefix
+ * 
+ * @return prefix name
+ */
+		public string GetName()
+		{
+			return this.Name;
+		}
+
+		/**
+		 * Get the symbol for the prefix
+		 * 
+		 * @return symbol
+		 */
+		public string GetSymbol()
+		{
+			return this.Symbol;
+		}
+
+		/**
+		 * Get the scaling factor
+		 * 
+		 * @return Scaling factor
+		 */
+		public double GetFactor()
+		{
+			return this.Factor;
+		}
 
 		/**
 		 * Find the prefix with the specified name
@@ -173,7 +203,7 @@ namespace org.point85.uom
 		}
 
 		/**
-		 * Create a String representation of this Prefix
+		 * Create a string representation of this Prefix
 		 */
 		public override string ToString()
 		{
