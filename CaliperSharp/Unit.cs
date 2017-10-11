@@ -24,14 +24,8 @@ SOFTWARE.
 
 namespace Point85.Caliper.UnitOfMeasure
 {
-
-	/**
-	 * Unit is an enumeration of common units of measure in the International
-	 * Customary, SI, US and British Imperial systems.
-	 * 
-	 * @author Kent Randall
-	 *
-	 */
+	/// <summary>Unit is an enumeration of common units of measure in the International
+	/// Customary, SI, US and British Imperial systems.</summary>
 	public enum Unit
 	{
 		// dimension-less "1" or unity
@@ -132,6 +126,5 @@ namespace Point85.Caliper.UnitOfMeasure
 		BR_TON,
 		// currency
 		US_DOLLAR, EURO, YUAN
-
 	}
 }

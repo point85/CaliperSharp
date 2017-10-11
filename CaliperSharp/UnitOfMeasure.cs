@@ -28,54 +28,54 @@ using System.Text;
 
 namespace Point85.Caliper.UnitOfMeasure
 {
-	/**
- * <p>
- * A UnitOfMeasure can have a linear conversion (y = ax + b) to another unit of
- * measure in the same internationally recognized measurement system of
- * International Customary, SI, US or British Imperial. Or, the unit of measure
- * can have a conversion to another custom unit of measure. It is owned by the
- * unified {@link MeasurementSystem} defined by this project.
- * </p>
- * 
- * <p>
- * A unit of measure is categorized by scalar (simple unit), quotient (divisor
- * and dividend units), product (multiplier and multiplicand units) or power
- * (unit with an integral exponent). More than one representation of a unit of
- * measure is possible. For example, a unit of "per second" could be a quotient
- * of "1/s" (e.g. an inverted second) or a power of s^-1.
- * </p>
- * 
- * <p>
- * A unit of measure also has an enumerated {@link UnitType} (for example LENGTH
- * or MASS) and a unique {@link Unit} discriminator (for example METRE). <br>
- * A basic unit (a.k.a fundamental unit in the SI system) can have a bridge
- * conversion to another basic unit in another recognized measurement system.
- * This conversion is defined unidirectionally. For example, an International
- * Customary foot is 0.3048 SI metres. The conversion from metre to foot is just
- * the inverse of this relationship.
- * </p>
- * 
- * <p>
- * A unit of measure has a base symbol, for example 'm' for metre. A base symbol
- * is one that consists only of the symbols for the base units of measure. In
- * the SI system, the base units are well-defined. The derived units such as
- * Newton all have base symbols expressed in the fundamental units of length
- * (metre), mass (kilogram), time (second), temperature (Kelvin), plane angle
- * (radian), electric charge (Coulomb) and luminous intensity (candela). In the
- * US and British systems, base units are not defined. Caliper uses foot for
- * length, pound mass for mass and Rankine for temperature. This base symbol is
- * used in unit of measure conversions to uniquely identify the target unit.
- * </p>
- * <p>
- * The SI system has defined prefixes (e.g. "centi") for 1/100th of another unit
- * (e.g. metre). Instead of defining all the possible unit of measure
- * combinations, the {@link MeasurementSystem} is able to create units by
- * specifying the {@link Prefix} and target unit of measure. Similarly, computer
- * science has defined prefixes for bytes (e.g. "mega").
- * 
- * @author Kent Randall
- *
- */
+
+	/// <summary>
+	/// <p>
+	/// A UnitOfMeasure can have a linear conversion (y = ax + b) to another unit of
+	/// measure in the same internationally recognized measurement system of
+	/// International Customary, SI, US or British Imperial. Or, the unit of measure
+	/// can have a conversion to another custom unit of measure. It is owned by the
+	/// unified MeasurementSystem} defined by this project.
+	/// </p>
+	/// 
+	/// <p>
+	/// A unit of measure is categorized by scalar (simple unit), quotient (divisor
+	/// and dividend units), product (multiplier and multiplicand units) or power
+	/// (unit with an integral exponent). More than one representation of a unit of
+	/// measure is possible. For example, a unit of "per second" could be a quotient
+	/// of "1/s" (e.g. an inverted second) or a power of s^-1.
+	/// </p>
+	/// 
+	/// <p>
+	/// A unit of measure also has an enumerated UnitType} (for example LENGTH
+	/// or MASS) and a unique Unit} discriminator (for example METRE). <br>
+	/// A basic unit (a.k.a fundamental unit in the SI system) can have a bridge
+	/// conversion to another basic unit in another recognized measurement system.
+	/// This conversion is defined unidirectionally. For example, an International
+	/// Customary foot is 0.3048 SI metres. The conversion from metre to foot is just
+	/// the inverse of this relationship.
+	/// </p>
+	/// 
+	/// <p>
+	/// A unit of measure has a base symbol, for example 'm' for metre. A base symbol
+	/// is one that consists only of the symbols for the base units of measure. In
+	/// the SI system, the base units are well-defined. The derived units such as
+	/// Newton all have base symbols expressed in the fundamental units of length
+	/// (metre), mass (kilogram), time (second), temperature (Kelvin), plane angle
+	/// (radian), electric charge (Coulomb) and luminous intensity (candela). In the
+	/// US and British systems, base units are not defined. Caliper uses foot for
+	/// length, pound mass for mass and Rankine for temperature. This base symbol is
+	/// used in unit of measure conversions to uniquely identify the target unit.
+	/// </p>
+	/// 
+	/// <p>
+	/// The SI system has defined prefixes (e.g. "centi") for 1/100th of another unit
+	/// (e.g. metre). Instead of defining all the possible unit of measure
+	/// combinations, the MeasurementSystem} is able to create units by
+	/// specifying the Prefix} and target unit of measure. Similarly, computer
+	/// science has defined prefixes for bytes (e.g. "mega").
+	/// </p>
+	/// </summary>
 	public class UnitOfMeasure : Symbolic, IComparable<UnitOfMeasure>
 	{
 		// UOM types
@@ -145,9 +145,7 @@ namespace Point85.Caliper.UnitOfMeasure
 		// second exponent
 		private int Exponent2 = int.MinValue;
 
-		/**
- * Construct a default unit of measure
- */
+		/// <summary>Construct a default unit of measure</summary>
 		public UnitOfMeasure() : base()
 		{
 		}
@@ -157,124 +155,99 @@ namespace Point85.Caliper.UnitOfMeasure
 			SetUnitType(type);
 		}
 
+		/// <summary>
+		/// Check to see if the exponent has a value
+		/// </summary>
+		/// <param name="exponent"></param>
+		/// <returns>True if it has been set</returns>
 		public bool ExponentHasValue(int exponent)
 		{
 			return exponent == int.MinValue ? false : true;
 		}
 
-		/**
- * Get the unit of measure's x-axis unit of measure for the relation y = ax
- * + b.
- * 
- * @return {@link UnitOfMeasure}
- */
+		/// <summary>Get the unit of measure's x-axis unit of measure for the relation y = ax + b.</summary>
+		/// 
+		/// <returns> UnitOfMeasure </returns>
 		public UnitOfMeasure GetAbscissaUnit()
 		{
 			return AbscissaUnit != null ? AbscissaUnit : this;
 		}
 
-		/**
- * Set the unit of measure's x-axis unit of measure for the relation y = ax
- * + b.
- * 
- * @param abscissaUnit
- *            {@link UnitOfMeasure}
- */
+		/// <summary>Set the unit of measure's x-axis unit of measure for the relation y = ax + b.</summary>
+		/// 
+		/// <param name="abscissaUnit">UnitOfMeasure</param>
 		public void SetAbscissaUnit(UnitOfMeasure abscissaUnit)
 		{
 			this.AbscissaUnit = abscissaUnit;
 		}
 
-		/**
- * Get the unit of measure's 'a' factor (slope) for the relation y = ax + b.
- * 
- * @return Factor
- */
+		/// <summary>Get the unit of measure's 'a' factor (slope) for the relation y = ax + b.</summary>
+		/// 
+		/// <returns> Factor</returns>
 		public double GetScalingFactor()
 		{
 			return ScalingFactor != double.MinValue ? ScalingFactor : 1;
 		}
 
-		/**
- * Set the unit of measure's 'a' factor (slope) for the relation y = ax + b.
- * 
- * @param scalingFactor
- *            Scaling factor
- */
+		/// <summary>Set the unit of measure's 'a' factor (slope) for the relation y = ax + b.</summary>
+		/// 
+		/// <param name="scalingFactor">Scaling factor</param>
 		public void SetScalingFactor(double scalingFactor)
 		{
 			ScalingFactor = scalingFactor;
 		}
 
-		/**
- * Get the unit of measure's 'b' offset (intercept) for the relation y = ax
- * + b.
- * 
- * @return Offset
- */
+		/// <summary>Get the unit of measure's 'b' offset (intercept) for the relation y = ax + b.</summary>
+		/// 
+		/// <returns> Offset</returns>
 		public double GetOffset()
 		{
 			return Offset != double.MinValue ? Offset : 0;
 		}
 
-		/**
- * Set the unit of measure's 'b' offset (intercept) for the relation y = ax
- * + b.
- * 
- * @param offset
- *            Offset
- */
+		/// <summary>Set the unit of measure's 'b' offset (intercept) for the relation y = ax + b.</summary>
+		/// 
+		/// <param name="offset">Offset</param>
 		public void SetOffset(double offset)
 		{
 			Offset = offset;
 		}
 
-		/**
- * Get the unit's enumerated type
- * 
- * @return {@link Unit}
- */
+		/// <summary>Get the unit's enumerated type</summary>
+		/// 
+		/// <returns>Unit</returns>
 		public Unit? GetEnumeration()
 		{
 			return UnitEnumeration;
 		}
 
-		/**
-		 * Set the unit's enumerated type
-		 * 
-		 * @param unit
-		 *            {@link Unit}
-		 */
+		/// <summary>Set the unit's enumerated type</summary>
+		/// 
+		/// <param name="unit">Unit</param>
 		public void SetEnumeration(Unit? unit)
 		{
 			UnitEnumeration = unit;
 		}
-		/**
- * Get the type of the unit.
- * 
- * @return {@link UnitType}
- */
+
+		/// <summary>Get the type of the unit.</summary>
+		/// 
+		/// <returns> UnitType</returns>
 		public UnitType GetUnitType()
 		{
 			return UOMType;
 		}
 
-		/**
-		 * Set the type of the unit.
-		 * 
-		 * @param unitType
-		 *            {@link UnitType}
-		 */
+		/// <summary>Set the type of the unit.</summary>
+		/// 
+		/// <param name="unitType">UnitType</param>
 		public void SetUnitType(UnitType unitType)
 		{
 			UOMType = unitType;
 		}
 
-		/**
- * Get the bridge UOM scaling factor
- * 
- * @return Scaling factor
- */
+		/// <summary>Get the bridge UOM scaling factor</summary>
+		/// 
+		/// <returns> Scaling factor</returns>
 		public double GetBridgeScalingFactor()
 		{
 			return BridgeScalingFactor;
@@ -285,11 +258,10 @@ namespace Point85.Caliper.UnitOfMeasure
 			BridgeScalingFactor = factor;
 		}
 
-		/**
-		 * Get the bridge UOM abscissa UOM
-		 * 
-		 * @return {@link UnitOfMeasure}
-		 */
+
+		/// <summary>Get the bridge UOM abscissa UOM</summary>
+		/// 
+		/// <returns> UnitOfMeasure</returns>
 		public UnitOfMeasure GetBridgeAbscissaUnit()
 		{
 			return BridgeAbscissaUnit;
@@ -300,11 +272,10 @@ namespace Point85.Caliper.UnitOfMeasure
 			BridgeAbscissaUnit = uom;
 		}
 
-		/**
-		 * Get the bridge UOM offset
-		 * 
-		 * @return Offset
-		 */
+
+		/// <summary>Get the bridge UOM offset</summary>
+		/// 
+		/// <returns> Offset</returns>
 		public double GetBridgeOffset()
 		{
 			return BridgeOffset;
@@ -320,22 +291,17 @@ namespace Point85.Caliper.UnitOfMeasure
 			BaseSymbol = symbol;
 		}
 
-		/**
- * Get the category
- * 
- * @return Category
- */
+		/// <summary>Get the category</summary>
+		/// 
+		/// <returns> Category</returns>
 		public string GetCategory()
 		{
 			return Category;
 		}
 
-		/**
-		 * Set the category
-		 * 
-		 * @param category
-		 *            Category
-		 */
+		/// <summary>Set the category</summary>
+		/// 
+		/// <param name="category">Category</param>
 		public void SetCategory(string category)
 		{
 			Category = category;
@@ -395,11 +361,9 @@ namespace Point85.Caliper.UnitOfMeasure
 			SetExponent2(exponent2);
 		}
 
-		/**
- * Get the measurement type
- * 
- * @return {@link MeasurementType}
- */
+		/// <summary>Get the measurement type</summary>
+		/// 
+		/// <returns> MeasurementType</returns>
 		public MeasurementType GetMeasurementType()
 		{
 			MeasurementType type = MeasurementType.SCALAR;
@@ -430,14 +394,10 @@ namespace Point85.Caliper.UnitOfMeasure
 			}
 		}
 
-		/**
-	* Get the unit of measure's symbol in the fundamental units for that
-	* system. For example a Newton is a kg.m/s2.
-	* 
-	* @return Base symbol
-	* @
-	*             Exception
-*/
+		/// <summary>Get the unit of measure's symbol in the fundamental units for that
+		/// system. For example a Newton is a kg.m/s2.</summary>
+		/// 
+		/// <returns> Base symbol</returns>
 		public string GetBaseSymbol()
 		{
 			lock (new object())
@@ -451,57 +411,43 @@ namespace Point85.Caliper.UnitOfMeasure
 			}
 		}
 
-		/**
- * Check to see if this unit of measure has a conversion to another unit of
- * measure other than itself.
- * 
- * @return True if it does not
- */
+		/// <summary>Check to see if this unit of measure has a conversion to another unit of
+		/// measure other than itself.</summary>
+		/// 
+		/// <returns> True if it does not</returns>
 		public bool IsTerminal()
 		{
 			return this.Equals(GetAbscissaUnit()) ? true : false;
 		}
 
-		/**
- * Get the exponent
- * 
- * @return Exponent
- */
+		/// <summary>Get the exponent of a power unit</summary>
+		/// 
+		/// <returns> Exponent</returns>
 		public int GetPowerExponent()
 		{
 			return GetExponent1();
 		}
 
-		/**
- * Get the dividend unit of measure
- * 
- * @return {@link UnitOfMeasure}
- */
+		/// <summary>Get the dividend unit of measure</summary>
+		/// 
+		/// <returns> UnitOfMeasure</returns>
 		public UnitOfMeasure GetDividend()
 		{
 			return GetUOM1();
 		}
 
-		/**
-		 * Get the divisor unit of measure
-		 * 
-		 * @return {@link UnitOfMeasure}
-		 */
+		/// <summary>Get the divisor unit of measure</summary>
+		/// 
+		/// <returns> UnitOfMeasure</returns>
 		public UnitOfMeasure GetDivisor()
 		{
 			return GetUOM2();
 		}
 
-		/**
- * Set the base unit of measure and exponent
- * 
- * @param base
- *            Base unit of measure
- * @param exponent
- *            Exponent
- * @
- *             Exception
- */
+		/// <summary>Set the base unit of measure and exponent</summary>
+		/// 
+		/// <param name="base">Base unit of measure</param>
+		/// <param name="exponent">Exponent</param>
 		public void SetPowerUnit(UnitOfMeasure baseUOM, int exponent)
 		{
 			if (baseUOM == null)
@@ -551,7 +497,6 @@ namespace Point85.Caliper.UnitOfMeasure
 
 		internal UnitOfMeasure ClonePower(UnitOfMeasure uom)
 		{
-
 			UnitOfMeasure newUOM = new UnitOfMeasure();
 			newUOM.SetUnitType(GetUnitType());
 
@@ -622,16 +567,11 @@ namespace Point85.Caliper.UnitOfMeasure
 			}
 		}
 
-		/**
- * Set the multiplier and multiplicand
- * 
- * @param multiplier
- *            Multiplier
- * @param multiplicand
- *            Multiplicand
- * @
- *             Exception
- */
+
+		/// <summary>Set the multiplier and multiplicand</summary>
+		/// 
+		/// <param name="multiplier">Multiplier</param>          
+		/// <param name="multiplicand">Multiplicand</param>           
 		public void SetProductUnits(UnitOfMeasure multiplier, UnitOfMeasure multiplicand)
 		{
 			if (multiplier == null)
@@ -649,16 +589,10 @@ namespace Point85.Caliper.UnitOfMeasure
 			SetPowerProduct(multiplier, 1, multiplicand, 1);
 		}
 
-		/**
- * Set the dividend and divisor
- * 
- * @param dividend
- *            Dividend
- * @param divisor
- *            Divisor
- * @
- *             Exception
- */
+		/// <summary>Set the dividend and divisor</summary>
+		/// 
+		/// <param name="dividend">Dividend</param>        
+		/// <param name="divisor">Divisor</param>           
 		public void SetQuotientUnits(UnitOfMeasure dividend, UnitOfMeasure divisor)
 		{
 			if (dividend == null)
@@ -805,160 +739,49 @@ namespace Point85.Caliper.UnitOfMeasure
 			return result;
 		}
 
-		/**
-		 * Get the multiplier
-		 * 
-		 * @return {@link UnitOfMeasure}
-		 */
+
+		/// <summary>Get the multiplier</summary>
+		/// 
+		/// <returns> UnitOfMeasure</returns>
 		public UnitOfMeasure GetMultiplier()
 		{
 			return GetUOM1();
 		}
 
-		/**
-		 * Get the multiplicand
-		 * 
-		 * @return {@link UnitOfMeasure}
-		 */
+		/// <summary>Get the multiplicand</summary>
+		/// 
+		/// <returns> UnitOfMeasure</returns>
 		public UnitOfMeasure GetMultiplicand()
 		{
 			return GetUOM2();
 		}
 
-		/**
-		 * Multiply two units of measure to create a third one.
-		 * 
-		 * @param multiplicand
-		 *            {@link UnitOfMeasure}
-		 * @return {@link UnitOfMeasure}
-		 * @
-		 *             Exception
-		 */
+		/// <summary>Multiply two units of measure to create a third one.</summary>
+		/// 
+		/// <param name="multiplicand">UnitOfMeasure</param>
+		/// <returns> UnitOfMeasure </returns>
 		public UnitOfMeasure Multiply(UnitOfMeasure multiplicand)
 		{
 			return MultiplyOrDivide(multiplicand, false);
 		}
 
-		/**
- * Divide two units of measure to create a third one.
- * 
- * @param divisor
- *            {@link UnitOfMeasure}
- * @return {@link UnitOfMeasure}
- * @
- *             Exception
- */
+		/// <summary>Divide two units of measure to create a third one.</summary>
+		/// 
+		/// <param name="divisor">UnitOfMeasure</param>
+		///            
+		/// <returns> UnitOfMeasure</returns>
 		public UnitOfMeasure Divide(UnitOfMeasure divisor)
 		{
 			return MultiplyOrDivide(divisor, true);
 		}
 
-		// this method is for optimization of double addition
-		/*
-		internal static double DoubleAdd(double a, double b)
-		{
-			double value;
-
-			if (b.CompareTo(0) == 0)
-			{
-				value = a;
-			}
-			else
-			{
-				value = a + b;
-			}
-
-			return value;
-		}
-		*/
-		/*
-		// this method is for optimization of double subtraction
-		internal static double DoubleSubtract(double a, double b)
-		{
-			double value;
-
-			if (b.CompareTo(0) == 0)
-			{
-				value = a;
-			}
-			else
-			{
-				value = a - b;
-			}
-
-			return value;
-		}
-		*/
-		/*
-		// this method is for optimization of double multiplication
-		internal static double DoubleMultiply(double a, double b)
-		{
-			double value;
-
-			if (b.CompareTo(1) == 0)
-			{
-				value = a;
-			}
-			else
-			{
-				value = a * b;
-			}
-			return value;
-		}
-		*/
-		/*
-		// this method is for optimization of double division
-		internal static double DoubleDivide(double a, double b)
-		{
-			double value;
-
-			if (b.CompareTo(1) == 0)
-			{
-				value = a;
-			}
-			else
-			{
-				value = a / b;
-			}
-			return value;
-		}
-		*/
-
-		/*
-	// this method is for optimization of double exponentiation
-	internal static double DoublePower(double powerBase, int exponent)
-	{
-		double value;
-
-		if (exponent == 1)
-		{
-			value = powerBase;
-		}
-		else if (exponent == 0)
-		{
-			value = 1;
-		}
-		else
-		{
-			value = (double)Math.Pow((double)powerBase, exponent);
-		}
-		return value;
-	}
-	*/
-
-		/**
- * Define a conversion with the specified scaling factor, abscissa unit of
- * measure and scaling factor.
- * 
- * @param scalingFactor
- *            Factor
- * @param abscissaUnit
- *            {@link UnitOfMeasure}
- * @param offset
- *            Offset
- * @
- *             Exception
- */
+		/// <summary>Define a conversion with the specified scaling factor, abscissa unit of
+		/// measure and scaling factor.</summary>
+		/// 
+		/// <param name="scalingFactor">Factor</param>        
+		/// <param name="abscissaUnit">UnitOfMeasure</param>          
+		/// <param name="offset">Offset</param>
+		/// 
 		public void SetConversion(double scalingFactor, UnitOfMeasure abscissaUnit, double offset)
 		{
 			if (abscissaUnit == null)
@@ -987,66 +810,50 @@ namespace Point85.Caliper.UnitOfMeasure
 			MeasurementSystem.GetSystem().RegisterUnit(this);
 		}
 
-		/**
-		 * Define a conversion with a scaling factor of 1 and offset of 0 for the
-		 * specified abscissa unit of measure.
-		 * 
-		 * @param abscissaUnit
-		 *            {@link UnitOfMeasure}
-		 * @
-		 *             Exception
-		 */
+
+		/// <summary>Define a conversion with a scaling factor of 1 and offset of 0 for the
+		/// specified abscissa unit of measure.</summary>
+		/// 
+		/// <param name="abscissaUnit">UnitOfMeasure</param>
+		///            
 		public void SetConversion(UnitOfMeasure abscissaUnit)
 		{
 			this.SetConversion(1, abscissaUnit, 0);
 		}
 
-		/**
-		 * Define a conversion with an offset of 0 for the specified scaling factor
-		 * and abscissa unit of measure.
-		 * 
-		 * @param scalingFactor
-		 *            Factor
-		 * @param abscissaUnit
-		 *            {@link UnitOfMeasure}
-		 * @
-		 *             Exception
-		 */
+
+		/// <summary>Define a conversion with an offset of 0 for the specified scaling factor
+		/// and abscissa unit of measure.</summary>
+		/// 
+		/// <param name="scalingFactor">Factor</param>
+		///            
+		/// <param name="abscissaUnit">UnitOfMeasure</param>
+		///            
 		public void SetConversion(double scalingFactor, UnitOfMeasure abscissaUnit)
 		{
 			this.SetConversion(scalingFactor, abscissaUnit, 0);
 		}
 
-		/**
-		 * Construct a conversion with an offset of 0 for the specified scaling
-		 * factor and abscissa unit of measure.
-		 * 
-		 * @param scalingFactor
-		 *            Factor
-		 * @param abscissaUnit
-		 *            {@link UnitOfMeasure}
-		 * @
-		 *             Exception
-		 */
+		/// <summary>Construct a conversion with an offset of 0 for the specified scaling
+		/// factor and abscissa unit of measure.</summary>
+		/// 
+		/// <param name="scalingFactor">Factor</param>
+		///            
+		/// <param name="abscissaUnit">UnitOfMeasure</param>          
+		///            
 		public void SetConversion(string scalingFactor, UnitOfMeasure abscissaUnit)
 		{
 			this.SetConversion(Quantity.CreateAmount(scalingFactor), abscissaUnit);
 		}
 
-
 		public override int GetHashCode()
 		{
 			int hashName = Name == null ? 0 : Name.GetHashCode();
-			int hashAge = Symbol.GetHashCode();
+			int hashSymbol = Symbol.GetHashCode();
 
-			return hashName ^ hashAge;
+			return hashName ^ hashSymbol;
 		}
 
-		/**
- * Compare this unit of measure to another
- * 
- * @return true if equal
- */
 		public override bool Equals(Object other)
 		{
 			if (other == null || GetType() != other.GetType())
@@ -1088,13 +895,12 @@ namespace Point85.Caliper.UnitOfMeasure
 			return true;
 		}
 
-		/**
-		* Compare this unit of measure to another one.
-		* 
-		* @param other
-		*            unit of measure
-		* @return -1 if less than, 0 if equal and 1 if greater than
-*/
+
+		/// <summary>Compare this unit of measure to another one.</summary>
+		/// 
+		/// <param name="other">UnitOfMeasure</param>
+		/// <returns> -1 if less than, 0 if equal and 1 if greater than</returns>
+		/// 
 		public int CompareTo(UnitOfMeasure other)
 		{
 			//return Symbol.CompareTo(other.Symbol);
@@ -1216,15 +1022,13 @@ namespace Point85.Caliper.UnitOfMeasure
 			return scalingFactor;
 		}
 
-		/**
-		* Get the factor to convert to the unit of measure
-		* 
-		* @param targetUOM
-		*            Target {@link UnitOfMeasure}
-		* @return conversion factor
-		* @
-		*             Exception
-*/
+
+		/// <summary>Get the factor to convert to the unit of measure</summary>
+		/// 
+		/// <param name="targetUOM">Target unit of measure</param>
+		///            
+		/// <returns> conversion factor</returns>
+		/// 
 		public double GetConversionFactor(UnitOfMeasure targetUOM)
 		{
 			if (targetUOM == null)
@@ -1233,9 +1037,7 @@ namespace Point85.Caliper.UnitOfMeasure
 			}
 
 			// first check the cache
-			double cachedFactor;
-
-			if (ConversionRegistry.TryGetValue(targetUOM, out cachedFactor))
+			if (ConversionRegistry.TryGetValue(targetUOM, out double cachedFactor))
 			{
 				return cachedFactor;
 			}
@@ -1298,13 +1100,10 @@ namespace Point85.Caliper.UnitOfMeasure
 			return cachedFactor;
 		}
 
-		/**
- * Invert a unit of measure to create a new one
- * 
- * @return {@link UnitOfMeasure}
- * @
- *             Exception
- */
+		/// <summary>Invert a unit of measure to create a new one</summary>
+		/// 
+		/// <returns> UnitOfMeasure</returns>
+		/// 
 		public UnitOfMeasure Invert()
 		{
 			UnitOfMeasure inverted = null;
@@ -1321,18 +1120,13 @@ namespace Point85.Caliper.UnitOfMeasure
 			return inverted;
 		}
 
-		/**
- * Set the conversion to another fundamental unit of measure
- * 
- * @param scalingFactor
- *            Scaling factor
- * @param abscissaUnit
- *            X-axis unit
- * @param offset
- *            Offset
- * @
- *             Exception
- */
+
+		/// <summary>Set the conversion to another fundamental unit of measure</summary>
+		/// 
+		/// <param name="scalingFactor">Scaling factor</param>         
+		/// <param name="abscissaUnit">X-axis unit</param>           
+		/// <param name="offset">Offset</param>
+		///            
 		public void SetBridgeConversion(double scalingFactor, UnitOfMeasure abscissaUnit, double? offset)
 		{
 			SetBridgeScalingFactor(scalingFactor);
@@ -1344,42 +1138,33 @@ namespace Point85.Caliper.UnitOfMeasure
 			}
 		}
 
-		/**
- * Remove all cached conversions
- */
+
+		/// <summary>Remove all cached conversions</summary>
 		public void ClearCache()
 		{
 			ConversionRegistry.Clear();
 		}
 
-		/**
- * Get the unit of measure corresponding to the base symbol
- * 
- * @return {@link UnitOfMeasure}
- * @
- *             Exception
- */
+		/// <summary>Get the unit of measure corresponding to the base symbol</summary>
+		/// 
+		/// <returns> UnitOfMeasure</returns>
+		/// 
 		public UnitOfMeasure GetBaseUOM()
 		{
 			string baseSymbol = GetBaseSymbol();
 			return MeasurementSystem.GetSystem().GetBaseUOM(baseSymbol);
 		}
 
-		/**
- * Get the base unit of measure for the power
- * 
- * @return {@link UnitOfMeasure}
- */
+
+		/// <summary>Get the base unit of measure for the power</summary>
+		/// 
+		/// <returns> UnitOfMeasure</returns>
+		///
 		public UnitOfMeasure GetPowerBase()
 		{
 			return GetUOM1();
 		}
 
-		/**
- * Create a String representation of this unit of measure
- * 
- * @return String representation
- */
 		public override string ToString()
 		{
 			StringBuilder sb = new StringBuilder();

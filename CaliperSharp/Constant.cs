@@ -23,11 +23,8 @@ SOFTWARE.
 */
 namespace Point85.Caliper.UnitOfMeasure
 {
-	///
-	/// This enumeration contains the values for fundamental constants commonly used
-	/// in science, technology, engineering and math.
-	/// 
-	///
+	/// <summary>This enumeration contains the values for fundamental constants commonly used
+	/// in science, technology, engineering and math.</summary>
 	public enum Constant
 	{
 		LIGHT_VELOCITY, LIGHT_YEAR, GRAVITY, PLANCK_CONSTANT, BOLTZMANN_CONSTANT, AVAGADRO_CONSTANT, GAS_CONSTANT,

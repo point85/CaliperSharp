@@ -22,14 +22,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Point85.Caliper.UnitOfMeasure
 {
+	/// <summary>
+	/// Class for reading a java-style .properties file.
+	/// </summary>
 	public class PropertyManager
 	{
 		private Dictionary<string, string> Properties;

@@ -26,13 +26,9 @@ using System.Text;
 
 namespace Point85.Caliper.UnitOfMeasure
 {
-	/**
- * This class represents an object that is identified by a name and symbol with
- * an optional description. Units of measure are such objects.
- * 
- * @author Kent Randall
- *
- */
+
+	/// <summary>This class represents an object that is identified by a name and symbol with
+	/// an optional description. Units of measure are such objects.</summary>
 	public abstract class Symbolic
 	{
 		protected Symbolic()
@@ -55,71 +51,54 @@ namespace Point85.Caliper.UnitOfMeasure
 		// description
 		protected string Description;
 
-		/**
- * Get the symbol
- * 
- * @return Symbol
- */
+		/// <summary>Get the symbol</summary>
+		/// 
+		/// <returns>Symbol</returns>
 		public string GetSymbol()
 		{
 			return Symbol;
 		}
 
-		/**
-		 * Set the symbol
-		 * 
-		 * @param symbol
-		 *            Symbol
-		 */
+		/// <summary>Set the symbol</summary>
+		/// 
+		/// <param name="symbol"> Symbol</param>
 		public void SetSymbol(string symbol)
 		{
 			Symbol = symbol;
 		}
 
-		/**
-		 * Get the name
-		 * 
-		 * @return Name
-		 */
+		/// <summary>Get the name</summary>
+		/// 
+		/// <returns>Name</returns>
 		public string GetName()
 		{
 			return Name;
 		}
 
-		/**
-		 * Set the name
-		 * 
-		 * @param name Name
-		 */
+		/// <summary>Set the name</summary>
+		/// 
+		/// <param name="name">Name</param>
 		public void SetName(string name)
 		{
 			Name = name;
 		}
 
-		/**
-		 * Get the description
-		 * 
-		 * @return Description
-		 */
+		/// <summary>Get the description</summary>
+		/// 
+		/// <returns>Description</returns>
 		public string GetDescription()
 		{
 			return Description;
 		}
 
-		/**
-		 * Set the description
-		 * 
-		 * @param description
-		 *            Description
-		 */
+		/// <summary>Set the description</summary>
+		/// 
+		/// <param name="description">Description</param>
 		public void SetDescription(string description)
 		{
 			Description = description;
 		}
 
-		/**
- * Create a String representation
- */
 		public override string ToString()
 		{
 			StringBuilder sb = new StringBuilder();

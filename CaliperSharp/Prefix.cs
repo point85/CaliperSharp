@@ -21,15 +21,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-using System;
 using System.Collections.Generic;
 
 namespace Point85.Caliper.UnitOfMeasure
 {
-	///
-	/// The Prefix class defines SI unit of measure prefixes as well as those
-	/// found in computer science.
-	////
+	/// <summary>The Prefix class defines SI unit of measure prefixes as well as those
+	/// found in computer science. </summary>
 	public class Prefix
 	{
 		// list of pre-defined prefixes
@@ -79,66 +76,57 @@ namespace Point85.Caliper.UnitOfMeasure
 		// Digital information prefixes for bytes established by the International
 		// Electrotechnical Commission (IEC) in 1998
 		public static readonly Prefix KIBI = new Prefix("kibi", "Ki", 1024);
-		//
+
 		public static readonly Prefix MEBI = new Prefix("mebi", "Mi", 1.048576E+06);
-		//
+
 		public static readonly Prefix GIBI = new Prefix("gibi", "Gi", 1.073741824E+09);
 
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <paramref name="prefixName" name/>
-		/// <paramref name="symbol" symbol/>
-		/// <paramref name="factor" scaling factor/>
-		public Prefix(string prefixName, string symbol, double factor)
+		private string Name;
+
+		private string Symbol;
+
+		public double Factor;
+
+		/// <summary>Construct a prefix</summary>
+		/// <param name="name">Name</param>
+		/// <param name="symbol"> Symbol </param>
+		/// <param name="factor"> Numerical factor </param>
+		public Prefix(string name, string symbol, double factor)
 		{
-			Name = prefixName;
+			Name = name;
 			Symbol = symbol;
 			Factor = factor;
 
 			prefixes.Add(this);
 		}
 
-		private string Name;
-		private string Symbol;
-		public double Factor;
-
-		/// <summary
-		/// Get the name of the prefix
-		/// </summary
-		/// <returns prefix name </returns>
+		/// <summary>Get the name of the prefix</summary>
+		/// <returns> prefix name </returns>
 		public string GetName()
 		{
 			return this.Name;
 		}
 
-		/**
-		 * Get the symbol for the prefix
-		 * 
-		 * @return symbol
-		 */
+		/// <summary>Get the symbol for the prefix</summary>
+		/// 
+		/// <returns> symbol</returns>
 		public string GetSymbol()
 		{
 			return this.Symbol;
 		}
 
-		/**
-		 * Get the scaling factor
-		 * 
-		 * @return Scaling factor
-		 */
+		/// <summary>Get the scaling factor</summary>
+		/// 
+		/// <returns> Scaling factor</returns>
 		public double GetFactor()
 		{
 			return this.Factor;
 		}
 
-		/**
-		 * Find the prefix with the specified name
-		 * 
-		 * @param name
-		 *            Name of prefix
-		 * @return {@link Prefix}
-		 */
+		/// <summary>Find the prefix with the specified name</summary>
+		/// 
+		/// <param name="name"> Name of prefix</param>
+		/// <returns> Prefix </returns>
 		public static Prefix FromName(string name)
 		{
 			Prefix prefix = null;
@@ -155,13 +143,10 @@ namespace Point85.Caliper.UnitOfMeasure
 			return prefix;
 		}
 
-		/**
-		 * Find the prefix with the specified scaling factor
-		 * 
-		 * @param factor
-		 *            Scaling factor
-		 * @return {@link Prefix}
-		 */
+		/// Find the prefix with the specified scaling factor
+		/// 
+		/// <param name="factor">Scaling factor</param>         
+		/// <returns> Prefix </returns>
 		public static Prefix FromFactor(double factor)
 		{
 			Prefix prefix = null;
@@ -178,23 +163,17 @@ namespace Point85.Caliper.UnitOfMeasure
 			return prefix;
 		}
 
-		/**
-		 * Get the list of pre-defined prefixes
-		 * 
-		 * @return Prefix list
-		 */
+		/// <summary>Get the list of pre-defined prefixes</summary>
+		/// 
+		/// <returns> Prefix list</returns>
 		public static List<Prefix> GetDefinedPrefixes()
 		{
 			return prefixes;
 		}
 
-		/**
-		 * Create a string representation of this Prefix
-		 */
 		public override string ToString()
 		{
 			return Name + ", " + Symbol + ", " + Factor;
 		}
 	}
-
 }
