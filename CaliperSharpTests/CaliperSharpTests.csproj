@@ -60,6 +60,8 @@
     <Compile Include="TestNamedQuantity.cs" />
     <Compile Include="TestPerformance.cs" />
     <Compile Include="TestQuantity.cs" />
+    <Compile Include="TestCleanup.cs" />
+    <Compile Include="TestSystems.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
