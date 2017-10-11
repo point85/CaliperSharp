@@ -10,6 +10,8 @@ namespace CaliperSharpTests
 		[TestMethod]
 		public void TestBridgeUnits1()
 		{
+			sys.ClearCache();
+
 			// SI
 			UnitOfMeasure kg = sys.GetUOM(Unit.KILOGRAM);
 			UnitOfMeasure m = sys.GetUOM(Unit.METRE);

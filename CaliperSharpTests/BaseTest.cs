@@ -48,7 +48,7 @@ namespace CaliperSharpTests
 			}
 		}
 
-		protected void snapshotUnitEnumerationCache()
+		protected void SnapshotUnitEnumerationCache()
 		{
 			ConcurrentDictionary<Unit, UnitOfMeasure> cache = sys.GetEnumerationCache();
 

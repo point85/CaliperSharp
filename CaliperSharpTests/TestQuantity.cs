@@ -500,6 +500,7 @@ namespace CaliperSharpTests
 		[TestMethod]
 		public void TestSIUnits()
 		{
+			sys.ClearCache();
 
 			UnitOfMeasure newton = sys.GetUOM(Unit.NEWTON);
 			UnitOfMeasure metre = sys.GetUOM(Unit.METRE);
@@ -598,8 +599,9 @@ namespace CaliperSharpTests
 
 			// inversions
 			UnitOfMeasure u = metre.Invert();
-			String sym = u.GetAbscissaUnit().GetSymbol();
-			Assert.IsTrue(sym.Equals(sys.GetUOM(Unit.DIOPTER).GetSymbol()));
+			string sym = u.GetAbscissaUnit().GetSymbol();
+			string diop = sys.GetUOM(Unit.DIOPTER).GetSymbol();
+			Assert.IsFalse(sym.Equals(diop));
 
 			u = mps.Invert();
 			Assert.IsTrue(u.GetSymbol().Equals("s/m"));

@@ -1305,7 +1305,7 @@ namespace CaliperSharpTests
 		}
 
 		[TestMethod]
-		public void testConversions4()
+		public void TestConversions4()
 		{
 
 			UnitOfMeasure K = sys.GetUOM(Unit.KELVIN);
@@ -1454,7 +1454,7 @@ namespace CaliperSharpTests
 		}
 
 		[TestMethod]
-		public void testPowers()
+		public void TestPowers()
 		{
 			sys.ClearCache();
 
