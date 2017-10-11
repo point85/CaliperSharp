@@ -977,7 +977,9 @@ namespace CaliperSharpTests
 			// square metre
 			q4 = q2.Multiply(q2);
 			q5 = new Quantity(100, m2);
-			Assert.IsTrue(q4.GetUOM().GetSymbol().Equals(q5.GetUOM().GetSymbol()));
+			string q4s = q4.GetUOM().GetBaseSymbol();
+			string q5s = q5.GetUOM().GetBaseSymbol();
+			Assert.IsTrue(q4s.Equals(q5s));
 			Assert.IsTrue(q5.Equals(q4));
 
 			// metre
@@ -1030,10 +1032,9 @@ namespace CaliperSharpTests
 			Quantity qin = new Quantity(1, inch);
 			double bd = 2.54;
 			Quantity q1 = qcm.Multiply(bd).Convert(inch);
-			Assert.IsTrue(q1.Equals(qin));
+			Assert.IsTrue(IsCloseTo(q1.GetAmount(), qin.GetAmount(), DELTA6));
 			Quantity q2 = q1.Convert(cm);
 			Assert.IsTrue(IsCloseTo(q2.GetAmount(), bd, DELTA6));
-
 		}
 
 		[TestMethod]
