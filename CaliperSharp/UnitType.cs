@@ -1,6 +1,4 @@
-﻿namespace org.point85.uom
-{
-	/*
+﻿/*
 MIT License
 
 Copyright (c) 2016 Kent Randall
@@ -23,6 +21,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+
+namespace Point85.Caliper.UnitOfMeasure
+{
 
 	/**
 * UnitType is an enumeration of unit of measure types. Only units of measure

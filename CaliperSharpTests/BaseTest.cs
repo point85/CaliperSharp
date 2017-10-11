@@ -1,5 +1,5 @@
 ﻿using System;
-using org.point85.uom;
+using Point85.Caliper.UnitOfMeasure;
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 

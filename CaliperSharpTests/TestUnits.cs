@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using org.point85.uom;
+using Point85.Caliper.UnitOfMeasure;
 using System.Text;
 using System.Diagnostics;
 
@@ -21,9 +21,9 @@ namespace CaliperSharpTests
 		{
 			foreach (Prefix prefix in Prefix.GetDefinedPrefixes())
 			{
-				string prefixName = prefix.Name;
+				string prefixName = prefix.GetName();
 				Assert.IsTrue(prefixName.Length > 0);
-				Assert.IsTrue(prefix.Symbol.Length > 0);
+				Assert.IsTrue(prefix.GetSymbol().Length > 0);
 				Assert.IsTrue(!prefix.Factor.Equals(1));
 				Assert.IsTrue(prefix.ToString().Length > 0);
 				Assert.IsTrue(Prefix.FromName(prefixName).Equals(prefix));

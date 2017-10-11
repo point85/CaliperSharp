@@ -1,5 +1,4 @@
-﻿using System.Text;
-/*
+﻿/*
 MIT License
 
 Copyright (c) 2016 Kent Randall
@@ -22,7 +21,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-namespace org.point85.uom
+
+using System.Text;
+
+namespace Point85.Caliper.UnitOfMeasure
 {
 	/**
  * This class represents an object that is identified by a name and symbol with

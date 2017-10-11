@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-/*
+﻿/*
 MIT License
 
 Copyright (c) 2016 Kent Randall
@@ -25,7 +21,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-namespace org.point85.uom
+
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Point85.Caliper.UnitOfMeasure
 {
 	/**
  * <p>

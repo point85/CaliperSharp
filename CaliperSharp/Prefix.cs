@@ -1,36 +1,35 @@
-﻿using System;
+﻿/*
+MIT License
+
+Copyright (c) 2016 Kent Randall
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+using System;
 using System.Collections.Generic;
 
-namespace org.point85.uom
+namespace Point85.Caliper.UnitOfMeasure
 {
-	/*
-	MIT License
-
-	Copyright (c) 2016 Kent Randall
-
-	Permission is hereby granted, free of charge, to any person obtaining a copy
-	of this software and associated documentation files (the "Software"), to deal
-	in the Software without restriction, including without limitation the rights
-	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-	copies of the Software, and to permit persons to whom the Software is
-	furnished to do so, subject to the following conditions:
-
-	The above copyright notice and this permission notice shall be included in all
-	copies or substantial portions of the Software.
-
-	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-	SOFTWARE.
-	*/
-
-	/**
-	 * The Prefix class defines SI unit of measure prefixes as well as those
-	 * found in computer science.
-	 */
+	///
+	/// The Prefix class defines SI unit of measure prefixes as well as those
+	/// found in computer science.
+	////
 	public class Prefix
 	{
 		// list of pre-defined prefixes
@@ -85,6 +84,12 @@ namespace org.point85.uom
 		//
 		public static readonly Prefix GIBI = new Prefix("gibi", "Gi", 1.073741824E+09);
 
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <paramref name="prefixName" name/>
+		/// <paramref name="symbol" symbol/>
+		/// <paramref name="factor" scaling factor/>
 		public Prefix(string prefixName, string symbol, double factor)
 		{
 			Name = prefixName;
@@ -94,33 +99,14 @@ namespace org.point85.uom
 			prefixes.Add(this);
 		}
 
-		/**
-		 * Get the name of the prefix
-		 * 
-		 * @return prefix name
-		 */
-		public string Name;
-
-
-		/**
-		 * Get the symbol for the prefix
-		 * 
-		 * @return symbol
-		 */
-		public string Symbol;
-
-		/**
-		 * Get the scaling factor
-		 * 
-		 * @return Scaling factor
-		 */
+		private string Name;
+		private string Symbol;
 		public double Factor;
 
-		/**
- * Get the name of the prefix
- * 
- * @return prefix name
- */
+		/// <summary
+		/// Get the name of the prefix
+		/// </summary
+		/// <returns prefix name </returns>
 		public string GetName()
 		{
 			return this.Name;

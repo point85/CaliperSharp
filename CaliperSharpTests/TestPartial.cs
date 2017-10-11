@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using org.point85.uom;
+using Point85.Caliper.UnitOfMeasure;
 
 namespace CaliperSharpTests
 {

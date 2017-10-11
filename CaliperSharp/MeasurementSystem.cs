@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Resources;
-
-/*
+﻿/*
 MIT License
 
 Copyright (c) 2016 Kent Randall
@@ -28,7 +22,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace org.point85.uom
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Resources;
+
+namespace Point85.Caliper.UnitOfMeasure
 {
 	/**
  * A MeasurementSystem is a collection of units of measure that have a linear
@@ -276,7 +276,7 @@ namespace org.point85.uom
  */
 		public UnitOfMeasure GetUOM(Prefix prefix, UnitOfMeasure targetUOM)
 		{
-			string symbol = prefix.Symbol + targetUOM.GetSymbol();
+			string symbol = prefix.GetSymbol() + targetUOM.GetSymbol();
 
 			UnitOfMeasure scaled = GetUOM(symbol);
 
@@ -284,7 +284,7 @@ namespace org.point85.uom
 			if (scaled == null)
 			{
 				// generate a name and description
-				string name = prefix.Name + targetUOM.GetName();
+				string name = prefix.GetName() + targetUOM.GetName();
 				string description = prefix.Factor + " " + targetUOM.GetName();
 
 				// scaling factor

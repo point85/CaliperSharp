@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace org.point85.uom.Properties {
+namespace Point85.Caliper.UnitOfMeasure.Properties {
     using System;
     
     
