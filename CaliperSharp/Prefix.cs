@@ -32,60 +32,67 @@ namespace Point85.Caliper.UnitOfMeasure
 		// list of pre-defined prefixes
 		private static List<Prefix> prefixes = new List<Prefix>();
 
-		// SI prefix 10^24
+		/// <summary> SI prefix 10^24 </summary>
 		public static readonly Prefix YOTTA = new Prefix("yotta", "Y", 1.0E+24);
-		// SI prefix 10^21
+		/// <summary> SI prefix 10^21 </summary>
 		public static readonly Prefix ZETTA = new Prefix("zetta", "Z", 1.0E+21);
-		// SI prefix 10^18
+		/// <summary> SI prefix 10^18 </summary>
 		public static readonly Prefix EXA = new Prefix("exa", "E", 1.0E+18);
-		// SI prefix 10^15
+		/// <summary> SI prefix 10^15 </summary>
 		public static readonly Prefix PETA = new Prefix("petta", "P", 1.0E+15);
-		// SI prefix 10^12
+		/// <summary> SI prefix 10^12 </summary>
 		public static readonly Prefix TERA = new Prefix("tera", "T", 1.0E+12);
-		// SI prefix 10^9
+		/// <summary> SI prefix 10^9 </summary>
 		public static readonly Prefix GIGA = new Prefix("giga", "G", 1.0E+09);
-		// SI prefix 10^6
+		/// <summary> SI prefix 10^6 </summary>
 		public static readonly Prefix MEGA = new Prefix("mega", "M", 1.0E+06);
-		// SI prefix 10^3
+		/// <summary> SI prefix 10^3 </summary>
 		public static readonly Prefix KILO = new Prefix("kilo", "k", 1.0E+03);
-		// SI prefix 10^2
+		/// <summary> SI prefix 10^2 </summary>
 		public static readonly Prefix HECTO = new Prefix("hecto", "h", 1.0E+02);
-		// SI prefix 10
+		/// <summary> SI prefix 10 </summary>
 		public static readonly Prefix DEKA = new Prefix("deka", "da", 1.0E+01);
-		// SI prefix 10^-1
+		/// <summary> SI prefix 10^-1 </summary>
 		public static readonly Prefix DECI = new Prefix("deci", "d", 1.0E-01);
-		// SI prefix 10^-2
+		/// <summary> SI prefix 10^-2 </summary>
 		public static readonly Prefix CENTI = new Prefix("centi", "c", 1.0E-02);
-		// SI prefix 10^-3
+		/// <summary> SI prefix 10^-3 </summary>
 		public static readonly Prefix MILLI = new Prefix("milli", "m", 1.0E-03);
-		// SI prefix 10^-6
+		/// <summary> SI prefix 10^-6 </summary>
 		public static readonly Prefix MICRO = new Prefix("micro", "\u03BC", 1.0E-06);
-		// SI prefix 10^-9
+		/// <summary> SI prefix 10^-9 </summary>
 		public static readonly Prefix NANO = new Prefix("nano", "n", 1.0E-09);
-		// SI prefix 10^-12
+		/// <summary> SI prefix 10^-12 </summary>
 		public static readonly Prefix PICO = new Prefix("pico", "p", 1.0E-12);
-		// SI prefix 10^-15
+		/// <summary> SI prefix 10^-15 </summary>
 		public static readonly Prefix FEMTO = new Prefix("femto", "f", 1.0E-15);
-		// SI prefix 10^-18
+		/// <summary> SI prefix 10^-18 </summary>
 		public static readonly Prefix ATTO = new Prefix("atto", "a", 1.0E-18);
-		// SI prefix 10^-21
+		/// <summary> SI prefix 10^-21 </summary>
 		public static readonly Prefix ZEPTO = new Prefix("zepto", "z", 1.0E-21);
-		// SI prefix 10^-24
+		/// <summary> SI prefix 10^-24 </summary>
 		public static readonly Prefix YOCTO = new Prefix("yocto", "y", 1.0E-24);
 
 		// Digital information prefixes for bytes established by the International
 		// Electrotechnical Commission (IEC) in 1998
+		/// <summary>
+		///  1024
+		/// </summary>
 		public static readonly Prefix KIBI = new Prefix("kibi", "Ki", 1024);
-
+		/// <summary>
+		/// 1.048576E+06
+		/// </summary>
 		public static readonly Prefix MEBI = new Prefix("mebi", "Mi", 1.048576E+06);
-
+		/// <summary>
+		/// 1.073741824E+09
+		/// </summary>
 		public static readonly Prefix GIBI = new Prefix("gibi", "Gi", 1.073741824E+09);
 
 		private string Name;
 
 		private string Symbol;
 
-		public double Factor;
+		private double Factor;
 
 		/// <summary>Construct a prefix</summary>
 		/// <param name="name">Name</param>
@@ -171,6 +178,10 @@ namespace Point85.Caliper.UnitOfMeasure
 			return prefixes;
 		}
 
+		/// <summary>
+		/// Override ToString()
+		/// </summary>
+		/// <returns>String representation</returns>
 		public override string ToString()
 		{
 			return Name + ", " + Symbol + ", " + Factor;

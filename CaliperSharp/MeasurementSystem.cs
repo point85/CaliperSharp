@@ -259,7 +259,7 @@ namespace Point85.Caliper.UnitOfMeasure
 			{
 				// generate a name and description
 				string name = prefix.GetName() + targetUOM.GetName();
-				string description = prefix.Factor + " " + targetUOM.GetName();
+				string description = prefix.GetFactor() + " " + targetUOM.GetName();
 
 				// scaling factor
 				double scalingFactor = targetUOM.GetScalingFactor();
@@ -467,7 +467,7 @@ namespace Point85.Caliper.UnitOfMeasure
 					// mass
 					uom = CreateScalarUOM(UnitType.MASS, Unit.TONNE, UnitsManager.GetString("tonne.name"),
 							UnitsManager.GetString("tonne.symbol"), UnitsManager.GetString("tonne.desc"));
-					uom.SetConversion(Prefix.KILO.Factor, GetUOM(Unit.KILOGRAM));
+					uom.SetConversion(Prefix.KILO.GetFactor(), GetUOM(Unit.KILOGRAM));
 					break;
 
 				case Unit.KELVIN:
@@ -497,7 +497,7 @@ namespace Point85.Caliper.UnitOfMeasure
 				case Unit.GRAM: // gram
 					uom = CreateScalarUOM(UnitType.MASS, Unit.GRAM, UnitsManager.GetString("gram.name"),
 							UnitsManager.GetString("gram.symbol"), UnitsManager.GetString("gram.desc"));
-					uom.SetConversion(Prefix.MILLI.Factor, GetUOM(Unit.KILOGRAM));
+					uom.SetConversion(Prefix.MILLI.GetFactor(), GetUOM(Unit.KILOGRAM));
 					break;
 
 				case Unit.CARAT:
@@ -543,7 +543,7 @@ namespace Point85.Caliper.UnitOfMeasure
 					// litre
 					uom = CreateScalarUOM(UnitType.VOLUME, Unit.LITRE, UnitsManager.GetString("litre.name"),
 							UnitsManager.GetString("litre.symbol"), UnitsManager.GetString("litre.desc"));
-					uom.SetConversion(Prefix.MILLI.Factor, GetUOM(Unit.CUBIC_METRE));
+					uom.SetConversion(Prefix.MILLI.GetFactor(), GetUOM(Unit.CUBIC_METRE));
 					break;
 
 				case Unit.CUBIC_METRE_PER_SEC:
@@ -915,7 +915,7 @@ namespace Point85.Caliper.UnitOfMeasure
 					// inch
 					uom = CreateScalarUOM(UnitType.LENGTH, Unit.MIL, UnitsManager.GetString("mil.name"),
 							UnitsManager.GetString("mil.symbol"), UnitsManager.GetString("mil.desc"));
-					uom.SetConversion(Prefix.MILLI.Factor, GetUOM(Unit.INCH));
+					uom.SetConversion(Prefix.MILLI.GetFactor(), GetUOM(Unit.INCH));
 					break;
 
 				case Unit.POINT:
@@ -1344,8 +1344,8 @@ namespace Point85.Caliper.UnitOfMeasure
 		/// <param name="name">Name of unit of measure</param>          
 		/// <param name="symbol">Symbol (must be unique)</param>          
 		/// <param name="description">Description of unit of measure</param>          
-		/// <param name="base">UnitOfMeasure</param>          
-		/// <param name="power">Exponent</param>
+		/// <param name="baseUOM">UnitOfMeasure</param>          
+		/// <param name="exponent">Exponent</param>
 		/// 
 		/// <returns>UnitOfMeasure</returns>
 		///
@@ -1363,7 +1363,7 @@ namespace Point85.Caliper.UnitOfMeasure
 		/// <param name="name">Name of unit of measure</param>          
 		/// <param name="symbol">Symbol (must be unique)</param>        
 		/// <param name="description">Description of unit of measure</param>       
-		/// <param name="base">UnitOfMeasure</param>            
+		/// <param name="baseUOM">UnitOfMeasure</param>            
 		/// <param name="exponent">Exponent</param>
 		///            
 		/// <returns>UnitOfMeasure</returns>
@@ -1375,7 +1375,7 @@ namespace Point85.Caliper.UnitOfMeasure
 
 		/// <summary>Create a unit of measure with a base raised to an integral exponent</summary>
 		/// 
-		/// <param name="base">UnitOfMeasure</param>          
+		/// <param name="baseUOM">UnitOfMeasure</param>          
 		/// <param name="exponent">Exponent</param>
 		///            
 		/// <returns>UnitOfMeasure</returns>

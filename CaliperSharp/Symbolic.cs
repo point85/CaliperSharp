@@ -31,25 +31,32 @@ namespace Point85.Caliper.UnitOfMeasure
 	/// an optional description. Units of measure are such objects.</summary>
 	public abstract class Symbolic
 	{
+
+		// name, for example "speed of light"
+		private string Name;
+
+		// symbol or abbreviation, e.g. "Vc"
+		private string Symbol;
+
+		// description
+		private string Description;
+
 		protected Symbolic()
 		{
 		}
 
+		/// <summary>
+		/// Create a symbolic object
+		/// </summary>
+		/// <param name="name">Name</param>
+		/// <param name="symbol">Symbol</param>
+		/// <param name="description">Description</param>
 		protected Symbolic(string name, string symbol, string description)
 		{
 			this.Name = name;
 			this.Symbol = symbol;
 			this.Description = description;
 		}
-
-		// name, for example "speed of light"
-		protected string Name;
-
-		// symbol or abbreviation, e.g. "Vc"
-		protected string Symbol;
-
-		// description
-		protected string Description;
 
 		/// <summary>Get the symbol</summary>
 		/// 
@@ -99,6 +106,10 @@ namespace Point85.Caliper.UnitOfMeasure
 			Description = description;
 		}
 
+		/// <summary>
+		/// Build a string representation of a Symbolic object
+		/// </summary>
+		/// <returns>String value</returns>
 		public override string ToString()
 		{
 			StringBuilder sb = new StringBuilder();

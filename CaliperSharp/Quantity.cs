@@ -100,11 +100,20 @@ namespace Point85.Caliper.UnitOfMeasure
 			return UOM;
 		}
 
+		/// <summary>
+		/// Compute a hash code
+		/// </summary>
+		/// <returns>Hash code</returns>
 		public override int GetHashCode()
 		{
 			return Amount.GetHashCode() ^ UOM.GetHashCode();
 		}
 
+		/// <summary>
+		/// Check for equality
+		/// </summary>
+		/// <param name="other">other Quantity</param>
+		/// <returns>True if equal</returns>
 		public override bool Equals(Object other)
 		{
 			bool answer = false;
@@ -348,6 +357,10 @@ namespace Point85.Caliper.UnitOfMeasure
 			return Convert(MeasurementSystem.GetSystem().GetUOM(prefix, unit));
 		}
 
+		/// <summary>
+		/// Build a string representation of a Quantity
+		/// </summary>
+		/// <returns>String value</returns>
 		public override string ToString()
 		{
 			StringBuilder sb = new StringBuilder();

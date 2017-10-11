@@ -36,20 +36,41 @@ namespace Point85.Caliper.UnitOfMeasure
 
 		private string Filename;
 
+		/// <summary>
+		/// Construct a manager for this file
+		/// </summary>
+		/// <param name="fileName">Name of .properties file</param>
 		public PropertyManager(string fileName)
 		{
 			Reload(fileName);
 		}
 
+		/// <summary>
+		/// Get the string for the key field
+		/// </summary>
+		/// <param name="field">Key value</param>
+		/// <param name="defValue">Default value if not found</param>
+		/// <returns>Value</returns>
 		public string GetString(string field, string defValue)
 		{
 			return (GetString(field) == null) ? (defValue) : (GetString(field));
 		}
+
+		/// <summary>
+		/// Get the string for the key field
+		/// </summary>
+		/// <param name="field">Key value</param>
+		/// <returns>Value</returns>
 		public string GetString(string field)
 		{
 			return (Properties.ContainsKey(field)) ? (Properties[field]) : (null);
 		}
 
+		/// <summary>
+		/// Set the field value
+		/// </summary>
+		/// <param name="field">Key</param>
+		/// <param name="value">Value</param>
 		public void SetString(string field, string value)
 		{
 			field = this.TrimUnwantedChars(field);
@@ -61,7 +82,7 @@ namespace Point85.Caliper.UnitOfMeasure
 				Properties[field] = value.ToString();
 		}
 
-		public string TrimUnwantedChars(string toTrim)
+		private string TrimUnwantedChars(string toTrim)
 		{
 			toTrim = toTrim.Replace(";", string.Empty);
 			toTrim = toTrim.Replace("#", string.Empty);
@@ -70,11 +91,18 @@ namespace Point85.Caliper.UnitOfMeasure
 			return toTrim;
 		}
 
+		/// <summary>
+		/// Save properties to the original file
+		/// </summary>
 		public void Save()
 		{
 			Save(this.Filename);
 		}
 
+		/// <summary>
+		/// Save properties to the specified file
+		/// </summary>
+		/// <param name="Filename">Name of .properties file</param>
 		public void Save(string Filename)
 		{
 			this.Filename = Filename;
@@ -91,23 +119,30 @@ namespace Point85.Caliper.UnitOfMeasure
 			file.Close();
 		}
 
+		/// <summary>
+		/// Re-read the original .properties file
+		/// </summary>
 		public void Reload()
 		{
 			Reload(this.Filename);
 		}
 
+		/// <summary>
+		/// Re-read from the specfied file
+		/// </summary>
+		/// <param name="Filename">Name of .properties file</param>
 		public void Reload(string Filename)
 		{
 			this.Filename = Filename;
 			Properties = new Dictionary<string, string>();
 
 			if (System.IO.File.Exists(Filename))
-				loadFromFile(Filename);
+				LoadFromFile(Filename);
 			else
 				System.IO.File.Create(Filename);
 		}
 
-		private void loadFromFile(string file)
+		private void LoadFromFile(string file)
 		{
 			foreach (string line in System.IO.File.ReadAllLines(file))
 			{
