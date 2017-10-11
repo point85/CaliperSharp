@@ -18,7 +18,6 @@ var searchData=
   ['getenumeration',['GetEnumeration',['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_unit_of_measure.html#a43bcb27d93aae64d4344651689e61eb8',1,'Point85::Caliper::UnitOfMeasure::UnitOfMeasure']]],
   ['getenumerationcache',['GetEnumerationCache',['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_measurement_system.html#a941ea8a7d5761553bfc7e90e08cbb4fb',1,'Point85::Caliper::UnitOfMeasure::MeasurementSystem']]],
   ['getfactor',['GetFactor',['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_prefix.html#a067adffff8049b8447f11573f788ea43',1,'Point85::Caliper::UnitOfMeasure::Prefix']]],
-  ['gethashcode',['GetHashCode',['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_quantity.html#aa989e6c1efb8ca659982fcc786af9648',1,'Point85::Caliper::UnitOfMeasure::Quantity']]],
   ['gethour',['GetHour',['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_measurement_system.html#a25a824a9411d2b61a84dc3c4a21f1862',1,'Point85::Caliper::UnitOfMeasure::MeasurementSystem']]],
   ['getmeasurementtype',['GetMeasurementType',['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_unit_of_measure.html#abb9f8e6bd5ed37ce84f35b64df3bf6d0',1,'Point85::Caliper::UnitOfMeasure::UnitOfMeasure']]],
   ['getminute',['GetMinute',['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_measurement_system.html#abb5de157f898794a2bea57d0efe6a744',1,'Point85::Caliper::UnitOfMeasure::MeasurementSystem']]],

@@ -1,9 +1,9 @@
 var indexSectionsWithContent =
 {
-  0: "acdefgimpqrstu",
+  0: "acdefgimpqrsu",
   1: "mpqsu",
   2: "p",
-  3: "acdefgimpqrstu",
+  3: "acdefgimpqrsu",
   4: "cu"
 };
 

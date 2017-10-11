@@ -27,19 +27,17 @@ using System.Text;
 
 namespace Point85.Caliper.UnitOfMeasure
 {
-	/**
- * The Quantity class represents an amount and {@link UnitOfMeasure}. A constant
- * quantity can be named and given a symbol, e.g. the speed of light.
- * <p>
- * The amount is expressed as a double in order to control the precision of
- * floating point arithmetic. A MathContext is used with a precision setting
- * matching the IEEE 754R double64 format, 16 digits, and a rounding mode of
- * HALF_EVEN, the IEEE 754R default.
- * </p>
- * 
- * @author Kent Randall
- *
- */
+	/// <summary>
+	/// The Quantity class represents an amount and UnitOfMeasure}. A constant
+	/// quantity can be named and given a symbol, e.g. the speed of light.
+	/// <p>
+	/// The amount is expressed as a double in order to control the precision of
+	/// floating point arithmetic. A MathContext is used with a precision setting
+	/// matching the IEEE 754R double64 format, 16 digits, and a rounding mode of
+	/// HALF_EVEN, the IEEE 754R default.
+	/// </p>
+	/// </summary>
+	///
 	public class Quantity : Symbolic
 	{
 		// the amount
@@ -48,93 +46,65 @@ namespace Point85.Caliper.UnitOfMeasure
 		// and its unit of measure
 		private UnitOfMeasure UOM;
 
-		/**
-		 * Default constructor
-		 */
+		/// <summary>Default constructor</summary>		
 		public Quantity() : base()
 		{
 		}
 
-		/**
-		 * Create a quantity with an amount and unit of measure
-		 * 
-		 * @param amount
-		 *            Amount
-		 * @param uom
-		 *            {@link UnitOfMeasure}
-		 */
+		/// <summary>Create a quantity with an amount and unit of measure</summary>
+		/// 
+		/// <param name="amount">Amount</param>           
+		/// <param name="uom">UnitOfMeasure</param>
+		///   
 		public Quantity(double amount, UnitOfMeasure uom)
 		{
 			Amount = amount;
 			UOM = uom;
 		}
 
-		/**
-		 * Create a quantity with an amount, prefix and unit
-		 * 
-		 * @param amount
-		 *            Amount
-		 * @param prefix
-		 *            {@link Prefix}
-		 * @param unit
-		 *            {@link Unit}
-		 * @ Exception
-		 */
+		/// <summary>Create a quantity with an amount, prefix and unit</summary>
+		/// 
+		/// <param name="amount">Amount</param>          
+		/// <param name="prefix">Prefix</param>
+		/// <param name="unit">Unit</param>
+		/// 
 		public Quantity(double amount, Prefix prefix, Unit unit) : this(amount, MeasurementSystem.GetSystem().GetUOM(prefix, unit))
 		{
 		}
 
-		/**
-		 * Create a quantity with an amount and unit
-		 * 
-		 * @param amount
-		 *            Amount
-		 * @param unit
-		 *            {@link Unit}
-		 * @
-		 *             Exception
-		 */
+		/// <summary>Create a quantity with an amount and unit</summary>
+		/// 
+		/// <param name="amount">Amount</param>
+		///            
+		/// <param name="unit">Unit</param>
+		/// 
 		public Quantity(double amount, Unit unit) : this(amount, MeasurementSystem.GetSystem().GetUOM(unit))
 		{
 		}
 
-		/**
- * Get the amount of this quantity
- * 
- * @return amount
- */
+		/// <summary>Get the amount of this quantity</summary>
+		/// 
+		/// <returns>amount</returns>
+		/// 
 		public double GetAmount()
 		{
 			return Amount;
 		}
 
-		/**
-		 * Get the unit of measure of this quantity
-		 * 
-		 * @return {@link UnitOfMeasure}
-		 */
+		/// <summary>Get the unit of measure of this quantity</summary>
+		/// 
+		/// <returns>UnitOfMeasure</returns>
+		/// 
 		public UnitOfMeasure GetUOM()
 		{
 			return UOM;
 		}
 
-		/**
-		 * Create a hash code
-		 * 
-		 * @return hash code
-		 */
 		public override int GetHashCode()
 		{
 			return Amount.GetHashCode() ^ UOM.GetHashCode();
 		}
 
-		/**
-		 * Compare this Quantity to another one
-		 * 
-		 * @param other
-		 *            Quantity
-		 * @return true if equal
-		 */
 		public override bool Equals(Object other)
 		{
 			bool answer = false;
@@ -154,16 +124,13 @@ namespace Point85.Caliper.UnitOfMeasure
 			return answer;
 		}
 
-		/**
-		 * Create an amount of a quantity that adheres to precision and rounding
-		 * settings from a string
-		 * 
-		 * @param value
-		 *            Text value of amount
-		 * @return Amount
-		 * @
-		 *             Exception
-		 */
+		/// <summary>Create an amount of a quantity that adheres to precision and rounding
+		/// settings from a string</summary>
+		/// 
+		/// <param name="value">Text value of amount</param>
+		///            
+		/// <returns>Amount</returns>
+		/// 
 		public static double CreateAmount(string value)
 		{
 			// use string constructor for exact precision with rounding mode in math
@@ -175,68 +142,24 @@ namespace Point85.Caliper.UnitOfMeasure
 			return System.Convert.ToDouble(value);
 		}
 
-		/**
-		 * Create an amount of a quantity that adheres to precision and rounding
-		 * settings from a Number
-		 * 
-		 * @param number
-		 *            Value
-		 * @return Amount
-		 */
+
+		/// <summary>Create an amount of a quantity from a decimal number</summary>
+		/// 
+		/// <param name="number">Value</param>
+		///            
+		/// <returns>Amount</returns>
+		/// 
 		public static double CreateAmount(decimal number)
 		{
 			return decimal.ToDouble(number);
 		}
 
-		/**
-		 * Create an amount by dividing two amounts represented by strings
-		 * 
-		 * @param dividendAmount
-		 *            Dividend
-		 * @param divisorAmount
-		 *            Divisor
-		 * @return Ratio of two amounts
-		 * @
-		 *             Exception
-		 */
-		 /*
-		static public double DivideAmounts(string dividendAmount, string divisorAmount)
-		{
-			double dividend = Quantity.CreateAmount(dividendAmount);
-			double divisor = Quantity.CreateAmount(divisorAmount);
-			return dividend / divisor;
-		}
-		*/
-
-		/**
-		 * Create an amount by multiplying two amounts represented by strings
-		 * 
-		 * @param multiplierAmount
-		 *            Multiplier
-		 * @param multiplicandAmount
-		 *            Multiplicand
-		 * @return Product of two amounts
-		 * @
-		 *             Exception
-		 */
-		 /*
-		static public double MultiplyAmounts(string multiplierAmount, string multiplicandAmount)
-		{
-			double multiplier = Quantity.CreateAmount(multiplierAmount);
-			double multiplicand = Quantity.CreateAmount(multiplicandAmount);
-			return multiplier * multiplicand;
-		}
-		*/
-
-		/**
-		 * Subtract a quantity from this quantity
-		 * 
-		 * @param other
-		 *            quantity
-		 * @return New quantity
-		 * @
-		 *             Exception
-		 */
+		/// <summary>Subtract a quantity from this quantity</summary>
+		/// 
+		/// <param name="other">Quantity</param>
+		///            
+		/// <returns>New quantity</returns>
+		/// 
 		public Quantity Subtract(Quantity other)
 		{
 			Quantity toSubtract = other.Convert(UOM);
@@ -245,15 +168,11 @@ namespace Point85.Caliper.UnitOfMeasure
 			return quantity;
 		}
 
-		/**
-		 * Add two quantities
-		 * 
-		 * @param other
-		 *            {@link Quantity}
-		 * @return Sum {@link Quantity}
-		 * @
-		 *             Exception
-		 */
+		/// <summary>Add two quantities</summary>
+		/// 
+		/// <param name="other">Quantity</param>
+		/// <returns>Sum Quantity</returns>
+		/// 
 		public Quantity Add(Quantity other)
 		{
 			Quantity toAdd = other.Convert(UOM);
@@ -262,15 +181,13 @@ namespace Point85.Caliper.UnitOfMeasure
 			return quantity;
 		}
 
-		/**
-		 * Divide two quantities to create a third quantity
-		 * 
-		 * @param other
-		 *            {@link Quantity}
-		 * @return Quotient {@link Quantity}
-		 * @
-		 *             Exception
-		 */
+
+		/// <summary>Divide two quantities to create a third quantity</summary>
+		/// 
+		/// <param name="other">Quantity</param>
+		///           
+		/// <returns>Quotient Quantity</returns>
+		/// 
 		public Quantity Divide(Quantity other)
 		{
 			Quantity toDivide = other;
@@ -282,15 +199,13 @@ namespace Point85.Caliper.UnitOfMeasure
 			return quantity;
 		}
 
-		/**
-		 * Divide this quantity by the specified amount
-		 * 
-		 * @param divisor
-		 *            Amount
-		 * @return Quantity {@link Quantity}
-		 * @
-		 *             Exception
-		 */
+
+		/// <summary>Divide this quantity by the specified amount</summary>
+		/// 
+		/// <param name="divisor">Amount</param>
+		///            
+		/// <returns>Quantity</returns>
+		/// 
 		public Quantity Divide(double divisor)
 		{
 			double amount = Amount / divisor;
@@ -298,15 +213,12 @@ namespace Point85.Caliper.UnitOfMeasure
 			return quantity;
 		}
 
-		/**
-		 * Multiply this quantity by another quantity to create a third quantity
-		 * 
-		 * @param other
-		 *            Quantity
-		 * @return Multiplied quantity
-		 * @
-		 *             Exception
-		 */
+		/// <summary>Multiply this quantity by another quantity to create a third quantity</summary>
+		/// 
+		/// <param name="other">Quantity</param>
+		///            
+		/// <returns>Multiplied quantity</returns>
+		/// 
 		public Quantity Multiply(Quantity other)
 		{
 			Quantity toMultiply = other;
@@ -318,15 +230,12 @@ namespace Point85.Caliper.UnitOfMeasure
 			return quantity;
 		}
 
-		/**
-		 * Raise this quantity to the specified power
-		 * 
-		 * @param exponent
-		 *            Exponent
-		 * @return new Quantity
-		 * @
-		 *             Exception
-		 */
+		/// <summary>Raise this quantity to the specified power</summary>
+		/// 
+		/// <param name="exponent">Exponent</param>
+		///            
+		/// <returns>new Quantity</returns>
+		/// 
 		public Quantity Power(int exponent)
 		{
 			double amount = Math.Pow(Amount, exponent);
@@ -336,15 +245,12 @@ namespace Point85.Caliper.UnitOfMeasure
 			return quantity;
 		}
 
-		/**
-		 * Multiply this quantity by the specified amount
-		 * 
-		 * @param multiplier
-		 *            Amount
-		 * @return new Quantity
-		 * @
-		 *             Exception
-		 */
+		/// <summary>Multiply this quantity by the specified amount</summary>
+		/// 
+		/// <param name="multiplier">Amount</param>
+		///            
+		/// <returns>new Quantity</returns>
+		/// 
 		public Quantity Multiply(double multiplier)
 		{
 			double amount = Amount * multiplier;
@@ -352,14 +258,10 @@ namespace Point85.Caliper.UnitOfMeasure
 			return quantity;
 		}
 
-		/**
-		 * Invert this quantity, i.e. 1 divided by this quantity to create another
-		 * quantity
-		 * 
-		 * @return {@link Quantity}
-		 * @
-		 *             Exception
-		 */
+		/// <summary>Invert this quantity, i.e. 1 divided by this quantity to create another quantity</summary>
+		///  
+		/// <returns>Quantity</returns>
+		/// 
 		public Quantity Invert()
 		{
 			double amount = 1 / Amount;
@@ -369,15 +271,12 @@ namespace Point85.Caliper.UnitOfMeasure
 			return quantity;
 		}
 
-		/**
-		 * Convert this quantity to the target UOM
-		 * 
-		 * @param toUOM
-		 *            {@link UnitOfMeasure}
-		 * @return Converted quantity
-		 * @
-		 *             Exception
-		 */
+		/// <summary>Convert this quantity to the target UOM</summary>
+		/// 
+		/// <param name="toUOM">UnitOfMeasure</param>
+		///        
+		/// <returns>Converted quantity</returns>
+		/// 
 		public Quantity Convert(UnitOfMeasure toUOM)
 		{
 			double multiplier = UOM.GetConversionFactor(toUOM);
@@ -388,7 +287,7 @@ namespace Point85.Caliper.UnitOfMeasure
 			double offsetAmount = Amount + thisOffset;
 
 			// new path amount
-			double newAmount = offsetAmount * multiplier;
+			double newAmount = offsetAmount;
 
 			// adjust for non-zero target offset
 			newAmount = newAmount - targetOffset;
@@ -397,18 +296,14 @@ namespace Point85.Caliper.UnitOfMeasure
 			return new Quantity(newAmount, toUOM);
 		}
 
-		/**
-		 * Convert this quantity with a product or quotient unit of measure to the
-		 * specified units of measure.
-		 * 
-		 * @param uom1
-		 *            Multiplier or dividend {@link UnitOfMeasure}
-		 * @param uom2
-		 *            Multiplicand or divisor {@link UnitOfMeasure}
-		 * @return Converted quantity
-		 * @
-		 *             Exception
-		 */
+		/// <summary>Convert this quantity with a product or quotient unit of measure to the
+		/// specified units of measure.</summary>
+		/// 
+		/// <param name="uom1">Multiplier or dividend UnitOfMeasure</param>
+		/// <param name="uom2">Multiplicand or divisor UnitOfMeasure</param>
+		///  
+		/// <returns>Converted quantity</returns>
+		/// 
 		public Quantity ConvertToPowerProduct(UnitOfMeasure uom1, UnitOfMeasure uom2)
 		{
 			UnitOfMeasure newUOM = UOM.ClonePowerProduct(uom1, uom2);
@@ -416,16 +311,13 @@ namespace Point85.Caliper.UnitOfMeasure
 			return Convert(newUOM);
 		}
 
-		/**
-		 * Convert this quantity of a power unit using the specified base unit of
-		 * measure.
-		 * 
-		 * @param uom
-		 *            Base {@link UnitOfMeasure}
-		 * @return Converted quantity
-		 * @
-		 *             exception
-		 */
+		/// <summary>Convert this quantity of a power unit using the specified base unit of
+		/// measure.</summary>
+		/// 
+		/// <param name="uom">Base UnitOfMeasure</param>
+		///          
+		/// <returns>Converted quantity</returns>
+		/// 
 		public Quantity ConvertToPower(UnitOfMeasure uom)
 		{
 			UnitOfMeasure newUOM = UOM.ClonePower(uom);
@@ -433,39 +325,29 @@ namespace Point85.Caliper.UnitOfMeasure
 			return Convert(newUOM);
 		}
 
-		/**
-		 * Convert this quantity to the target unit
-		 * 
-		 * @param unit
-		 *            {@link Unit}
-		 * @return {@link Quantity}
-		 * @
-		 *             Exception
-		 */
+		/// <summary>Convert this quantity to the target unit</summary>
+		/// 
+		/// <param name="unit">Unit</param>
+		///     
+		/// <returns>Quantity</returns>
+		/// 
 		public Quantity Convert(Unit unit)
 		{
 			return Convert(MeasurementSystem.GetSystem().GetUOM(unit));
 		}
 
-		/**
-		 * Convert this quantity to the target unit with the specified prefix
-		 * 
-		 * @param prefix
-		 *            {@link Prefix}
-		 * @param unit
-		 *            {@link Unit}
-		 * @return {@link Quantity}
-		 * @
-		 *             Exception
-		 */
+		/// <summary>Convert this quantity to the target unit with the specified prefix</summary>
+		/// 
+		/// <param name="prefix">Prefix</param>
+		/// <param name="unit">Unit</param>
+		///           
+		/// <returns>Quantity</returns>
+		/// 
 		public Quantity Convert(Prefix prefix, Unit unit)
 		{
 			return Convert(MeasurementSystem.GetSystem().GetUOM(prefix, unit));
 		}
 
-		/**
-		 * Create a string representation of this Quantity
-		 */
 		public override string ToString()
 		{
 			StringBuilder sb = new StringBuilder();
@@ -474,15 +356,12 @@ namespace Point85.Caliper.UnitOfMeasure
 			return sb.ToString();
 		}
 
-		/**
-		 * Compare this quantity to the other quantity
-		 * 
-		 * @param other
-		 *            Quantity
-		 * @return -1 if less than, 0 if equal and 1 if greater than
-		 * @
-		 *             If the quantities cannot be compared.
-		 */
+		/// <summary>Compare this quantity to the other quantity</summary>
+		/// 
+		/// <param name="other">Quantity</param>
+		///            
+		/// <returns>-1 if less than, 0 if equal and 1 if greater than</returns>
+		///             
 		public int Compare(Quantity other)
 		{
 			Quantity toCompare = other;
