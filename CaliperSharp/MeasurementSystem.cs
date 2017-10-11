@@ -25,49 +25,47 @@ SOFTWARE.
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Reflection;
-using System.Resources;
 
 namespace Point85.Caliper.UnitOfMeasure
 {
-	/**
- * A MeasurementSystem is a collection of units of measure that have a linear
- * relationship to each other: y = ax + b where x is the unit to be converted, y
- * is the converted unit, a is the scaling factor and b is the offset. <br>
- * See
- * <ul>
- * <li>Wikipedia: <i><a href=
- * "https://en.wikipedia.org/wiki/International_System_of_Units">International
- * System of Units</a></i></li>
- * <li>Table of conversions:
- * <i><a href="https://en.wikipedia.org/wiki/Conversion_of_units">Conversion of
- * Units</a></i></li>
- * <li>Unified Code for Units of Measure :
- * <i><a href="http://unitsofmeasure.org/trac">UCUM</a></i></li>
- * <li>SI derived units:
- * <i><a href="https://en.wikipedia.org/wiki/SI_derived_unit">SI Derived
- * Units</a></i></li>
- * <li>US system:
- * <i><a href="https://en.wikipedia.org/wiki/United_States_customary_units">US
- * Units</a></i></li>
- * <li>British Imperial system:
- * <i><a href="https://en.wikipedia.org/wiki/Imperial_units">British Imperial
- * Units</a></i></li>
- * <li>JSR 363: <i><a href=
- * "https://java.net/downloads/unitsofmeasurement/JSR363Specification_EDR.pdf">JSR
- * 363 Specification</a></i></li>
- * </ul>
- * <br>
- * The MeasurementSystem class creates:
- * <ul>
- * <li>7 SI fundamental units of measure</li>
- * <li>20 SI units derived from these fundamental units</li>
- * <li>other units in the International Customary, US and British Imperial
- * systems</li>
- * <li>any number of custom units of measure</li>
- * </ul>
- *
- */
+
+	/// <summary>
+	/// A MeasurementSystem is a collection of units of measure that have a linear
+	/// relationship to each other: y = ax + b where x is the unit to be converted, y
+	/// is the converted unit, a is the scaling factor and b is the offset. <br>
+	/// See
+	/// <ul>
+	/// <li>Wikipedia: <i><a href=
+	/// "https://en.wikipedia.org/wiki/International_System_of_Units">International
+	/// System of Units</a></i></li>
+	/// <li>Table of conversions:
+	/// <i><a href="https://en.wikipedia.org/wiki/Conversion_of_units">Conversion of
+	/// Units</a></i></li>
+	/// <li>Unified Code for Units of Measure :
+	/// <i><a href="http://unitsofmeasure.org/trac">UCUM</a></i></li>
+	/// <li>SI derived units:
+	/// <i><a href="https://en.wikipedia.org/wiki/SI_derived_unit">SI Derived
+	/// Units</a></i></li>
+	/// <li>US system:
+	/// <i><a href="https://en.wikipedia.org/wiki/United_States_customary_units">US
+	/// Units</a></i></li>
+	/// <li>British Imperial system:
+	/// <i><a href="https://en.wikipedia.org/wiki/Imperial_units">British Imperial
+	/// Units</a></i></li>
+	/// <li>JSR 363: <i><a href=
+	/// "https://java.net/downloads/unitsofmeasurement/JSR363Specification_EDR.pdf">JSR
+	/// 363 Specification</a></i></li>
+	/// </ul>
+	/// <br>
+	/// The MeasurementSystem class creates:
+	/// <ul>
+	/// <li>7 SI fundamental units of measure</li>
+	/// <li>20 SI units derived from these fundamental units</li>
+	/// <li>other units in the International Customary, US and British Imperial
+	/// systems</li>
+	/// <li>any number of custom units of measure</li>
+	/// </ul>
+	/// </summary>
 	public class MeasurementSystem
 	{
 		// name of resource with translatable strings for exception messages
@@ -101,128 +99,110 @@ namespace Point85.Caliper.UnitOfMeasure
 			UnitsManager = new PropertyManager(UNIT_RESOURCE_NAME);
 		}
 
-		/**
- * Get the units of measure cached by their symbol
- * 
- * @return Symbol cache
- */
+		/// <summary>Get the units of measure cached by their symbol</summary>
+		/// 
+		/// <returns>Symbol cache</returns>
+		/// 
 		public ConcurrentDictionary<string, UnitOfMeasure> GetSymbolCache()
 		{
 			return SymbolRegistry;
 		}
 
-		/**
- * Get the units of measure cached by their base symbol
- * 
- * @return Base symbol cache
- */
+		/// <summary>Get the units of measure cached by their base symbol</summary>
+		/// 
+		/// <returns>Base symbol cache</returns>
+		/// 
 		public ConcurrentDictionary<string, UnitOfMeasure> GetBaseSymbolCache()
 		{
 			return BaseRegistry;
 		}
 
-		/**
-		 * Get the units of measure cached by their {@link Unit} enumeration
-		 * 
-		 * @return Enumeration cache
-		 */
+		/// <summary>Get the units of measure cached by their Unit enumeration</summary>
+		/// 
+		/// <returns>Enumeration cache</returns>
+		/// 
 		public ConcurrentDictionary<Unit, UnitOfMeasure> GetEnumerationCache()
 		{
 			return UnitRegistry;
 		}
 
-		// get a particular message by its key
+		/// <summary>
+		/// get a particular message by its key
+		/// </summary>
 		public static string GetMessage(string key)
 		{
 			return MessagesManager.GetString(key);
 		}
 
-		// get a particular unit string by its key
+		/// <summary>
+		/// get a particular unit string by its key
+		/// </summary>
 		public static string GetUnitString(string key)
 		{
 			return UnitsManager.GetString(key);
 		}
 
-		/**
- * Get the unified system of units of measure for International Customary,
- * SI, US, British Imperial as well as custom systems
- * 
- * @return {@link MeasurementSystem}
- */
+		/// <summary>Get the unified system of units of measure for International Customary,
+		/// SI, US, British Imperial as well as custom systems</summary>
+		/// 
+		/// <returns>MeasurementSystem</returns>
+		/// 
 		public static MeasurementSystem GetSystem()
 		{
 			return UnifiedSystem;
 		}
 
-		/**
- * Get the unit of measure for unity 'one'
- * 
- * @return {@link UnitOfMeasure}
- * @
- *             Exception
- */
+		/// <summary>Get the unit of measure for unity 'one'</summary>
+		/// 
+		/// <returns>UnitOfMeasure</returns>
+		/// 
 		public UnitOfMeasure GetOne()
 		{
 			return GetUOM(Unit.ONE);
 		}
 
-		/**
- * Get the fundamental unit of measure of time
- * 
- * @return {@link UnitOfMeasure}
- * @
- *             Exception Exception
- */
+		/// <summary>Get the fundamental unit of measure of time</summary>
+		/// 
+		/// <returns>UnitOfMeasure</returns>
+		/// 
 		public UnitOfMeasure GetSecond()
 		{
 			return GetUOM(Unit.SECOND);
 		}
 
-		/**
-		 * Get the unit of measure for a minute (60 seconds)
-		 * 
-		 * @return {@link UnitOfMeasure}
-		 * @
-		 *             Exception
-		 */
+		/// <summary>Get the unit of measure for a minute (60 seconds)</summary>
+		/// 
+		/// <returns>UnitOfMeasure</returns>
+		/// 
 		public UnitOfMeasure GetMinute()
 		{
 			return GetUOM(Unit.MINUTE);
 		}
 
-		/**
-		 * Get the unit of measure for an hour (60 minutes)
-		 * 
-		 * @return {@link UnitOfMeasure}
-		 * @
-		 *             Exception
-		 */
+		/// <summary>Get the unit of measure for an hour (60 minutes)</summary>
+		/// 
+		/// <returns>UnitOfMeasure</returns>
+		/// 
 		public UnitOfMeasure GetHour()
 		{
 			return GetUOM(Unit.HOUR);
 		}
 
-		/**
-		 * Get the unit of measure for one day (24 hours)
-		 * 
-		 * @return {@link UnitOfMeasure}
-		 * @
-		 *             Exception
-		 */
+		/// <summary>Get the unit of measure for one day (24 hours)</summary>
+		/// 
+		/// <returns>UnitOfMeasure</returns>
+		/// 
 		public UnitOfMeasure GetDay()
 		{
 			return GetUOM(Unit.DAY);
 		}
 
-		/**
-	* Get the unit of measure with this unique enumerated type
-	* 
-	* @param unit
-	*            {@link Unit}
-	* @return {@link UnitOfMeasure}
-	* @
-	*             Exception Exception
-*/
+		/// <summary>Get the unit of measure with this unique enumerated type</summary>
+		/// 
+		/// <param name="unit">Unit</param>
+		///           
+		/// <returns>UnitOfMeasure</returns>
+		/// 
 		public UnitOfMeasure GetUOM(Unit unit)
 		{
 			UnitRegistry.TryGetValue(unit, out UnitOfMeasure uom);
@@ -234,13 +214,12 @@ namespace Point85.Caliper.UnitOfMeasure
 			return uom;
 		}
 
-		/**
-		 * Get the unit of measure with this unique symbol
-		 * 
-		 * @param symbol
-		 *            Symbol
-		 * @return {@link UnitOfMeasure}
-		 */
+		/// <summary>Get the unit of measure with this unique symbol</summary>
+		/// 
+		/// <param name="symbol">Symbol</param>
+		///            
+		/// <returns>UnitOfMeasure</returns>
+		/// 
 		public UnitOfMeasure GetUOM(string symbol)
 		{
 			UnitOfMeasure uom;
@@ -248,32 +227,27 @@ namespace Point85.Caliper.UnitOfMeasure
 			return uom;
 		}
 
-		/**
- * Get the unit of measure with this base symbol
- * 
- * @param symbol
- *            Base symbol
- * @return {@link UnitOfMeasure}
- */
+
+		/// <summary>Get the unit of measure with this base symbol</summary>
+		/// 
+		/// <param name="symbol">Base symbol</param>
+		///            
+		/// <returns>UnitOfMeasure</returns>
+		/// 
 		public UnitOfMeasure GetBaseUOM(string symbol)
 		{
 			BaseRegistry.TryGetValue(symbol, out UnitOfMeasure uom);
 			return uom;
 		}
 
-		/**
- * Create or fetch a unit of measure linearly scaled by the {@link Prefix}
- * against the target unit of measure.
- * 
- * @param prefix
- *            {@link Prefix} Scaling prefix with the scaling factor, e.g.
- *            1000
- * @param targetUOM
- *            abscissa {@link UnitOfMeasure}
- * @return {@link UnitOfMeasure}
- * @
- *             Exception
- */
+		/// <summary>Create or fetch a unit of measure linearly scaled by the Prefix
+		/// against the target unit of measure.</summary>
+		/// 
+		/// <param name="prefix">Scaling Prefix with the scaling factor, e.g. 1000</param>
+		/// <param name="targetUOM">abscissa UnitOfMeasure</param>
+		///      
+		/// <returns>UnitOfMeasure</returns>
+		/// 
 		public UnitOfMeasure GetUOM(Prefix prefix, UnitOfMeasure targetUOM)
 		{
 			string symbol = prefix.GetSymbol() + targetUOM.GetSymbol();
@@ -288,7 +262,7 @@ namespace Point85.Caliper.UnitOfMeasure
 				string description = prefix.Factor + " " + targetUOM.GetName();
 
 				// scaling factor
-				double scalingFactor = targetUOM.GetScalingFactor() * prefix.Factor;
+				double scalingFactor = targetUOM.GetScalingFactor();
 
 				// create the unit of measure and set conversion
 				scaled = CreateScalarUOM(targetUOM.GetUnitType(), null, name, symbol, description);
@@ -297,19 +271,14 @@ namespace Point85.Caliper.UnitOfMeasure
 			return scaled;
 		}
 
-		/**
-		* Create or fetch a unit of measure linearly scaled by the {@link Prefix}
-		* against the target unit of measure.
-		* 
-		* @param prefix
-		*            {@link Prefix} Scaling prefix with the scaling factor, e.g.
-		*            1000
-		* @param unit
-		*            {@link Unit}
-		* @return {@link UnitOfMeasure}
-		* @
-		*             Exception
-*/
+		/// <summary>Create or fetch a unit of measure linearly scaled by the Prefix
+		/// against the target unit of measure.</summary>
+		/// 
+		/// <param name="prefix">Scaling prefix with the scaling factor, e.g. 1000</param>
+		/// <param name="unit">Unit</param>
+		///        
+		/// <returns>UnitOfMeasure</returns>
+		///
 		public UnitOfMeasure GetUOM(Prefix prefix, Unit unit)
 		{
 			return GetUOM(prefix, MeasurementSystem.GetSystem().GetUOM(unit));
@@ -1353,48 +1322,33 @@ namespace Point85.Caliper.UnitOfMeasure
 			return uom;
 		}
 
-		/**
- * Create a unit of measure that is not a power, product or quotient
- * 
- * @param type
- *            {@link UnitType}
- * @param name
- *            Name of unit of measure
- * @param symbol
- *            Symbol (must be unique)
- * @param description
- *            Description of unit of measure
- * @return {@link UnitOfMeasure}
- * @
- *             Exception
- */
+		/// <summary>Create a unit of measure that is not a power, product or quotient</summary>
+		/// 
+		/// <param name="type">UnitType</param>            
+		/// <param name="name">Name of unit of measure</param>          
+		/// <param name="symbol">Symbol (must be unique)</param>           
+		/// <param name="description">Description of unit of measure</param>
+		/// 
+		/// <returns>UnitOfMeasure</returns>
+		///
 		public UnitOfMeasure CreateScalarUOM(UnitType type, string name, string symbol, string description)
 
 		{
 			return CreateScalarUOM(type, null, name, symbol, description);
 		}
 
-		/**
-	* Create a unit of measure with a base raised to an integral power
-	* 
-	* @param type
-	*            {@link UnitType}
-	* @param id
-	*            {@link Unit}
-	* @param name
-	*            Name of unit of measure
-	* @param symbol
-	*            Symbol (must be unique)
-	* @param description
-	*            Description of unit of measure
-	* @param base
-	*            {@link UnitOfMeasure}
-	* @param power
-	*            Exponent
-	* @return {@link UnitOfMeasure}
-	* @
-	*             Exception
-*/
+		/// <summary>Create a unit of measure with a base raised to an integral power</summary>
+		/// 
+		/// <param name="type">UnitType</param>         
+		/// <param name="id">Unit</param>        
+		/// <param name="name">Name of unit of measure</param>          
+		/// <param name="symbol">Symbol (must be unique)</param>          
+		/// <param name="description">Description of unit of measure</param>          
+		/// <param name="base">UnitOfMeasure</param>          
+		/// <param name="power">Exponent</param>
+		/// 
+		/// <returns>UnitOfMeasure</returns>
+		///
 		public UnitOfMeasure CreatePowerUOM(UnitType type, Unit? id, string name, string symbol, string description, UnitOfMeasure baseUOM, int exponent)
 		{
 			UnitOfMeasure uom = CreateUOM(type, id, name, symbol, description);
@@ -1404,41 +1358,28 @@ namespace Point85.Caliper.UnitOfMeasure
 			return uom;
 		}
 
-		/**
-		 * Create a unit of measure with a base raised to an integral exponent
-		 * 
-		 * @param type
-		 *            {@link UnitType}
-		 * @param name
-		 *            Name of unit of measure
-		 * @param symbol
-		 *            Symbol (must be unique)
-		 * @param description
-		 *            Description of unit of measure
-		 * @param base
-		 *            {@link UnitOfMeasure}
-		 * @param exponent
-		 *            Exponent
-		 * @return {@link UnitOfMeasure}
-		 * @
-		 *             Exception
-		 */
+		/// <summary>Create a unit of measure with a base raised to an integral exponent</summary>
+		/// <param name="type">UnitType</param>
+		/// <param name="name">Name of unit of measure</param>          
+		/// <param name="symbol">Symbol (must be unique)</param>        
+		/// <param name="description">Description of unit of measure</param>       
+		/// <param name="base">UnitOfMeasure</param>            
+		/// <param name="exponent">Exponent</param>
+		///            
+		/// <returns>UnitOfMeasure</returns>
+		///
 		public UnitOfMeasure CreatePowerUOM(UnitType type, string name, string symbol, string description, UnitOfMeasure baseUOM, int exponent)
 		{
 			return CreatePowerUOM(type, null, name, symbol, description, baseUOM, exponent);
 		}
 
-		/**
-		 * Create a unit of measure with a base raised to an integral exponent
-		 * 
-		 * @param base
-		 *            {@link UnitOfMeasure}
-		 * @param exponent
-		 *            Exponent
-		 * @return {@link UnitOfMeasure}
-		 * @
-		 *             Exception
-		 */
+		/// <summary>Create a unit of measure with a base raised to an integral exponent</summary>
+		/// 
+		/// <param name="base">UnitOfMeasure</param>          
+		/// <param name="exponent">Exponent</param>
+		///            
+		/// <returns>UnitOfMeasure</returns>
+		///
 		public UnitOfMeasure CreatePowerUOM(UnitOfMeasure baseUOM, int exponent)
 		{
 			if (baseUOM == null)
@@ -1451,28 +1392,20 @@ namespace Point85.Caliper.UnitOfMeasure
 			return CreatePowerUOM(UnitType.UNCLASSIFIED, null, null, symbol, null, baseUOM, exponent);
 		}
 
-		/**
-	 * Create a unit of measure that is the product of two other units of
-	 * measure
-	 * 
-	 * @param type
-	 *            {@link UnitType}
-	 * @param id
-	 *            {@link Unit}
-	 * @param name
-	 *            Name of unit of measure
-	 * @param symbol
-	 *            Symbol (must be unique)
-	 * @param description
-	 *            Description of unit of measure
-	 * @param multiplier
-	 *            {@link UnitOfMeasure} multiplier
-	 * @param multiplicand
-	 *            {@link UnitOfMeasure} multiplicand
-	 * @return {@link UnitOfMeasure}
-	 * @
-	 *             Exception
-	 */
+
+		/// <summary>Create a unit of measure that is the product of two other units of
+		/// measure</summary>
+		/// 
+		/// <param name="type">UnitType</param>
+		/// <param name="id">Unit</param>
+		/// <param name="name">Name of unit of measure</param>          
+		/// <param name="symbol">Symbol (must be unique)</param>          
+		/// <param name="description">Description of unit of measure</param>          
+		/// <param name="multiplier">UnitOfMeasure multiplier</param>          
+		/// <param name="multiplicand">UnitOfMeasure multiplicand</param>
+		///                     
+		/// <returns>UnitOfMeasure>/
+		///
 		public UnitOfMeasure CreateProductUOM(UnitType type, Unit? id, string name, string symbol, string description,
 				UnitOfMeasure multiplier, UnitOfMeasure multiplicand)
 		{
@@ -1484,44 +1417,32 @@ namespace Point85.Caliper.UnitOfMeasure
 			return uom;
 		}
 
-		/**
-		 * Create a unit of measure that is the product of two other units of
-		 * measure
-		 * 
-		 * @param type
-		 *            {@link UnitType}
-		 * @param name
-		 *            Name of unit of measure
-		 * @param symbol
-		 *            Symbol (must be unique)
-		 * @param description
-		 *            Description of unit of measure
-		 * @param multiplier
-		 *            {@link UnitOfMeasure} multiplier
-		 * @param multiplicand
-		 *            {@link UnitOfMeasure} multiplicand
-		 * @return {@link UnitOfMeasure}
-		 * @
-		 *             Exception
-		 */
+		/// <summary>Create a unit of measure that is the product of two other units of
+		/// measure</summary>
+		/// 
+		/// <param name="type">UnitType</param>
+		/// <param name="name">Name of unit of measure</param>           
+		/// <param name="symbol">Symbol (must be unique)</param>         
+		/// <param name="description">Description of unit of measure</param>        
+		/// <param name="multiplier">UnitOfMeasure multiplier</param>          
+		/// <param name="multiplicand">UnitOfMeasure multiplicand</param>          
+		///            
+		/// <returns>UnitOfMeasure</returns>
+		///
 		public UnitOfMeasure CreateProductUOM(UnitType type, string name, string symbol, string description,
 				UnitOfMeasure multiplier, UnitOfMeasure multiplicand)
 		{
 			return CreateProductUOM(type, null, name, symbol, description, multiplier, multiplicand);
 		}
 
-		/**
-		 * Create a unit of measure that is the product of two other units of
-		 * measure
-		 * 
-		 * @param multiplier
-		 *            {@link UnitOfMeasure} multiplier
-		 * @param multiplicand
-		 *            {@link UnitOfMeasure} multiplicand
-		 * @return {@link UnitOfMeasure}
-		 * @
-		 *             Exception
-		 */
+		/// <summary>Create a unit of measure that is the product of two other units of
+		/// measure</summary>
+		/// 
+		/// <param name="multiplier">UnitOfMeasure multiplier</param>           
+		/// <param name="multiplicand">UnitOfMeasure multiplicand</param>
+		///            
+		/// <returns>UnitOfMeasure</returns>
+		///
 		public UnitOfMeasure CreateProductUOM(UnitOfMeasure multiplier, UnitOfMeasure multiplicand)
 		{
 			if (multiplier == null)
@@ -1540,27 +1461,24 @@ namespace Point85.Caliper.UnitOfMeasure
 			return CreateProductUOM(UnitType.UNCLASSIFIED, null, null, symbol, null, multiplier, multiplicand);
 		}
 
-		/**
-	 * Create a unit of measure that is a unit divided by another unit
-	 * 
-	 * @param type
-	 *            {@link UnitType}
-	 * @param id
-	 *            {@link Unit}
-	 * @param name
-	 *            Name of unit of measure
-	 * @param symbol
-	 *            Symbol (must be unique)
-	 * @param description
-	 *            Description of unit of measure
-	 * @param dividend
-	 *            {@link UnitOfMeasure}
-	 * @param divisor
-	 *            {@link UnitOfMeasure}
-	 * @return {@link UnitOfMeasure}
-	 * @
-	 *             Exception
-	 */
+		/// <summary>Create a unit of measure that is a unit divided by another unit</summary>
+		/// 
+		/// <param name="type">UnitType</param>
+		///            }
+		/// <param name="id">Unit</param>
+		///            }
+		/// <param name="name">Name of unit of measure</param>
+		///            
+		/// <param name="symbol">Symbol (must be unique)</param>
+		///            
+		/// <param name="description">Description of unit of measure</param>
+		///            
+		/// <param name="dividend">UnitOfMeasure</param>
+		///            
+		/// <param name="divisor">UnitOfMeasure</param>
+		///            
+		/// <returns>UnitOfMeasure</returns>
+		///
 		public UnitOfMeasure CreateQuotientUOM(UnitType type, Unit? id, string name, string symbol, string description,
 				UnitOfMeasure dividend, UnitOfMeasure divisor)
 		{
@@ -1571,42 +1489,31 @@ namespace Point85.Caliper.UnitOfMeasure
 			return uom;
 		}
 
-		/**
-		 * Create a unit of measure that is a unit divided by another unit
-		 * 
-		 * @param type
-		 *            {@link UnitType}
-		 * @param name
-		 *            Name of unit of measure
-		 * @param symbol
-		 *            Symbol (must be unique)
-		 * @param description
-		 *            Description of unit of measure
-		 * @param dividend
-		 *            {@link UnitOfMeasure}
-		 * @param divisor
-		 *            {@link UnitOfMeasure}
-		 * @return {@link UnitOfMeasure}
-		 * @
-		 *             Exception
-		 */
+
+		/// <summary>Create a unit of measure that is a unit divided by another unit</summary>
+		/// 
+		/// <param name="type">UnitType</param>
+		/// <param name="name">Name of unit of measure</param>           
+		/// <param name="symbol">Symbol (must be unique)</param>          
+		/// <param name="description">Description of unit of measure</param>          
+		/// <param name="dividend">UnitOfMeasure</param>         
+		/// <param name="divisor">UnitOfMeasure</param>
+		///            
+		/// <returns>UnitOfMeasure</returns>
+		///
 		public UnitOfMeasure CreateQuotientUOM(UnitType type, string name, string symbol, string description,
 				UnitOfMeasure dividend, UnitOfMeasure divisor)
 		{
 			return this.CreateQuotientUOM(type, null, name, symbol, description, dividend, divisor);
 		}
 
-		/**
-		 * Create a unit of measure that is a unit divided by another unit
-		 * 
-		 * @param dividend
-		 *            {@link UnitOfMeasure}
-		 * @param divisor
-		 *            {@link UnitOfMeasure}
-		 * @return {@link UnitOfMeasure}
-		 * @
-		 *             Exception
-		 */
+		/// <summary>Create a unit of measure that is a unit divided by another unit</summary>
+		/// 
+		/// <param name="dividend">UnitOfMeasure</param>          
+		/// <param name="divisor">UnitOfMeasure</param>
+		///            
+		/// <returns>UnitOfMeasure</returns>
+		///
 		public UnitOfMeasure CreateQuotientUOM(UnitOfMeasure dividend, UnitOfMeasure divisor)
 		{
 			if (dividend == null)
@@ -1625,15 +1532,12 @@ namespace Point85.Caliper.UnitOfMeasure
 			return CreateQuotientUOM(UnitType.UNCLASSIFIED, null, null, symbol, null, dividend, divisor);
 		}
 
-		/**
- * Get the quantity defined as a contant value
- * 
- * @param constant
- *            {@link Constant}
- * @return {@link Quantity}
- * @throws Exception
- *             Exception
- */
+		/// <summary>Get the quantity defined as a contant value</summary>
+		/// 
+		/// <param name="constant">Constant</param>
+		///            
+		/// <returns>Quantity</returns>
+		///
 		public Quantity GetQuantity(Constant constant)
 		{
 			Quantity named = null;
@@ -1772,14 +1676,10 @@ namespace Point85.Caliper.UnitOfMeasure
 			return named;
 		}
 
-		/**
-		* Cache this unit of measure
-		* 
-		* @param uom
-		*            {@link UnitOfMeasure} to cache
-		* @
-		*             Exception
-*/
+		/// <summary>Cache this unit of measure</summary>
+		/// 
+		/// <param name="uom">UnitOfMeasure to cache</param>
+		///            
 		public void RegisterUnit(UnitOfMeasure uom)
 		{
 			string key = uom.GetSymbol();
@@ -1811,14 +1711,10 @@ namespace Point85.Caliper.UnitOfMeasure
 			}
 		}
 
-		/**
-	* Remove a unit from the cache
-	* 
-	* @param uom
-	*            {@link UnitOfMeasure} to remove
-	* @
-	*             Exception
-*/
+		/// <summary>Remove a unit from the cache</summary>
+		/// 
+		/// <param name="uom">UnitOfMeasure to uncache</param>
+		/// 
 		public void UnregisterUnit(UnitOfMeasure uom)
 		{
 			if (uom == null)
@@ -1840,9 +1736,7 @@ namespace Point85.Caliper.UnitOfMeasure
 			}
 		}
 
-		/**
- * Remove all cached units of measure
- */
+		/// <summary>Remove all cached units of measure</summary>
 		public void ClearCache()
 		{
 			SymbolRegistry.Clear();
@@ -1850,11 +1744,10 @@ namespace Point85.Caliper.UnitOfMeasure
 			UnitRegistry.Clear();
 		}
 
-		/**
- * Get all units currently cached by this measurement system
- * 
- * @return List of {@link UnitOfMeasure}
- */
+		/// <summary>Get all units currently cached by this measurement system</summary>
+		/// 
+		/// <returns>List of UnitOfMeasure</returns>
+		/// 
 		public List<UnitOfMeasure> GetRegisteredUnits()
 		{
 			ICollection<UnitOfMeasure> units = SymbolRegistry.Values;
@@ -1863,15 +1756,12 @@ namespace Point85.Caliper.UnitOfMeasure
 			return list;
 		}
 
-		/**
- * Get all the units of measure of the specified type
- * 
- * @param type
- *            {@link UnitType}
- * @return List of {@link UnitOfMeasure}
- * @throws Exception
- *             Exception
- */
+		/// <summary>Get all the units of measure of the specified type</summary>
+		/// 
+		/// <param name="type">UnitType</param>
+		///            
+		/// <returns>List of UnitOfMeasure</returns>
+		///
 		public List<UnitOfMeasure> GetUnitsOfMeasure(UnitType type)
 		{
 			List<UnitOfMeasure> units = new List<UnitOfMeasure>();
