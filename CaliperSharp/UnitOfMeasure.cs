@@ -35,9 +35,8 @@ namespace Point85.Caliper.UnitOfMeasure
 	/// measure in the same internationally recognized measurement system of
 	/// International Customary, SI, US or British Imperial. Or, the unit of measure
 	/// can have a conversion to another custom unit of measure. It is owned by the
-	/// unified MeasurementSystem} defined by this project.
+	/// unified MeasurementSystem defined by this project.
 	/// </p>
-	/// 
 	/// <p>
 	/// A unit of measure is categorized by scalar (simple unit), quotient (divisor
 	/// and dividend units), product (multiplier and multiplicand units) or power
@@ -45,17 +44,15 @@ namespace Point85.Caliper.UnitOfMeasure
 	/// measure is possible. For example, a unit of "per second" could be a quotient
 	/// of "1/s" (e.g. an inverted second) or a power of s^-1.
 	/// </p>
-	/// 
 	/// <p>
-	/// A unit of measure also has an enumerated UnitType} (for example LENGTH
-	/// or MASS) and a unique Unit} discriminator (for example METRE). <br>
+	/// A unit of measure also has an enumerated UnitType (for example LENGTH
+	/// or MASS) and a unique Unit discriminator (for example METRE).
 	/// A basic unit (a.k.a fundamental unit in the SI system) can have a bridge
 	/// conversion to another basic unit in another recognized measurement system.
 	/// This conversion is defined unidirectionally. For example, an International
 	/// Customary foot is 0.3048 SI metres. The conversion from metre to foot is just
 	/// the inverse of this relationship.
 	/// </p>
-	/// 
 	/// <p>
 	/// A unit of measure has a base symbol, for example 'm' for metre. A base symbol
 	/// is one that consists only of the symbols for the base units of measure. In
@@ -67,12 +64,11 @@ namespace Point85.Caliper.UnitOfMeasure
 	/// length, pound mass for mass and Rankine for temperature. This base symbol is
 	/// used in unit of measure conversions to uniquely identify the target unit.
 	/// </p>
-	/// 
 	/// <p>
 	/// The SI system has defined prefixes (e.g. "centi") for 1/100th of another unit
 	/// (e.g. metre). Instead of defining all the possible unit of measure
-	/// combinations, the MeasurementSystem} is able to create units by
-	/// specifying the Prefix} and target unit of measure. Similarly, computer
+	/// combinations, the MeasurementSystem is able to create units by
+	/// specifying the Prefix and target unit of measure. Similarly, computer
 	/// science has defined prefixes for bytes (e.g. "mega").
 	/// </p>
 	/// </summary>

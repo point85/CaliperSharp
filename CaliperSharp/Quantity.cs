@@ -28,14 +28,9 @@ using System.Text;
 namespace Point85.Caliper.UnitOfMeasure
 {
 	/// <summary>
-	/// The Quantity class represents an amount and UnitOfMeasure}. A constant
+	/// The Quantity class represents an amount and UnitOfMeasure. A constant
 	/// quantity can be named and given a symbol, e.g. the speed of light.
-	/// <p>
-	/// The amount is expressed as a double in order to control the precision of
-	/// floating point arithmetic. A MathContext is used with a precision setting
-	/// matching the IEEE 754R double64 format, 16 digits, and a rounding mode of
-	/// HALF_EVEN, the IEEE 754R default.
-	/// </p>
+	/// The amount is expressed internally as a double.
 	/// </summary>
 	///
 	public class Quantity : Symbolic

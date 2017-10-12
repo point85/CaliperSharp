@@ -24,7 +24,7 @@ namespace CaliperSharpTests
 				string prefixName = prefix.GetName();
 				Assert.IsTrue(prefixName.Length > 0);
 				Assert.IsTrue(prefix.GetSymbol().Length > 0);
-				Assert.IsTrue(!prefix.Factor.Equals(1));
+				Assert.IsTrue(!prefix.GetFactor().Equals(1));
 				Assert.IsTrue(prefix.ToString().Length > 0);
 				Assert.IsTrue(Prefix.FromName(prefixName).Equals(prefix));
 			}

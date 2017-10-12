@@ -1666,7 +1666,7 @@ EXTRA_SEARCH_MAPPINGS  =
 # If the GENERATE_LATEX tag is set to YES, doxygen will generate LaTeX output.
 # The default value is: YES.
 
-GENERATE_LATEX         = NO
+GENERATE_LATEX         = YES
 
 # The LATEX_OUTPUT tag is used to specify where the LaTeX docs will be put. If a
 # relative path is entered the value of OUTPUT_DIRECTORY will be put in front of
@@ -2014,7 +2014,7 @@ GENERATE_AUTOGEN_DEF   = NO
 # Note that this feature is still experimental and incomplete at the moment.
 # The default value is: NO.
 
-GENERATE_PERLMOD       = NO
+GENERATE_PERLMOD       = YES
 
 # If the PERLMOD_LATEX tag is set to YES, doxygen will generate the necessary
 # Makefile rules, Perl scripts and LaTeX code to be able to generate PDF and DVI
@@ -2022,7 +2022,7 @@ GENERATE_PERLMOD       = NO
 # The default value is: NO.
 # This tag requires that the tag GENERATE_PERLMOD is set to YES.
 
-PERLMOD_LATEX          = NO
+PERLMOD_LATEX          = YES
 
 # If the PERLMOD_PRETTY tag is set to YES, the Perl module output will be nicely
 # formatted so it can be parsed by a human reader. This is useful if you want to
