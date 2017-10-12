@@ -7,7 +7,7 @@
     <ProjectGuid>{5DCF081B-13EE-4833-96D0-0A115F59A98E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>org.point85.uom</RootNamespace>
+    <RootNamespace>Point85.Caliper.UnitOfMeasure</RootNamespace>
     <AssemblyName>CaliperSharp</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
