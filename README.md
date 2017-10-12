@@ -1,5 +1,5 @@
 # CaliperSharp
-The CaliperSharp library project manages units of measure and conversions between them.  It is a port of the java Caliper library (see https://github.com/point85/caliper).  CaliperSharp is designed to be lightweight and simple to use, yet comprehensive.  It includes a large number of pre-defined units of measure commonly found in science, engineering, technology, finance and the household.  These recognized systems of measurement include the International System of Units (SI), International Customary, United States and British Imperial.  Custom units of measure can also be created in the CaliperSharp unified measurement system.  Custom units are specific to a trade or industry such as industrial packaging where units of can, bottle, case and pallet are typical.  Custom units can be added to the unified system for units that are not pre-defined. 
+The CaliperSharp C# library project manages units of measure and conversions between them.  It is a port of the java Caliper library (see https://github.com/point85/caliper).  CaliperSharp is designed to be lightweight and simple to use, yet comprehensive.  It includes a large number of pre-defined units of measure commonly found in science, engineering, technology, finance and the household.  These recognized systems of measurement include the International System of Units (SI), International Customary, United States and British Imperial.  Custom units of measure can also be created in the CaliperSharp unified measurement system.  Custom units are specific to a trade or industry such as industrial packaging where units of can, bottle, case and pallet are typical.  Custom units can be added to the unified system for units that are not pre-defined. 
 
 A CaliperSharp measurement system is a collection of units of measure where each pair has a linear relationship, i.e. y = ax + b where 'x' is the abscissa unit to be converted, 'y' (the ordinate) is the converted unit, 'a' is the scaling factor and 'b' is the offset.  In the absence of a defined conversion, a unit will always have a conversion to itself.  A bridge unit conversion is defined to convert between the fundamental SI and International customary units of mass (i.e. kilogram to pound mass), length (i.e. metre to foot) and temperature (i.e. Kelvin to Rankine).  These three bridge conversions permit unit of measure conversions between the two systems.  A custom unit can define any bridge conversion such as a bottle to US fluid ounces or litres.
  
@@ -46,7 +46,7 @@ A unit of measure is represented internally as a product of two other power unit
 
 For a simple scalar UOM (e.g. kilogram), both of the UOMs are null with the exponents defaulted to 0.  For a product UOM (e.g. Newton), the first UOM is the multiplier and the second is the multiplicand with both exponents set to 1.  For a quotient UOM (e.g. kilograms/hour), the first UOM is the dividend and the second is the divisor.  The dividend has an exponent of 1 and the divisor an exponent of -1.  For a power UOM (e.g. square metres), the first UOM is the base and the exponent is the power.  In this case, the second UOM is null with the exponent defaulted to 0.
 
-From the two power products, a unit of measure can then be recursively reduced to a map of base units of measure and corresponding exponents along with a scaling factor.  For example, a Newton reduces to (kg, 1), (m, 1), (s, -2) in the SI system.  Multiplying, dividing and converting a unit of measure is accomplished by merging the two maps (i.e. "cancelling out" units) and then computing the overall scaling factor.  The base symbol is obtained directly from the final map.
+From the two power products, a unit of measure can then be recursively reduced to a dictionary of base units of measure and corresponding exponents along with a scaling factor.  For example, a Newton reduces to (kg, 1), (m, 1), (s, -2) in the SI system.  Multiplying, dividing and converting a unit of measure is accomplished by merging the two dictionaries (i.e. "cancelling out" units) and then computing the overall scaling factor.  The base symbol is obtained directly from the final dictionary.
  
 ## Code Examples
 The singleton unified MeasurementSystem is obtained by calling:
@@ -70,7 +70,7 @@ UnitOfMeasure uom = CreatePowerUOM(UnitType.AREA, Unit.SQUARE_METRE, UnitsManage
 The metre per second quotient UOM is created by the MeasurementSystem as follows: 
 ```cs
 UnitOfMeasure uom = CreateQuotientUOM(UnitType.VELOCITY, Unit.METRE_PER_SEC, UnitsManager.GetString("mps.name"),
-	UnitsManager.GetString("mps.symbol"), UnitsManager.GetString("mps.desc"), GetUOM(Unit.METRE), GetSecond());;
+	UnitsManager.GetString("mps.symbol"), UnitsManager.GetString("mps.desc"), GetUOM(Unit.METRE), GetSecond());
 ```
 
 The Newton product UOM is created by the MeasurementSystem as follows: 
@@ -404,6 +404,7 @@ already.created = The unit of measure with symbol {0} has already been created b
 The CaliperSharp library depends on the .Net Framework 4+.  The unit tests depend on .Net Framework 4.6.1+.
 
 The CaliperSharp library has the following structure:
- * `CaliperSharp` - CaliperSharp.csproj and the C# source files.  The calipersharp.doxygen is the Dosygen configuration file.
+ * `CaliperSharp` - CaliperSharp.csproj and the C# source files.  The calipersharp.doxygen is the Doxygen configuration file.
  * `./Resources` - contains the .properties files
- * `./Documentation` - Doxygen HTML docs
+ * `./Documentation/html` - Doxygen HTML docs
+ * `CaliperSharpTests` - CaliperSharpTests.csproj and the C# unit test source files.
