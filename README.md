@@ -408,3 +408,4 @@ The CaliperSharp library has the following structure:
  * `./Resources` - contains the .properties files
  * `./Documentation/html` - Doxygen HTML docs
  * `CaliperSharpTests` - CaliperSharpTests.csproj and the C# unit test source files.
+ * `./bin/Release` - dll and .properties resources
