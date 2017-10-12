@@ -262,7 +262,7 @@ namespace Point85.Caliper.UnitOfMeasure
 				string description = prefix.GetFactor() + " " + targetUOM.GetName();
 
 				// scaling factor
-				double scalingFactor = targetUOM.GetScalingFactor();
+				double scalingFactor = targetUOM.GetScalingFactor() * prefix.GetFactor();
 
 				// create the unit of measure and set conversion
 				scaled = CreateScalarUOM(targetUOM.GetUnitType(), null, name, symbol, description);

@@ -291,7 +291,7 @@ namespace Point85.Caliper.UnitOfMeasure
 			double offsetAmount = Amount + thisOffset;
 
 			// new path amount
-			double newAmount = offsetAmount;
+			double newAmount = offsetAmount * multiplier;
 
 			// adjust for non-zero target offset
 			newAmount = newAmount - targetOffset;
