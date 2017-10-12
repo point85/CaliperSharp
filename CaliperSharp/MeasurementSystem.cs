@@ -222,8 +222,7 @@ namespace Point85.Caliper.UnitOfMeasure
 		/// 
 		public UnitOfMeasure GetUOM(string symbol)
 		{
-			UnitOfMeasure uom;
-			SymbolRegistry.TryGetValue(symbol, out uom);
+			SymbolRegistry.TryGetValue(symbol, out UnitOfMeasure uom);
 			return uom;
 		}
 

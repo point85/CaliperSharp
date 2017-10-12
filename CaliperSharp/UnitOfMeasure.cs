@@ -1049,9 +1049,7 @@ namespace Point85.Caliper.UnitOfMeasure
 			}
 
 			// first check the cache
-			double cachedFactor;
-
-			if (ConversionRegistry.TryGetValue(targetUOM, out cachedFactor))
+			if (ConversionRegistry.TryGetValue(targetUOM, out double cachedFactor))
 			{
 				return cachedFactor;
 			}
