@@ -6,7 +6,7 @@ A CaliperSharp measurement system is a collection of units of measure where each
 ## Concepts
 
 The diagram below illustrates these concepts.
-![CaliperSharp Diagram](https://github.com/point85/calipersharp/blob/master/doc/CaliperSharpDiagram.png)
+![CaliperSharp Diagram](https://github.com/point85/calipersharp/blob/master/Documentation/CaliperSharpDiagram.png)
  
 All units are owned by the unified measurement system. Units 'x' and 'y' belong to a relational system (such as SI or International Customary).  Units 'w' and 'z' belong to a second relational system.  Unit 'y' has a linear conversion to unit 'x'; therefore 'x' must be defined before 'y' can be defined.  Unit 'x' is also related to 'y' by x = (y - b)/a.  Unit 'w' has a conversion to unit 'z'.  Unit 'z' is related to itself by z = z + 0. Unit 'x' has a bridge conversion defined to unit 'z' (for example a foot to a metre).  Note that a bridge conversion from 'z' to 'x' is not necessary since it is the inverse of the conversion from 'x' to 'z'.
  
@@ -42,7 +42,7 @@ A quantity is an amount (implemented as a floating point double precision number
 
 A unit of measure is represented internally as a product of two other power units of measure:
 
-![CaliperSharp Diagram](https://github.com/point85/calipersharp/blob/master/doc/PowerProduct.png)
+![CaliperSharp Diagram](https://github.com/point85/calipersharp/blob/master/documentation/PowerProduct.png)
 
 For a simple scalar UOM (e.g. kilogram), both of the UOMs are null with the exponents defaulted to 0.  For a product UOM (e.g. Newton), the first UOM is the multiplier and the second is the multiplicand with both exponents set to 1.  For a quotient UOM (e.g. kilograms/hour), the first UOM is the dividend and the second is the divisor.  The dividend has an exponent of 1 and the divisor an exponent of -1.  For a power UOM (e.g. square metres), the first UOM is the base and the exponent is the power.  In this case, the second UOM is null with the exponent defaulted to 0.
 
