@@ -5,7 +5,7 @@ using Point85.Caliper.UnitOfMeasure;
 namespace CaliperSharpTests
 {
 	[TestClass]
-	public class TestPartial
+	public class TestPartial : BaseTest
 	{
 		[TestMethod]
 		public void TestSnippet()
