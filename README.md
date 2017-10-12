@@ -6,7 +6,7 @@ A CaliperSharp measurement system is a collection of units of measure where each
 ## Concepts
 
 The diagram below illustrates these concepts.
-![CaliperSharp Diagram](https://github.com/point85/CaliperSharp/CaliperSharp/blob/master/Documentation/CaliperSharpDiagram.png)
+![CaliperSharpDiagram](https://raw.githubusercontent.com/point85/CaliperSharp/master/CaliperSharp/Documentation/CaliperSharpDiagram.png)
  
 All units are owned by the unified measurement system. Units 'x' and 'y' belong to a relational system (such as SI or International Customary).  Units 'w' and 'z' belong to a second relational system.  Unit 'y' has a linear conversion to unit 'x'; therefore 'x' must be defined before 'y' can be defined.  Unit 'x' is also related to 'y' by x = (y - b)/a.  Unit 'w' has a conversion to unit 'z'.  Unit 'z' is related to itself by z = z + 0. Unit 'x' has a bridge conversion defined to unit 'z' (for example a foot to a metre).  Note that a bridge conversion from 'z' to 'x' is not necessary since it is the inverse of the conversion from 'x' to 'z'.
  
