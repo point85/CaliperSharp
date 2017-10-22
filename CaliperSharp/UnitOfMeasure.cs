@@ -382,7 +382,7 @@ namespace Point85.Caliper.UnitOfMeasure
 			return type;
 		}
 
-		private Reducer GetBaseMap()
+		private Reducer GetReducer()
 		{
 			lock (new object())
 			{
@@ -402,7 +402,7 @@ namespace Point85.Caliper.UnitOfMeasure
 			{
 				if (BaseSymbol == null)
 				{
-					Reducer powerMap = GetBaseMap();
+					Reducer powerMap = GetReducer();
 					BaseSymbol = powerMap.BuildBaseString();
 				}
 				return BaseSymbol;
@@ -453,7 +453,16 @@ namespace Point85.Caliper.UnitOfMeasure
 				string msg = String.Format(MeasurementSystem.GetMessage("base.cannot.be.null"), GetSymbol());
 				throw new Exception(msg);
 			}
-			SetPowerProduct(baseUOM, exponent);
+
+			// special cases
+			if (exponent == -1)
+			{
+				SetPowerProduct(MeasurementSystem.GetSystem().GetOne(), 1, baseUOM, -1);
+			}
+			else
+			{
+				SetPowerProduct(baseUOM, exponent);
+			}
 		}
 
 		// generate a symbol for units of measure created as the result of
@@ -616,35 +625,16 @@ namespace Point85.Caliper.UnitOfMeasure
 				throw new Exception(MeasurementSystem.GetMessage("unit.cannot.be.null"));
 			}
 
-			if (other.Equals(MeasurementSystem.GetSystem().GetOne()))
-			{
-				return this;
-			}
-
 			CheckOffset(this);
 			CheckOffset(other);
 
-			// product or quotient
-			UnitOfMeasure result = new UnitOfMeasure();
-
-			if (!invert)
-			{
-				result.SetProductUnits(this, other);
-			}
-			else
-			{
-				result.SetQuotientUnits(this, other);
-			}
-
 			// this base symbol map
-			Reducer thisPowerMap = GetBaseMap();
-			Dictionary<UnitOfMeasure, int> thisMap = thisPowerMap.GetTerms();
-			double thisFactor = thisPowerMap.GetScalingFactor();
+			Reducer thisReducer = GetReducer();
+			Dictionary<UnitOfMeasure, int> thisMap = thisReducer.GetTerms();
 
 			// other base symbol map
-			Reducer otherPowerMap = other.GetBaseMap();
-			Dictionary<UnitOfMeasure, int> otherMap = otherPowerMap.GetTerms();
-			double otherFactor = otherPowerMap.GetScalingFactor();
+			Reducer otherReducer = other.GetReducer();
+			Dictionary<UnitOfMeasure, int> otherMap = otherReducer.GetTerms();
 
 			// create a map of the unit of measure powers
 			Dictionary<UnitOfMeasure, int> resultMap = new Dictionary<UnitOfMeasure, int>();
@@ -696,27 +686,19 @@ namespace Point85.Caliper.UnitOfMeasure
 			}
 
 			// get the base symbol and possibly base UOM
-			Reducer resultPowerMap = new Reducer();
-			resultPowerMap.SetTerms(resultMap);
+			Reducer resultReducer = new Reducer();
+			resultReducer.SetTerms(resultMap);
 
-			String baseSymbol = resultPowerMap.BuildBaseString();
-			UnitOfMeasure baseUOM = MeasurementSystem.GetSystem().GetBaseUOM(baseSymbol);
+			// product or quotient
+			UnitOfMeasure result = new UnitOfMeasure();
 
-			if (baseUOM != null)
+			if (!invert)
 			{
-				// there is a conversion to the base UOM
-				double resultFactor;
-				if (!invert)
-				{
-					resultFactor = thisFactor * otherFactor;
-				}
-				else
-				{
-					resultFactor = thisFactor / otherFactor;
-				}
-				result.SetScalingFactor(resultFactor);
-				result.SetAbscissaUnit(baseUOM);
-				result.SetUnitType(baseUOM.GetUnitType());
+				result.SetProductUnits(this, other);
+			}
+			else
+			{
+				result.SetQuotientUnits(this, other);
 			}
 
 			if (!invert)
@@ -732,6 +714,29 @@ namespace Point85.Caliper.UnitOfMeasure
 			if (result.GetSymbol().Length > MAX_SYMBOL_LENGTH)
 			{
 				result.SetSymbol(GenerateIntermediateSymbol());
+			}
+
+			String baseSymbol = resultReducer.BuildBaseString();
+			UnitOfMeasure baseUOM = MeasurementSystem.GetSystem().GetBaseUOM(baseSymbol);
+
+			if (baseUOM != null)
+			{
+				// there is a conversion to the base UOM
+				double thisFactor = thisReducer.GetScalingFactor();
+				double otherFactor = otherReducer.GetScalingFactor();
+
+				double resultFactor = 0;
+				if (!invert)
+				{
+					resultFactor = thisFactor * otherFactor;
+				}
+				else
+				{
+					resultFactor = thisFactor / otherFactor;
+				}
+				result.SetScalingFactor(resultFactor);
+				result.SetAbscissaUnit(baseUOM);
+				result.SetUnitType(baseUOM.GetUnitType());
 			}
 
 			return result;
@@ -1056,8 +1061,8 @@ namespace Point85.Caliper.UnitOfMeasure
 
 			CheckTypes(this, targetUOM);
 
-			Reducer fromPowerMap = GetBaseMap();
-			Reducer toPowerMap = targetUOM.GetBaseMap();
+			Reducer fromPowerMap = GetReducer();
+			Reducer toPowerMap = targetUOM.GetReducer();
 
 			Dictionary<UnitOfMeasure, int> fromMap = fromPowerMap.GetTerms();
 			Dictionary<UnitOfMeasure, int> toMap = toPowerMap.GetTerms();
@@ -1526,6 +1531,11 @@ namespace Point85.Caliper.UnitOfMeasure
 
 				return result;
 			} // end unit of measure iteration
+
+			public override string ToString()
+			{
+				return MapScalingFactor + ", " + Terms.ToString();
+			}
 		}
 
 		// UOM, scaling factor and power cumulative along a conversion path

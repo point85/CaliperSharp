@@ -612,7 +612,7 @@ namespace CaliperSharpTests
 
 			// Invert
 			UnitOfMeasure vInvert = velocity.Invert();
-			vInvert.GetScalingFactor().Equals(3600);
+			Assert.IsTrue(vInvert.GetScalingFactor().Equals(1));
 
 			// max symbol length
 			Quantity v = null;
