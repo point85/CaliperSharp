@@ -87,7 +87,7 @@ UnitOfMeasure second = sys.GetSecond();
 UnitOfMeasure msec = sys.GetUOM(Prefix.MILLI, second);
 ```
 
-For a second example, a US gallon = 231 cubic inches:
+For another example, a US gallon = 231 cubic inches:
 ```cs			
 UnitOfMeasure 	uom = CreateScalarUOM(UnitType.VOLUME, Unit.US_GALLON, UnitsManager.GetString("us_gallon.name"),
 	UnitsManager.GetString("us_gallon.symbol"), UnitsManager.GetString("us_gallon.desc"));
