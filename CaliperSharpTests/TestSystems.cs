@@ -22,9 +22,9 @@ namespace CaliperSharpTests
 				UnitOfMeasure uom = sys.GetUOM(unit);
 
 				Assert.IsNotNull(uom);
-				Assert.IsNotNull(uom.GetName());
-				Assert.IsNotNull(uom.GetSymbol());
-				Assert.IsNotNull(uom.GetDescription());
+				Assert.IsNotNull(uom.Name);
+				Assert.IsNotNull(uom.Symbol);
+				Assert.IsNotNull(uom.Description);
 				Assert.IsNotNull(uom.ToString());
 				Assert.IsNotNull(uom.GetBaseSymbol());
 				Assert.IsNotNull(uom.GetAbscissaUnit());
@@ -32,8 +32,8 @@ namespace CaliperSharpTests
 				Assert.IsNotNull(uom.GetOffset());
 
 				// symbol uniqueness
-				Assert.IsFalse(unitMap.ContainsKey(uom.GetSymbol()));
-				unitMap[uom.GetSymbol()] = uom;
+				Assert.IsFalse(unitMap.ContainsKey(uom.Symbol));
+				unitMap[uom.Symbol] = uom;
 			}
 
 			List<Unit> allUnits = new List<Unit>();
@@ -45,9 +45,9 @@ namespace CaliperSharpTests
 
 			foreach (UnitOfMeasure uom in sys.GetRegisteredUnits())
 			{
-				if (uom.GetEnumeration() != null)
+				if (uom.Enumeration != null)
 				{
-					Assert.IsTrue(allUnits.Contains(uom.GetEnumeration().Value));
+					Assert.IsTrue(allUnits.Contains(uom.Enumeration.Value));
 				}
 			}
 
@@ -57,9 +57,9 @@ namespace CaliperSharpTests
 				bool hasType = false;
 				foreach (UnitOfMeasure u in sys.GetRegisteredUnits())
 				{
-					if (u.GetUnitType().Equals(unitType))
+					if (u.UOMType.Equals(unitType))
 					{
-						found = u.GetUnitType();
+						found = u.UOMType;
 						hasType = true;
 						break;
 					}

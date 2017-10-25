@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['equals',['Equals',['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_quantity.html#ada8e508fde5202a3d95f0b5516678ed5',1,'Point85.Caliper.UnitOfMeasure.Quantity.Equals()'],['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_unit_of_measure.html#a9ff5f4c695fedd9dec5fdb286fc448a7',1,'Point85.Caliper.UnitOfMeasure.UnitOfMeasure.Equals()']]],
-  ['exa',['EXA',['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_prefix.html#aba06443b41810a837354faf02c1b5a18',1,'Point85::Caliper::UnitOfMeasure::Prefix']]],
-  ['exponenthasvalue',['ExponentHasValue',['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_unit_of_measure.html#ad603739146fcc54da1fcfcf29c1a362f',1,'Point85::Caliper::UnitOfMeasure::UnitOfMeasure']]]
+  ['deci',['DECI',['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_prefix.html#a4ecd02d8aa985a88f0fb6606961a3c52',1,'Point85::Caliper::UnitOfMeasure::Prefix']]],
+  ['deka',['DEKA',['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_prefix.html#aa81932873f8c63a67cec2f92860447ae',1,'Point85::Caliper::UnitOfMeasure::Prefix']]],
+  ['description',['Description',['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_symbolic.html#afd1a4a200c383a68a723f5030460f455',1,'Point85::Caliper::UnitOfMeasure::Symbolic']]],
+  ['divide',['Divide',['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_quantity.html#aa0a021bb7609de0a4c8ec23b86869de5',1,'Point85.Caliper.UnitOfMeasure.Quantity.Divide(Quantity other)'],['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_quantity.html#a728252adf0c871a129192324612f1343',1,'Point85.Caliper.UnitOfMeasure.Quantity.Divide(double divisor)'],['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_unit_of_measure.html#abd9969fe107ce82b6d67f56c111985e0',1,'Point85.Caliper.UnitOfMeasure.UnitOfMeasure.Divide()']]]
 ];

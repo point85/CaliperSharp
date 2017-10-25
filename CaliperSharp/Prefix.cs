@@ -25,8 +25,10 @@ using System.Collections.Generic;
 
 namespace Point85.Caliper.UnitOfMeasure
 {
-	/// <summary>The Prefix class defines SI unit of measure prefixes as well as those
-	/// found in computer science. </summary>
+	/// <summary>
+	/// The Prefix class defines SI unit of measure prefixes as well as those
+	/// found in computer science. 
+	/// </summary>
 	public class Prefix
 	{
 		// list of pre-defined prefixes
@@ -88,11 +90,20 @@ namespace Point85.Caliper.UnitOfMeasure
 		/// </summary>
 		public static readonly Prefix GIBI = new Prefix("gibi", "Gi", 1.073741824E+09);
 
-		private string Name;
+		/// <summary>
+		/// Name
+		/// </summary>
+		public string Name { get; private set; }
 
-		private string Symbol;
+		/// <summary>
+		/// Symbol
+		/// </summary>
+		public string Symbol { get; private set; }
 
-		private double Factor;
+		/// <summary>
+		/// Multiplying factor
+		/// </summary>
+		public double Factor { get; private set; }
 
 		/// <summary>Construct a prefix</summary>
 		/// <param name="name">Name</param>
@@ -105,29 +116,6 @@ namespace Point85.Caliper.UnitOfMeasure
 			Factor = factor;
 
 			prefixes.Add(this);
-		}
-
-		/// <summary>Get the name of the prefix</summary>
-		/// <returns> prefix name </returns>
-		public string GetName()
-		{
-			return this.Name;
-		}
-
-		/// <summary>Get the symbol for the prefix</summary>
-		/// 
-		/// <returns> symbol</returns>
-		public string GetSymbol()
-		{
-			return this.Symbol;
-		}
-
-		/// <summary>Get the scaling factor</summary>
-		/// 
-		/// <returns> Scaling factor</returns>
-		public double GetFactor()
-		{
-			return this.Factor;
 		}
 
 		/// <summary>Find the prefix with the specified name</summary>

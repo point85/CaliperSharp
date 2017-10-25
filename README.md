@@ -51,7 +51,7 @@ From the two power products, a unit of measure can then be recursively reduced t
 ## Code Examples
 The singleton unified MeasurementSystem is obtained by calling:
 ```cs
-MeasurementSystem sys = MeasurementSystem.getSystem();
+MeasurementSystem sys = MeasurementSystem.GetSystem();
 ```
 The Unit.properties file defines the name, symbol, description and symbol for each of the predefined units in the following code examples.  The Unit.properties file can be edited for localization.  For example, 'metres' can be changed to use the US spelling 'meters' or descriptions can be translated to another language.
 
@@ -89,7 +89,7 @@ UnitOfMeasure msec = sys.GetUOM(Prefix.MILLI, second);
 
 For another example, a US gallon = 231 cubic inches:
 ```cs			
-UnitOfMeasure 	uom = CreateScalarUOM(UnitType.VOLUME, Unit.US_GALLON, UnitsManager.GetString("us_gallon.name"),
+UnitOfMeasure uom = CreateScalarUOM(UnitType.VOLUME, Unit.US_GALLON, UnitsManager.GetString("us_gallon.name"),
 	UnitsManager.GetString("us_gallon.symbol"), UnitsManager.GetString("us_gallon.desc"));
 uom.SetConversion(231, GetUOM(Unit.CUBIC_INCH));
 ```
@@ -154,24 +154,6 @@ Quantity packer = filler.Convert(caseph);
 
 Quantities can be added, subtracted and converted:
 ```cs
-UnitOfMeasure m = sys.getUOM(Unit.METRE);
-UnitOfMeasure cm = sys.getUOM(Prefix.CENTI, m);
-		
-Quantity q1 = new Quantity("2", m);
-Quantity q2 = new Quantity("2", cm);
-		
-// add two quantities.  q3 is 2.02 metre
-Quantity q3 = q1.add(q2);
-		
-// q4 is 202 cm
-Quantity q4 = q3.convert(cm);
-		
-// subtract q1 from q3 to get 0.02m
-q3 = q3.subtract(q1);
-```
-
-as well as multiplied and divided:
-```cs
 UnitOfMeasure m = sys.GetUOM(Unit.METRE);
 UnitOfMeasure cm = sys.GetUOM(Prefix.CENTI, m);
 
@@ -186,6 +168,18 @@ Quantity q4 = q3.Convert(cm);
 
 // subtract q1 from q3 to get 0.02m
 q3 = q3.Subtract(q1);
+```
+
+as well as multiplied and divided:
+```cs
+Quantity q1 = new Quantity(50d, cm);
+Quantity q2 = new Quantity(50d, cm);
+
+// q3 = 2500 cm^2
+Quantity q3 = q1.Multiply(q2);
+
+// q4 = 50 cm
+Quantity q4 = q3.Divide(q1);
 ```
 
 and inverted:
@@ -258,7 +252,7 @@ Quantity frequency = new Quantity(400, sys.GetUOM(Prefix.TERA, Unit.HERTZ));
 Quantity ev = sys.GetQuantity(Constant.PLANCK_CONSTANT).Multiply(frequency).Convert(Unit.ELECTRON_VOLT);
 
 // wavelength of red light in nanometres (approx 749.48)
-Quantity frequency = new Quantity(400, sys.GetUOM(Prefix.TERA, Unit.HERTZ));
+frequency = new Quantity(400, sys.GetUOM(Prefix.TERA, Unit.HERTZ));
 Quantity wavelength = sys.GetQuantity(Constant.LIGHT_VELOCITY).Divide(frequency).Convert(sys.GetUOM(Prefix.NANO, Unit.METRE));
 ```
 
@@ -312,7 +306,7 @@ Device Characteristic Life
 Quantity j = new Quantity(1, Unit.JOULE);
 Quantity eV = j.Convert(Unit.ELECTRON_VOLT);
 // Boltzmann constant
-Quantity Kb = sys.GetQuantity(Constant.BOLTZMANN_CONSTANT).Multiply(eV.GetAmount());
+Quantity Kb = sys.GetQuantity(Constant.BOLTZMANN_CONSTANT).Multiply(eV.Amount);
 // accelerated temperature
 Quantity Ta = new Quantity(150, Unit.CELSIUS);
 // expected use temperature
@@ -321,7 +315,7 @@ Quantity Tu = new Quantity(85, Unit.CELSIUS);
 Quantity factor1 = Tu.Convert(Unit.KELVIN).Invert().Subtract(Ta.Convert(Unit.KELVIN).Invert());
 Quantity factor2 = Kb.Invert().Multiply(0.5);
 Quantity factor3 = factor1.Multiply(factor2);
-double AF = Math.Exp(factor3.GetAmount());
+double AF = Math.Exp(factor3.Amount);
 // calculate longer life at expected use temperature
 Quantity life85 = new Quantity(2750, Unit.HOUR);
 Quantity life150 = life85.Multiply(AF);
@@ -335,15 +329,15 @@ Value of a stock portfolio:
 // John has 100 shares of Alphabet Class A stock. How much is his
 // portfolio worth in euros when the last trade was $838.96 and a US
 // dollar is worth 0.94 euros?
-UnitOfMeasure euro = sys.getUOM(Unit.EURO);
-UnitOfMeasure usd = sys.getUOM(Unit.US_DOLLAR);
-usd.setConversion("0.94", euro);
+UnitOfMeasure euro = sys.GetUOM(Unit.EURO);
+UnitOfMeasure usd = sys.GetUOM(Unit.US_DOLLAR);
+usd.SetConversion(0.94, euro);
 
-UnitOfMeasure googl = sys.CreateScalarUOM(UnitType.FINANCIAL, "Alphabet A", "GOOGL",
-		"Alphabet (formerly Google) Class A shares");
-googl.setConversion("838.96", usd);
-Quantity portfolio = new Quantity("100", googl);
-Quantity value = portfolio.convert(euro);
+UnitOfMeasure googl = sys.CreateScalarUOM(UnitType.CURRENCY, "Alphabet A", "GOOGL",
+	"Alphabet (formerly Google) Class A shares");
+googl.SetConversion(838.96, usd);
+Quantity portfolio = new Quantity(100, googl);
+Quantity value = portfolio.Convert(euro);
 ```
 
 ## Medical Examples

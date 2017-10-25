@@ -37,33 +37,33 @@ namespace CaliperSharpTests
 			UnitOfMeasure psi = sys.GetUOM(Unit.PSI);
 			UnitOfMeasure fahrenheit = sys.GetUOM(Unit.FAHRENHEIT);
 
-			Assert.IsTrue(ft.GetBridgeOffset() == double.MinValue);
+			Assert.IsTrue(ft.BridgeOffset == double.MinValue);
 
 			Quantity q1 = new Quantity(10, ft);
 			Quantity q2 = q1.Convert(m);
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 3.048, DELTA6));
-			Quantity q3 = q2.Convert(q1.GetUOM());
-			Assert.IsTrue(IsCloseTo(q3.GetAmount(), 10, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 3.048, DELTA6));
+			Quantity q3 = q2.Convert(q1.UOM);
+			Assert.IsTrue(IsCloseTo(q3.Amount, 10, DELTA6));
 
 			q1 = new Quantity(10, kg);
 			q2 = q1.Convert(lbm);
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 22.0462, DELTA4));
-			q3 = q2.Convert(q1.GetUOM());
-			Assert.IsTrue(IsCloseTo(q3.GetAmount(), 10, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 22.0462, DELTA4));
+			q3 = q2.Convert(q1.UOM);
+			Assert.IsTrue(IsCloseTo(q3.Amount, 10, DELTA6));
 
 			q1 = new Quantity(212, fahrenheit);
 			q2 = q1.Convert(celsius);
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 100, DELTA6));
-			q3 = q2.Convert(q1.GetUOM());
-			Assert.IsTrue(IsCloseTo(q3.GetAmount(), 212, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 100, DELTA6));
+			q3 = q2.Convert(q1.UOM);
+			Assert.IsTrue(IsCloseTo(q3.Amount, 212, DELTA6));
 
 			UnitOfMeasure mm = sys.CreateProductUOM(UnitType.AREA, "name", "mxm", "", m, m);
 
 			q1 = new Quantity(10, mm);
 			q2 = q1.Convert(ft2);
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 107.639104167, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 107.639104167, DELTA6));
 			q2 = q2.Convert(m2);
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 10, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 10, DELTA6));
 
 			UnitOfMeasure mhr = sys.GetUOM("m/hr");
 
@@ -75,89 +75,89 @@ namespace CaliperSharpTests
 
 			q1 = new Quantity(10, psi);
 			q2 = q1.Convert(kPa);
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 68.94757280343134, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 68.94757280343134, DELTA6));
 			q2 = q2.Convert(psi);
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 10, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 10, DELTA6));
 
 			q1 = new Quantity(10, mhr);
 			q2 = q1.Convert(sys.GetUOM(Unit.FEET_PER_SEC));
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 0.009113444152814231, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 0.009113444152814231, DELTA6));
 			q2 = q2.Convert(mhr);
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 10, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 10, DELTA6));
 
 			q1 = new Quantity(10, gal);
 			q2 = q1.Convert(litre);
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 37.8541178, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 37.8541178, DELTA6));
 			q2 = q2.Convert(gal);
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 10, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 10, DELTA6));
 
 			q1 = new Quantity(10, m3);
 			q2 = q1.Convert(ft3);
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 353.1466672398284, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 353.1466672398284, DELTA6));
 			q2 = q2.Convert(m3);
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 10, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 10, DELTA6));
 
 			q1 = new Quantity(10, N);
 			q2 = q1.Convert(lbf);
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 2.24809, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 2.24809, DELTA6));
 			q2 = q2.Convert(N);
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 10, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 10, DELTA6));
 
 			q1 = new Quantity(10, ftlbf);
 			q2 = q1.Convert(Nm);
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 13.558179483314004, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 13.558179483314004, DELTA6));
 			q2 = q2.Convert(ftlbf);
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 10, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 10, DELTA6));
 
 			q1 = new Quantity(10, lbm);
 			q2 = q1.Convert(kg);
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 4.5359237, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 4.5359237, DELTA6));
 			q2 = q2.Convert(lbm);
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 10, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 10, DELTA6));
 
 			q1 = new Quantity(10, km);
 			q2 = q1.Convert(mi);
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 6.21371192237, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 6.21371192237, DELTA6));
 			q2 = q2.Convert(km);
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 10, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 10, DELTA6));
 
 			// length
 			q1 = new Quantity(10, sys.GetUOM(Unit.METRE));
 			q2 = q1.Convert(sys.GetUOM(Unit.INCH));
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 393.7007874015748, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 393.7007874015748, DELTA6));
 			q2 = q2.Convert(sys.GetUOM(Unit.METRE));
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 10, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 10, DELTA6));
 
 			q2 = q1.Convert(sys.GetUOM(Unit.FOOT));
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 32.80839895013123, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 32.80839895013123, DELTA6));
 			q2 = q2.Convert(sys.GetUOM(Unit.METRE));
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 10, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 10, DELTA6));
 
 			// area
 			q1 = new Quantity(10, sys.GetUOM(Unit.SQUARE_METRE));
 			q2 = q1.Convert(sys.GetUOM(Unit.SQUARE_INCH));
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 15500.031000062, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 15500.031000062, DELTA6));
 			q2 = q2.Convert(sys.GetUOM(Unit.SQUARE_METRE));
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 10, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 10, DELTA6));
 
 			q2 = q1.Convert(sys.GetUOM(Unit.SQUARE_FOOT));
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 107.6391041670972, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 107.6391041670972, DELTA6));
 			q2 = q2.Convert(sys.GetUOM(Unit.SQUARE_METRE));
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 10, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 10, DELTA6));
 
 			// volume
 			q1 = new Quantity(10, sys.GetUOM(Unit.LITRE));
 			q2 = q1.Convert(sys.GetUOM(Unit.US_GALLON));
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 2.641720523581484, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 2.641720523581484, DELTA6));
 			q2 = q2.Convert(sys.GetUOM(Unit.LITRE));
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 10, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 10, DELTA6));
 
 			q1 = new Quantity(4.0468564224, m);
 			q2 = new Quantity(1000, m);
 			q3 = q1.Multiply(q2);
-			Assert.IsTrue(IsCloseTo(q3.GetAmount(), 4046.8564224, DELTA6));
+			Assert.IsTrue(IsCloseTo(q3.Amount, 4046.8564224, DELTA6));
 
-			UnitOfMeasure uom = q3.GetUOM();
+			UnitOfMeasure uom = q3.UOM;
 			UnitOfMeasure powerBase = uom.GetPowerBase();
 			double sf = uom.GetScalingFactor();
 
@@ -166,8 +166,8 @@ namespace CaliperSharpTests
 			Assert.IsTrue(IsCloseTo(sf, 1, DELTA6));
 
 			Quantity q4 = q3.Convert(acre);
-			Assert.IsTrue(IsCloseTo(q4.GetAmount(), 1, DELTA6));
-			Assert.IsTrue(q4.GetUOM().Equals(acre));
+			Assert.IsTrue(IsCloseTo(q4.Amount, 1, DELTA6));
+			Assert.IsTrue(q4.UOM.Equals(acre));
 
 			UnitOfMeasure usSec = sys.GetSecond();
 
@@ -197,9 +197,9 @@ namespace CaliperSharpTests
 			UnitOfMeasure bridge2 = sys.CreateScalarUOM(UnitType.UNCLASSIFIED, "Bridge2", "B2", "description");
 
 			bridge1.SetBridgeConversion(1, bridge2, 0);
-			Assert.IsTrue(bridge1.GetBridgeScalingFactor().Equals(1));
-			Assert.IsTrue(bridge1.GetBridgeAbscissaUnit().Equals(bridge2));
-			Assert.IsTrue(bridge1.GetBridgeOffset().Equals(0));
+			Assert.IsTrue(bridge1.BridgeScalingFactor.Equals(1));
+			Assert.IsTrue(bridge1.BridgeAbscissaUnit.Equals(bridge2));
+			Assert.IsTrue(bridge1.BridgeOffset.Equals(0));
 
 			try
 			{

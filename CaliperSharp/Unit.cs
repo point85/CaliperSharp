@@ -24,8 +24,10 @@ SOFTWARE.
 
 namespace Point85.Caliper.UnitOfMeasure
 {
-	/// <summary>Unit is an enumeration of common units of measure in the International
-	/// Customary, SI, US and British Imperial systems.</summary>
+	/// <summary>
+	/// Unit is an enumeration of common units of measure in the International
+	/// Customary, SI, US and British Imperial systems.
+	/// </summary>
 	public enum Unit
 	{
 		// dimension-less "1" or unity

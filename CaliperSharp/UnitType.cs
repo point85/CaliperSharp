@@ -24,9 +24,10 @@ SOFTWARE.
 
 namespace Point85.Caliper.UnitOfMeasure
 {
-	/// <summary>UnitType is an enumeration of unit of measure types. Only units of measure
-	/// with the same type can be converted.</summary>
-
+	/// <summary>
+	/// UnitType is an enumeration of unit of measure types. Only units of measure
+	/// with the same type can be converted.
+	/// </summary>
 	public enum UnitType
 	{
 		// dimension-less "1"

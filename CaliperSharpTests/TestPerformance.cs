@@ -36,10 +36,10 @@ namespace CaliperSharpTests
 
 		private void AddUnit(UnitOfMeasure uom)
 		{
-			if (!unitListMap.TryGetValue(uom.GetUnitType(), out List<UnitOfMeasure> unitList))
+			if (!unitListMap.TryGetValue(uom.UOMType, out List<UnitOfMeasure> unitList))
 			{
 				unitList = new List<UnitOfMeasure>();
-				unitListMap[uom.GetUnitType()] = unitList;
+				unitListMap[uom.UOMType] = unitList;
 			}
 			unitList.Add(uom);
 		}
@@ -75,8 +75,8 @@ namespace CaliperSharpTests
 
 						rowQty.Convert(colUOM);
 						rowQty.Equals(colQty);
-						rowQty.GetAmount();
-						rowQty.GetUOM();
+						double d = rowQty.Amount;
+						UnitOfMeasure uom = rowQty.UOM;
 						rowQty.ToString();
 					}
 				}

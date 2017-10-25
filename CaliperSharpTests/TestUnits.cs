@@ -21,10 +21,10 @@ namespace CaliperSharpTests
 		{
 			foreach (Prefix prefix in Prefix.GetDefinedPrefixes())
 			{
-				string prefixName = prefix.GetName();
+				string prefixName = prefix.Name;
 				Assert.IsTrue(prefixName.Length > 0);
-				Assert.IsTrue(prefix.GetSymbol().Length > 0);
-				Assert.IsTrue(!prefix.GetFactor().Equals(1));
+				Assert.IsTrue(prefix.Symbol.Length > 0);
+				Assert.IsTrue(!prefix.Factor.Equals(1));
 				Assert.IsTrue(prefix.ToString().Length > 0);
 				Assert.IsTrue(Prefix.FromName(prefixName).Equals(prefix));
 			}
@@ -194,8 +194,8 @@ namespace CaliperSharpTests
 			u = sys.CreateQuotientUOM(UnitType.UNCLASSIFIED, "1/1", "uno/one", "", sys.GetOne(), sys.GetOne());
 			Quantity q1 = new Quantity(10, u);
 			Quantity q2 = q1.Convert(sys.GetOne());
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 10, DELTA6));
-			Assert.IsTrue(q2.GetUOM().Equals(sys.GetOne()));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 10, DELTA6));
+			Assert.IsTrue(q2.UOM.Equals(sys.GetOne()));
 
 			u = sys.CreateProductUOM(UnitType.UNCLASSIFIED, "1x1", "1x1", "", sys.GetOne(), sys.GetOne());
 			double bd = u.GetConversionFactor(sys.GetOne());
@@ -413,7 +413,7 @@ namespace CaliperSharpTests
 			u = uom9.GetAbscissaUnit();
 			Assert.IsTrue(u.GetBaseSymbol().Equals(a2.GetBaseSymbol()));
 
-			u = sys.GetUOM(a.GetSymbol());
+			u = sys.GetUOM(a.Symbol);
 			Assert.IsFalse(uom == null);
 
 			// again
@@ -439,11 +439,11 @@ namespace CaliperSharpTests
 			Assert.IsTrue(str1.Equals(str2));
 
 			UnitOfMeasure axb = sys.CreateProductUOM(UnitType.UNCLASSIFIED, "", "a.b", "", a, b);
-			u = sys.GetUOM(axb.GetSymbol());
+			u = sys.GetUOM(axb.Symbol);
 			Assert.IsTrue(u.Equals(axb));
 			Assert.IsTrue(axb.Divide(a).Equals(b));
 
-			String symbol = axb.GetSymbol() + "." + axb.GetSymbol();
+			String symbol = axb.Symbol + "." + axb.Symbol;
 			UnitOfMeasure axbsq = sys.CreateProductUOM(UnitType.UNCLASSIFIED, "", symbol, "", axb, axb);
 			u = axbsq.Divide(axb);
 			Assert.IsTrue(u.GetBaseSymbol().Equals(axb.GetBaseSymbol()));
@@ -462,10 +462,10 @@ namespace CaliperSharpTests
 			u = aOverb2.Multiply(b2);
 			Assert.IsTrue(u.GetBaseSymbol().Equals(aTimesa.GetBaseSymbol()));
 
-			symbol = axb.GetSymbol() + "^-2";
+			symbol = axb.Symbol + "^-2";
 			UnitOfMeasure axbm2 = sys.CreatePowerUOM(UnitType.UNCLASSIFIED, "", symbol, "", axb, -2);
 			uom = axbm2.Multiply(axb2);
-			Assert.IsTrue(uom.GetBaseSymbol().Equals(sys.GetOne().GetSymbol()));
+			Assert.IsTrue(uom.GetBaseSymbol().Equals(sys.GetOne().Symbol));
 
 			UnitOfMeasure cxd = sys.CreateProductUOM(UnitType.UNCLASSIFIED, "", "c.D", "", c, x);
 			const char MULT = (char)(char)0xB7;
@@ -508,13 +508,13 @@ namespace CaliperSharpTests
 
 			// inversions
 			UnitOfMeasure u = foot.Invert();
-			Assert.IsTrue(u.GetSymbol().Equals("1/ft"));
+			Assert.IsTrue(u.Symbol.Equals("1/ft"));
 
 			u = u.Multiply(foot);
 			Assert.IsTrue(u.GetBaseSymbol().Equals(sys.GetOne().GetBaseSymbol()));
 
 			u = velocity.Invert();
-			Assert.IsTrue(u.GetSymbol().Equals("s/ft"));
+			Assert.IsTrue(u.Symbol.Equals("s/ft"));
 
 			u = u.Multiply(velocity);
 			Assert.IsTrue(u.GetBaseSymbol().Equals(sys.GetOne().GetBaseSymbol()));
@@ -627,10 +627,10 @@ namespace CaliperSharpTests
 				d = v.Divide(h0);
 				h = v.Divide(d);
 			}
-			Assert.IsTrue(h.GetUOM().GetSymbol().Length < 16);
+			Assert.IsTrue(h.UOM.Symbol.Length < 16);
 
 			// conflict with 1/s
-			sys.UnregisterUnit(h0.GetUOM());
+			sys.UnregisterUnit(h0.UOM);
 		}
 
 
@@ -659,12 +659,12 @@ namespace CaliperSharpTests
 			Assert.IsTrue(u.Equals(s2));
 
 			u = second.Divide(second);
-			Assert.IsTrue(u.GetBaseSymbol().Equals(sys.GetOne().GetSymbol()));
+			Assert.IsTrue(u.GetBaseSymbol().Equals(sys.GetOne().Symbol));
 
 			Quantity q1 = new Quantity(1, u);
 			Quantity q2 = q1.Convert(sys.GetOne());
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 1, DELTA6));
-			Assert.IsTrue(q2.GetUOM().Equals(sys.GetOne()));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 1, DELTA6));
+			Assert.IsTrue(q2.UOM.Equals(sys.GetOne()));
 
 			u = second.Invert();
 
@@ -682,8 +682,8 @@ namespace CaliperSharpTests
 
 			q1 = new Quantity(10, u);
 			q2 = q1.Convert(sys.GetOne());
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 600, DELTA6));
-			Assert.IsTrue(q2.GetUOM().Equals(sys.GetOne()));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 600, DELTA6));
+			Assert.IsTrue(q2.UOM.Equals(sys.GetOne()));
 
 			// Multiply2
 			u = min.Multiply(min);
@@ -693,11 +693,11 @@ namespace CaliperSharpTests
 
 			q1 = new Quantity(10, u);
 			q2 = q1.Convert(s2);
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 36000, DELTA6));
-			Assert.IsTrue(q2.GetUOM().Equals(s2));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 36000, DELTA6));
+			Assert.IsTrue(q2.UOM.Equals(s2));
 
 			q2 = q2.Convert(min2);
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 10, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 10, DELTA6));
 
 			u = min.Multiply(second);
 			Assert.IsTrue(IsCloseTo(u.GetScalingFactor(), 60, DELTA6));
@@ -713,21 +713,21 @@ namespace CaliperSharpTests
 		public void TestSymbolCache()
 		{
 			UnitOfMeasure uom = sys.GetUOM(Unit.KILOGRAM);
-			UnitOfMeasure other = sys.GetUOM(uom.GetSymbol());
+			UnitOfMeasure other = sys.GetUOM(uom.Symbol);
 			Assert.IsTrue(uom.Equals(other));
 
 			other = sys.GetUOM(uom.GetBaseSymbol());
 			Assert.IsTrue(uom.Equals(other));
 
 			uom = sys.GetUOM(Prefix.CENTI, sys.GetUOM(Unit.METRE));
-			other = sys.GetUOM(uom.GetSymbol());
+			other = sys.GetUOM(uom.Symbol);
 			Assert.IsTrue(uom.Equals(other));
 
 			other = sys.GetUOM(uom.GetBaseSymbol());
 			Assert.IsTrue(uom.GetBaseSymbol().Equals(other.GetBaseSymbol()));
 
 			uom = sys.GetUOM(Unit.NEWTON);
-			other = sys.GetUOM(uom.GetSymbol());
+			other = sys.GetUOM(uom.Symbol);
 			Assert.IsTrue(uom.Equals(other));
 
 			other = sys.GetBaseUOM(uom.GetBaseSymbol());
@@ -755,9 +755,9 @@ namespace CaliperSharpTests
 			Assert.IsTrue(symbol.Equals("m"));
 
 			UnitOfMeasure mm = sys.GetUOM(Prefix.MILLI, metre);
-			Assert.IsTrue(Prefix.MILLI.GetFactor() > 0.0);
+			Assert.IsTrue(Prefix.MILLI.Factor > 0.0);
 
-			symbol = mm.GetSymbol();
+			symbol = mm.Symbol;
 			Assert.IsTrue(symbol.Equals("mm"));
 
 			symbol = mm.GetBaseSymbol();
@@ -776,7 +776,7 @@ namespace CaliperSharpTests
 			symbol = sys.GetUOM(Unit.CELSIUS).GetBaseSymbol();
 			Assert.IsTrue(symbol.Equals(sb.ToString()));
 
-			symbol = sys.GetUOM(Unit.CELSIUS).GetSymbol();
+			symbol = sys.GetUOM(Unit.CELSIUS).Symbol;
 			sb = new StringBuilder();
 			sb.Append("degC");
 			Assert.IsTrue(symbol.Equals(sb.ToString()));
@@ -785,7 +785,7 @@ namespace CaliperSharpTests
 			Assert.IsTrue(symbol.Equals("kg"));
 
 			UnitOfMeasure kg = sys.GetUOM(Unit.KILOGRAM);
-			symbol = kg.GetSymbol();
+			symbol = kg.Symbol;
 			Assert.IsTrue(symbol.Equals("kg"));
 
 			symbol = kg.GetBaseSymbol();
@@ -830,16 +830,16 @@ namespace CaliperSharpTests
 						.Append(')');
 			Assert.IsTrue(symbol.Equals(sb.ToString()));
 
-			symbol = sys.GetUOM(Unit.MOLE).GetSymbol();
+			symbol = sys.GetUOM(Unit.MOLE).Symbol;
 			Assert.IsTrue(symbol.Equals("mol"));
 
-			symbol = sys.GetUOM(Unit.RADIAN).GetSymbol();
+			symbol = sys.GetUOM(Unit.RADIAN).Symbol;
 			Assert.IsTrue(symbol.Equals("rad"));
 
 			symbol = sys.GetUOM(Unit.RADIAN).GetBaseSymbol();
 			Assert.IsTrue(symbol.Equals("1"));
 
-			symbol = sys.GetUOM(Unit.STERADIAN).GetSymbol();
+			symbol = sys.GetUOM(Unit.STERADIAN).Symbol;
 			Assert.IsTrue(symbol.Equals("sr"));
 
 			symbol = sys.GetUOM(Unit.STERADIAN).GetBaseSymbol();
@@ -851,7 +851,7 @@ namespace CaliperSharpTests
 			symbol = sys.GetUOM(Unit.LUMEN).GetBaseSymbol();
 			Assert.IsTrue(symbol.Equals("cd"));
 
-			symbol = sys.GetUOM(Unit.LUMEN).GetSymbol();
+			symbol = sys.GetUOM(Unit.LUMEN).Symbol;
 			Assert.IsTrue(symbol.Equals("lm"));
 
 			symbol = sys.GetUOM(Unit.LUX).GetBaseSymbol();
@@ -862,7 +862,7 @@ namespace CaliperSharpTests
 			symbol = sys.GetUOM(Unit.BECQUEREL).GetBaseSymbol();
 			Assert.IsTrue(symbol.Equals("Bq"));
 
-			symbol = sys.GetUOM(Unit.BECQUEREL).GetSymbol();
+			symbol = sys.GetUOM(Unit.BECQUEREL).Symbol;
 			Assert.IsTrue(symbol.Equals("Bq"));
 
 			symbol = sys.GetUOM(Unit.GRAY).GetBaseSymbol();
@@ -910,7 +910,7 @@ namespace CaliperSharpTests
 
 			UnitOfMeasure perSec = sys.CreatePowerUOM(UnitType.TIME, "per second", "perSec", null, sys.GetSecond(), -1);
 			UnitOfMeasure mult = perSec.Multiply(sys.GetUOM(Unit.SECOND));
-			Assert.IsTrue(mult.GetBaseSymbol().Equals(sys.GetUOM(Unit.ONE).GetSymbol()));
+			Assert.IsTrue(mult.GetBaseSymbol().Equals(sys.GetUOM(Unit.ONE).Symbol));
 
 			UnitOfMeasure u = sys.GetSecond().Invert();
 			Assert.IsTrue(u.GetScalingFactor().Equals(oneDivSec.GetScalingFactor()));
@@ -1000,7 +1000,7 @@ namespace CaliperSharpTests
 			Assert.IsTrue(IsCloseTo(bd, 0.3048, DELTA6));
 
 			Quantity g = sys.GetQuantity(Constant.GRAVITY).Convert(sys.GetUOM(Unit.FEET_PER_SEC_SQUARED));
-			bd = g.GetAmount();
+			bd = g.Amount;
 			Assert.IsTrue(IsCloseTo(bd, 32.17404855, DELTA6));
 
 			bd = lbf.GetConversionFactor(N);
@@ -1111,7 +1111,7 @@ namespace CaliperSharpTests
 			inHg.SetConversion(3386.389, pascal);
 
 			Quantity atm = new Quantity(1, Unit.ATMOSPHERE).Convert(Unit.PASCAL);
-			Assert.IsTrue(IsCloseTo(atm.GetAmount(), 101325, DELTA6));
+			Assert.IsTrue(IsCloseTo(atm.Amount, 101325, DELTA6));
 
 			UnitOfMeasure ft2ft = sys.CreateProductUOM(UnitType.VOLUME, "ft2ft", "ft2ft", null, ft2, ft);
 
@@ -1193,10 +1193,10 @@ namespace CaliperSharpTests
 			bd = inHg.GetConversionFactor(pascal);
 			Assert.IsTrue(IsCloseTo(bd, 3386.389, DELTA6));
 
-			bd = atm.Convert(inHg).GetAmount();
+			bd = atm.Convert(inHg).Amount;
 			Assert.IsTrue(IsCloseTo(bd, 29.92125240189478, DELTA6));
 
-			bd = inHg.GetConversionFactor(atm.GetUOM());
+			bd = inHg.GetConversionFactor(atm.UOM);
 			Assert.IsTrue(IsCloseTo(bd, 3386.389, DELTA6));
 
 			bd = btu.GetConversionFactor(joule);
@@ -1348,7 +1348,7 @@ namespace CaliperSharpTests
 			// Invert diopters to metre
 			Quantity from = new Quantity(10, sys.GetUOM(Unit.DIOPTER));
 			Quantity Inverted = from.Invert();
-			Assert.IsTrue(IsCloseTo(Inverted.GetAmount(), 0.1, DELTA6));
+			Assert.IsTrue(IsCloseTo(Inverted.Amount, 0.1, DELTA6));
 
 			UnitOfMeasure u = sys.CreatePowerUOM(UnitType.UNCLASSIFIED, "t*4", "t*4", "", K, 4);
 			Assert.IsTrue(u != null);
@@ -1370,7 +1370,7 @@ namespace CaliperSharpTests
 			UnitOfMeasure ha = sys.GetUOM(Unit.HECTARE);
 			from = new Quantity(1, ha);
 			Quantity to = from.Convert(Unit.ACRE);
-			Assert.IsTrue(IsCloseTo(to.GetAmount(), 2.47105, DELTA5));
+			Assert.IsTrue(IsCloseTo(to.Amount, 2.47105, DELTA5));
 		}
 
 		[TestMethod]
@@ -1421,7 +1421,7 @@ namespace CaliperSharpTests
 
 			Quantity qmm = new Quantity(1, mm);
 			Quantity qm = qmm.Convert(m);
-			Assert.IsTrue(IsCloseTo(qm.GetAmount(), 1.0E+06, DELTA6));
+			Assert.IsTrue(IsCloseTo(qm.Amount, 1.0E+06, DELTA6));
 
 			UnitOfMeasure mm2 = sys.GetUOM(Prefix.MEGA, m);
 			Assert.IsTrue(mm.Equals(mm2));
@@ -1431,14 +1431,14 @@ namespace CaliperSharpTests
 			UnitOfMeasure cL = sys.GetUOM(Prefix.CENTI, litre);
 			Quantity qL = new Quantity(1, litre);
 			Quantity qcL = qL.Convert(cL);
-			Assert.IsTrue(IsCloseTo(qcL.GetAmount(), 100, DELTA6));
+			Assert.IsTrue(IsCloseTo(qcL.Amount, 100, DELTA6));
 
 			// a mega buck
 			UnitOfMeasure buck = sys.CreateScalarUOM(UnitType.UNCLASSIFIED, "buck", "$", "one US dollar");
 			UnitOfMeasure megabuck = sys.GetUOM(Prefix.MEGA, buck);
 			Quantity qmb = new Quantity(10, megabuck);
 			Quantity qb = qmb.Convert(buck);
-			Assert.IsTrue(IsCloseTo(qb.GetAmount(), 1.0E+07, DELTA6));
+			Assert.IsTrue(IsCloseTo(qb.Amount, 1.0E+07, DELTA6));
 
 			// kilogram vs. scaled gram
 			UnitOfMeasure kgm = sys.GetUOM(Prefix.KILO, sys.GetUOM(Unit.GRAM));
@@ -1450,7 +1450,7 @@ namespace CaliperSharpTests
 			UnitOfMeasure miB = sys.GetUOM(Prefix.MEBI, sys.GetUOM(Unit.BYTE));
 			Quantity qmB = new Quantity(1, miB);
 			Quantity qkB = qmB.Convert(kiB);
-			Assert.IsTrue(IsCloseTo(qkB.GetAmount(), 1024, DELTA6));
+			Assert.IsTrue(IsCloseTo(qkB.Amount, 1024, DELTA6));
 		}
 
 		[TestMethod]
@@ -1503,7 +1503,7 @@ namespace CaliperSharpTests
 			bd = s2.GetConversionFactor(min2);
 			Assert.IsTrue(IsCloseTo(bd, 2.777777777777778e-4, DELTA6));
 
-			u = sys.GetBaseUOM(sm1.GetSymbol());
+			u = sys.GetBaseUOM(sm1.Symbol);
 			Assert.IsTrue(u != null);
 			u = sys.GetUOM(sm1.GetBaseSymbol());
 
@@ -1514,7 +1514,7 @@ namespace CaliperSharpTests
 			Assert.IsTrue(IsCloseTo(bd, 0.0166666666666667, DELTA6));
 
 			u = ftm1.Multiply(ft);
-			Assert.IsTrue(u.GetBaseSymbol().Equals(sys.GetOne().GetSymbol()));
+			Assert.IsTrue(u.GetBaseSymbol().Equals(sys.GetOne().Symbol));
 
 			u = ft.Multiply(inm1);
 			Assert.IsTrue(IsCloseTo(u.GetScalingFactor(), 12, DELTA6));
@@ -1558,7 +1558,7 @@ namespace CaliperSharpTests
 			Assert.IsTrue(IsCloseTo(bd, 1, DELTA6));
 
 			u = sminus1.Multiply(s);
-			Assert.IsTrue(u.GetBaseSymbol().Equals(sys.GetOne().GetSymbol()));
+			Assert.IsTrue(u.GetBaseSymbol().Equals(sys.GetOne().Symbol));
 
 			u = sys.GetOne().Divide(min);
 			bd = u.GetScalingFactor();
@@ -1566,24 +1566,24 @@ namespace CaliperSharpTests
 			bd = u.GetConversionFactor(sm1);
 			Assert.IsTrue(IsCloseTo(bd, 0.0166666666666667, DELTA6));
 
-			t = s2.GetUnitType();
+			t = s2.UOMType;
 
-			t = min.GetUnitType();
+			t = min.UOMType;
 
 			u = sys.GetOne().Multiply(min);
 			bd = u.GetConversionFactor(s);
 
-			t = min2.GetUnitType();
+			t = min2.UOMType;
 
 			u = min2.Divide(min);
-			t = u.GetUnitType();
+			t = u.UOMType;
 			Assert.IsTrue(t.Equals(UnitType.TIME));
 
 			u = min.Multiply(min);
 			Assert.IsTrue(IsCloseTo(u.GetScalingFactor(), 3600, DELTA6));
 			Assert.IsTrue(u.GetAbscissaUnit().Equals(s2));
 			Assert.IsTrue(IsCloseTo(u.GetOffset(), 0, DELTA6));
-			t = u.GetUnitType();
+			t = u.UOMType;
 			Assert.IsTrue(t.Equals(UnitType.TIME_SQUARED));
 
 			u2 = sys.GetOne().Divide(min);
@@ -1595,16 +1595,16 @@ namespace CaliperSharpTests
 
 			q1 = new Quantity(1, u2);
 			q2 = q1.Convert(hz);
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 0.0166666666666667, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 0.0166666666666667, DELTA6));
 
 			q1 = new Quantity(1, u);
 			q2 = q1.Convert(s2.Invert());
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 2.777777777777778e-4, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 2.777777777777778e-4, DELTA6));
 
 			u2 = u2.Divide(min);
 			q1 = new Quantity(1, u2);
 			q2 = q1.Convert(s2.Invert());
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 2.777777777777778e-4, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 2.777777777777778e-4, DELTA6));
 
 			u2 = u2.Invert();
 			Assert.IsTrue(u2.GetBaseSymbol().Equals(min2.GetBaseSymbol()));
@@ -1614,18 +1614,18 @@ namespace CaliperSharpTests
 			Assert.IsTrue(IsCloseTo(bd, 3600, DELTA6));
 
 			q2 = q1.Convert(s2);
-			Assert.IsTrue(q2.GetUOM().Equals(s2));
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 36000, DELTA6));
+			Assert.IsTrue(q2.UOM.Equals(s2));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 36000, DELTA6));
 
 			bd = min.GetConversionFactor(sys.GetSecond());
 			Assert.IsTrue(IsCloseTo(bd, 60, DELTA6));
 
-			u = q2.GetUOM();
+			u = q2.UOM;
 			bd = u.GetConversionFactor(min2);
 			Assert.IsTrue(IsCloseTo(bd, 2.777777777777778e-4, DELTA6));
 
 			q2 = q2.Convert(min2);
-			double amount = q2.GetAmount();
+			double amount = q2.Amount;
 			Assert.IsTrue(IsCloseTo(amount, 10, DELTA6));
 		}
 
@@ -1640,42 +1640,42 @@ namespace CaliperSharpTests
 			uom = sys.CreatePowerUOM(metre, -3);
 			Inverted = uom.Invert();
 			u = uom.Multiply(Inverted);
-			Assert.IsTrue(u.GetBaseSymbol().Equals(sys.GetOne().GetSymbol()));
+			Assert.IsTrue(u.GetBaseSymbol().Equals(sys.GetOne().Symbol));
 
 			uom = sys.CreatePowerUOM(metre, 2);
 			Inverted = uom.Invert();
 			u = uom.Multiply(Inverted);
-			Assert.IsTrue(u.GetBaseSymbol().Equals(sys.GetOne().GetSymbol()));
+			Assert.IsTrue(u.GetBaseSymbol().Equals(sys.GetOne().Symbol));
 
 			uom = sys.CreatePowerUOM(metre, -2);
 			Inverted = uom.Invert();
 			u = uom.Multiply(Inverted);
-			Assert.IsTrue(u.GetBaseSymbol().Equals(sys.GetOne().GetSymbol()));
+			Assert.IsTrue(u.GetBaseSymbol().Equals(sys.GetOne().Symbol));
 
 			uom = sys.CreatePowerUOM(metre, 2);
 			Inverted = uom.Invert();
 			u = uom.Multiply(Inverted);
-			Assert.IsTrue(u.GetBaseSymbol().Equals(sys.GetOne().GetSymbol()));
+			Assert.IsTrue(u.GetBaseSymbol().Equals(sys.GetOne().Symbol));
 
 			uom = sys.CreatePowerUOM(metre, 1);
 			Inverted = uom.Invert();
 			u = uom.Multiply(Inverted);
-			Assert.IsTrue(u.GetBaseSymbol().Equals(sys.GetOne().GetSymbol()));
+			Assert.IsTrue(u.GetBaseSymbol().Equals(sys.GetOne().Symbol));
 
 			uom = sys.CreatePowerUOM(metre, -1);
 			Inverted = uom.Invert();
 			u = uom.Multiply(Inverted);
-			Assert.IsTrue(u.GetBaseSymbol().Equals(sys.GetOne().GetSymbol()));
+			Assert.IsTrue(u.GetBaseSymbol().Equals(sys.GetOne().Symbol));
 
 			uom = sys.CreatePowerUOM(metre, -2);
 			Inverted = uom.Invert();
 			u = uom.Multiply(Inverted);
-			Assert.IsTrue(u.GetBaseSymbol().Equals(sys.GetOne().GetSymbol()));
+			Assert.IsTrue(u.GetBaseSymbol().Equals(sys.GetOne().Symbol));
 
 			uom = sys.CreatePowerUOM(metre, -4);
 			Inverted = uom.Invert();
 			u = uom.Multiply(Inverted);
-			Assert.IsTrue(u.GetBaseSymbol().Equals(sys.GetOne().GetSymbol()));
+			Assert.IsTrue(u.GetBaseSymbol().Equals(sys.GetOne().Symbol));
 		}
 
 		[TestMethod]
@@ -1687,15 +1687,15 @@ namespace CaliperSharpTests
 			UnitOfMeasure mEqPerL = sys.CreateQuotientUOM(UnitType.MOLAR_CONCENTRATION, "milliNormal", "mEq/L",
 						"solute per litre of solvent ", sys.GetUOM(Prefix.MILLI, eq), litre);
 			Quantity testResult = new Quantity(4.9, mEqPerL);
-			Assert.IsTrue(testResult.GetAmount().CompareTo(3.5) == 1);
-			Assert.IsTrue(testResult.GetAmount().CompareTo(5.3) == -1);
+			Assert.IsTrue(testResult.Amount.CompareTo(3.5) == 1);
+			Assert.IsTrue(testResult.Amount.CompareTo(5.3) == -1);
 
 			// Unit
 			UnitOfMeasure u = sys.GetUOM(Unit.UNIT);
 			UnitOfMeasure katal = sys.GetUOM(Unit.KATAL);
 			Quantity q1 = new Quantity(1, u);
 			Quantity q2 = q1.Convert(sys.GetUOM(Prefix.NANO, katal));
-			Assert.IsTrue(IsCloseTo(q2.GetAmount(), 16.666667, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.Amount, 16.666667, DELTA6));
 
 			// blood cell counts
 			UnitOfMeasure k = sys.GetUOM(Prefix.KILO, sys.GetOne());
@@ -1703,13 +1703,13 @@ namespace CaliperSharpTests
 			UnitOfMeasure kul = sys.CreateQuotientUOM(UnitType.MOLAR_CONCENTRATION, "K/uL", "K/uL",
 					"thousands per microlitre", k, uL);
 			testResult = new Quantity(6.6, kul);
-			Assert.IsTrue(testResult.GetAmount().CompareTo(3.5) == 1);
-			Assert.IsTrue(testResult.GetAmount().CompareTo(12.5) == -1);
+			Assert.IsTrue(testResult.Amount.CompareTo(3.5) == 1);
+			Assert.IsTrue(testResult.Amount.CompareTo(12.5) == -1);
 
 			UnitOfMeasure fL = sys.GetUOM(Prefix.FEMTO, Unit.LITRE);
 			testResult = new Quantity(90, fL);
-			Assert.IsTrue(testResult.GetAmount().CompareTo(80) == 1);
-			Assert.IsTrue(testResult.GetAmount().CompareTo(100) == -1);
+			Assert.IsTrue(testResult.Amount.CompareTo(80) == 1);
+			Assert.IsTrue(testResult.Amount.CompareTo(100) == -1);
 
 			// TSH
 			UnitOfMeasure uIU = sys.GetUOM(Prefix.MICRO, Unit.INTERNATIONAL_UNIT);
@@ -1717,8 +1717,8 @@ namespace CaliperSharpTests
 			UnitOfMeasure uiuPerml = sys.CreateQuotientUOM(UnitType.MOLAR_CONCENTRATION, "uIU/mL", "uIU/mL",
 					"micro IU per millilitre", uIU, mL);
 			testResult = new Quantity(2.11, uiuPerml);
-			Assert.IsTrue(testResult.GetAmount().CompareTo(0.40) == 1);
-			Assert.IsTrue(testResult.GetAmount().CompareTo(5.50) == -1);
+			Assert.IsTrue(testResult.Amount.CompareTo(0.40) == 1);
+			Assert.IsTrue(testResult.Amount.CompareTo(5.50) == -1);
 
 		}
 
@@ -1727,8 +1727,8 @@ namespace CaliperSharpTests
 		{
 			String category = "category";
 			UnitOfMeasure m = sys.GetUOM(Unit.METRE);
-			m.SetCategory(category);
-			Assert.IsTrue(m.GetCategory().Equals(category));
+			m.Category = category;
+			Assert.IsTrue(m.Category.Equals(category));
 		}
 
 		[TestMethod]

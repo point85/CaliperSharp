@@ -35,11 +35,15 @@ namespace Point85.Caliper.UnitOfMeasure
 	///
 	public class Quantity : Symbolic
 	{
-		// the amount
-		private double Amount;
+		/// <summary>
+		/// the amount
+		/// </summary>
+		public double Amount { get; private set; }
 
-		// and its unit of measure
-		private UnitOfMeasure UOM;
+		/// <summary>
+		/// unit of measure
+		/// </summary>
+		public UnitOfMeasure UOM { get; private set; }
 
 		/// <summary>Default constructor</summary>		
 		public Quantity() : base()
@@ -75,24 +79,6 @@ namespace Point85.Caliper.UnitOfMeasure
 		/// 
 		public Quantity(double amount, Unit unit) : this(amount, MeasurementSystem.GetSystem().GetUOM(unit))
 		{
-		}
-
-		/// <summary>Get the amount of this quantity</summary>
-		/// 
-		/// <returns>amount</returns>
-		/// 
-		public double GetAmount()
-		{
-			return Amount;
-		}
-
-		/// <summary>Get the unit of measure of this quantity</summary>
-		/// 
-		/// <returns>UnitOfMeasure</returns>
-		/// 
-		public UnitOfMeasure GetUOM()
-		{
-			return UOM;
 		}
 
 		/// <summary>

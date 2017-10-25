@@ -27,19 +27,26 @@ using System.Text;
 namespace Point85.Caliper.UnitOfMeasure
 {
 
-	/// <summary>This class represents an object that is identified by a name and symbol with
-	/// an optional description. Units of measure are such objects.</summary>
+	/// <summary>
+	/// This class represents an object that is identified by a name and symbol with
+	/// an optional description. Units of measure are such objects.
+	/// </summary>
 	public abstract class Symbolic
 	{
+		/// <summary>
+		/// name, for example "speed of light"
+		/// </summary>
+		public string Name { get; set; }
 
-		// name, for example "speed of light"
-		private string Name;
+		/// <summary>
+		/// symbol or abbreviation, e.g. "Vc"
+		/// </summary>
+		public string Symbol { get; set; }
 
-		// symbol or abbreviation, e.g. "Vc"
-		private string Symbol;
-
-		// description
-		private string Description;
+		/// <summary>
+		/// description
+		/// </summary>
+		public string Description { get; set; }
 
 		protected Symbolic()
 		{
@@ -56,54 +63,6 @@ namespace Point85.Caliper.UnitOfMeasure
 			this.Name = name;
 			this.Symbol = symbol;
 			this.Description = description;
-		}
-
-		/// <summary>Get the symbol</summary>
-		/// 
-		/// <returns>Symbol</returns>
-		public string GetSymbol()
-		{
-			return Symbol;
-		}
-
-		/// <summary>Set the symbol</summary>
-		/// 
-		/// <param name="symbol"> Symbol</param>
-		public void SetSymbol(string symbol)
-		{
-			Symbol = symbol;
-		}
-
-		/// <summary>Get the name</summary>
-		/// 
-		/// <returns>Name</returns>
-		public string GetName()
-		{
-			return Name;
-		}
-
-		/// <summary>Set the name</summary>
-		/// 
-		/// <param name="name">Name</param>
-		public void SetName(string name)
-		{
-			Name = name;
-		}
-
-		/// <summary>Get the description</summary>
-		/// 
-		/// <returns>Description</returns>
-		public string GetDescription()
-		{
-			return Description;
-		}
-
-		/// <summary>Set the description</summary>
-		/// 
-		/// <param name="description">Description</param>
-		public void SetDescription(string description)
-		{
-			Description = description;
 		}
 
 		/// <summary>

@@ -22,7 +22,7 @@ namespace CaliperSharpTests
 			googl.SetConversion("838.96", usd);
 			Quantity portfolio = new Quantity(100, googl);
 			Quantity value = portfolio.Convert(euro);
-			Assert.IsTrue(IsCloseTo(value.GetAmount(), 78862.24, DELTA6));
+			Assert.IsTrue(IsCloseTo(value.Amount, 78862.24, DELTA6));
 		}
 	}
 }

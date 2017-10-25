@@ -13,11 +13,11 @@ namespace CaliperSharpTests
 			foreach (Constant value in Enum.GetValues(typeof(Constant)))
 			{
 				Quantity q = sys.GetQuantity(value);
-				Assert.IsTrue(q.GetName() != null);
-				Assert.IsTrue(q.GetSymbol() != null);
-				Assert.IsTrue(q.GetDescription() != null);
-				Assert.IsTrue(q.GetAmount() != double.MinValue);
-				Assert.IsTrue(q.GetUOM() != null);
+				Assert.IsTrue(q.Name != null);
+				Assert.IsTrue(q.Symbol != null);
+				Assert.IsTrue(q.Description != null);
+				Assert.IsTrue(q.Amount != double.MinValue);
+				Assert.IsTrue(q.UOM != null);
 				Assert.IsTrue(q.ToString() != null);
 			}
 		}
