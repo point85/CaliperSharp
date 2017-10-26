@@ -286,12 +286,12 @@ namespace CaliperSharpTests
 			UnitOfMeasure uom = sys.CreateScalarUOM(UnitType.UNCLASSIFIED, "1/1", "1/1", "");
 			uom.SetConversion(1, sys.GetOne(), 1);
 
-			Assert.IsTrue(IsCloseTo(uom.GetScalingFactor(), 1, DELTA6));
-			Assert.IsTrue(uom.GetAbscissaUnit().Equals(sys.GetOne()));
-			Assert.IsTrue(IsCloseTo(uom.GetOffset(), 1, DELTA6));
+			Assert.IsTrue(IsCloseTo(uom.ScalingFactor, 1, DELTA6));
+			Assert.IsTrue(uom.AbscissaUnit.Equals(sys.GetOne()));
+			Assert.IsTrue(IsCloseTo(uom.Offset, 1, DELTA6));
 
 			u = sys.GetOne().Invert();
-			Assert.IsTrue(u.GetAbscissaUnit().Equals(sys.GetOne()));
+			Assert.IsTrue(u.AbscissaUnit.Equals(sys.GetOne()));
 
 			UnitOfMeasure one = sys.GetOne();
 			Assert.IsTrue(one.GetBaseSymbol().Equals("1"));
@@ -326,22 +326,22 @@ namespace CaliperSharpTests
 			UnitOfMeasure ab1 = sys.CreateScalarUOM(UnitType.UNCLASSIFIED, "a=2b+1", "a=2b+1", "custom");
 			ab1.SetConversion(2, b, 1);
 
-			Assert.IsTrue(IsCloseTo(ab1.GetScalingFactor(), 2, DELTA6));
-			Assert.IsTrue(ab1.GetAbscissaUnit().Equals(b));
-			Assert.IsTrue(IsCloseTo(ab1.GetOffset(), 1, DELTA6));
+			Assert.IsTrue(IsCloseTo(ab1.ScalingFactor, 2, DELTA6));
+			Assert.IsTrue(ab1.AbscissaUnit.Equals(b));
+			Assert.IsTrue(IsCloseTo(ab1.Offset, 1, DELTA6));
 
 			// quotient
 			UnitOfMeasure a = sys.CreateScalarUOM(UnitType.UNCLASSIFIED, "a", "alpha", "Alpha");
-			Assert.IsTrue(a.GetAbscissaUnit().Equals(a));
+			Assert.IsTrue(a.AbscissaUnit.Equals(a));
 
 			UnitOfMeasure aOverb = sys.CreateQuotientUOM(UnitType.UNCLASSIFIED, "a/b", "a/b", "", a, b);
-			aOverb.SetScalingFactor(2);
+			aOverb.ScalingFactor = 2d;
 
-			Assert.IsTrue(IsCloseTo(aOverb.GetScalingFactor(), 2, DELTA6));
+			Assert.IsTrue(IsCloseTo(aOverb.ScalingFactor, 2, DELTA6));
 			Assert.IsTrue(aOverb.GetDividend().Equals(a));
 			Assert.IsTrue(aOverb.GetDivisor().Equals(b));
-			Assert.IsTrue(IsCloseTo(aOverb.GetOffset(), 0, DELTA6));
-			Assert.IsTrue(aOverb.GetAbscissaUnit().Equals(aOverb));
+			Assert.IsTrue(IsCloseTo(aOverb.Offset, 0, DELTA6));
+			Assert.IsTrue(aOverb.AbscissaUnit.Equals(aOverb));
 
 			UnitOfMeasure bOvera = sys.CreateQuotientUOM(UnitType.UNCLASSIFIED, "b/a", "b/a", "", b, a);
 			UnitOfMeasure bOveraI = bOvera.Invert();
@@ -349,15 +349,15 @@ namespace CaliperSharpTests
 
 			// Multiply2
 			UnitOfMeasure uom = aOverb.Multiply(b);
-			Assert.IsTrue(uom.GetAbscissaUnit().Equals(a));
-			Assert.IsTrue(IsCloseTo(uom.GetScalingFactor(), 2, DELTA6));
+			Assert.IsTrue(uom.AbscissaUnit.Equals(a));
+			Assert.IsTrue(IsCloseTo(uom.ScalingFactor, 2, DELTA6));
 			double bd = uom.GetConversionFactor(a);
 			Assert.IsTrue(IsCloseTo(bd, 2, DELTA6));
 
 			// Divide2
 			UnitOfMeasure uom2 = uom.Divide(b);
-			Assert.IsTrue(IsCloseTo(uom2.GetScalingFactor(), 2, DELTA6));
-			Assert.IsTrue(IsCloseTo(uom2.GetOffset(), 0, DELTA6));
+			Assert.IsTrue(IsCloseTo(uom2.ScalingFactor, 2, DELTA6));
+			Assert.IsTrue(IsCloseTo(uom2.Offset, 0, DELTA6));
 			Assert.IsTrue(uom2.Equals(aOverb));
 
 			// Invert
@@ -367,50 +367,50 @@ namespace CaliperSharpTests
 
 			// product
 			UnitOfMeasure ab = sys.CreateProductUOM(UnitType.UNCLASSIFIED, "name", "symbol", "custom", a, b);
-			ab.SetOffset(1);
+			ab.Offset = 1d;
 
-			Assert.IsTrue(IsCloseTo(ab.GetScalingFactor(), 1, DELTA6));
+			Assert.IsTrue(IsCloseTo(ab.ScalingFactor, 1, DELTA6));
 			Assert.IsTrue(ab.GetMultiplier().Equals(a));
 			Assert.IsTrue(ab.GetMultiplicand().Equals(b));
-			Assert.IsTrue(IsCloseTo(ab.GetOffset(), 1, DELTA6));
-			Assert.IsTrue(ab.GetAbscissaUnit().Equals(ab));
+			Assert.IsTrue(IsCloseTo(ab.Offset, 1, DELTA6));
+			Assert.IsTrue(ab.AbscissaUnit.Equals(ab));
 
-			ab.SetOffset(0);
+			ab.Offset = 0d;
 
 			UnitOfMeasure uom4 = ab.Divide(a);
-			Assert.IsTrue(IsCloseTo(uom4.GetScalingFactor(), 1, DELTA6));
-			Assert.IsTrue(uom4.GetAbscissaUnit().Equals(b));
+			Assert.IsTrue(IsCloseTo(uom4.ScalingFactor, 1, DELTA6));
+			Assert.IsTrue(uom4.AbscissaUnit.Equals(b));
 
 			UnitOfMeasure uom5 = uom4.Multiply(a);
-			Assert.IsTrue(IsCloseTo(uom5.GetScalingFactor(), 1, DELTA6));
-			u = uom5.GetAbscissaUnit();
+			Assert.IsTrue(IsCloseTo(uom5.ScalingFactor, 1, DELTA6));
+			u = uom5.AbscissaUnit;
 			Assert.IsTrue(u.GetBaseSymbol().Equals(ab.GetBaseSymbol()));
 
 			// Invert
 			UnitOfMeasure uom6 = ab.Invert();
-			Assert.IsTrue(IsCloseTo(uom6.GetScalingFactor(), 1, DELTA6));
+			Assert.IsTrue(IsCloseTo(uom6.ScalingFactor, 1, DELTA6));
 			Assert.IsTrue(uom6.GetDividend().Equals(sys.GetOne()));
 			Assert.IsTrue(uom6.GetDivisor().Equals(ab));
-			Assert.IsTrue(IsCloseTo(uom6.GetOffset(), 0, DELTA6));
+			Assert.IsTrue(IsCloseTo(uom6.Offset, 0, DELTA6));
 
 			// power
 			UnitOfMeasure a2 = sys.CreatePowerUOM(UnitType.UNCLASSIFIED, "name", "a**2", "custom", a, 2);
 
-			Assert.IsTrue(IsCloseTo(a2.GetScalingFactor(), 1, DELTA6));
+			Assert.IsTrue(IsCloseTo(a2.ScalingFactor, 1, DELTA6));
 			Assert.IsTrue(a2.GetPowerBase().Equals(a));
 			Assert.IsTrue(a2.GetPowerExponent() == 2);
-			Assert.IsTrue(IsCloseTo(a2.GetOffset(), 0, DELTA6));
-			Assert.IsTrue(a2.GetAbscissaUnit().Equals(a2));
+			Assert.IsTrue(IsCloseTo(a2.Offset, 0, DELTA6));
+			Assert.IsTrue(a2.AbscissaUnit.Equals(a2));
 
 			UnitOfMeasure uom8 = a2.Divide(a);
-			Assert.IsTrue(IsCloseTo(uom8.GetScalingFactor(), 1, DELTA6));
-			Assert.IsTrue(IsCloseTo(uom8.GetOffset(), 0, DELTA6));
-			Assert.IsTrue(uom8.GetAbscissaUnit().Equals(a));
+			Assert.IsTrue(IsCloseTo(uom8.ScalingFactor, 1, DELTA6));
+			Assert.IsTrue(IsCloseTo(uom8.Offset, 0, DELTA6));
+			Assert.IsTrue(uom8.AbscissaUnit.Equals(a));
 
 			UnitOfMeasure uom9 = uom8.Multiply(a);
-			Assert.IsTrue(IsCloseTo(uom9.GetScalingFactor(), 1, DELTA6));
-			Assert.IsTrue(IsCloseTo(uom9.GetOffset(), 0, DELTA6));
-			u = uom9.GetAbscissaUnit();
+			Assert.IsTrue(IsCloseTo(uom9.ScalingFactor, 1, DELTA6));
+			Assert.IsTrue(IsCloseTo(uom9.Offset, 0, DELTA6));
+			u = uom9.AbscissaUnit;
 			Assert.IsTrue(u.GetBaseSymbol().Equals(a2.GetBaseSymbol()));
 
 			u = sys.GetUOM(a.Symbol);
@@ -584,9 +584,9 @@ namespace CaliperSharpTests
 			}
 
 			double sf = (double)1 / (double)3600;
-			Assert.IsTrue(IsCloseTo(velocity.GetScalingFactor(), sf, DELTA6));
-			Assert.IsTrue(velocity.GetAbscissaUnit().Equals(sys.GetUOM(Unit.METRE_PER_SEC)));
-			Assert.IsTrue(IsCloseTo(velocity.GetOffset(), 0, DELTA6));
+			Assert.IsTrue(IsCloseTo(velocity.ScalingFactor, sf, DELTA6));
+			Assert.IsTrue(velocity.AbscissaUnit.Equals(sys.GetUOM(Unit.METRE_PER_SEC)));
+			Assert.IsTrue(IsCloseTo(velocity.Offset, 0, DELTA6));
 
 			u = velocity.Multiply(hour);
 			double bd = u.GetConversionFactor(metre);
@@ -612,7 +612,7 @@ namespace CaliperSharpTests
 
 			// Invert
 			UnitOfMeasure vInvert = velocity.Invert();
-			Assert.IsTrue(vInvert.GetScalingFactor().Equals(1));
+			Assert.IsTrue(vInvert.ScalingFactor.Equals(1));
 
 			// max symbol length
 			Quantity v = null;
@@ -646,16 +646,16 @@ namespace CaliperSharpTests
 
 			Assert.IsTrue(IsCloseTo(second.GetConversionFactor(msec), 1000, DELTA6));
 
-			Assert.IsTrue(IsCloseTo(second.GetScalingFactor(), 1, DELTA6));
-			Assert.IsTrue(second.GetAbscissaUnit().Equals(second));
-			Assert.IsTrue(IsCloseTo(second.GetOffset(), 0, DELTA6));
+			Assert.IsTrue(IsCloseTo(second.ScalingFactor, 1, DELTA6));
+			Assert.IsTrue(second.AbscissaUnit.Equals(second));
+			Assert.IsTrue(IsCloseTo(second.Offset, 0, DELTA6));
 
 			double bd = hour.GetConversionFactor(second);
 
 			UnitOfMeasure u = second.Multiply(second);
 
-			Assert.IsTrue(IsCloseTo(u.GetScalingFactor(), 1, DELTA6));
-			Assert.IsTrue(IsCloseTo(u.GetOffset(), 0, DELTA6));
+			Assert.IsTrue(IsCloseTo(u.ScalingFactor, 1, DELTA6));
+			Assert.IsTrue(IsCloseTo(u.Offset, 0, DELTA6));
 			Assert.IsTrue(u.Equals(s2));
 
 			u = second.Divide(second);
@@ -672,8 +672,8 @@ namespace CaliperSharpTests
 			Assert.IsTrue(u.GetDivisor().Equals(second));
 
 			u = min.Divide(second);
-			Assert.IsTrue(IsCloseTo(u.GetScalingFactor(), 60, DELTA6));
-			Assert.IsTrue(IsCloseTo(u.GetOffset(), 0, DELTA6));
+			Assert.IsTrue(IsCloseTo(u.ScalingFactor, 60, DELTA6));
+			Assert.IsTrue(IsCloseTo(u.Offset, 0, DELTA6));
 
 			UnitOfMeasure uom = u.Multiply(second);
 			bd = uom.GetConversionFactor(min);
@@ -687,9 +687,9 @@ namespace CaliperSharpTests
 
 			// Multiply2
 			u = min.Multiply(min);
-			Assert.IsTrue(IsCloseTo(u.GetScalingFactor(), 3600, DELTA6));
-			Assert.IsTrue(u.GetAbscissaUnit().Equals(s2));
-			Assert.IsTrue(IsCloseTo(u.GetOffset(), 0, DELTA6));
+			Assert.IsTrue(IsCloseTo(u.ScalingFactor, 3600, DELTA6));
+			Assert.IsTrue(u.AbscissaUnit.Equals(s2));
+			Assert.IsTrue(IsCloseTo(u.Offset, 0, DELTA6));
 
 			q1 = new Quantity(10, u);
 			q2 = q1.Convert(s2);
@@ -700,8 +700,8 @@ namespace CaliperSharpTests
 			Assert.IsTrue(IsCloseTo(q2.Amount, 10, DELTA6));
 
 			u = min.Multiply(second);
-			Assert.IsTrue(IsCloseTo(u.GetScalingFactor(), 60, DELTA6));
-			Assert.IsTrue(u.GetAbscissaUnit().Equals(s2));
+			Assert.IsTrue(IsCloseTo(u.ScalingFactor, 60, DELTA6));
+			Assert.IsTrue(u.AbscissaUnit.Equals(s2));
 
 			u = second.Multiply(min);
 			bd = u.GetConversionFactor(s2);
@@ -913,7 +913,7 @@ namespace CaliperSharpTests
 			Assert.IsTrue(mult.GetBaseSymbol().Equals(sys.GetUOM(Unit.ONE).Symbol));
 
 			UnitOfMeasure u = sys.GetSecond().Invert();
-			Assert.IsTrue(u.GetScalingFactor().Equals(oneDivSec.GetScalingFactor()));
+			Assert.IsTrue(u.ScalingFactor.Equals(oneDivSec.ScalingFactor));
 
 			Inverted = u.Invert();
 			Assert.IsTrue(Inverted.Equals(sys.GetSecond()));
@@ -1508,7 +1508,7 @@ namespace CaliperSharpTests
 			u = sys.GetUOM(sm1.GetBaseSymbol());
 
 			u = sys.GetOne().Divide(min);
-			bd = u.GetScalingFactor();
+			bd = u.ScalingFactor;
 			Assert.IsTrue(IsCloseTo(bd, 0.0166666666666667, DELTA6));
 			bd = u.GetConversionFactor(sm1);
 			Assert.IsTrue(IsCloseTo(bd, 0.0166666666666667, DELTA6));
@@ -1517,28 +1517,28 @@ namespace CaliperSharpTests
 			Assert.IsTrue(u.GetBaseSymbol().Equals(sys.GetOne().Symbol));
 
 			u = ft.Multiply(inm1);
-			Assert.IsTrue(IsCloseTo(u.GetScalingFactor(), 12, DELTA6));
+			Assert.IsTrue(IsCloseTo(u.ScalingFactor, 12, DELTA6));
 
 			u = inm1.Multiply(ft);
-			Assert.IsTrue(IsCloseTo(u.GetScalingFactor(), 12, DELTA6));
+			Assert.IsTrue(IsCloseTo(u.ScalingFactor, 12, DELTA6));
 
 			u = s.Multiply(minminus1);
-			Assert.IsTrue(IsCloseTo(u.GetScalingFactor(), 0.0166666666666667, DELTA6));
+			Assert.IsTrue(IsCloseTo(u.ScalingFactor, 0.0166666666666667, DELTA6));
 
 			u = minminus1.Multiply(s);
-			Assert.IsTrue(IsCloseTo(u.GetScalingFactor(), 0.0166666666666667, DELTA6));
+			Assert.IsTrue(IsCloseTo(u.ScalingFactor, 0.0166666666666667, DELTA6));
 
 			u = s.Multiply(minminus1Q);
-			Assert.IsTrue(IsCloseTo(u.GetScalingFactor(), 0.0166666666666667, DELTA6));
+			Assert.IsTrue(IsCloseTo(u.ScalingFactor, 0.0166666666666667, DELTA6));
 
 			u = minminus1Q.Multiply(s);
-			Assert.IsTrue(IsCloseTo(u.GetScalingFactor(), 0.0166666666666667, DELTA6));
+			Assert.IsTrue(IsCloseTo(u.ScalingFactor, 0.0166666666666667, DELTA6));
 
 			u = ftm1.Multiply(inch);
-			Assert.IsTrue(IsCloseTo(u.GetScalingFactor(), 0.0833333333333333, DELTA6));
+			Assert.IsTrue(IsCloseTo(u.ScalingFactor, 0.0833333333333333, DELTA6));
 
 			u = inch.Multiply(ftm1);
-			Assert.IsTrue(IsCloseTo(u.GetScalingFactor(), 0.0833333333333333, DELTA6));
+			Assert.IsTrue(IsCloseTo(u.ScalingFactor, 0.0833333333333333, DELTA6));
 
 			u = newtonm1.Multiply(newton);
 			Assert.IsTrue(u.GetBaseSymbol().Equals(sys.GetOne().GetBaseSymbol()));
@@ -1547,21 +1547,21 @@ namespace CaliperSharpTests
 			Assert.IsTrue(u.GetBaseSymbol().Equals(sys.GetOne().GetBaseSymbol()));
 
 			u = minminus1.Multiply(s);
-			Assert.IsTrue(IsCloseTo(u.GetScalingFactor(), 0.0166666666666667, DELTA6));
+			Assert.IsTrue(IsCloseTo(u.ScalingFactor, 0.0166666666666667, DELTA6));
 
 			sys.UnregisterUnit(sys.GetUOM(Unit.HERTZ));
 			UnitOfMeasure min1 = min.Invert();
-			bd = min1.GetScalingFactor();
+			bd = min1.ScalingFactor;
 			Assert.IsTrue(IsCloseTo(bd, 1, DELTA6));
 
-			bd = sqs.GetScalingFactor();
+			bd = sqs.ScalingFactor;
 			Assert.IsTrue(IsCloseTo(bd, 1, DELTA6));
 
 			u = sminus1.Multiply(s);
 			Assert.IsTrue(u.GetBaseSymbol().Equals(sys.GetOne().Symbol));
 
 			u = sys.GetOne().Divide(min);
-			bd = u.GetScalingFactor();
+			bd = u.ScalingFactor;
 			Assert.IsTrue(IsCloseTo(bd, 1, DELTA6));
 			bd = u.GetConversionFactor(sm1);
 			Assert.IsTrue(IsCloseTo(bd, 0.0166666666666667, DELTA6));
@@ -1580,17 +1580,17 @@ namespace CaliperSharpTests
 			Assert.IsTrue(t.Equals(UnitType.TIME));
 
 			u = min.Multiply(min);
-			Assert.IsTrue(IsCloseTo(u.GetScalingFactor(), 3600, DELTA6));
-			Assert.IsTrue(u.GetAbscissaUnit().Equals(s2));
-			Assert.IsTrue(IsCloseTo(u.GetOffset(), 0, DELTA6));
+			Assert.IsTrue(IsCloseTo(u.ScalingFactor, 3600, DELTA6));
+			Assert.IsTrue(u.AbscissaUnit.Equals(s2));
+			Assert.IsTrue(IsCloseTo(u.Offset, 0, DELTA6));
 			t = u.UOMType;
 			Assert.IsTrue(t.Equals(UnitType.TIME_SQUARED));
 
 			u2 = sys.GetOne().Divide(min);
-			Assert.IsTrue(IsCloseTo(u2.GetScalingFactor(), 1, DELTA6));
+			Assert.IsTrue(IsCloseTo(u2.ScalingFactor, 1, DELTA6));
 
 			u = u2.Multiply(u2);
-			double sf = u.GetScalingFactor();
+			double sf = u.ScalingFactor;
 			Assert.IsTrue(IsCloseTo(sf, 1, DELTA6));
 
 			q1 = new Quantity(1, u2);

@@ -159,9 +159,9 @@ namespace CaliperSharpTests
 
 			UnitOfMeasure uom = q3.UOM;
 			UnitOfMeasure powerBase = uom.GetPowerBase();
-			double sf = uom.GetScalingFactor();
+			double sf = uom.ScalingFactor;
 
-			Assert.IsTrue(uom.GetAbscissaUnit().Equals(m2));
+			Assert.IsTrue(uom.AbscissaUnit.Equals(m2));
 			Assert.IsTrue(powerBase.Equals(m));
 			Assert.IsTrue(IsCloseTo(sf, 1, DELTA6));
 

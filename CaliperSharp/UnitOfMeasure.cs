@@ -1,7 +1,7 @@
 ﻿/*
 MIT License
 
-Copyright (c) 2016 Kent Randall
+Copyright (c) 2016 - 2017 Kent Randall, Point85
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -97,21 +97,26 @@ namespace Point85.Caliper.UnitOfMeasure
 		// registry of unit conversion factor
 		private Dictionary<UnitOfMeasure, double> ConversionRegistry = new Dictionary<UnitOfMeasure, double>();
 
-		// conversion to another Unit of Measure in the same recognized measurement
-		// system (y = ax + b)
-		// scaling factor (a)
-		private double ScalingFactor = double.MinValue;
+		/// <summary>
+		/// conversion to another Unit of Measure in the same recognized measurement system (y = ax + b)
+		/// scaling factor (a)
+		/// </summary>
+		public double ScalingFactor { get; set; } = 1d;
 
-		// offset (b)
-		private double Offset = double.MinValue;
+		/// <summary>
+		/// offset (b)
+		/// </summary>
+		public double Offset { get; set; } = 0d;
 
-		// x-axis unit
-		private UnitOfMeasure AbscissaUnit;
+		/// <summary>
+		/// x-axis unit
+		/// </summary>
+		public UnitOfMeasure AbscissaUnit { get; set; }
 
 		/// <summary>
 		/// unit enumerations for the various systems of measurement, e.g. KILOGRAM
 		/// </summary>
-		public Nullable<Unit> Enumeration { get; set; }
+		public Unit? Enumeration { get; set; }
 
 		/// <summary>
 		/// unit type, e.g. MASS
@@ -149,77 +154,21 @@ namespace Point85.Caliper.UnitOfMeasure
 		private UnitOfMeasure UOM2;
 
 		// exponent
-		private int Exponent1 = int.MinValue;
+		private int? Exponent1;
 
 		// second exponent
-		private int Exponent2 = int.MinValue;
+		private int? Exponent2;
 
 		/// <summary>Construct a default unit of measure</summary>
 		public UnitOfMeasure() : base()
 		{
+			this.AbscissaUnit = this;
 		}
 
 		internal UnitOfMeasure(UnitType type, string name, string symbol, string description) : base(name, symbol, description)
 		{
+			this.AbscissaUnit = this;
 			UOMType = type;
-		}
-
-		/// <summary>
-		/// Check to see if the exponent has a value
-		/// </summary>
-		/// <param name="exponent"></param>
-		/// <returns>True if it has been set</returns>
-		public bool ExponentHasValue(int exponent)
-		{
-			return exponent == int.MinValue ? false : true;
-		}
-
-		/// <summary>Get the unit of measure's x-axis unit of measure for the relation y = ax + b.</summary>
-		/// 
-		/// <returns> UnitOfMeasure </returns>
-		public UnitOfMeasure GetAbscissaUnit()
-		{
-			return AbscissaUnit ?? (this);
-		}
-
-		/// <summary>Set the unit of measure's x-axis unit of measure for the relation y = ax + b.</summary>
-		/// 
-		/// <param name="abscissaUnit">UnitOfMeasure</param>
-		public void SetAbscissaUnit(UnitOfMeasure abscissaUnit)
-		{
-			this.AbscissaUnit = abscissaUnit;
-		}
-
-		/// <summary>Get the unit of measure's 'a' factor (slope) for the relation y = ax + b.</summary>
-		/// 
-		/// <returns> Factor</returns>
-		public double GetScalingFactor()
-		{
-			return ScalingFactor != double.MinValue ? ScalingFactor : 1;
-		}
-
-		/// <summary>Set the unit of measure's 'a' factor (slope) for the relation y = ax + b.</summary>
-		/// 
-		/// <param name="scalingFactor">Scaling factor</param>
-		public void SetScalingFactor(double scalingFactor)
-		{
-			ScalingFactor = scalingFactor;
-		}
-
-		/// <summary>Get the unit of measure's 'b' offset (intercept) for the relation y = ax + b.</summary>
-		/// 
-		/// <returns> Offset</returns>
-		public double GetOffset()
-		{
-			return Offset != double.MinValue ? Offset : 0;
-		}
-
-		/// <summary>Set the unit of measure's 'b' offset (intercept) for the relation y = ax + b.</summary>
-		/// 
-		/// <param name="offset">Offset</param>
-		public void SetOffset(double offset)
-		{
-			Offset = offset;
 		}
 
 		private void SetBaseSymbol(string symbol)
@@ -248,15 +197,15 @@ namespace Point85.Caliper.UnitOfMeasure
 		{
 			MeasurementType type = MeasurementType.SCALAR;
 
-			if (ExponentHasValue(Exponent2) && Exponent2 < 0)
+			if (Exponent2.HasValue && Exponent2.Value < 0)
 			{
 				type = MeasurementType.QUOTIENT;
 			}
-			else if (ExponentHasValue(Exponent2) && Exponent2 > 0)
+			else if (Exponent2.HasValue && Exponent2.Value > 0)
 			{
 				type = MeasurementType.PRODUCT;
 			}
-			else if (UOM1 != null && ExponentHasValue(Exponent1))
+			else if (UOM1 != null && Exponent1.HasValue)
 			{
 				type = MeasurementType.POWER;
 			}
@@ -297,13 +246,13 @@ namespace Point85.Caliper.UnitOfMeasure
 		/// <returns> True if it does not</returns>
 		public bool IsTerminal()
 		{
-			return this.Equals(GetAbscissaUnit()) ? true : false;
+			return this.Equals(AbscissaUnit) ? true : false;
 		}
 
 		/// <summary>Get the exponent of a power unit</summary>
 		/// 
 		/// <returns> Exponent</returns>
-		public int GetPowerExponent()
+		public int? GetPowerExponent()
 		{
 			return Exponent1;
 		}
@@ -391,9 +340,9 @@ namespace Point85.Caliper.UnitOfMeasure
 
 			// check if quotient
 			int exponent = 1;
-			if (ExponentHasValue(GetPowerExponent()))
+			if (GetPowerExponent().HasValue)
 			{
-				exponent = GetPowerExponent();
+				exponent = GetPowerExponent().Value;
 			}
 
 			UnitOfMeasure one = MeasurementSystem.GetSystem().GetOne();
@@ -401,11 +350,11 @@ namespace Point85.Caliper.UnitOfMeasure
 			{
 				if (GetDividend().Equals(one))
 				{
-					exponent = Exponent2;
+					exponent = Exponent2.Value;
 				}
 				else if (GetDivisor().Equals(one))
 				{
-					exponent = Exponent1;
+					exponent = Exponent1.Value;
 				}
 			}
 
@@ -449,7 +398,7 @@ namespace Point85.Caliper.UnitOfMeasure
 
 		private void CheckOffset(UnitOfMeasure other)
 		{
-			if (other.GetOffset().CompareTo(0) != 0)
+			if (other.Offset.CompareTo(0) != 0)
 			{
 				string msg = String.Format(MeasurementSystem.GetMessage("offset.not.supported"), other.ToString());
 				throw new Exception(msg);
@@ -512,11 +461,11 @@ namespace Point85.Caliper.UnitOfMeasure
 
 			// this base symbol map
 			Reducer thisReducer = GetReducer();
-			Dictionary<UnitOfMeasure, int> thisMap = thisReducer.GetTerms();
+			Dictionary<UnitOfMeasure, int> thisMap = thisReducer.Terms;
 
 			// other base symbol map
 			Reducer otherReducer = other.GetReducer();
-			Dictionary<UnitOfMeasure, int> otherMap = otherReducer.GetTerms();
+			Dictionary<UnitOfMeasure, int> otherMap = otherReducer.Terms;
 
 			// create a map of the unit of measure powers
 			Dictionary<UnitOfMeasure, int> resultMap = new Dictionary<UnitOfMeasure, int>();
@@ -569,7 +518,7 @@ namespace Point85.Caliper.UnitOfMeasure
 
 			// get the base symbol and possibly base UOM
 			Reducer resultReducer = new Reducer();
-			resultReducer.SetTerms(resultMap);
+			resultReducer.Terms = resultMap;
 
 			// product or quotient
 			UnitOfMeasure result = new UnitOfMeasure();
@@ -604,8 +553,8 @@ namespace Point85.Caliper.UnitOfMeasure
 			if (baseUOM != null)
 			{
 				// there is a conversion to the base UOM
-				double thisFactor = thisReducer.GetScalingFactor();
-				double otherFactor = otherReducer.GetScalingFactor();
+				double thisFactor = thisReducer.MapScalingFactor;
+				double otherFactor = otherReducer.MapScalingFactor;
 
 				double resultFactor = 0;
 				if (!invert)
@@ -616,8 +565,8 @@ namespace Point85.Caliper.UnitOfMeasure
 				{
 					resultFactor = thisFactor / otherFactor;
 				}
-				result.SetScalingFactor(resultFactor);
-				result.SetAbscissaUnit(baseUOM);
+				result.ScalingFactor = resultFactor;
+				result.AbscissaUnit = baseUOM;
 				result.UOMType = baseUOM.UOMType;
 			}
 
@@ -687,9 +636,9 @@ namespace Point85.Caliper.UnitOfMeasure
 			MeasurementSystem.GetSystem().UnregisterUnit(this);
 			SetBaseSymbol(null);
 
-			SetScalingFactor(scalingFactor);
-			SetAbscissaUnit(abscissaUnit);
-			SetOffset(offset);
+			ScalingFactor = scalingFactor;
+			AbscissaUnit = abscissaUnit;
+			Offset = offset;
 
 			// re-cache
 			MeasurementSystem.GetSystem().RegisterUnit(this);
@@ -766,8 +715,8 @@ namespace Point85.Caliper.UnitOfMeasure
 			}
 
 			// same abscissa unit symbols
-			string thisSymbol = GetAbscissaUnit().Symbol;
-			string otherSymbol = otherUnit.GetAbscissaUnit().Symbol;
+			string thisSymbol = AbscissaUnit.Symbol;
+			string otherSymbol = otherUnit.AbscissaUnit.Symbol;
 
 			if (!thisSymbol.Equals(otherSymbol))
 			{
@@ -775,13 +724,13 @@ namespace Point85.Caliper.UnitOfMeasure
 			}
 
 			// same factors
-			if (GetScalingFactor().CompareTo(otherUnit.GetScalingFactor()) != 0)
+			if (ScalingFactor.CompareTo(otherUnit.ScalingFactor) != 0)
 			{
 				return false;
 			}
 
 			// same offsets
-			if (GetOffset().CompareTo(otherUnit.GetOffset()) != 0)
+			if (Offset.CompareTo(otherUnit.Offset) != 0)
 			{
 				return false;
 			}
@@ -827,8 +776,8 @@ namespace Point85.Caliper.UnitOfMeasure
 
 		private double ConvertScalarToScalar(UnitOfMeasure targetUOM)
 		{
-			UnitOfMeasure thisAbscissa = GetAbscissaUnit();
-			double thisFactor = GetScalingFactor();
+			UnitOfMeasure thisAbscissa = AbscissaUnit;
+			double thisFactor = ScalingFactor;
 
 			double scalingFactor;
 
@@ -852,8 +801,8 @@ namespace Point85.Caliper.UnitOfMeasure
 
 			while (true)
 			{
-				double scalingFactor = pathUOM.GetScalingFactor();
-				UnitOfMeasure abscissa = pathUOM.GetAbscissaUnit();
+				double scalingFactor = pathUOM.ScalingFactor;
+				UnitOfMeasure abscissa = pathUOM.AbscissaUnit;
 
 				pathFactor = pathFactor * scalingFactor;
 
@@ -946,8 +895,8 @@ namespace Point85.Caliper.UnitOfMeasure
 			Reducer fromPowerMap = GetReducer();
 			Reducer toPowerMap = targetUOM.GetReducer();
 
-			Dictionary<UnitOfMeasure, int> fromMap = fromPowerMap.GetTerms();
-			Dictionary<UnitOfMeasure, int> toMap = toPowerMap.GetTerms();
+			Dictionary<UnitOfMeasure, int> fromMap = fromPowerMap.Terms;
+			Dictionary<UnitOfMeasure, int> toMap = toPowerMap.Terms;
 
 			if (fromMap.Count != toMap.Count)
 			{
@@ -955,8 +904,8 @@ namespace Point85.Caliper.UnitOfMeasure
 				throw new Exception(msg);
 			}
 
-			double fromFactor = fromPowerMap.GetScalingFactor();
-			double toFactor = toPowerMap.GetScalingFactor();
+			double fromFactor = fromPowerMap.MapScalingFactor;
+			double toFactor = toPowerMap.MapScalingFactor;
 
 			double factor = 1;
 
@@ -1007,7 +956,7 @@ namespace Point85.Caliper.UnitOfMeasure
 		{
 			UnitOfMeasure inverted = null;
 
-			if (ExponentHasValue(Exponent2) && Exponent2 < 0)
+			if (Exponent2.HasValue && Exponent2.Value < 0)
 			{
 				inverted = GetDivisor().Divide(GetDividend());
 			}
@@ -1084,21 +1033,21 @@ namespace Point85.Caliper.UnitOfMeasure
 			sb.Append(", ").Append(MeasurementSystem.UnitsManager.GetString("conversion.text")).Append(' ');
 
 			// scaling factor
-			if (GetScalingFactor().CompareTo(1) != 0)
+			if (ScalingFactor.CompareTo(1) != 0)
 			{
-				sb.Append(GetScalingFactor().ToString()).Append(MULT);
+				sb.Append(ScalingFactor.ToString()).Append(MULT);
 			}
 
 			// abscissa unit
-			if (GetAbscissaUnit() != null)
+			if (AbscissaUnit != null)
 			{
-				sb.Append(GetAbscissaUnit().Symbol);
+				sb.Append(AbscissaUnit.Symbol);
 			}
 
 			// offset
-			if (GetOffset().CompareTo(0) != 0)
+			if (Offset.CompareTo(0d) != 0)
 			{
-				sb.Append(" + ").Append(GetOffset().ToString());
+				sb.Append(" + ").Append(Offset.ToString());
 			}
 
 			sb.Append(", ").Append(MeasurementSystem.UnitsManager.GetString("base.text")).Append(' ');
@@ -1118,10 +1067,10 @@ namespace Point85.Caliper.UnitOfMeasure
 			private const int STARTING_LEVEL = -1;
 
 			// UOMs and their exponents
-			private Dictionary<UnitOfMeasure, int> Terms = new Dictionary<UnitOfMeasure, int>();
+			internal Dictionary<UnitOfMeasure, int> Terms = new Dictionary<UnitOfMeasure, int>();
 
 			// the overall scaling factor
-			private double MapScalingFactor = 1;
+			internal double MapScalingFactor = 1d;
 
 			// list of exponents down a path to the leaf UOM
 			private List<int> PathExponents = new List<int>();
@@ -1132,21 +1081,6 @@ namespace Point85.Caliper.UnitOfMeasure
 			internal Reducer()
 			{
 
-			}
-
-			internal double GetScalingFactor()
-			{
-				return this.MapScalingFactor;
-			}
-
-			internal Dictionary<UnitOfMeasure, int> GetTerms()
-			{
-				return Terms;
-			}
-
-			internal void SetTerms(Dictionary<UnitOfMeasure, int> terms)
-			{
-				this.Terms = terms;
 			}
 
 			internal void Explode(UnitOfMeasure unit)
@@ -1167,16 +1101,16 @@ namespace Point85.Caliper.UnitOfMeasure
 				level++;
 
 				// scaling factor to abscissa unit
-				double scalingFactor = unit.GetScalingFactor();
+				double scalingFactor = unit.ScalingFactor;
 
 				// explode the abscissa unit
-				UnitOfMeasure abscissaUnit = unit.GetAbscissaUnit();
+				UnitOfMeasure abscissaUnit = unit.AbscissaUnit;
 
 				UnitOfMeasure uom1 = abscissaUnit.UOM1;
 				UnitOfMeasure uom2 = abscissaUnit.UOM2;
 
-				int exp1 = abscissaUnit.Exponent1;
-				int exp2 = abscissaUnit.Exponent2;
+				int? exp1 = abscissaUnit.Exponent1;
+				int? exp2 = abscissaUnit.Exponent2;
 
 				// scaling
 				if (PathExponents.Count > 0)
@@ -1236,7 +1170,7 @@ namespace Point85.Caliper.UnitOfMeasure
 				else
 				{
 					// explode UOM #1
-					PathExponents.Add(exp1);
+					PathExponents.Add(exp1.Value);
 					ExplodeRecursively(uom1, level);
 					PathExponents.RemoveAt(level);
 				}
@@ -1244,7 +1178,7 @@ namespace Point85.Caliper.UnitOfMeasure
 				if (uom2 != null)
 				{
 					// explode UOM #2
-					PathExponents.Add(exp2);
+					PathExponents.Add(exp2.Value);
 					ExplodeRecursively(uom2, level);
 					PathExponents.RemoveAt(level);
 				}

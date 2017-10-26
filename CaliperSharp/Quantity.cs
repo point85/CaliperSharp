@@ -1,7 +1,7 @@
 ﻿/*
 MIT License
 
-Copyright (c) 2016 Kent Randall
+Copyright (c) 2016 - 2017 Kent Randall, Point85
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -270,8 +270,8 @@ namespace Point85.Caliper.UnitOfMeasure
 		public Quantity Convert(UnitOfMeasure toUOM)
 		{
 			double multiplier = UOM.GetConversionFactor(toUOM);
-			double thisOffset = UOM.GetOffset();
-			double targetOffset = toUOM.GetOffset();
+			double thisOffset = UOM.Offset;
+			double targetOffset = toUOM.Offset;
 
 			// adjust for a non-zero "this" offset
 			double offsetAmount = Amount + thisOffset;

@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['getabscissaunit',['GetAbscissaUnit',['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_unit_of_measure.html#ab211e3ec8699aff9510e82de37e09ca3',1,'Point85::Caliper::UnitOfMeasure::UnitOfMeasure']]],
   ['getbasesymbol',['GetBaseSymbol',['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_unit_of_measure.html#a0fdc286bdd884d6e0d78920efcc82e1b',1,'Point85::Caliper::UnitOfMeasure::UnitOfMeasure']]],
   ['getbasesymbolcache',['GetBaseSymbolCache',['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_measurement_system.html#af49536f95d25ccab3c4df1738fce3b5e',1,'Point85::Caliper::UnitOfMeasure::MeasurementSystem']]],
   ['getbaseuom',['GetBaseUOM',['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_measurement_system.html#af660e616d16a3fd58a3aff7dea761325',1,'Point85.Caliper.UnitOfMeasure.MeasurementSystem.GetBaseUOM()'],['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_unit_of_measure.html#a73e279cf794a9c9b0b54c81230151609',1,'Point85.Caliper.UnitOfMeasure.UnitOfMeasure.GetBaseUOM()']]],
@@ -17,13 +16,11 @@ var searchData=
   ['getminute',['GetMinute',['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_measurement_system.html#abb5de157f898794a2bea57d0efe6a744',1,'Point85::Caliper::UnitOfMeasure::MeasurementSystem']]],
   ['getmultiplicand',['GetMultiplicand',['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_unit_of_measure.html#a98937d873a1516ce4ce88327f13a7bc1',1,'Point85::Caliper::UnitOfMeasure::UnitOfMeasure']]],
   ['getmultiplier',['GetMultiplier',['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_unit_of_measure.html#a292b00b0cd122a3a04a05a6d36a3faba',1,'Point85::Caliper::UnitOfMeasure::UnitOfMeasure']]],
-  ['getoffset',['GetOffset',['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_unit_of_measure.html#a0d477175e6891419b46987dccb786306',1,'Point85::Caliper::UnitOfMeasure::UnitOfMeasure']]],
   ['getone',['GetOne',['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_measurement_system.html#ad6fdcbe5b54696264c52591049c09d90',1,'Point85::Caliper::UnitOfMeasure::MeasurementSystem']]],
   ['getpowerbase',['GetPowerBase',['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_unit_of_measure.html#aa012b294a789aa7c21a9eb916ce094d3',1,'Point85::Caliper::UnitOfMeasure::UnitOfMeasure']]],
   ['getpowerexponent',['GetPowerExponent',['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_unit_of_measure.html#a56219af4b118e661672404a72f0dd0a4',1,'Point85::Caliper::UnitOfMeasure::UnitOfMeasure']]],
   ['getquantity',['GetQuantity',['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_measurement_system.html#a481b75fb88a0ad735ef7019cc2654ae7',1,'Point85::Caliper::UnitOfMeasure::MeasurementSystem']]],
   ['getregisteredunits',['GetRegisteredUnits',['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_measurement_system.html#af0af6db27435e836ec375c9a840fc61d',1,'Point85::Caliper::UnitOfMeasure::MeasurementSystem']]],
-  ['getscalingfactor',['GetScalingFactor',['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_unit_of_measure.html#a2ea8ab8aaa6f736dc2cfe61c6020835f',1,'Point85::Caliper::UnitOfMeasure::UnitOfMeasure']]],
   ['getsecond',['GetSecond',['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_measurement_system.html#a6c1b0920bf1c78392e3f3da2465637b8',1,'Point85::Caliper::UnitOfMeasure::MeasurementSystem']]],
   ['getstring',['GetString',['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_property_manager.html#ac59d995811ead37e8e495bfdb5e1553b',1,'Point85.Caliper.UnitOfMeasure.PropertyManager.GetString(string field, string defValue)'],['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_property_manager.html#a34a0e75aeadfb877002d8362a7e4abc0',1,'Point85.Caliper.UnitOfMeasure.PropertyManager.GetString(string field)']]],
   ['getsymbolcache',['GetSymbolCache',['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_measurement_system.html#af4a6ac79e14c6cc1fd2786194f7529c1',1,'Point85::Caliper::UnitOfMeasure::MeasurementSystem']]],

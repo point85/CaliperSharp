@@ -27,9 +27,9 @@ namespace CaliperSharpTests
 				Assert.IsNotNull(uom.Description);
 				Assert.IsNotNull(uom.ToString());
 				Assert.IsNotNull(uom.GetBaseSymbol());
-				Assert.IsNotNull(uom.GetAbscissaUnit());
-				Assert.IsNotNull(uom.GetScalingFactor());
-				Assert.IsNotNull(uom.GetOffset());
+				Assert.IsNotNull(uom.AbscissaUnit);
+				Assert.IsNotNull(uom.ScalingFactor);
+				Assert.IsNotNull(uom.Offset);
 
 				// symbol uniqueness
 				Assert.IsFalse(unitMap.ContainsKey(uom.Symbol));

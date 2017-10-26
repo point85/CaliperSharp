@@ -1,7 +1,7 @@
 ﻿/*
 MIT License
 
-Copyright (c) 2016 Kent Randall
+Copyright (c) 2016 - 2017 Kent Randall Point85
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -260,11 +260,11 @@ namespace Point85.Caliper.UnitOfMeasure
 				string description = prefix.Factor + " " + targetUOM.Name;
 
 				// scaling factor
-				double scalingFactor = targetUOM.GetScalingFactor() * prefix.Factor;
+				double scalingFactor = targetUOM.ScalingFactor * prefix.Factor;
 
 				// create the unit of measure and set conversion
 				scaled = CreateScalarUOM(targetUOM.UOMType, null, name, symbol, description);
-				scaled.SetConversion(scalingFactor, targetUOM.GetAbscissaUnit());
+				scaled.SetConversion(scalingFactor, targetUOM.AbscissaUnit);
 			}
 			return scaled;
 		}
@@ -612,7 +612,7 @@ namespace Point85.Caliper.UnitOfMeasure
 					Quantity e = this.GetQuantity(Constant.ELEMENTARY_CHARGE);
 					uom = CreateProductUOM(UnitType.ENERGY, Unit.ELECTRON_VOLT, UnitsManager.GetString("ev.name"),
 								UnitsManager.GetString("ev.symbol"), UnitsManager.GetString("ev.desc"), e.UOM, GetUOM(Unit.VOLT));
-					uom.SetScalingFactor(e.Amount);
+					uom.ScalingFactor = e.Amount;
 					break;
 
 				case Unit.WATT_HOUR:
@@ -1050,7 +1050,7 @@ namespace Point85.Caliper.UnitOfMeasure
 					uom = CreateProductUOM(UnitType.POWER, Unit.HP, UnitsManager.GetString("hp.name"),
 							UnitsManager.GetString("hp.symbol"), UnitsManager.GetString("hp.desc"), GetUOM(Unit.POUND_FORCE),
 							GetUOM(Unit.FEET_PER_SEC));
-					uom.SetScalingFactor(550);
+					uom.ScalingFactor = 550d;
 					break;
 
 				case Unit.BTU:
@@ -1075,7 +1075,7 @@ namespace Point85.Caliper.UnitOfMeasure
 
 					// factor is acceleration of gravity
 					Quantity gravity = GetQuantity(Constant.GRAVITY).Convert(GetUOM(Unit.FEET_PER_SEC_SQUARED));
-					uom.SetScalingFactor(gravity.Amount);
+					uom.ScalingFactor = gravity.Amount;
 					break;
 
 				case Unit.GRAIN:

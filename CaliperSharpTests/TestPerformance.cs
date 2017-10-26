@@ -65,8 +65,8 @@ namespace CaliperSharpTests
 						rowQty.Subtract(colQty);
 
 						// offsets are not supported
-						if (rowUOM.GetOffset().CompareTo(0) == 0
-								&& colUOM.GetOffset().CompareTo(0) == 0)
+						if (rowUOM.Offset.CompareTo(0) == 0
+								&& colUOM.Offset.CompareTo(0) == 0)
 						{
 							rowQty.Multiply(colQty);
 							rowQty.Divide(colQty);

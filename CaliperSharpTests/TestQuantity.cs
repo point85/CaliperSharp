@@ -83,7 +83,7 @@ namespace CaliperSharpTests
 
 			Quantity sixty = oneMin.Divide(oneSec);
 			Assert.IsTrue(IsCloseTo(sixty.Amount, 1, DELTA6));
-			Assert.IsTrue(IsCloseTo(sixty.UOM.GetScalingFactor(), bd60, DELTA6));
+			Assert.IsTrue(IsCloseTo(sixty.UOM.ScalingFactor, bd60, DELTA6));
 
 			Quantity q1 = sixty.Convert(sys.GetOne());
 			Assert.IsTrue(q1.UOM.Equals(sys.GetOne()));
@@ -328,9 +328,9 @@ namespace CaliperSharpTests
 			q2 = new Quantity(2, cm);
 			Quantity q3 = q1.Add(q2);
 
-			Assert.IsTrue(IsCloseTo(q3.UOM.GetScalingFactor(), 1, DELTA6));
-			Assert.IsTrue(q3.UOM.GetAbscissaUnit().Equals(m));
-			Assert.IsTrue(IsCloseTo(q3.UOM.GetOffset(), 0, DELTA6));
+			Assert.IsTrue(IsCloseTo(q3.UOM.ScalingFactor, 1, DELTA6));
+			Assert.IsTrue(q3.UOM.AbscissaUnit.Equals(m));
+			Assert.IsTrue(IsCloseTo(q3.UOM.Offset, 0, DELTA6));
 			Assert.IsTrue(IsCloseTo(q3.Amount, 2.02, DELTA6));
 
 			Quantity q4 = q3.Convert(cm);
@@ -339,8 +339,8 @@ namespace CaliperSharpTests
 
 			// Subtract
 			q3 = q3.Subtract(q1);
-			Assert.IsTrue(IsCloseTo(q3.UOM.GetScalingFactor(), 1, DELTA6));
-			Assert.IsTrue(q3.UOM.GetAbscissaUnit().Equals(m));
+			Assert.IsTrue(IsCloseTo(q3.UOM.ScalingFactor, 1, DELTA6));
+			Assert.IsTrue(q3.UOM.AbscissaUnit.Equals(m));
 			Assert.IsTrue(IsCloseTo(q3.Amount, 0.02, DELTA6));
 
 			q4 = q3.Convert(cm);
@@ -351,7 +351,7 @@ namespace CaliperSharpTests
 			q3 = q1.Multiply(q2);
 			Assert.IsTrue(IsCloseTo(q3.Amount, 4, DELTA6));
 			UnitOfMeasure u = q3.UOM;
-			Assert.IsTrue(IsCloseTo(u.GetScalingFactor(), 0.01, DELTA6));
+			Assert.IsTrue(IsCloseTo(u.ScalingFactor, 0.01, DELTA6));
 			Assert.IsTrue(u.GetBaseSymbol().Equals(m2.GetBaseSymbol()));
 
 			q4 = q3.Divide(q3);
@@ -447,7 +447,7 @@ namespace CaliperSharpTests
 			Quantity avogadro = sys.GetQuantity(Constant.AVAGADRO_CONSTANT);
 			Quantity gas = sys.GetQuantity(Constant.GAS_CONSTANT);
 			Quantity qR = boltzmann.Multiply(avogadro);
-			Assert.IsTrue(IsCloseTo(qR.UOM.GetScalingFactor(), gas.UOM.GetScalingFactor(), DELTA6));
+			Assert.IsTrue(IsCloseTo(qR.UOM.ScalingFactor, gas.UOM.ScalingFactor, DELTA6));
 
 			// Sieverts
 			q1 = new Quantity(20, sys.GetUOM(Prefix.MILLI, Unit.SIEVERTS_PER_HOUR));
@@ -543,18 +543,18 @@ namespace CaliperSharpTests
 			Quantity q3 = q1.Multiply(q2);
 			Assert.IsTrue(IsCloseTo(q3.Amount, oneHundred, DELTA6));
 			Assert.IsTrue(q3.UOM.GetBaseSymbol().Equals(nm.GetBaseSymbol()));
-			Assert.IsTrue(IsCloseTo(q3.UOM.GetScalingFactor(), 1, DELTA6));
-			Assert.IsTrue(IsCloseTo(q3.UOM.GetOffset(), 0, DELTA6));
+			Assert.IsTrue(IsCloseTo(q3.UOM.ScalingFactor, 1, DELTA6));
+			Assert.IsTrue(IsCloseTo(q3.UOM.Offset, 0, DELTA6));
 
 			q3 = q3.Convert(joule);
 			Assert.IsTrue(IsCloseTo(q3.Amount, oneHundred, DELTA6));
 			Assert.IsTrue(q3.UOM.Equals(joule));
-			Assert.IsTrue(IsCloseTo(q3.UOM.GetScalingFactor(), 1, DELTA6));
+			Assert.IsTrue(IsCloseTo(q3.UOM.ScalingFactor, 1, DELTA6));
 
 			q3 = q3.Convert(nm);
 			Assert.IsTrue(IsCloseTo(q3.Amount, oneHundred, DELTA6));
 			Assert.IsTrue(q3.UOM.Equals(nm));
-			Assert.IsTrue(IsCloseTo(q3.UOM.GetScalingFactor(), 1, DELTA6));
+			Assert.IsTrue(IsCloseTo(q3.UOM.ScalingFactor, 1, DELTA6));
 
 			double bd1 = 10000;
 
@@ -562,17 +562,17 @@ namespace CaliperSharpTests
 			q2 = q1.Convert(metre);
 			Assert.IsTrue(IsCloseTo(q2.Amount, 1, DELTA6));
 			Assert.IsTrue(q2.UOM.Enumeration.Equals(Unit.METRE));
-			Assert.IsTrue(IsCloseTo(q2.UOM.GetScalingFactor(), 1, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.UOM.ScalingFactor, 1, DELTA6));
 
 			q2 = q2.Convert(cm);
 			Assert.IsTrue(IsCloseTo(q2.Amount, oneHundred, DELTA6));
-			Assert.IsTrue(IsCloseTo(q2.UOM.GetScalingFactor(), 0.01, DELTA6));
+			Assert.IsTrue(IsCloseTo(q2.UOM.ScalingFactor, 0.01, DELTA6));
 
 			q2 = q1;
 			q3 = q1.Multiply(q2);
 			Assert.IsTrue(IsCloseTo(q3.Amount, 10000, DELTA6));
-			Assert.IsTrue(IsCloseTo(q3.UOM.GetScalingFactor(), 0.0001, DELTA6));
-			Assert.IsTrue(IsCloseTo(q3.UOM.GetOffset(), 0, DELTA6));
+			Assert.IsTrue(IsCloseTo(q3.UOM.ScalingFactor, 0.0001, DELTA6));
+			Assert.IsTrue(IsCloseTo(q3.UOM.Offset, 0, DELTA6));
 
 			Quantity q4 = q3.Convert(m2);
 			Assert.IsTrue(q4.UOM.Equals(m2));
@@ -581,12 +581,12 @@ namespace CaliperSharpTests
 			q3 = q3.Convert(m2);
 			Assert.IsTrue(IsCloseTo(q3.Amount, 1, DELTA6));
 			Assert.IsTrue(q3.UOM.Equals(m2));
-			Assert.IsTrue(IsCloseTo(q3.UOM.GetScalingFactor(), 1, DELTA6));
+			Assert.IsTrue(IsCloseTo(q3.UOM.ScalingFactor, 1, DELTA6));
 
 			q3 = q3.Convert(cm2);
 			Assert.IsTrue(IsCloseTo(q3.Amount, bd1, DELTA6));
 			Assert.IsTrue(q3.UOM.Equals(cm2));
-			Assert.IsTrue(IsCloseTo(q3.UOM.GetScalingFactor(), 1, DELTA6));
+			Assert.IsTrue(IsCloseTo(q3.UOM.ScalingFactor, 1, DELTA6));
 
 			// power
 			Quantity onem3 = new Quantity(1, m3);
@@ -610,7 +610,7 @@ namespace CaliperSharpTests
 
 			// inversions
 			UnitOfMeasure u = metre.Invert();
-			string sym = u.GetAbscissaUnit().Symbol;
+			string sym = u.AbscissaUnit.Symbol;
 			string diop = sys.GetUOM(Unit.DIOPTER).Symbol;
 			Assert.IsFalse(sym.Equals(diop));
 
@@ -861,23 +861,23 @@ namespace CaliperSharpTests
 			Quantity q2 = new Quantity(four, b);
 			Quantity q3 = q1.Add(q2);
 
-			Assert.IsTrue(IsCloseTo(q3.UOM.GetScalingFactor(), 1, DELTA6));
-			Assert.IsTrue(q3.UOM.GetAbscissaUnit().Equals(a));
-			Assert.IsTrue(IsCloseTo(q3.UOM.GetOffset(), 0, DELTA6));
+			Assert.IsTrue(IsCloseTo(q3.UOM.ScalingFactor, 1, DELTA6));
+			Assert.IsTrue(q3.UOM.AbscissaUnit.Equals(a));
+			Assert.IsTrue(IsCloseTo(q3.UOM.Offset, 0, DELTA6));
 			Assert.IsTrue(IsCloseTo(q3.Amount, 44, DELTA6));
 
 			// Subtract
 			q3 = q1.Subtract(q2);
-			Assert.IsTrue(IsCloseTo(q3.UOM.GetScalingFactor(), 1, DELTA6));
-			Assert.IsTrue(q3.UOM.GetAbscissaUnit().Equals(a));
-			Assert.IsTrue(IsCloseTo(q3.UOM.GetOffset(), 0, DELTA6));
+			Assert.IsTrue(IsCloseTo(q3.UOM.ScalingFactor, 1, DELTA6));
+			Assert.IsTrue(q3.UOM.AbscissaUnit.Equals(a));
+			Assert.IsTrue(IsCloseTo(q3.UOM.Offset, 0, DELTA6));
 			Assert.IsTrue(IsCloseTo(q3.Amount, -36, DELTA6));
 
 			// Multiply
 			q3 = q1.Multiply(q2);
 			Assert.IsTrue(IsCloseTo(q3.Amount, 16, DELTA6));
-			Assert.IsTrue(IsCloseTo(q3.UOM.GetScalingFactor(), 1, DELTA6));
-			Assert.IsTrue(IsCloseTo(q3.UOM.GetOffset(), 0, DELTA6));
+			Assert.IsTrue(IsCloseTo(q3.UOM.ScalingFactor, 1, DELTA6));
+			Assert.IsTrue(IsCloseTo(q3.UOM.Offset, 0, DELTA6));
 
 			UnitOfMeasure a2 = sys.CreatePowerUOM(UnitType.UNCLASSIFIED, "a*2", "a*2", "A squared", a, 2);
 			Quantity q4 = q3.Convert(a2);
@@ -891,7 +891,7 @@ namespace CaliperSharpTests
 			// Divide
 			q3 = q1.Divide(q2);
 			Assert.IsTrue(IsCloseTo(q3.Amount, 1, DELTA6));
-			Assert.IsTrue(IsCloseTo(q3.UOM.GetScalingFactor(), 0.1, DELTA6));
+			Assert.IsTrue(IsCloseTo(q3.UOM.ScalingFactor, 0.1, DELTA6));
 
 			q4 = q3.Multiply(q2);
 			Assert.IsTrue(q4.Equals(q1));
