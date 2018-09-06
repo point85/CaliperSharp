@@ -221,6 +221,27 @@ Quantity in2Q = m2Q.ConvertToPower(sys.GetUOM(Unit.INCH));
 
 Other UOMs can be converted using the Convert() method.
 
+*Classification*
+
+During arithmetic operations, the final type of the unit may not be known.  In this case, invoking the Classify() method will attempt to find a matching unit type.  For example, the calculated unit of measure below has a type of UnitType.ELECTRIC_CAPACITANCE:
+
+```cs
+UnitOfMeasure s = sys.GetSecond();
+UnitOfMeasure m = sys.GetUOM(Unit.METRE);
+UnitOfMeasure kg = sys.GetUOM(Unit.KILOGRAM);
+UnitOfMeasure amp = sys.GetUOM(Unit.AMPERE);
+		
+UnitOfMeasure cap = s.Power(-3).Multiply(amp.Power(-2)).Multiply(m.Power(2)).Divide(kg).Classify();
+```
+
+A quantity resulting from an arithmetic operation can also be classified.  For example, the "density" quantity has UnitType.DENSITY:
+
+```cs
+Quantity mass = new Quantity(1035, Unit.KILOGRAM);
+Quantity volume = new Quantity(1000, Unit.LITRE);
+Quantity density = mass.Divide(volume).Classify();
+```
+
 ## Physical Unit Equation Examples
 
 One's Body Mass Index (BMI) can be calculated as:
