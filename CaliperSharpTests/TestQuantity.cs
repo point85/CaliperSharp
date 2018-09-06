@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Diagnostics;
 using Point85.Caliper.UnitOfMeasure;
 
 namespace CaliperSharpTests
@@ -1030,9 +1029,9 @@ namespace CaliperSharpTests
 			{
 			}
 
-			Quantity acidpH = new Quantity(4.5, sys.GetUOM(Unit.PH));
-			Quantity neutralpH = new Quantity(7.0, sys.GetUOM(Unit.PH));
-			Assert.IsTrue(acidpH.Compare(neutralpH) == -1);
+			Quantity conc = new Quantity(0.0025, sys.GetUOM(Unit.MOLARITY));
+			double pH = -Math.Log10(conc.Amount);
+			Assert.IsTrue(IsCloseTo(pH, 2.60, DELTA2));
 		}
 
 		[TestMethod]

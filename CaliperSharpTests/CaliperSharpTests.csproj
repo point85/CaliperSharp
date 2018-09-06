@@ -65,6 +65,7 @@
     <Compile Include="TestQuantity.cs" />
     <Compile Include="TestCleanup.cs" />
     <Compile Include="TestSystems.cs" />
+    <Compile Include="TestClassification.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CaliperSharp\CaliperSharp.csproj">

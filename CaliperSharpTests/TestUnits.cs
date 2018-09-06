@@ -2,13 +2,36 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Point85.Caliper.UnitOfMeasure;
 using System.Text;
-using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace CaliperSharpTests
 {
 	[TestClass]
 	public class TestUnits : BaseTest
 	{
+		[TestMethod]
+		public void TestBaseUnits()
+		{
+			Dictionary<UnitOfMeasure, int> terms = sys.GetUOM(Unit.NEWTON).GetBaseUnitsOfMeasure();
+
+			Assert.IsTrue(terms.Count == 3);
+
+			foreach (KeyValuePair<UnitOfMeasure, int> kvp in terms) {
+				if (kvp.Key.UOMType.Equals(UnitType.MASS)) {
+						Assert.IsTrue(kvp.Value == 1);
+				} else if (kvp.Key.UOMType.Equals(UnitType.TIME)) {
+						Assert.IsTrue(kvp.Value == -2);
+				} else if (kvp.Key.UOMType.Equals(UnitType.LENGTH)) {
+						Assert.IsTrue(kvp.Value == 1);
+				}
+			}
+
+			UnitOfMeasure m = sys.GetUOM(Unit.METRE);
+			UnitOfMeasure m2 = m.Power(2);
+
+			Assert.IsTrue(m2.GetPowerExponent() == 2);
+		}
+
 		[TestMethod]
 		public void TestGetString()
 		{
@@ -599,7 +622,7 @@ namespace CaliperSharpTests
 			u = metre.Multiply(metre);
 			bd = u.GetConversionFactor(m2);
 			Assert.IsTrue(IsCloseTo(bd, 1, DELTA6));
-			Assert.IsTrue(u.Equals(m2));
+			Assert.IsTrue(u.GetBaseSymbol().Equals(m2.GetBaseSymbol()));
 
 			// Divide2
 			u = metre.Divide(hour);
@@ -859,8 +882,11 @@ namespace CaliperSharpTests
 			sb.Append("cd/m").Append((char)(char)0xB2);
 			Assert.IsTrue(symbol.Equals(sb.ToString()));
 
+			symbol = sys.GetUOM(Unit.HERTZ).GetBaseSymbol();
+			Assert.IsTrue(symbol.Equals("1/s"));
+
 			symbol = sys.GetUOM(Unit.BECQUEREL).GetBaseSymbol();
-			Assert.IsTrue(symbol.Equals("Bq"));
+			Assert.IsTrue(symbol.Equals("1/s"));
 
 			symbol = sys.GetUOM(Unit.BECQUEREL).Symbol;
 			Assert.IsTrue(symbol.Equals("Bq"));
@@ -869,9 +895,6 @@ namespace CaliperSharpTests
 			sb = new StringBuilder();
 			sb.Append("m").Append((char)(char)0xB2).Append("/s").Append((char)(char)0xB2);
 			Assert.IsTrue(symbol.Equals(sb.ToString()));
-
-			symbol = sys.GetUOM(Unit.HERTZ).GetBaseSymbol();
-			Assert.IsTrue(symbol.Equals("1/s"));
 
 			Assert.IsTrue(sys.GetUOM(Unit.KATAL).GetBaseSymbol().Equals("mol/s"));
 		}
