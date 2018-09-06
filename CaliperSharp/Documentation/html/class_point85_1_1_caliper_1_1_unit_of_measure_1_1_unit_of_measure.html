@@ -188,6 +188,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a93e07891d50d78a5c5d2fedf6703b811"><td class="memItemLeft" align="right" valign="top">override string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_point85_1_1_caliper_1_1_unit_of_measure_1_1_unit_of_measure.html#a93e07891d50d78a5c5d2fedf6703b811">ToString</a> ()</td></tr>
 <tr class="memdesc:a93e07891d50d78a5c5d2fedf6703b811"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build a string representation of this unit of measure  <a href="#a93e07891d50d78a5c5d2fedf6703b811">More...</a><br /></td></tr>
 <tr class="separator:a93e07891d50d78a5c5d2fedf6703b811"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1dc240821807de2144ecb22b674c528"><td class="memItemLeft" align="right" valign="top">Dictionary&lt; <a class="el" href="class_point85_1_1_caliper_1_1_unit_of_measure_1_1_unit_of_measure.html">UnitOfMeasure</a>, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_point85_1_1_caliper_1_1_unit_of_measure_1_1_unit_of_measure.html#ab1dc240821807de2144ecb22b674c528">GetBaseUnitsOfMeasure</a> ()</td></tr>
+<tr class="memdesc:ab1dc240821807de2144ecb22b674c528"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the most reduced units of measure  <a href="#ab1dc240821807de2144ecb22b674c528">More...</a><br /></td></tr>
+<tr class="separator:ab1dc240821807de2144ecb22b674c528"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30ca7f40a50109a4fca75de6ddb96ef5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_point85_1_1_caliper_1_1_unit_of_measure_1_1_unit_of_measure.html">UnitOfMeasure</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_point85_1_1_caliper_1_1_unit_of_measure_1_1_unit_of_measure.html#a30ca7f40a50109a4fca75de6ddb96ef5">Power</a> (int exponent)</td></tr>
+<tr class="memdesc:a30ca7f40a50109a4fca75de6ddb96ef5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a power unit of measure from this unit of measure  <a href="#a30ca7f40a50109a4fca75de6ddb96ef5">More...</a><br /></td></tr>
+<tr class="separator:a30ca7f40a50109a4fca75de6ddb96ef5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a1f59d7171e4fa0d086abbb5a2e69e0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_point85_1_1_caliper_1_1_unit_of_measure_1_1_unit_of_measure.html">UnitOfMeasure</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_point85_1_1_caliper_1_1_unit_of_measure_1_1_unit_of_measure.html#a1a1f59d7171e4fa0d086abbb5a2e69e0">Classify</a> ()</td></tr>
+<tr class="memdesc:a1a1f59d7171e4fa0d086abbb5a2e69e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">If the unit of measure is unclassified, from its base unit map find a matching unit type.  <a href="#a1a1f59d7171e4fa0d086abbb5a2e69e0">More...</a><br /></td></tr>
+<tr class="separator:a1a1f59d7171e4fa0d086abbb5a2e69e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_point85_1_1_caliper_1_1_unit_of_measure_1_1_symbolic"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_point85_1_1_caliper_1_1_unit_of_measure_1_1_symbolic')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_point85_1_1_caliper_1_1_unit_of_measure_1_1_symbolic.html">Point85.Caliper.UnitOfMeasure.Symbolic</a></td></tr>
 <tr class="memitem:abea06e435b389476fc4219077b3d75a2 inherit pub_methods_class_point85_1_1_caliper_1_1_unit_of_measure_1_1_symbolic"><td class="memItemLeft" align="right" valign="top">override string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_point85_1_1_caliper_1_1_unit_of_measure_1_1_symbolic.html#abea06e435b389476fc4219077b3d75a2">ToString</a> ()</td></tr>
 <tr class="memdesc:abea06e435b389476fc4219077b3d75a2 inherit pub_methods_class_point85_1_1_caliper_1_1_unit_of_measure_1_1_symbolic"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build a string representation of a <a class="el" href="class_point85_1_1_caliper_1_1_unit_of_measure_1_1_symbolic.html" title="This class represents an object that is identified by a name and symbol with an optional description...">Symbolic</a> object  <a href="class_point85_1_1_caliper_1_1_unit_of_measure_1_1_symbolic.html#abea06e435b389476fc4219077b3d75a2">More...</a><br /></td></tr>
@@ -303,6 +312,34 @@ Properties</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a1a1f59d7171e4fa0d086abbb5a2e69e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a1f59d7171e4fa0d086abbb5a2e69e0">&#9670;&nbsp;</a></span>Classify()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_point85_1_1_caliper_1_1_unit_of_measure_1_1_unit_of_measure.html">UnitOfMeasure</a> Point85.Caliper.UnitOfMeasure.UnitOfMeasure.Classify </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>If the unit of measure is unclassified, from its base unit map find a matching unit type. </p>
+<dl class="section return"><dt>Returns</dt><dd>Unit of measure</dd></dl>
+
+</div>
+</div>
 <a id="a4224c19710cc688545b0aacf33ab63ed"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4224c19710cc688545b0aacf33ab63ed">&#9670;&nbsp;</a></span>ClearCache()</h2>
 
@@ -495,6 +532,34 @@ Properties</h2></td></tr>
 
 <p>Get the unit of measure's symbol in the fundamental units for that system. For example a Newton is a kg.m/s2.</p>
 <dl class="section return"><dt>Returns</dt><dd>Base symbol</dd></dl>
+
+</div>
+</div>
+<a id="ab1dc240821807de2144ecb22b674c528"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1dc240821807de2144ecb22b674c528">&#9670;&nbsp;</a></span>GetBaseUnitsOfMeasure()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Dictionary&lt;<a class="el" href="class_point85_1_1_caliper_1_1_unit_of_measure_1_1_unit_of_measure.html">UnitOfMeasure</a>, int&gt; Point85.Caliper.UnitOfMeasure.UnitOfMeasure.GetBaseUnitsOfMeasure </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the most reduced units of measure </p>
+<dl class="section return"><dt>Returns</dt><dd>Map of unit of measure and exponent</dd></dl>
 
 </div>
 </div>
@@ -873,6 +938,41 @@ Properties</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="class_point85_1_1_caliper_1_1_unit_of_measure_1_1_unit_of_measure.html">UnitOfMeasure</a> </dd></dl>
+
+</div>
+</div>
+<a id="a30ca7f40a50109a4fca75de6ddb96ef5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30ca7f40a50109a4fca75de6ddb96ef5">&#9670;&nbsp;</a></span>Power()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_point85_1_1_caliper_1_1_unit_of_measure_1_1_unit_of_measure.html">UnitOfMeasure</a> Point85.Caliper.UnitOfMeasure.UnitOfMeasure.Power </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>exponent</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create a power unit of measure from this unit of measure </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">exponent</td><td>Power</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Power unit of measure</dd></dl>
 
 </div>
 </div>

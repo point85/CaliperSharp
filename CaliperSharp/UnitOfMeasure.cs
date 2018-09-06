@@ -24,6 +24,7 @@ SOFTWARE.
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Text;
 
 namespace Point85.Caliper.UnitOfMeasure
@@ -1058,8 +1059,88 @@ namespace Point85.Caliper.UnitOfMeasure
 			return sb.ToString();
 		}
 
-		// reduce a unit of measure to its most basic scalar units of measure.
-		internal class Reducer
+		/// <summary>
+		/// Get the most reduced units of measure
+		/// </summary>
+		/// <returns>Map of unit of measure and exponent</returns>
+		public Dictionary<UnitOfMeasure, int> GetBaseUnitsOfMeasure()
+		{
+			return GetReducer().Terms;
+		}
+
+		/// <summary>
+		/// Create a power unit of measure from this unit of measure
+		/// </summary>
+		/// <param name="exponent">Power</param>
+		/// <returns>Power unit of measure</returns>
+		public UnitOfMeasure Power(int exponent)
+		{
+			return MeasurementSystem.GetSystem().CreatePowerUOM(this, exponent);
+		}
+
+		/// <summary>
+		/// If the unit of measure is unclassified, from its base unit map find a matching unit type.
+		/// </summary>
+		/// <returns>Unit of measure</returns>
+		public UnitOfMeasure Classify()
+		{
+			if (!UOMType.Equals(UnitType.UNCLASSIFIED)) {
+				// already classified
+				return this;
+			}
+
+			// base unit map
+			Dictionary<UnitOfMeasure, int> uomBaseMap = GetReducer().Terms;
+
+			// try to find this map in the unit types
+			UnitType matchedType = UnitType.UNCLASSIFIED;
+
+			foreach (UnitType unitType in UnitType.GetValues(typeof(UnitType))) {
+				ConcurrentDictionary<UnitType, int> unitTypeMap = MeasurementSystem.GetSystem().GetTypeMap(unitType);
+
+				if (unitTypeMap.Count != uomBaseMap.Count) {
+					// not a match
+					continue;
+				}
+
+				Boolean match = true;
+
+				// same size, now check base unit types and exponents
+				foreach (KeyValuePair<UnitOfMeasure, int> kvp in uomBaseMap) {
+					UnitType uomBaseType = kvp.Key.UOMType;
+					int uomBaseExponent = kvp.Value;
+
+					if (unitTypeMap.TryGetValue(uomBaseType, out int unitExponent)) {
+						// value is in map, check exponents
+						if (unitExponent != uomBaseExponent)
+						{
+							// not a match
+							match = false;
+							break;
+						}
+					} else
+					{
+						// value not in map
+						match = false;
+						break;
+					}
+				}
+
+				if (match) {
+					matchedType = unitType;
+					break;
+				}
+			}
+
+			if (!matchedType.Equals(UnitType.UNCLASSIFIED)) {
+				this.UOMType = matchedType;
+			}
+
+			return this;
+		}
+
+	// reduce a unit of measure to its most basic scalar units of measure.
+	internal class Reducer
 		{
 			private const int MAX_RECURSIONS = 100;
 

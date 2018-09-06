@@ -2,6 +2,7 @@ var searchData=
 [
   ['category',['Category',['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_unit_of_measure.html#a5f8bc0bc6755aa6b761bad829117a6b2',1,'Point85::Caliper::UnitOfMeasure::UnitOfMeasure']]],
   ['centi',['CENTI',['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_prefix.html#a0367649229185bc8d10541760db9fd1b',1,'Point85::Caliper::UnitOfMeasure::Prefix']]],
+  ['classify',['Classify',['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_unit_of_measure.html#a1a1f59d7171e4fa0d086abbb5a2e69e0',1,'Point85::Caliper::UnitOfMeasure::UnitOfMeasure']]],
   ['clearcache',['ClearCache',['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_measurement_system.html#ae75b526f80ce3a71d77ec30618a41ec3',1,'Point85.Caliper.UnitOfMeasure.MeasurementSystem.ClearCache()'],['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_unit_of_measure.html#a4224c19710cc688545b0aacf33ab63ed',1,'Point85.Caliper.UnitOfMeasure.UnitOfMeasure.ClearCache()']]],
   ['compare',['Compare',['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_quantity.html#ae899802939995685982cb2bc2b2ac19d',1,'Point85.Caliper.UnitOfMeasure.Quantity.Compare()'],['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_unit_of_measure.html#a893937fdf94df2525e3dc80fe6640342',1,'Point85.Caliper.UnitOfMeasure.UnitOfMeasure.Compare()']]],
   ['compareto',['CompareTo',['../class_point85_1_1_caliper_1_1_unit_of_measure_1_1_unit_of_measure.html#a769e108fdd1822bcb338ce31ae056643',1,'Point85::Caliper::UnitOfMeasure::UnitOfMeasure']]],

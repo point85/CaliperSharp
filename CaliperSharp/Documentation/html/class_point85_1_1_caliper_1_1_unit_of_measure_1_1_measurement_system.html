@@ -165,6 +165,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2199852891dbc7642c6758453fb72499"><td class="memItemLeft" align="right" valign="top">List&lt; <a class="el" href="class_point85_1_1_caliper_1_1_unit_of_measure_1_1_unit_of_measure.html">UnitOfMeasure</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_point85_1_1_caliper_1_1_unit_of_measure_1_1_measurement_system.html#a2199852891dbc7642c6758453fb72499">GetUnitsOfMeasure</a> (<a class="el" href="namespace_point85_1_1_caliper_1_1_unit_of_measure.html#a17428a253496431cb1458f9587b66af6">UnitType</a> type)</td></tr>
 <tr class="memdesc:a2199852891dbc7642c6758453fb72499"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get all the units of measure of the specified type <a href="#a2199852891dbc7642c6758453fb72499">More...</a><br /></td></tr>
 <tr class="separator:a2199852891dbc7642c6758453fb72499"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbbff5484f132366af3bdf4aaf16b6a7"><td class="memItemLeft" align="right" valign="top">ConcurrentDictionary&lt; <a class="el" href="namespace_point85_1_1_caliper_1_1_unit_of_measure.html#a17428a253496431cb1458f9587b66af6">UnitType</a>, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_point85_1_1_caliper_1_1_unit_of_measure_1_1_measurement_system.html#acbbff5484f132366af3bdf4aaf16b6a7">GetTypeMap</a> (<a class="el" href="namespace_point85_1_1_caliper_1_1_unit_of_measure.html#a17428a253496431cb1458f9587b66af6">UnitType</a> unitType)</td></tr>
+<tr class="memdesc:acbbff5484f132366af3bdf4aaf16b6a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the map of fundamental unit types for this unit type  <a href="#acbbff5484f132366af3bdf4aaf16b6a7">More...</a><br /></td></tr>
+<tr class="separator:acbbff5484f132366af3bdf4aaf16b6a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -1304,6 +1307,41 @@ any number of custom units of measure </li>
 
 <p>Get the unified system of units of measure for International Customary, SI, US, British Imperial as well as custom systems</p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="class_point85_1_1_caliper_1_1_unit_of_measure_1_1_measurement_system.html" title="A MeasurementSystem is a collection of units of measure that have a linear relationship to each other...">MeasurementSystem</a></dd></dl>
+
+</div>
+</div>
+<a id="acbbff5484f132366af3bdf4aaf16b6a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbbff5484f132366af3bdf4aaf16b6a7">&#9670;&nbsp;</a></span>GetTypeMap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ConcurrentDictionary&lt;<a class="el" href="namespace_point85_1_1_caliper_1_1_unit_of_measure.html#a17428a253496431cb1458f9587b66af6">UnitType</a>, int&gt; Point85.Caliper.UnitOfMeasure.MeasurementSystem.GetTypeMap </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_point85_1_1_caliper_1_1_unit_of_measure.html#a17428a253496431cb1458f9587b66af6">UnitType</a>&#160;</td>
+          <td class="paramname"><em>unitType</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the map of fundamental unit types for this unit type </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">unitType</td><td>Type of unit of measure</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Dictionary of unit type and exponent</dd></dl>
 
 </div>
 </div>

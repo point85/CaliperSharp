@@ -91,6 +91,9 @@ namespace Point85.Caliper.UnitOfMeasure
 		// registry for units by enumeration
 		private ConcurrentDictionary<Unit, UnitOfMeasure> UnitRegistry = new ConcurrentDictionary<Unit, UnitOfMeasure>();
 
+		// registry for base UOM map by unit type
+		private ConcurrentDictionary<UnitType, ConcurrentDictionary<UnitType, int>> UnitTypeRegistry = new ConcurrentDictionary<UnitType, ConcurrentDictionary<UnitType, int>>();
+
 		private MeasurementSystem()
 		{
 			// localizable string managers
@@ -486,13 +489,15 @@ namespace Point85.Caliper.UnitOfMeasure
 							UnitsManager.GetString("cd.symbol"), UnitsManager.GetString("cd.desc"));
 					break;
 
-				case Unit.PH:
+				case Unit.MOLARITY:
 					// molar concentration
-					uom = CreateScalarUOM(UnitType.MOLAR_CONCENTRATION, Unit.PH, UnitsManager.GetString("ph.name"),
-							UnitsManager.GetString("ph.symbol"), UnitsManager.GetString("ph.desc"));
+					uom = CreateQuotientUOM(UnitType.MOLAR_CONCENTRATION, Unit.MOLARITY, UnitsManager.GetString("molarity.name"),
+							UnitsManager.GetString("molarity.symbol"), UnitsManager.GetString("molarity.desc"), GetUOM(Unit.MOLE),
+							GetUOM(Unit.LITRE));
 					break;
 
-				case Unit.GRAM: // gram
+				case Unit.GRAM: 
+					// gram
 					uom = CreateScalarUOM(UnitType.MASS, Unit.GRAM, UnitsManager.GetString("gram.name"),
 							UnitsManager.GetString("gram.symbol"), UnitsManager.GetString("gram.desc"));
 					uom.SetConversion(Prefix.MILLI.Factor, GetUOM(Unit.KILOGRAM));
@@ -754,8 +759,8 @@ namespace Point85.Caliper.UnitOfMeasure
 
 				case Unit.BECQUEREL:
 					// radioactivity (becquerel). Same base symbol as Hertz
-					uom = CreateScalarUOM(UnitType.RADIOACTIVITY, Unit.BECQUEREL, UnitsManager.GetString("becquerel.name"),
-							UnitsManager.GetString("becquerel.symbol"), UnitsManager.GetString("becquerel.desc"));
+					uom = CreateQuotientUOM(UnitType.RADIOACTIVITY, Unit.BECQUEREL, UnitsManager.GetString("becquerel.name"),
+							UnitsManager.GetString("becquerel.symbol"), UnitsManager.GetString("becquerel.desc"), GetOne(), GetSecond());
 					break;
 
 				case Unit.GRAY:
@@ -1971,7 +1976,7 @@ namespace Point85.Caliper.UnitOfMeasure
 					break;
 
 				case UnitType.MOLAR_CONCENTRATION:
-					units.Add(GetUOM(Unit.PH));
+					units.Add(GetUOM(Unit.MOLARITY));
 					break;
 
 				case UnitType.PLANE_ANGLE:
@@ -2101,6 +2106,213 @@ namespace Point85.Caliper.UnitOfMeasure
 			}
 
 			return units;
+		}
+
+		/// <summary>
+		/// Get the map of fundamental unit types for this unit type
+		/// </summary>
+		/// <param name="unitType">Type of unit of measure</param>
+		/// <returns>Dictionary of unit type and exponent</returns>
+		public ConcurrentDictionary<UnitType, int> GetTypeMap(UnitType unitType)
+		{
+			// check cache
+			if (UnitTypeRegistry.TryGetValue(unitType, out ConcurrentDictionary<UnitType, int> cachedMap))
+			{
+				return cachedMap;
+			}
+
+			// create map
+			cachedMap = new ConcurrentDictionary<UnitType, int>();
+			UnitTypeRegistry[unitType] = cachedMap;
+
+			// base types have empty maps
+			switch (unitType)
+			{
+				case UnitType.UNITY:
+					break;
+				case UnitType.LENGTH:
+					break;
+				case UnitType.MASS:
+					break;
+				case UnitType.TIME:
+					break;
+				case UnitType.ELECTRIC_CURRENT:
+					break;
+				case UnitType.TEMPERATURE:
+					break;
+				case UnitType.SUBSTANCE_AMOUNT:
+					break;
+				case UnitType.LUMINOSITY:
+					break;
+				case UnitType.AREA:
+					cachedMap[UnitType.LENGTH] = 2;
+					break;
+				case UnitType.VOLUME:
+					cachedMap[UnitType.LENGTH] = 3;
+					break;
+				case UnitType.DENSITY:
+					cachedMap[UnitType.MASS] = 1;
+					cachedMap[UnitType.LENGTH] = -3;
+					break;
+				case UnitType.VELOCITY:
+					cachedMap[UnitType.LENGTH] = 1;
+					cachedMap[UnitType.TIME] = -1;
+					break;
+				case UnitType.VOLUMETRIC_FLOW:
+					cachedMap[UnitType.LENGTH] = 3;
+					cachedMap[UnitType.TIME] = -1;
+					break;
+				case UnitType.MASS_FLOW:
+					cachedMap[UnitType.MASS] = 1;
+					cachedMap[UnitType.TIME] = -1;
+					break;
+				case UnitType.FREQUENCY:
+					cachedMap[UnitType.TIME] = -1;
+					break;
+				case UnitType.ACCELERATION:
+					cachedMap[UnitType.LENGTH] = 1;
+					cachedMap[UnitType.TIME] = -2;
+					break;
+				case UnitType.FORCE:
+					cachedMap[UnitType.MASS] = 1;
+					cachedMap[UnitType.LENGTH] = 1;
+					cachedMap[UnitType.TIME] = -2;
+					break;
+				case UnitType.PRESSURE:
+					cachedMap[UnitType.MASS] = 1;
+					cachedMap[UnitType.LENGTH] = -1;
+					cachedMap[UnitType.TIME] = -2;
+					break;
+				case UnitType.ENERGY:
+					cachedMap[UnitType.MASS] = 1;
+					cachedMap[UnitType.LENGTH] = 2;
+					cachedMap[UnitType.TIME] = -2;
+					break;
+				case UnitType.POWER:
+					cachedMap[UnitType.MASS] = 1;
+					cachedMap[UnitType.LENGTH] = 2;
+					cachedMap[UnitType.TIME] = -3;
+					break;
+				case UnitType.ELECTRIC_CHARGE:
+					cachedMap[UnitType.ELECTRIC_CURRENT] = 1;
+					cachedMap[UnitType.TIME] = 1;
+					break;
+				case UnitType.ELECTROMOTIVE_FORCE:
+					cachedMap[UnitType.LENGTH] = 2;
+					cachedMap[UnitType.MASS] = 1;
+					cachedMap[UnitType.ELECTRIC_CURRENT] = -1;
+					cachedMap[UnitType.TIME] = -3;
+					break;
+				case UnitType.ELECTRIC_RESISTANCE:
+					cachedMap[UnitType.MASS] = 1;
+					cachedMap[UnitType.LENGTH] = -3;
+					cachedMap[UnitType.ELECTRIC_CURRENT] = 2;
+					cachedMap[UnitType.TIME] = 4;
+					break;
+				case UnitType.ELECTRIC_CAPACITANCE:
+					cachedMap[UnitType.MASS] = -1;
+					cachedMap[UnitType.LENGTH] = 2;
+					cachedMap[UnitType.ELECTRIC_CURRENT] = -2;
+					cachedMap[UnitType.TIME] = -3;
+					break;
+				case UnitType.ELECTRIC_PERMITTIVITY:
+					cachedMap[UnitType.MASS] = -1;
+					cachedMap[UnitType.LENGTH] = -3;
+					cachedMap[UnitType.ELECTRIC_CURRENT] = 2;
+					cachedMap[UnitType.TIME] = 4;
+					break;
+				case UnitType.ELECTRIC_FIELD_STRENGTH:
+					cachedMap[UnitType.ELECTRIC_CURRENT] = 1;
+					cachedMap[UnitType.LENGTH] = -1;
+					break;
+				case UnitType.MAGNETIC_FLUX:
+					cachedMap[UnitType.MASS] = 1;
+					cachedMap[UnitType.LENGTH] = 2;
+					cachedMap[UnitType.ELECTRIC_CURRENT] = -1;
+					cachedMap[UnitType.TIME] = -2;
+					break;
+				case UnitType.MAGNETIC_FLUX_DENSITY:
+					cachedMap[UnitType.MASS] = 1;
+					cachedMap[UnitType.ELECTRIC_CURRENT] = -1;
+					cachedMap[UnitType.TIME] = -2;
+					break;
+				case UnitType.ELECTRIC_INDUCTANCE:
+					cachedMap[UnitType.MASS] = 1;
+					cachedMap[UnitType.LENGTH] = 2;
+					cachedMap[UnitType.ELECTRIC_CURRENT] = -2;
+					cachedMap[UnitType.TIME] = -2;
+					break;
+				case UnitType.ELECTRIC_CONDUCTANCE:
+					cachedMap[UnitType.MASS] = -1;
+					cachedMap[UnitType.LENGTH] = -2;
+					cachedMap[UnitType.ELECTRIC_CURRENT] = 2;
+					cachedMap[UnitType.TIME] = 3;
+					break;
+				case UnitType.LUMINOUS_FLUX:
+					cachedMap[UnitType.LUMINOSITY] = 1;
+					break;
+				case UnitType.ILLUMINANCE:
+					cachedMap[UnitType.LUMINOSITY] = 1;
+					cachedMap[UnitType.LENGTH] = -2;
+					break;
+				case UnitType.RADIATION_DOSE_ABSORBED:
+					cachedMap[UnitType.LENGTH] = 2;
+					cachedMap[UnitType.TIME] = -2;
+					break;
+				case UnitType.RADIATION_DOSE_EFFECTIVE:
+					cachedMap[UnitType.LENGTH] = 2;
+					cachedMap[UnitType.TIME] = -2;
+					break;
+				case UnitType.RADIATION_DOSE_RATE:
+					cachedMap[UnitType.LENGTH] = 2;
+					cachedMap[UnitType.TIME] = -3;
+					break;
+				case UnitType.RADIOACTIVITY:
+					cachedMap[UnitType.TIME] = -1;
+					break;
+				case UnitType.CATALYTIC_ACTIVITY:
+					cachedMap[UnitType.SUBSTANCE_AMOUNT] = 1;
+					cachedMap[UnitType.TIME] = -1;
+					break;
+				case UnitType.DYNAMIC_VISCOSITY:
+					cachedMap[UnitType.MASS] = 1;
+					cachedMap[UnitType.LENGTH] = 1;
+					cachedMap[UnitType.TIME] = -1;
+					break;
+				case UnitType.KINEMATIC_VISCOSITY:
+					cachedMap[UnitType.LENGTH] = 2;
+					cachedMap[UnitType.TIME] = -1;
+					break;
+				case UnitType.RECIPROCAL_LENGTH:
+					cachedMap[UnitType.LENGTH] = -1;
+					break;
+				case UnitType.PLANE_ANGLE:
+					break;
+				case UnitType.SOLID_ANGLE:
+					break;
+				case UnitType.INTENSITY:
+					break;
+				case UnitType.COMPUTER_SCIENCE:
+					break;
+				case UnitType.TIME_SQUARED:
+					cachedMap[UnitType.TIME] = 2;
+					break;
+				case UnitType.MOLAR_CONCENTRATION:
+					cachedMap[UnitType.SUBSTANCE_AMOUNT] = 1;
+					cachedMap[UnitType.LENGTH] = -3;
+					break;
+				case UnitType.IRRADIANCE:
+					cachedMap[UnitType.MASS] = 1;
+					cachedMap[UnitType.TIME] = -3;
+					break;
+				case UnitType.CURRENCY:
+					break;
+				case UnitType.UNCLASSIFIED:
+					break;
+				default:
+					break;
+			}
+			return cachedMap;
 		}
 	} // end MeasurementSystem
 } // end namespace

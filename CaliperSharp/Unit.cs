@@ -75,8 +75,8 @@ namespace Point85.Caliper.UnitOfMeasure
 		PASCAL, BAR, ATMOSPHERE,
 		// electrical
 		AMPERE, AMPERE_PER_METRE, COULOMB, VOLT, OHM, FARAD, FARAD_PER_METRE, WEBER, TESLA, HENRY, SIEMENS,
-		// concentration
-		PH,
+		// molar concentration
+		MOLARITY,
 		// luminosity
 		CANDELA, LUMEN, LUX,
 		// radioactivity
