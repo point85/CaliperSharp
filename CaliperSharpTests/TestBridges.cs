@@ -221,5 +221,21 @@ namespace CaliperSharpTests
 
 			}
 		}
+
+		[TestMethod]
+		public void TestBridgeUnits3()
+		{
+			UnitOfMeasure uomGrams = sys.GetUOM(Unit.GRAM);
+			UnitOfMeasure uomTonnes = sys.GetUOM(Unit.TONNE);
+			UnitOfMeasure uomShortTons = sys.GetUOM(Unit.US_TON);
+			UnitOfMeasure uomTroyOz = sys.GetUOM(Unit.TROY_OUNCE);
+			UnitOfMeasure uomPennyweight = sys.CreateScalarUOM(UnitType.MASS, "pennyweight", "dwt", "Pennyweight");
+			uomPennyweight.SetConversion(0.05, uomTroyOz);
+			UnitOfMeasure uomGramsPerTonne = sys.CreateQuotientUOM(uomGrams, uomTonnes);
+			UnitOfMeasure uomPennyweightPerShortTon = sys.CreateQuotientUOM(uomPennyweight, uomShortTons);
+			Quantity grade = new Quantity(0.95, uomGramsPerTonne);
+			Quantity converted = grade.Convert(uomPennyweightPerShortTon);
+			Assert.IsTrue(IsCloseTo(converted.Amount, 0.554167, DELTA6));
+		}
 	}
 }
