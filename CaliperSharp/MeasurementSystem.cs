@@ -887,7 +887,7 @@ namespace Point85.Caliper.UnitOfMeasure
 					// troy ounce
 					uom = CreateScalarUOM(UnitType.MASS, Unit.TROY_OUNCE, UnitsManager.GetString("troy_oz.name"),
 							UnitsManager.GetString("troy_oz.symbol"), UnitsManager.GetString("troy_oz.desc"));
-					uom.SetConversion(31.1034768, GetUOM(Unit.GRAM));
+					uom.SetConversion(0.06857142857, GetUOM(Unit.POUND_MASS));
 					break;
 
 				case Unit.SLUG:

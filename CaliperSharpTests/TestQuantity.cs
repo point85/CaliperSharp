@@ -8,6 +8,25 @@ namespace CaliperSharpTests
 	public class TestQuantity : BaseTest
 	{
 		[TestMethod]
+		public void TestCurrencyConversion()
+		{
+			UnitOfMeasure usd_uom = sys.CreateScalarUOM(UnitType.CURRENCY, "US-Dollar", "USD", "US 'paper' dollar");
+			UnitOfMeasure usdt_uom = sys.CreateScalarUOM(UnitType.CURRENCY, "Tether", "USDT", "USD 'stable' coin");
+
+			// Initial conversion rate
+			usdt_uom.SetConversion(0.9, usd_uom);
+
+			Quantity portfolio = new Quantity(200, usdt_uom);
+			Quantity portfolio_usd = portfolio.Convert(usd_uom);
+			Assert.IsTrue(IsCloseTo(portfolio_usd.Amount, 180.0, DELTA6));
+
+			// change conversion rate
+			usdt_uom.SetConversion(1.0, usd_uom);
+			portfolio_usd = portfolio.Convert(usd_uom);
+			Assert.IsTrue(IsCloseTo(portfolio_usd.Amount, 200.0, DELTA6));
+		}
+
+		[TestMethod]
 		public void TestNamedQuantity()
 		{
 			Quantity q = new Quantity(10, Unit.CELSIUS);

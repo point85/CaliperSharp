@@ -643,8 +643,14 @@ namespace Point85.Caliper.UnitOfMeasure
 
 			// re-cache
 			MeasurementSystem.GetSystem().RegisterUnit(this);
-		}
 
+
+			// remove from conversion registry
+			if (ConversionRegistry.ContainsKey(abscissaUnit))
+			{
+				ConversionRegistry.Remove(abscissaUnit);
+			}
+		}
 
 		/// <summary>Define a conversion with a scaling factor of 1 and offset of 0 for the
 		/// specified abscissa unit of measure.</summary>

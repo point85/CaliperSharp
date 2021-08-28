@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27004.2005
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaliperSharp", "CaliperSharp\CaliperSharp.csproj", "{5DCF081B-13EE-4833-96D0-0A115F59A98E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaliperSharpTests", "CaliperSharpTests\CaliperSharpTests.csproj", "{CD66FCE3-22C8-43F7-9113-AC5476DC968F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CaliperSharpTests", "CaliperSharpTests\CaliperSharpTests.csproj", "{CD66FCE3-22C8-43F7-9113-AC5476DC968F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
