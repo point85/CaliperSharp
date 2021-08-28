@@ -41,7 +41,7 @@ namespace Point85.Caliper.UnitOfMeasure
 		/// <summary> SI prefix 10^18 </summary>
 		public static readonly Prefix EXA = new Prefix("exa", "E", 1.0E+18);
 		/// <summary> SI prefix 10^15 </summary>
-		public static readonly Prefix PETA = new Prefix("petta", "P", 1.0E+15);
+		public static readonly Prefix PETA = new Prefix("peta", "P", 1.0E+15);
 		/// <summary> SI prefix 10^12 </summary>
 		public static readonly Prefix TERA = new Prefix("tera", "T", 1.0E+12);
 		/// <summary> SI prefix 10^9 </summary>
