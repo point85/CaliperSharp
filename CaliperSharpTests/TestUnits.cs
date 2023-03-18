@@ -1768,5 +1768,56 @@ namespace CaliperSharpTests
 			Assert.IsTrue(a.GetMeasurementType().Equals(UnitOfMeasure.MeasurementType.POWER));
 		}
 
+		[TestMethod]
+		public void TestPerm()
+		{
+			UnitOfMeasure inHg = sys.GetUOM(Unit.IN_HG);
+			UnitOfMeasure hr = sys.GetUOM(Unit.HOUR);
+			UnitOfMeasure ft2 = sys.GetUOM(Unit.SQUARE_FOOT);
+			UnitOfMeasure s = sys.GetUOM(Unit.SECOND);
+			UnitOfMeasure day = sys.GetUOM(Unit.DAY);
+			UnitOfMeasure msq = sys.GetUOM(Unit.SQUARE_METRE);
+			UnitOfMeasure Pa = sys.GetUOM(Unit.PASCAL);
+			UnitOfMeasure ng = sys.GetUOM(Prefix.NANO, Unit.GRAM);
+			UnitOfMeasure g = sys.GetUOM(Unit.GRAM);
+			UnitOfMeasure grain = sys.GetUOM(Unit.GRAIN);
+
+			// mm of Mercury pressure
+			UnitOfMeasure mmHg = sys.CreateScalarUOM(UnitType.PRESSURE, "mmHg", "mmHg", "mmHg");
+			mmHg.SetConversion(133.3223684d, Pa);
+
+			// US perm
+			UnitOfMeasure us1 = sys.CreateQuotientUOM(grain, inHg);
+			UnitOfMeasure us2 = sys.CreateQuotientUOM(us1, ft2);
+			UnitOfMeasure perm = sys.CreateQuotientUOM(UnitType.UNCLASSIFIED, "perm", "perm", "gn/hr/ft2/inHg", us2, hr);
+
+			// metric perm
+			UnitOfMeasure m1 = sys.CreateQuotientUOM(g, day);
+			UnitOfMeasure m2 = sys.CreateQuotientUOM(m1, msq);
+			UnitOfMeasure mperm = sys.CreateQuotientUOM(UnitType.UNCLASSIFIED, "mperm", "mperm", "g/day/m2/mmHg", m2, mmHg);
+
+			// Equivalent SI unit
+			UnitOfMeasure si1 = sys.CreateQuotientUOM(ng, s);
+			UnitOfMeasure si2 = sys.CreateQuotientUOM(si1, msq);
+			UnitOfMeasure eqSI = sys.CreateQuotientUOM(si2, Pa);
+
+			// US perm to equivalent SI
+			double f = perm.GetConversionFactor(eqSI);
+			Assert.IsTrue(IsCloseTo(f, 57.214184d, DELTA6));
+			f = eqSI.GetConversionFactor(perm);
+			Assert.IsTrue(IsCloseTo(f, 0.0174781d, DELTA6));
+
+			// metric perm to US perm
+			f = perm.GetConversionFactor(mperm);
+			Assert.IsTrue(IsCloseTo(f, 0.659053d, DELTA6));
+			f = mperm.GetConversionFactor(perm);
+			Assert.IsTrue(IsCloseTo(f, 1.517328d, DELTA6));
+
+			// metric perm to equivalent SI
+			f = mperm.GetConversionFactor(eqSI);
+			Assert.IsTrue(IsCloseTo(f, 86.812694d, DELTA6));
+			f = eqSI.GetConversionFactor(mperm);
+			Assert.IsTrue(IsCloseTo(f, 0.0115190d, DELTA6));
+		}
 	} // end TestUnits
 } // end namespace

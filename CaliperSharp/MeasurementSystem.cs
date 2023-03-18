@@ -968,7 +968,9 @@ namespace Point85.Caliper.UnitOfMeasure
 					// inches of Mercury
 					uom = CreateScalarUOM(UnitType.PRESSURE, Unit.IN_HG, UnitsManager.GetString("inhg.name"),
 							UnitsManager.GetString("inhg.symbol"), UnitsManager.GetString("inhg.desc"));
-					uom.SetConversion(0.4911531047, GetUOM(Unit.PSI));
+					UnitOfMeasure u1 = CreateProductUOM(GetUOM(Unit.FOOT), GetUOM(Unit.SQUARE_SECOND));
+					UnitOfMeasure u2 = CreateQuotientUOM(GetUOM(Unit.POUND_MASS), u1);
+					uom.SetConversion(2275.520677, u2);
 					break;
 
 				case Unit.SQUARE_INCH:
