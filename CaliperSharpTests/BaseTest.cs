@@ -1,13 +1,14 @@
-﻿using System;
-using Point85.Caliper.UnitOfMeasure;
-using System.Collections.Generic;
+﻿using Point85.Caliper.UnitOfMeasure;
+using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace CaliperSharpTests
 {
 	public class BaseTest
 	{
-		protected const double DELTA6 = 0.000001;
+		protected static double DELTA6 = 0.000001;
 		protected static double DELTA5 = 0.00001;
 		protected static double DELTA4 = 0.0001;
 		protected static double DELTA3 = 0.001;
@@ -26,12 +27,12 @@ namespace CaliperSharpTests
 		{
 			ConcurrentDictionary<string, UnitOfMeasure> cache = sys.GetSymbolCache();
 
-			Console.WriteLine("Symbol cache ...");
+			Debug.WriteLine("Symbol cache ...");
 			int count = 0;
 			foreach (KeyValuePair<string, UnitOfMeasure> entry in cache)
 			{
 				count++;
-				Console.WriteLine("(" + count + ") " + entry.Key + ", " + entry.Value);
+				Debug.WriteLine("(" + count + ") " + entry.Key + ", " + entry.Value);
 			}
 		}
 
@@ -39,12 +40,12 @@ namespace CaliperSharpTests
 		{
 			ConcurrentDictionary<string, UnitOfMeasure> cache = sys.GetBaseSymbolCache();
 
-			Console.WriteLine("Base symbol cache ...");
+			Debug.WriteLine("Base symbol cache ...");
 			int count = 0;
 			foreach (KeyValuePair<string, UnitOfMeasure> entry in cache)
 			{
 				count++;
-				Console.WriteLine("(" + count + ") " + entry.Key + ", " + entry.Value);
+				Debug.WriteLine("(" + count + ") " + entry.Key + ", " + entry.Value);
 			}
 		}
 
@@ -52,12 +53,12 @@ namespace CaliperSharpTests
 		{
 			ConcurrentDictionary<Unit, UnitOfMeasure> cache = sys.GetEnumerationCache();
 
-			Console.WriteLine("Enumeration cache ...");
+			Debug.WriteLine("Enumeration cache ...");
 			int count = 0;
 			foreach (KeyValuePair<Unit, UnitOfMeasure> entry in cache)
 			{
 				count++;
-				Console.WriteLine("(" + count + ") " + entry.Key + ", " + entry.Value);
+				Debug.WriteLine("(" + count + ") " + entry.Key + ", " + entry.Value);
 			}
 		}
 

@@ -1,8 +1,8 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Point85.Caliper.UnitOfMeasure;
-using System.Text;
+using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace CaliperSharpTests
 {
@@ -16,13 +16,19 @@ namespace CaliperSharpTests
 
 			Assert.IsTrue(terms.Count == 3);
 
-			foreach (KeyValuePair<UnitOfMeasure, int> kvp in terms) {
-				if (kvp.Key.UOMType.Equals(UnitType.MASS)) {
-						Assert.IsTrue(kvp.Value == 1);
-				} else if (kvp.Key.UOMType.Equals(UnitType.TIME)) {
-						Assert.IsTrue(kvp.Value == -2);
-				} else if (kvp.Key.UOMType.Equals(UnitType.LENGTH)) {
-						Assert.IsTrue(kvp.Value == 1);
+			foreach (KeyValuePair<UnitOfMeasure, int> kvp in terms)
+			{
+				if (kvp.Key.UOMType.Equals(UnitType.MASS))
+				{
+					Assert.IsTrue(kvp.Value == 1);
+				}
+				else if (kvp.Key.UOMType.Equals(UnitType.TIME))
+				{
+					Assert.IsTrue(kvp.Value == -2);
+				}
+				else if (kvp.Key.UOMType.Equals(UnitType.LENGTH))
+				{
+					Assert.IsTrue(kvp.Value == 1);
 				}
 			}
 
@@ -793,7 +799,7 @@ namespace CaliperSharpTests
 			Assert.IsTrue(symbol.Equals("m" + cu));
 
 			symbol = sys.GetUOM(Unit.KELVIN).GetBaseSymbol();
-			sb.Append("degK");
+			sb.Append("°K");
 			Assert.IsTrue(symbol.Equals(sb.ToString()));
 
 			symbol = sys.GetUOM(Unit.CELSIUS).GetBaseSymbol();
@@ -801,7 +807,7 @@ namespace CaliperSharpTests
 
 			symbol = sys.GetUOM(Unit.CELSIUS).Symbol;
 			sb = new StringBuilder();
-			sb.Append("degC");
+			sb.Append("°C");
 			Assert.IsTrue(symbol.Equals(sb.ToString()));
 
 			symbol = sys.GetUOM(Unit.GRAM).GetBaseSymbol();

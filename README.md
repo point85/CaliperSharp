@@ -416,12 +416,4 @@ already.created = The unit of measure with symbol {0} has already been created b
 ```
 
 ## Project Structure
-The CaliperSharp library depends on the .Net Framework 4+.  The unit tests depend on .Net Framework 4.6.1+.
-
-The CaliperSharp library has the following structure:
- * `CaliperSharp` - CaliperSharp.csproj and the C# source files.  The calipersharp.doxygen is the Doxygen configuration file.
- * `./Resources` - contains the .properties files
- * `./Documentation/html` - Doxygen HTML docs
- * `CaliperSharpTests` - CaliperSharpTests.csproj and the C# unit test source files.
- * `./bin/Release` - dll and .properties resources
-  * `dotnetcore` - csproj project files for .NET Core 3.0
+The CaliperSharp library depends on .NET 8.0+.

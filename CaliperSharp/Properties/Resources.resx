@@ -117,4 +117,1417 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="unit.type.text" xml:space="preserve">
+    <value>Type:</value>
+  </data>
+  <data name="enum.text" xml:space="preserve">
+    <value>Enumeration:</value>
+  </data>
+  <data name="symbol.text" xml:space="preserve">
+    <value>Symbol:</value>
+  </data>
+  <data name="conversion.text" xml:space="preserve">
+    <value>Conversion:</value>
+  </data>
+  <data name="base.text" xml:space="preserve">
+    <value>Base Symbol:</value>
+  </data>
+  <data name="default.category.text" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="one.name" xml:space="preserve">
+    <value>one</value>
+  </data>
+  <data name="one.symbol" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="one.desc" xml:space="preserve">
+    <value>Dimension-less one</value>
+  </data>
+  <data name="sec.name" xml:space="preserve">
+    <value>second</value>
+  </data>
+  <data name="sec.symbol" xml:space="preserve">
+    <value>s</value>
+  </data>
+  <data name="sec.desc" xml:space="preserve">
+    <value>Time of 9192631770 periods of the radiation corresponding to the transition between the two hyperfine levels of the ground state of the Cesium 133 atom at 0 °K.</value>
+  </data>
+  <data name="min.name" xml:space="preserve">
+    <value>minute</value>
+  </data>
+  <data name="min.symbol" xml:space="preserve">
+    <value>min</value>
+  </data>
+  <data name="min.desc" xml:space="preserve">
+    <value>60 seconds</value>
+  </data>
+  <data name="hr.name" xml:space="preserve">
+    <value>hour</value>
+  </data>
+  <data name="hr.symbol" xml:space="preserve">
+    <value>hr</value>
+  </data>
+  <data name="hr.desc" xml:space="preserve">
+    <value>60 minutes</value>
+  </data>
+  <data name="day.name" xml:space="preserve">
+    <value>day</value>
+  </data>
+  <data name="day.symbol" xml:space="preserve">
+    <value>d</value>
+  </data>
+  <data name="day.desc" xml:space="preserve">
+    <value>24 hours</value>
+  </data>
+  <data name="week.name" xml:space="preserve">
+    <value>week</value>
+  </data>
+  <data name="week.symbol" xml:space="preserve">
+    <value>wk</value>
+  </data>
+  <data name="week.desc" xml:space="preserve">
+    <value>7 days</value>
+  </data>
+  <data name="jyear.name" xml:space="preserve">
+    <value>Julian year</value>
+  </data>
+  <data name="jyear.symbol" xml:space="preserve">
+    <value>jyr</value>
+  </data>
+  <data name="jyear.desc" xml:space="preserve">
+    <value>365.25 weeks</value>
+  </data>
+  <data name="s2.name" xml:space="preserve">
+    <value>square seconds</value>
+  </data>
+  <data name="s2.symbol" xml:space="preserve">
+    <value>s²</value>
+  </data>
+  <data name="s2.desc" xml:space="preserve">
+    <value>seconds squared</value>
+  </data>
+  <data name="db.name" xml:space="preserve">
+    <value>decibel</value>
+  </data>
+  <data name="db.symbol" xml:space="preserve">
+    <value>dB</value>
+  </data>
+  <data name="db.desc" xml:space="preserve">
+    <value>A logarithmic unit used to express the ratio of two values of a physical quantity, often power or intensity.</value>
+  </data>
+  <data name="degree.name" xml:space="preserve">
+    <value>degree of arc</value>
+  </data>
+  <data name="degree.symbol" xml:space="preserve">
+    <value>°</value>
+  </data>
+  <data name="degree.desc" xml:space="preserve">
+    <value>1/360 of a revolution</value>
+  </data>
+  <data name="arcsec.name" xml:space="preserve">
+    <value>arc second</value>
+  </data>
+  <data name="arcsec.symbol" xml:space="preserve">
+    <value>''</value>
+  </data>
+  <data name="arcsec.desc" xml:space="preserve">
+    <value>1/3600 of a degree</value>
+  </data>
+  <data name="radian.name" xml:space="preserve">
+    <value>radian</value>
+  </data>
+  <data name="radian.symbol" xml:space="preserve">
+    <value>rad</value>
+  </data>
+  <data name="radian.desc" xml:space="preserve">
+    <value>The plane angle subtended by a circular arc as the length of the arc divided by the radius of the arc.  1 rad</value>
+  </data>
+  <data name="steradian.name" xml:space="preserve">
+    <value>steradian</value>
+  </data>
+  <data name="steradian.symbol" xml:space="preserve">
+    <value>sr</value>
+  </data>
+  <data name="steradian.desc" xml:space="preserve">
+    <value>The solid angle subtended at the center of a sphere of radius r by a portion of the surface of the sphere having an area r². A sphere encompasses 4π sr.</value>
+  </data>
+  <data name="m.name" xml:space="preserve">
+    <value>metre</value>
+  </data>
+  <data name="m.symbol" xml:space="preserve">
+    <value>m</value>
+  </data>
+  <data name="m.desc" xml:space="preserve">
+    <value>The length of the path travelled by light in vacuum during a time interval of 1/299792458 of a second.</value>
+  </data>
+  <data name="parsec.name" xml:space="preserve">
+    <value>parsec</value>
+  </data>
+  <data name="parsec.symbol" xml:space="preserve">
+    <value>pc</value>
+  </data>
+  <data name="parsec.desc" xml:space="preserve">
+    <value>The distance at which one astronomical unit subtends an angle of one arcsecond</value>
+  </data>
+  <data name="au.name" xml:space="preserve">
+    <value>astronomical unit</value>
+  </data>
+  <data name="au.symbol" xml:space="preserve">
+    <value>au</value>
+  </data>
+  <data name="au.desc" xml:space="preserve">
+    <value>roughly the distance from Earth to the Sun</value>
+  </data>
+  <data name="diopter.name" xml:space="preserve">
+    <value>diopter</value>
+  </data>
+  <data name="diopter.symbol" xml:space="preserve">
+    <value>dpt</value>
+  </data>
+  <data name="diopter.desc" xml:space="preserve">
+    <value>A unit of refractive power that is equal to the reciprocal of the focal length (in meters) of a given lens.</value>
+  </data>
+  <data name="kg.name" xml:space="preserve">
+    <value>kilogram</value>
+  </data>
+  <data name="kg.symbol" xml:space="preserve">
+    <value>kg</value>
+  </data>
+  <data name="kg.desc" xml:space="preserve">
+    <value>The mass of the international prototype of the kilogram.</value>
+  </data>
+  <data name="tonne.name" xml:space="preserve">
+    <value>tonne</value>
+  </data>
+  <data name="tonne.symbol" xml:space="preserve">
+    <value>tn</value>
+  </data>
+  <data name="tonne.desc" xml:space="preserve">
+    <value>1000 kilograms</value>
+  </data>
+  <data name="gram.name" xml:space="preserve">
+    <value>gram</value>
+  </data>
+  <data name="gram.symbol" xml:space="preserve">
+    <value>g</value>
+  </data>
+  <data name="gram.desc" xml:space="preserve">
+    <value>1/1000 kilogram</value>
+  </data>
+  <data name="kelvin.name" xml:space="preserve">
+    <value>Degrees Kelvin</value>
+  </data>
+  <data name="kelvin.symbol" xml:space="preserve">
+    <value>°K</value>
+  </data>
+  <data name="kelvin.desc" xml:space="preserve">
+    <value>The fraction 1/273.16 of the thermodynamic temperature of the triple point of water.</value>
+  </data>
+  <data name="amp.name" xml:space="preserve">
+    <value>ampere</value>
+  </data>
+  <data name="amp.symbol" xml:space="preserve">
+    <value>A</value>
+  </data>
+  <data name="amp.desc" xml:space="preserve">
+    <value>The constant current needed to produce a force of 2×10-7 newton per metre between two straight parallel conductors of infinite length and negligible circular cross-section placed one metre apart in a vacuum.</value>
+  </data>
+  <data name="aperm.name" xml:space="preserve">
+    <value>ampere per metre</value>
+  </data>
+  <data name="aperm.symbol" xml:space="preserve">
+    <value>A/m</value>
+  </data>
+  <data name="aperm.desc" xml:space="preserve">
+    <value>magnetic field strength</value>
+  </data>
+  <data name="cd.name" xml:space="preserve">
+    <value>candela</value>
+  </data>
+  <data name="cd.symbol" xml:space="preserve">
+    <value>cd</value>
+  </data>
+  <data name="cd.desc" xml:space="preserve">
+    <value>The luminous intensity of a source that emits monochromatic radiation of frequency 540×10^12 hertz and that has a radiant intensity in that direction of 1/683 watt per steradian.</value>
+  </data>
+  <data name="mole.name" xml:space="preserve">
+    <value>mole</value>
+  </data>
+  <data name="mole.symbol" xml:space="preserve">
+    <value>mol</value>
+  </data>
+  <data name="mole.desc" xml:space="preserve">
+    <value>The amount of substance which contains as many elementary entities as there are atoms in 0.012 kilogram of carbon 12, defined to be 6.022 x 10^23 molecules, atoms, or some other unit.</value>
+  </data>
+  <data name="equivalent.name" xml:space="preserve">
+    <value>equivalent</value>
+  </data>
+  <data name="equivalent.symbol" xml:space="preserve">
+    <value>Eq</value>
+  </data>
+  <data name="equivalent.desc" xml:space="preserve">
+    <value>The amount of a substance that reacts with (or is equivalent to) an arbitrary amount of another substance in a given chemical reaction.</value>
+  </data>
+  <data name="iu.name" xml:space="preserve">
+    <value>International Unit</value>
+  </data>
+  <data name="iu.symbol" xml:space="preserve">
+    <value>IU</value>
+  </data>
+  <data name="iu.desc" xml:space="preserve">
+    <value>The amount of a substance</value>
+  </data>
+  <data name="molarity.name" xml:space="preserve">
+    <value>molarity</value>
+  </data>
+  <data name="molarity.symbol" xml:space="preserve">
+    <value>Mly</value>
+  </data>
+  <data name="molarity.desc" xml:space="preserve">
+    <value>Number of moles of solute per litre of solution.</value>
+  </data>
+  <data name="mps.name" xml:space="preserve">
+    <value>metre per second</value>
+  </data>
+  <data name="mps.symbol" xml:space="preserve">
+    <value>m/s</value>
+  </data>
+  <data name="mps.desc" xml:space="preserve">
+    <value>velocity</value>
+  </data>
+  <data name="mps2.name" xml:space="preserve">
+    <value>metre per second squared</value>
+  </data>
+  <data name="mps2.symbol" xml:space="preserve">
+    <value>m/s²</value>
+  </data>
+  <data name="mps2.desc" xml:space="preserve">
+    <value>acceleration</value>
+  </data>
+  <data name="m2.name" xml:space="preserve">
+    <value>square meters</value>
+  </data>
+  <data name="m2.symbol" xml:space="preserve">
+    <value>m²</value>
+  </data>
+  <data name="m2.desc" xml:space="preserve">
+    <value>metres squared</value>
+  </data>
+  <data name="hectare.name" xml:space="preserve">
+    <value>hectare</value>
+  </data>
+  <data name="hectare.symbol" xml:space="preserve">
+    <value>ha</value>
+  </data>
+  <data name="hectare.desc" xml:space="preserve">
+    <value>10,000 square metres</value>
+  </data>
+  <data name="m3.name" xml:space="preserve">
+    <value>cubic meters</value>
+  </data>
+  <data name="m3.symbol" xml:space="preserve">
+    <value>m³</value>
+  </data>
+  <data name="m3.desc" xml:space="preserve">
+    <value>metres cubed</value>
+  </data>
+  <data name="litre.name" xml:space="preserve">
+    <value>litre</value>
+  </data>
+  <data name="litre.symbol" xml:space="preserve">
+    <value>L</value>
+  </data>
+  <data name="litre.desc" xml:space="preserve">
+    <value>0.001 cubic metres</value>
+  </data>
+  <data name="n_m.name" xml:space="preserve">
+    <value>newton-metre</value>
+  </data>
+  <data name="n_m.symbol" xml:space="preserve">
+    <value>N.m</value>
+  </data>
+  <data name="n_m.desc" xml:space="preserve">
+    <value>torque</value>
+  </data>
+  <data name="kg_m3.name" xml:space="preserve">
+    <value>kilograms per cubic metre</value>
+  </data>
+  <data name="kg_m3.symbol" xml:space="preserve">
+    <value>kg/m³</value>
+  </data>
+  <data name="kg_m3.desc" xml:space="preserve">
+    <value>density</value>
+  </data>
+  <data name="newton.name" xml:space="preserve">
+    <value>newton</value>
+  </data>
+  <data name="newton.symbol" xml:space="preserve">
+    <value>N</value>
+  </data>
+  <data name="newton.desc" xml:space="preserve">
+    <value>force</value>
+  </data>
+  <data name="joule.name" xml:space="preserve">
+    <value>joule</value>
+  </data>
+  <data name="joule.symbol" xml:space="preserve">
+    <value>J</value>
+  </data>
+  <data name="joule.desc" xml:space="preserve">
+    <value>The work done when a force of one newton moves the point of its application a distance of one metre in the direction of the force.</value>
+  </data>
+  <data name="ev.name" xml:space="preserve">
+    <value>electron-volt</value>
+  </data>
+  <data name="ev.symbol" xml:space="preserve">
+    <value>eV</value>
+  </data>
+  <data name="ev.desc" xml:space="preserve">
+    <value>The amount of energy gained (or lost) by the charge of a single electron moving across an electric potential difference of one volt.</value>
+  </data>
+  <data name="faraday.name" xml:space="preserve">
+    <value>Faraday constant</value>
+  </data>
+  <data name="faraday.symbol" xml:space="preserve">
+    <value>Fc</value>
+  </data>
+  <data name="faraday.desc" xml:space="preserve">
+    <value>The magnitude of electric charge per mole of electrons.</value>
+  </data>
+  <data name="wh.name" xml:space="preserve">
+    <value>watt-hour</value>
+  </data>
+  <data name="wh.symbol" xml:space="preserve">
+    <value>Wh</value>
+  </data>
+  <data name="wh.desc" xml:space="preserve">
+    <value>One watt consumed in one hour</value>
+  </data>
+  <data name="calorie.name" xml:space="preserve">
+    <value>Calorie</value>
+  </data>
+  <data name="calorie.symbol" xml:space="preserve">
+    <value>Cal</value>
+  </data>
+  <data name="calorie.desc" xml:space="preserve">
+    <value>calorie (thermochemical)</value>
+  </data>
+  <data name="watt.name" xml:space="preserve">
+    <value>watt</value>
+  </data>
+  <data name="watt.symbol" xml:space="preserve">
+    <value>W</value>
+  </data>
+  <data name="watt.desc" xml:space="preserve">
+    <value>The power which in one second of time gives rise to one joule of energy.</value>
+  </data>
+  <data name="hertz.name" xml:space="preserve">
+    <value>hertz</value>
+  </data>
+  <data name="hertz.symbol" xml:space="preserve">
+    <value>Hz</value>
+  </data>
+  <data name="hertz.desc" xml:space="preserve">
+    <value>frequency</value>
+  </data>
+  <data name="radpers.name" xml:space="preserve">
+    <value>radians per second</value>
+  </data>
+  <data name="radpers.symbol" xml:space="preserve">
+    <value>rad/s</value>
+  </data>
+  <data name="radpers.desc" xml:space="preserve">
+    <value>angular velocity</value>
+  </data>
+  <data name="pascal.name" xml:space="preserve">
+    <value>pascal</value>
+  </data>
+  <data name="pascal.symbol" xml:space="preserve">
+    <value>Pa</value>
+  </data>
+  <data name="pascal.desc" xml:space="preserve">
+    <value>pressure</value>
+  </data>
+  <data name="atm.name" xml:space="preserve">
+    <value>atmosphere</value>
+  </data>
+  <data name="atm.symbol" xml:space="preserve">
+    <value>atm</value>
+  </data>
+  <data name="atm.desc" xml:space="preserve">
+    <value>standard atmosphere</value>
+  </data>
+  <data name="coulomb.name" xml:space="preserve">
+    <value>coulomb</value>
+  </data>
+  <data name="coulomb.symbol" xml:space="preserve">
+    <value>C</value>
+  </data>
+  <data name="coulomb.desc" xml:space="preserve">
+    <value>The amount of electricity carried in one second of time by one ampere of current.</value>
+  </data>
+  <data name="e.name" xml:space="preserve">
+    <value>elementary charge</value>
+  </data>
+  <data name="e.symbol" xml:space="preserve">
+    <value>e</value>
+  </data>
+  <data name="e.desc" xml:space="preserve">
+    <value>The charge of a single electron.</value>
+  </data>
+  <data name="me.name" xml:space="preserve">
+    <value>electron mass</value>
+  </data>
+  <data name="me.symbol" xml:space="preserve">
+    <value>me</value>
+  </data>
+  <data name="me.desc" xml:space="preserve">
+    <value>Mass of an electron</value>
+  </data>
+  <data name="mp.name" xml:space="preserve">
+    <value>proton mass</value>
+  </data>
+  <data name="mp.symbol" xml:space="preserve">
+    <value>mp</value>
+  </data>
+  <data name="mp.desc" xml:space="preserve">
+    <value>Mass of a proton</value>
+  </data>
+  <data name="volt.name" xml:space="preserve">
+    <value>volt</value>
+  </data>
+  <data name="volt.symbol" xml:space="preserve">
+    <value>V</value>
+  </data>
+  <data name="volt.desc" xml:space="preserve">
+    <value>The difference in electric potential across two points along a conducting wire carrying one ampere of constant current when the power dissipated between the points equals one watt.</value>
+  </data>
+  <data name="ohm.name" xml:space="preserve">
+    <value>ohm</value>
+  </data>
+  <data name="ohm.symbol" xml:space="preserve">
+    <value>ohm</value>
+  </data>
+  <data name="ohm.desc" xml:space="preserve">
+    <value>The resistance between two points in a conductor when one volt of electric potential difference, applied to these points, produces one ampere of current in the conductor.</value>
+  </data>
+  <data name="farad.name" xml:space="preserve">
+    <value>farad</value>
+  </data>
+  <data name="farad.symbol" xml:space="preserve">
+    <value>F</value>
+  </data>
+  <data name="farad.desc" xml:space="preserve">
+    <value>The capacitance between two parallel plates that results in one volt of potential difference when charged by one coulomb of electricity.</value>
+  </data>
+  <data name="fperm.name" xml:space="preserve">
+    <value>farad per metre</value>
+  </data>
+  <data name="fperm.symbol" xml:space="preserve">
+    <value>F/m</value>
+  </data>
+  <data name="fperm.desc" xml:space="preserve">
+    <value>Electric permittivity</value>
+  </data>
+  <data name="weber.name" xml:space="preserve">
+    <value>weber</value>
+  </data>
+  <data name="weber.symbol" xml:space="preserve">
+    <value>Wb</value>
+  </data>
+  <data name="weber.desc" xml:space="preserve">
+    <value>Magnetic flux which, linking a circuit of one turn, would produce in it an electromotive force of 1 volt if it were reduced to zero at a uniform rate in 1 second.</value>
+  </data>
+  <data name="tesla.name" xml:space="preserve">
+    <value>tesla</value>
+  </data>
+  <data name="tesla.symbol" xml:space="preserve">
+    <value>T</value>
+  </data>
+  <data name="tesla.desc" xml:space="preserve">
+    <value>Webers per square metre</value>
+  </data>
+  <data name="henry.name" xml:space="preserve">
+    <value>henry</value>
+  </data>
+  <data name="henry.symbol" xml:space="preserve">
+    <value>H</value>
+  </data>
+  <data name="henry.desc" xml:space="preserve">
+    <value>The inductance of a closed circuit that produces one volt of electromotive force when the current in the circuit varies at a uniform rate of one ampere per second</value>
+  </data>
+  <data name="siemens.name" xml:space="preserve">
+    <value>siemens</value>
+  </data>
+  <data name="siemens.symbol" xml:space="preserve">
+    <value>S</value>
+  </data>
+  <data name="siemens.desc" xml:space="preserve">
+    <value>Electrical conductance</value>
+  </data>
+  <data name="celsius.name" xml:space="preserve">
+    <value>Degrees Celsius</value>
+  </data>
+  <data name="celsius.symbol" xml:space="preserve">
+    <value>°C</value>
+  </data>
+  <data name="celsius.desc" xml:space="preserve">
+    <value>The scale of temperature in which water freezes at 0° and boils at 100° under standard conditions.</value>
+  </data>
+  <data name="lumen.name" xml:space="preserve">
+    <value>lumen</value>
+  </data>
+  <data name="lumen.symbol" xml:space="preserve">
+    <value>lm</value>
+  </data>
+  <data name="lumen.desc" xml:space="preserve">
+    <value>Luminous flux</value>
+  </data>
+  <data name="lux.name" xml:space="preserve">
+    <value>lux</value>
+  </data>
+  <data name="lux.symbol" xml:space="preserve">
+    <value>lx</value>
+  </data>
+  <data name="lux.desc" xml:space="preserve">
+    <value>Illuminance</value>
+  </data>
+  <data name="becquerel.name" xml:space="preserve">
+    <value>becquerel</value>
+  </data>
+  <data name="becquerel.symbol" xml:space="preserve">
+    <value>Bq</value>
+  </data>
+  <data name="becquerel.desc" xml:space="preserve">
+    <value>radioactivity (decays per unit time)</value>
+  </data>
+  <data name="gray.name" xml:space="preserve">
+    <value>gray</value>
+  </data>
+  <data name="gray.symbol" xml:space="preserve">
+    <value>Gy</value>
+  </data>
+  <data name="gray.desc" xml:space="preserve">
+    <value>absorbed dose (of ionizing radiation)</value>
+  </data>
+  <data name="sievert.name" xml:space="preserve">
+    <value>sievert</value>
+  </data>
+  <data name="sievert.symbol" xml:space="preserve">
+    <value>Sv</value>
+  </data>
+  <data name="sievert.desc" xml:space="preserve">
+    <value>equivalent dose (of ionizing radiation)</value>
+  </data>
+  <data name="sph.name" xml:space="preserve">
+    <value>Sieverts per hour</value>
+  </data>
+  <data name="sph.symbol" xml:space="preserve">
+    <value>Sv/h</value>
+  </data>
+  <data name="sph.desc" xml:space="preserve">
+    <value>Sieverts per hour</value>
+  </data>
+  <data name="katal.name" xml:space="preserve">
+    <value>katal</value>
+  </data>
+  <data name="katal.symbol" xml:space="preserve">
+    <value>kat</value>
+  </data>
+  <data name="katal.desc" xml:space="preserve">
+    <value>catalytic activity</value>
+  </data>
+  <data name="unit.name" xml:space="preserve">
+    <value>unit</value>
+  </data>
+  <data name="unit.symbol" xml:space="preserve">
+    <value>U</value>
+  </data>
+  <data name="unit.desc" xml:space="preserve">
+    <value>The amount that catalyzes the conversion of 1 micro mole of substrate per minute</value>
+  </data>
+  <data name="bar.name" xml:space="preserve">
+    <value>bar</value>
+  </data>
+  <data name="bar.symbol" xml:space="preserve">
+    <value>bar</value>
+  </data>
+  <data name="bar.desc" xml:space="preserve">
+    <value>10^5 Pascal</value>
+  </data>
+  <data name="m3PerSec.name" xml:space="preserve">
+    <value>cubic metres per second</value>
+  </data>
+  <data name="m3PerSec.symbol" xml:space="preserve">
+    <value>m³/s</value>
+  </data>
+  <data name="m3PerSec.desc" xml:space="preserve">
+    <value>volumetric flow</value>
+  </data>
+  <data name="kgPerSec.name" xml:space="preserve">
+    <value>kilograms per second</value>
+  </data>
+  <data name="kgPerSec.symbol" xml:space="preserve">
+    <value>kg/s</value>
+  </data>
+  <data name="kgPerSec.desc" xml:space="preserve">
+    <value>mass flow</value>
+  </data>
+  <data name="pascal_sec.name" xml:space="preserve">
+    <value>pascal second</value>
+  </data>
+  <data name="pascal_sec.symbol" xml:space="preserve">
+    <value>Pa·s</value>
+  </data>
+  <data name="pascal_sec.desc" xml:space="preserve">
+    <value>dynamic viscosity</value>
+  </data>
+  <data name="m2PerSec.name" xml:space="preserve">
+    <value>square metre per second</value>
+  </data>
+  <data name="m2PerSec.symbol" xml:space="preserve">
+    <value>m²/s</value>
+  </data>
+  <data name="m2PerSec.desc" xml:space="preserve">
+    <value>kinematic viscosity</value>
+  </data>
+  <data name="gravity.name" xml:space="preserve">
+    <value>Gn</value>
+  </data>
+  <data name="gravity.symbol" xml:space="preserve">
+    <value>gn</value>
+  </data>
+  <data name="gravity.desc" xml:space="preserve">
+    <value>standard acceleration of gravity</value>
+  </data>
+  <data name="light.name" xml:space="preserve">
+    <value>Vc</value>
+  </data>
+  <data name="light.symbol" xml:space="preserve">
+    <value>c</value>
+  </data>
+  <data name="light.desc" xml:space="preserve">
+    <value>velocity of light in a vacuum</value>
+  </data>
+  <data name="ly.name" xml:space="preserve">
+    <value>light-year</value>
+  </data>
+  <data name="ly.symbol" xml:space="preserve">
+    <value>ly</value>
+  </data>
+  <data name="ly.desc" xml:space="preserve">
+    <value>The distance that light travels in a vacuum in one Julian year</value>
+  </data>
+  <data name="carat.name" xml:space="preserve">
+    <value>carat</value>
+  </data>
+  <data name="carat.symbol" xml:space="preserve">
+    <value>ctm</value>
+  </data>
+  <data name="carat.desc" xml:space="preserve">
+    <value>metric carat is defined as 200 mg exactly</value>
+  </data>
+  <data name="angstrom.name" xml:space="preserve">
+    <value>Angstrom</value>
+  </data>
+  <data name="angstrom.symbol" xml:space="preserve">
+    <value>Ao</value>
+  </data>
+  <data name="angstrom.desc" xml:space="preserve">
+    <value>0.1 nanometres</value>
+  </data>
+  <data name="bit.name" xml:space="preserve">
+    <value>bit</value>
+  </data>
+  <data name="bit.symbol" xml:space="preserve">
+    <value>bit</value>
+  </data>
+  <data name="bit.desc" xml:space="preserve">
+    <value>basic amount of information</value>
+  </data>
+  <data name="byte.name" xml:space="preserve">
+    <value>byte</value>
+  </data>
+  <data name="byte.symbol" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="byte.desc" xml:space="preserve">
+    <value>8 bits of information</value>
+  </data>
+  <data name="planck.name" xml:space="preserve">
+    <value>Planck's constant</value>
+  </data>
+  <data name="planck.symbol" xml:space="preserve">
+    <value>hc</value>
+  </data>
+  <data name="planck.desc" xml:space="preserve">
+    <value>Planck's constant</value>
+  </data>
+  <data name="boltzmann.name" xml:space="preserve">
+    <value>Boltzmann's constant</value>
+  </data>
+  <data name="boltzmann.symbol" xml:space="preserve">
+    <value>k</value>
+  </data>
+  <data name="boltzmann.desc" xml:space="preserve">
+    <value>Boltzmann's constant</value>
+  </data>
+  <data name="avo.name" xml:space="preserve">
+    <value>Avogadro's constant</value>
+  </data>
+  <data name="avo.symbol" xml:space="preserve">
+    <value>NA</value>
+  </data>
+  <data name="avo.desc" xml:space="preserve">
+    <value>Avogadro's number</value>
+  </data>
+  <data name="gas.name" xml:space="preserve">
+    <value>Gas constant</value>
+  </data>
+  <data name="gas.symbol" xml:space="preserve">
+    <value>Rc</value>
+  </data>
+  <data name="gas.desc" xml:space="preserve">
+    <value>Molar, universal, or ideal gas constant</value>
+  </data>
+  <data name="fm.name" xml:space="preserve">
+    <value>Farad per metre</value>
+  </data>
+  <data name="fm.symbol" xml:space="preserve">
+    <value>F/m</value>
+  </data>
+  <data name="fm.desc" xml:space="preserve">
+    <value>Farad per metre</value>
+  </data>
+  <data name="eps0.name" xml:space="preserve">
+    <value>Epsilon Zero</value>
+  </data>
+  <data name="eps0.symbol" xml:space="preserve">
+    <value>eps0</value>
+  </data>
+  <data name="eps0.desc" xml:space="preserve">
+    <value>electric permittivity of a vacuum</value>
+  </data>
+  <data name="mu0.name" xml:space="preserve">
+    <value>Mu Zero</value>
+  </data>
+  <data name="mu0.symbol" xml:space="preserve">
+    <value>mu0</value>
+  </data>
+  <data name="mu0.desc" xml:space="preserve">
+    <value>permeability of a vacuum</value>
+  </data>
+  <data name="sb.name" xml:space="preserve">
+    <value>Stefan-Boltzmann</value>
+  </data>
+  <data name="sb.symbol" xml:space="preserve">
+    <value>σ</value>
+  </data>
+  <data name="sb.desc" xml:space="preserve">
+    <value>Stefan-Boltzmann constant</value>
+  </data>
+  <data name="caesium.name" xml:space="preserve">
+    <value>hyperfine transition frequency of Cs</value>
+  </data>
+  <data name="caesium.symbol" xml:space="preserve">
+    <value>ΔνCs</value>
+  </data>
+  <data name="caesium.desc" xml:space="preserve">
+    <value>basis of second</value>
+  </data>
+  <data name="kcd.name" xml:space="preserve">
+    <value>luminous efficacy</value>
+  </data>
+  <data name="kcd.symbol" xml:space="preserve">
+    <value>Kcd</value>
+  </data>
+  <data name="kcd.desc" xml:space="preserve">
+    <value>a measure of how well a light source produces visible light</value>
+  </data>
+  <data name="inch.name" xml:space="preserve">
+    <value>inch</value>
+  </data>
+  <data name="inch.symbol" xml:space="preserve">
+    <value>in</value>
+  </data>
+  <data name="inch.desc" xml:space="preserve">
+    <value>international inch</value>
+  </data>
+  <data name="mil.name" xml:space="preserve">
+    <value>mil</value>
+  </data>
+  <data name="mil.symbol" xml:space="preserve">
+    <value>mil</value>
+  </data>
+  <data name="mil.desc" xml:space="preserve">
+    <value>10-³ inches</value>
+  </data>
+  <data name="point.name" xml:space="preserve">
+    <value>point</value>
+  </data>
+  <data name="point.symbol" xml:space="preserve">
+    <value>pnt</value>
+  </data>
+  <data name="point.desc" xml:space="preserve">
+    <value>typesetting point</value>
+  </data>
+  <data name="foot.name" xml:space="preserve">
+    <value>foot</value>
+  </data>
+  <data name="foot.symbol" xml:space="preserve">
+    <value>ft</value>
+  </data>
+  <data name="foot.desc" xml:space="preserve">
+    <value>international foot</value>
+  </data>
+  <data name="yard.name" xml:space="preserve">
+    <value>yard</value>
+  </data>
+  <data name="yard.symbol" xml:space="preserve">
+    <value>yd</value>
+  </data>
+  <data name="yard.desc" xml:space="preserve">
+    <value>international yard</value>
+  </data>
+  <data name="mile.name" xml:space="preserve">
+    <value>mile</value>
+  </data>
+  <data name="mile.symbol" xml:space="preserve">
+    <value>mi</value>
+  </data>
+  <data name="mile.desc" xml:space="preserve">
+    <value>international mile</value>
+  </data>
+  <data name="fth.name" xml:space="preserve">
+    <value>fathom</value>
+  </data>
+  <data name="fth.symbol" xml:space="preserve">
+    <value>fth</value>
+  </data>
+  <data name="fth.desc" xml:space="preserve">
+    <value>depth of water</value>
+  </data>
+  <data name="in2.name" xml:space="preserve">
+    <value>square inches</value>
+  </data>
+  <data name="in2.symbol" xml:space="preserve">
+    <value>in²</value>
+  </data>
+  <data name="in2.desc" xml:space="preserve">
+    <value>area in square inches</value>
+  </data>
+  <data name="ft2.name" xml:space="preserve">
+    <value>square feet</value>
+  </data>
+  <data name="ft2.symbol" xml:space="preserve">
+    <value>ft²</value>
+  </data>
+  <data name="ft2.desc" xml:space="preserve">
+    <value>area in square feet</value>
+  </data>
+  <data name="yd2.name" xml:space="preserve">
+    <value>square yard</value>
+  </data>
+  <data name="yd2.symbol" xml:space="preserve">
+    <value>yd²</value>
+  </data>
+  <data name="yd2.desc" xml:space="preserve">
+    <value>area in square yards</value>
+  </data>
+  <data name="acre.name" xml:space="preserve">
+    <value>acre</value>
+  </data>
+  <data name="acre.symbol" xml:space="preserve">
+    <value>ac</value>
+  </data>
+  <data name="acre.desc" xml:space="preserve">
+    <value>acre (international)</value>
+  </data>
+  <data name="in3.name" xml:space="preserve">
+    <value>cubic inches</value>
+  </data>
+  <data name="in3.symbol" xml:space="preserve">
+    <value>in³</value>
+  </data>
+  <data name="in3.desc" xml:space="preserve">
+    <value>volume in cubic inches</value>
+  </data>
+  <data name="ft3.name" xml:space="preserve">
+    <value>cubic feet</value>
+  </data>
+  <data name="ft3.symbol" xml:space="preserve">
+    <value>ft³</value>
+  </data>
+  <data name="ft3.desc" xml:space="preserve">
+    <value>volume in cubic feet</value>
+  </data>
+  <data name="ft3PerSec.name" xml:space="preserve">
+    <value>cubic feet per second</value>
+  </data>
+  <data name="ft3PerSec.symbol" xml:space="preserve">
+    <value>ft³/s</value>
+  </data>
+  <data name="ft3PerSec.desc" xml:space="preserve">
+    <value>volumetric flow</value>
+  </data>
+  <data name="yd3.name" xml:space="preserve">
+    <value>cubic yard</value>
+  </data>
+  <data name="yd3.symbol" xml:space="preserve">
+    <value>yd³</value>
+  </data>
+  <data name="yd3.desc" xml:space="preserve">
+    <value>volume in cubic yards</value>
+  </data>
+  <data name="cord.name" xml:space="preserve">
+    <value>US cord</value>
+  </data>
+  <data name="cord.symbol" xml:space="preserve">
+    <value>cord</value>
+  </data>
+  <data name="cord.desc" xml:space="preserve">
+    <value>128 cubic feet (US customary)</value>
+  </data>
+  <data name="rankine.name" xml:space="preserve">
+    <value>Degrees Rankine</value>
+  </data>
+  <data name="rankine.symbol" xml:space="preserve">
+    <value>°R</value>
+  </data>
+  <data name="rankine.desc" xml:space="preserve">
+    <value>Scale of absolute temperature primarily used in thermodynamics.</value>
+  </data>
+  <data name="fahrenheit.name" xml:space="preserve">
+    <value>Degrees Fahrenheit</value>
+  </data>
+  <data name="fahrenheit.symbol" xml:space="preserve">
+    <value>°F</value>
+  </data>
+  <data name="fahrenheit.desc" xml:space="preserve">
+    <value>Pure water is defined to freeze at 32 °F</value>
+  </data>
+  <data name="lbm.name" xml:space="preserve">
+    <value>pound</value>
+  </data>
+  <data name="lbm.symbol" xml:space="preserve">
+    <value>lbm</value>
+  </data>
+  <data name="lbm.desc" xml:space="preserve">
+    <value>pound mass avoirdupois</value>
+  </data>
+  <data name="ounce.name" xml:space="preserve">
+    <value>ounce</value>
+  </data>
+  <data name="ounce.symbol" xml:space="preserve">
+    <value>oz</value>
+  </data>
+  <data name="ounce.desc" xml:space="preserve">
+    <value>1/16 pound mass avoirdupois</value>
+  </data>
+  <data name="troy_oz.name" xml:space="preserve">
+    <value>troy ounce</value>
+  </data>
+  <data name="troy_oz.symbol" xml:space="preserve">
+    <value>oz t</value>
+  </data>
+  <data name="troy_oz.desc" xml:space="preserve">
+    <value>Commonly used to measure the mass of precious metals</value>
+  </data>
+  <data name="slug.name" xml:space="preserve">
+    <value>slug</value>
+  </data>
+  <data name="slug.symbol" xml:space="preserve">
+    <value>slug</value>
+  </data>
+  <data name="slug.desc" xml:space="preserve">
+    <value>A mass that accelerates by 1 ft/s² when a force of one pound (lbf) is exerted on it.</value>
+  </data>
+  <data name="psi.name" xml:space="preserve">
+    <value>psi</value>
+  </data>
+  <data name="psi.symbol" xml:space="preserve">
+    <value>psi</value>
+  </data>
+  <data name="psi.desc" xml:space="preserve">
+    <value>pound force per square inch</value>
+  </data>
+  <data name="inhg.name" xml:space="preserve">
+    <value>inches of Mercury</value>
+  </data>
+  <data name="inhg.symbol" xml:space="preserve">
+    <value>in Hg</value>
+  </data>
+  <data name="inhg.desc" xml:space="preserve">
+    <value>inches of Mercury pressure</value>
+  </data>
+  <data name="fps.name" xml:space="preserve">
+    <value>feet per second</value>
+  </data>
+  <data name="fps.symbol" xml:space="preserve">
+    <value>ft/s</value>
+  </data>
+  <data name="fps.desc" xml:space="preserve">
+    <value>velocity in feet/sec</value>
+  </data>
+  <data name="mph.name" xml:space="preserve">
+    <value>miles per hour</value>
+  </data>
+  <data name="mph.symbol" xml:space="preserve">
+    <value>mph</value>
+  </data>
+  <data name="mph.desc" xml:space="preserve">
+    <value>velocity in mi/hr</value>
+  </data>
+  <data name="ftps2.name" xml:space="preserve">
+    <value>foot per second squared</value>
+  </data>
+  <data name="ftps2.symbol" xml:space="preserve">
+    <value>ft/s²</value>
+  </data>
+  <data name="ftps2.desc" xml:space="preserve">
+    <value>acceleration in feet/second squared</value>
+  </data>
+  <data name="lbf.name" xml:space="preserve">
+    <value>pound force</value>
+  </data>
+  <data name="lbf.symbol" xml:space="preserve">
+    <value>lbf</value>
+  </data>
+  <data name="lbf.desc" xml:space="preserve">
+    <value>The pound-force is equal to the gravitational force exerted on a mass of one avoirdupois pound on the surface of Earth.</value>
+  </data>
+  <data name="btu.name" xml:space="preserve">
+    <value>British Thermal Unit ISO</value>
+  </data>
+  <data name="btu.symbol" xml:space="preserve">
+    <value>BTU</value>
+  </data>
+  <data name="btu.desc" xml:space="preserve">
+    <value>The amount of heat required to raise the temperature of 1 avoirdupois pound of liquid water by 1 degree Fahrenheit at a constant pressure of one atmosphere.</value>
+  </data>
+  <data name="hp.name" xml:space="preserve">
+    <value>horsepower</value>
+  </data>
+  <data name="hp.symbol" xml:space="preserve">
+    <value>hp</value>
+  </data>
+  <data name="hp.desc" xml:space="preserve">
+    <value>Mechanical horsepower</value>
+  </data>
+  <data name="ft_lbf.name" xml:space="preserve">
+    <value>foot-pound force</value>
+  </data>
+  <data name="ft_lbf.symbol" xml:space="preserve">
+    <value>ft·lbf</value>
+  </data>
+  <data name="ft_lbf.desc" xml:space="preserve">
+    <value>torque</value>
+  </data>
+  <data name="NM.name" xml:space="preserve">
+    <value>nautical mile</value>
+  </data>
+  <data name="NM.symbol" xml:space="preserve">
+    <value>NMi</value>
+  </data>
+  <data name="NM.desc" xml:space="preserve">
+    <value>nautical mile (international)</value>
+  </data>
+  <data name="knot.name" xml:space="preserve">
+    <value>knot</value>
+  </data>
+  <data name="knot.symbol" xml:space="preserve">
+    <value>kn</value>
+  </data>
+  <data name="knot.desc" xml:space="preserve">
+    <value>knot (Admiralty)</value>
+  </data>
+  <data name="grain.name" xml:space="preserve">
+    <value>grain</value>
+  </data>
+  <data name="grain.symbol" xml:space="preserve">
+    <value>gr</value>
+  </data>
+  <data name="grain.desc" xml:space="preserve">
+    <value>grain mass avoirdupois</value>
+  </data>
+  <data name="rpm.name" xml:space="preserve">
+    <value>revolutions per minute</value>
+  </data>
+  <data name="rpm.symbol" xml:space="preserve">
+    <value>rpm</value>
+  </data>
+  <data name="rpm.desc" xml:space="preserve">
+    <value>The rotational speed of a mechanical component.</value>
+  </data>
+  <data name="wsm.name" xml:space="preserve">
+    <value>irradiance</value>
+  </data>
+  <data name="wsm.symbol" xml:space="preserve">
+    <value>Ee</value>
+  </data>
+  <data name="wsm.desc" xml:space="preserve">
+    <value>power per unit area</value>
+  </data>
+  <data name="hubble.name" xml:space="preserve">
+    <value>Hubble constant</value>
+  </data>
+  <data name="hubble.symbol" xml:space="preserve">
+    <value>H0</value>
+  </data>
+  <data name="hubble.desc" xml:space="preserve">
+    <value>The constant of proportionality between the distance to a galaxy and its velocity</value>
+  </data>
+  <data name="us_tsp.name" xml:space="preserve">
+    <value>US teaspoon</value>
+  </data>
+  <data name="us_tsp.symbol" xml:space="preserve">
+    <value>us tsp</value>
+  </data>
+  <data name="us_tsp.desc" xml:space="preserve">
+    <value>teaspoon (US customary)</value>
+  </data>
+  <data name="us_tbsp.name" xml:space="preserve">
+    <value>tablespoon</value>
+  </data>
+  <data name="us_tbsp.symbol" xml:space="preserve">
+    <value>us tbsp</value>
+  </data>
+  <data name="us_tbsp.desc" xml:space="preserve">
+    <value>tablespoon (US customary)</value>
+  </data>
+  <data name="us_cup.name" xml:space="preserve">
+    <value>US cup</value>
+  </data>
+  <data name="us_cup.symbol" xml:space="preserve">
+    <value>us cup</value>
+  </data>
+  <data name="us_cup.desc" xml:space="preserve">
+    <value>cup  (US customary)</value>
+  </data>
+  <data name="us_fl_oz.name" xml:space="preserve">
+    <value>US fluid ounce</value>
+  </data>
+  <data name="us_fl_oz.symbol" xml:space="preserve">
+    <value>us fl oz</value>
+  </data>
+  <data name="us_fl_oz.desc" xml:space="preserve">
+    <value>1/128 of a US gallon</value>
+  </data>
+  <data name="us_pint.name" xml:space="preserve">
+    <value>US pint</value>
+  </data>
+  <data name="us_pint.symbol" xml:space="preserve">
+    <value>us pt</value>
+  </data>
+  <data name="us_pint.desc" xml:space="preserve">
+    <value>pint (US customary)</value>
+  </data>
+  <data name="us_quart.name" xml:space="preserve">
+    <value>US quart</value>
+  </data>
+  <data name="us_quart.symbol" xml:space="preserve">
+    <value>us qt</value>
+  </data>
+  <data name="us_quart.desc" xml:space="preserve">
+    <value>quart (US customary)</value>
+  </data>
+  <data name="us_gallon.name" xml:space="preserve">
+    <value>US gallon</value>
+  </data>
+  <data name="us_gallon.symbol" xml:space="preserve">
+    <value>us gal</value>
+  </data>
+  <data name="us_gallon.desc" xml:space="preserve">
+    <value>Queen Anne's wine gallon (US customary)</value>
+  </data>
+  <data name="us_bbl.name" xml:space="preserve">
+    <value>US barrel</value>
+  </data>
+  <data name="us_bbl.symbol" xml:space="preserve">
+    <value>bbl</value>
+  </data>
+  <data name="us_bbl.desc" xml:space="preserve">
+    <value>42 gallons (US customary)</value>
+  </data>
+  <data name="us_bu.name" xml:space="preserve">
+    <value>US bushel</value>
+  </data>
+  <data name="us_bu.symbol" xml:space="preserve">
+    <value>us bu</value>
+  </data>
+  <data name="us_bu.desc" xml:space="preserve">
+    <value>US bushel</value>
+  </data>
+  <data name="us_ton.name" xml:space="preserve">
+    <value>short ton</value>
+  </data>
+  <data name="us_ton.symbol" xml:space="preserve">
+    <value>sh tn</value>
+  </data>
+  <data name="us_ton.desc" xml:space="preserve">
+    <value>US short ton</value>
+  </data>
+  <data name="br_tsp.name" xml:space="preserve">
+    <value>teaspoon</value>
+  </data>
+  <data name="br_tsp.symbol" xml:space="preserve">
+    <value>br tsp</value>
+  </data>
+  <data name="br_tsp.desc" xml:space="preserve">
+    <value>teaspoon (Imperial)</value>
+  </data>
+  <data name="br_tbsp.name" xml:space="preserve">
+    <value>tablespoon</value>
+  </data>
+  <data name="br_tbsp.symbol" xml:space="preserve">
+    <value>br tbsp</value>
+  </data>
+  <data name="br_tbsp.desc" xml:space="preserve">
+    <value>tablespoon (Imperial)</value>
+  </data>
+  <data name="br_fl_oz.name" xml:space="preserve">
+    <value>Imperial fluid ounce</value>
+  </data>
+  <data name="br_fl_oz.symbol" xml:space="preserve">
+    <value>br fl oz</value>
+  </data>
+  <data name="br_fl_oz.desc" xml:space="preserve">
+    <value>1/160 of an Imperial gallon</value>
+  </data>
+  <data name="br_cup.name" xml:space="preserve">
+    <value>Imperial cup</value>
+  </data>
+  <data name="br_cup.symbol" xml:space="preserve">
+    <value>br cup</value>
+  </data>
+  <data name="br_cup.desc" xml:space="preserve">
+    <value>cup  (Imperial)</value>
+  </data>
+  <data name="br_pint.name" xml:space="preserve">
+    <value>Imperial pint</value>
+  </data>
+  <data name="br_pint.symbol" xml:space="preserve">
+    <value>br pt</value>
+  </data>
+  <data name="br_pint.desc" xml:space="preserve">
+    <value>Imperial pint</value>
+  </data>
+  <data name="br_quart.name" xml:space="preserve">
+    <value>Imperial quart</value>
+  </data>
+  <data name="br_quart.symbol" xml:space="preserve">
+    <value>br qt</value>
+  </data>
+  <data name="br_quart.desc" xml:space="preserve">
+    <value>Imperial quart</value>
+  </data>
+  <data name="br_gallon.name" xml:space="preserve">
+    <value>Imperial gallon</value>
+  </data>
+  <data name="br_gallon.symbol" xml:space="preserve">
+    <value>br gal</value>
+  </data>
+  <data name="br_gallon.desc" xml:space="preserve">
+    <value>4.54609 litres</value>
+  </data>
+  <data name="br_bu.name" xml:space="preserve">
+    <value>Imperial bushel</value>
+  </data>
+  <data name="br_bu.symbol" xml:space="preserve">
+    <value>br bu</value>
+  </data>
+  <data name="br_bu.desc" xml:space="preserve">
+    <value>Imperial bushel</value>
+  </data>
+  <data name="br_ton.name" xml:space="preserve">
+    <value>long ton</value>
+  </data>
+  <data name="br_ton.symbol" xml:space="preserve">
+    <value>long tn</value>
+  </data>
+  <data name="br_ton.desc" xml:space="preserve">
+    <value>long ton</value>
+  </data>
+  <data name="us_dollar.name" xml:space="preserve">
+    <value>US dollar</value>
+  </data>
+  <data name="us_dollar.symbol" xml:space="preserve">
+    <value>$</value>
+  </data>
+  <data name="us_dollar.desc" xml:space="preserve">
+    <value>US dollar</value>
+  </data>
+  <data name="euro.name" xml:space="preserve">
+    <value>euro</value>
+  </data>
+  <data name="euro.symbol" xml:space="preserve">
+    <value>€</value>
+  </data>
+  <data name="euro.desc" xml:space="preserve">
+    <value>euro</value>
+  </data>
+  <data name="yuan.name" xml:space="preserve">
+    <value>yuan</value>
+  </data>
+  <data name="yuan.symbol" xml:space="preserve">
+    <value>¥</value>
+  </data>
+  <data name="yuan.desc" xml:space="preserve">
+    <value>Chinese yuan</value>
+  </data>
+  <data name="percent.name" xml:space="preserve">
+    <value>percent</value>
+  </data>
+  <data name="percent.symbol" xml:space="preserve">
+    <value>%</value>
+  </data>
+  <data name="percent.desc" xml:space="preserve">
+    <value>percentage</value>
+  </data>
+  <data name="must.be.same.as" xml:space="preserve">
+    <value>The unit of measure {0} of type {1} must be the same as {2} of type {3}.</value>
+  </data>
+  <data name="amount.cannot.be.null" xml:space="preserve">
+    <value>The amount cannot be null.</value>
+  </data>
+  <data name="symbol.cannot.be.null" xml:space="preserve">
+    <value>The symbol cannot be null.</value>
+  </data>
+  <data name="dividend.cannot.be.null" xml:space="preserve">
+    <value>The dividend cannot be null for the quotient unit of measure with symbol {0}.</value>
+  </data>
+  <data name="divisor.cannot.be.null" xml:space="preserve">
+    <value>The divisor cannot be null for the quotient unit of measure with symbol {0}.</value>
+  </data>
+  <data name="multiplier.cannot.be.null" xml:space="preserve">
+    <value>The multiplier cannot be null for the product unit of measure with symbol {0}.</value>
+  </data>
+  <data name="multiplicand.cannot.be.null" xml:space="preserve">
+    <value>The multiplicand cannot be null for the product unit of measure with symbol {0}.</value>
+  </data>
+  <data name="base.cannot.be.null" xml:space="preserve">
+    <value>The base cannot be null for the power unit of measure with symbol {0}.</value>
+  </data>
+  <data name="unit.type.cannot.be.null" xml:space="preserve">
+    <value>The type of the unit of measure cannot be null.</value>
+  </data>
+  <data name="unit.cannot.be.null" xml:space="preserve">
+    <value>The unit of measure cannot be null.</value>
+  </data>
+  <data name="offset.not.supported" xml:space="preserve">
+    <value>The unit of measure {0} cannot have an offset.</value>
+  </data>
+  <data name="incompatible.units" xml:space="preserve">
+    <value>The unit of measure {0} cannot be converted to {1}.</value>
+  </data>
+  <data name="conversion.not.allowed" xml:space="preserve">
+    <value>The scaling factor must be 1 and the offset must be 0.</value>
+  </data>
+  <data name="circular.references" xml:space="preserve">
+    <value>The unit of measure with symbol {0} has circular references and cannot be created.</value>
+  </data>
+  <data name="divisor.cannot.be.zero" xml:space="preserve">
+    <value>The amount to divide by must not be zero.</value>
+  </data>
 </root>

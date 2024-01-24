@@ -1,7 +1,7 @@
 ﻿/*
 MIT License
 
-Copyright (c) 2016 - 2017 Kent Randall Point85
+Copyright (c) 2016 - 2024 Kent Randall Point85
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -22,9 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 
 namespace Point85.Caliper.UnitOfMeasure
 {
@@ -67,18 +65,6 @@ namespace Point85.Caliper.UnitOfMeasure
 	/// </summary>
 	public class MeasurementSystem
 	{
-		// name of resource with translatable strings for exception messages
-		private const string MESSAGE_RESOURCE_NAME = "./Resources/Message.properties";
-
-		// name of resource with translatable strings for UOMs (e.g. time)
-		private const string UNIT_RESOURCE_NAME = "./Resources/Unit.properties";
-
-		// resource manager for exception messages
-		internal static PropertyManager MessagesManager;
-
-		// resource manager for units
-		internal static PropertyManager UnitsManager;
-
 		// standard unified system
 		private static MeasurementSystem UnifiedSystem = new MeasurementSystem();
 
@@ -96,9 +82,6 @@ namespace Point85.Caliper.UnitOfMeasure
 
 		private MeasurementSystem()
 		{
-			// localizable string managers
-			MessagesManager = new PropertyManager(MESSAGE_RESOURCE_NAME);
-			UnitsManager = new PropertyManager(UNIT_RESOURCE_NAME);
 		}
 
 		/// <summary>Get the units of measure cached by their symbol</summary>
@@ -133,7 +116,7 @@ namespace Point85.Caliper.UnitOfMeasure
 		/// </summary>
 		public static string GetMessage(string key)
 		{
-			return MessagesManager.GetString(key);
+			return CaliperSharp.Properties.Resources.ResourceManager.GetString(key);
 		}
 
 		/// <summary>
@@ -141,7 +124,7 @@ namespace Point85.Caliper.UnitOfMeasure
 		/// </summary>
 		public static string GetUnitString(string key)
 		{
-			return UnitsManager.GetString(key);
+			return GetMessage(key);
 		}
 
 		/// <summary>Get the unified system of units of measure for International Customary,
@@ -341,500 +324,500 @@ namespace Point85.Caliper.UnitOfMeasure
 			{
 				case Unit.ONE:
 					// unity
-					uom = CreateScalarUOM(UnitType.UNITY, Unit.ONE, UnitsManager.GetString("one.name"),
-							UnitsManager.GetString("one.symbol"), UnitsManager.GetString("one.desc"));
+					uom = CreateScalarUOM(UnitType.UNITY, Unit.ONE, MeasurementSystem.GetUnitString("one.name"),
+							MeasurementSystem.GetUnitString("one.symbol"), MeasurementSystem.GetUnitString("one.desc"));
 					break;
 
 				case Unit.PERCENT:
-					uom = CreateScalarUOM(UnitType.UNITY, Unit.PERCENT, UnitsManager.GetString("percent.name"),
-							UnitsManager.GetString("percent.symbol"), UnitsManager.GetString("percent.desc"));
+					uom = CreateScalarUOM(UnitType.UNITY, Unit.PERCENT, MeasurementSystem.GetUnitString("percent.name"),
+							MeasurementSystem.GetUnitString("percent.symbol"), MeasurementSystem.GetUnitString("percent.desc"));
 					uom.SetConversion(0.01, GetOne());
 					break;
 
 				case Unit.SECOND:
 					// second
-					uom = CreateScalarUOM(UnitType.TIME, Unit.SECOND, UnitsManager.GetString("sec.name"),
-							UnitsManager.GetString("sec.symbol"), UnitsManager.GetString("sec.desc"));
+					uom = CreateScalarUOM(UnitType.TIME, Unit.SECOND, MeasurementSystem.GetUnitString("sec.name"),
+							MeasurementSystem.GetUnitString("sec.symbol"), MeasurementSystem.GetUnitString("sec.desc"));
 					break;
 
 				case Unit.MINUTE:
 					// minute
-					uom = CreateScalarUOM(UnitType.TIME, Unit.MINUTE, UnitsManager.GetString("min.name"),
-							UnitsManager.GetString("min.symbol"), UnitsManager.GetString("min.desc"));
+					uom = CreateScalarUOM(UnitType.TIME, Unit.MINUTE, MeasurementSystem.GetUnitString("min.name"),
+							MeasurementSystem.GetUnitString("min.symbol"), MeasurementSystem.GetUnitString("min.desc"));
 					uom.SetConversion(60, GetUOM(Unit.SECOND));
 					break;
 
 				case Unit.HOUR:
 					// hour
-					uom = CreateScalarUOM(UnitType.TIME, Unit.HOUR, UnitsManager.GetString("hr.name"),
-							UnitsManager.GetString("hr.symbol"), UnitsManager.GetString("hr.desc"));
+					uom = CreateScalarUOM(UnitType.TIME, Unit.HOUR, MeasurementSystem.GetUnitString("hr.name"),
+							MeasurementSystem.GetUnitString("hr.symbol"), MeasurementSystem.GetUnitString("hr.desc"));
 					uom.SetConversion(3600, GetUOM(Unit.SECOND));
 					break;
 
 				case Unit.DAY:
 					// day
-					uom = CreateScalarUOM(UnitType.TIME, Unit.DAY, UnitsManager.GetString("day.name"),
-							UnitsManager.GetString("day.symbol"), UnitsManager.GetString("day.desc"));
+					uom = CreateScalarUOM(UnitType.TIME, Unit.DAY, MeasurementSystem.GetUnitString("day.name"),
+							MeasurementSystem.GetUnitString("day.symbol"), MeasurementSystem.GetUnitString("day.desc"));
 					uom.SetConversion(86400, GetUOM(Unit.SECOND));
 					break;
 
 				case Unit.WEEK:
 					// week
-					uom = CreateScalarUOM(UnitType.TIME, Unit.WEEK, UnitsManager.GetString("week.name"),
-							UnitsManager.GetString("week.symbol"), UnitsManager.GetString("week.desc"));
+					uom = CreateScalarUOM(UnitType.TIME, Unit.WEEK, MeasurementSystem.GetUnitString("week.name"),
+							MeasurementSystem.GetUnitString("week.symbol"), MeasurementSystem.GetUnitString("week.desc"));
 					uom.SetConversion(604800, GetUOM(Unit.SECOND));
 					break;
 
 				case Unit.JULIAN_YEAR:
 					// Julian year
-					uom = CreateScalarUOM(UnitType.TIME, Unit.JULIAN_YEAR, UnitsManager.GetString("jyear.name"),
-							UnitsManager.GetString("jyear.symbol"), UnitsManager.GetString("jyear.desc"));
+					uom = CreateScalarUOM(UnitType.TIME, Unit.JULIAN_YEAR, MeasurementSystem.GetUnitString("jyear.name"),
+							MeasurementSystem.GetUnitString("jyear.symbol"), MeasurementSystem.GetUnitString("jyear.desc"));
 					uom.SetConversion(3.1557600E+07, GetUOM(Unit.SECOND));
 
 					break;
 
 				case Unit.SQUARE_SECOND:
 					// square second
-					uom = CreatePowerUOM(UnitType.TIME_SQUARED, Unit.SQUARE_SECOND, UnitsManager.GetString("s2.name"),
-							UnitsManager.GetString("s2.symbol"), UnitsManager.GetString("s2.desc"), GetUOM(Unit.SECOND), 2);
+					uom = CreatePowerUOM(UnitType.TIME_SQUARED, Unit.SQUARE_SECOND, MeasurementSystem.GetUnitString("s2.name"),
+							MeasurementSystem.GetUnitString("s2.symbol"), MeasurementSystem.GetUnitString("s2.desc"), GetUOM(Unit.SECOND), 2);
 					break;
 
 				case Unit.MOLE:
 					// substance amount
-					uom = CreateScalarUOM(UnitType.SUBSTANCE_AMOUNT, Unit.MOLE, UnitsManager.GetString("mole.name"),
-							UnitsManager.GetString("mole.symbol"), UnitsManager.GetString("mole.desc"));
+					uom = CreateScalarUOM(UnitType.SUBSTANCE_AMOUNT, Unit.MOLE, MeasurementSystem.GetUnitString("mole.name"),
+							MeasurementSystem.GetUnitString("mole.symbol"), MeasurementSystem.GetUnitString("mole.desc"));
 					break;
 
 				case Unit.EQUIVALENT:
 					// substance amount
-					uom = CreateScalarUOM(UnitType.SUBSTANCE_AMOUNT, Unit.EQUIVALENT, UnitsManager.GetString("equivalent.name"),
-							UnitsManager.GetString("equivalent.symbol"), UnitsManager.GetString("equivalent.desc"));
+					uom = CreateScalarUOM(UnitType.SUBSTANCE_AMOUNT, Unit.EQUIVALENT, MeasurementSystem.GetUnitString("equivalent.name"),
+							MeasurementSystem.GetUnitString("equivalent.symbol"), MeasurementSystem.GetUnitString("equivalent.desc"));
 					break;
 
 				case Unit.DECIBEL:
 					// decibel
-					uom = CreateScalarUOM(UnitType.INTENSITY, Unit.DECIBEL, UnitsManager.GetString("db.name"),
-							UnitsManager.GetString("db.symbol"), UnitsManager.GetString("db.desc"));
+					uom = CreateScalarUOM(UnitType.INTENSITY, Unit.DECIBEL, MeasurementSystem.GetUnitString("db.name"),
+							MeasurementSystem.GetUnitString("db.symbol"), MeasurementSystem.GetUnitString("db.desc"));
 					break;
 
 				case Unit.RADIAN:
 					// plane angle radian (rad)
-					uom = CreateScalarUOM(UnitType.PLANE_ANGLE, Unit.RADIAN, UnitsManager.GetString("radian.name"),
-							UnitsManager.GetString("radian.symbol"), UnitsManager.GetString("radian.desc"));
+					uom = CreateScalarUOM(UnitType.PLANE_ANGLE, Unit.RADIAN, MeasurementSystem.GetUnitString("radian.name"),
+							MeasurementSystem.GetUnitString("radian.symbol"), MeasurementSystem.GetUnitString("radian.desc"));
 					uom.SetConversion(GetOne());
 					break;
 
 				case Unit.STERADIAN:
 					// solid angle steradian (sr)
-					uom = CreateScalarUOM(UnitType.SOLID_ANGLE, Unit.STERADIAN, UnitsManager.GetString("steradian.name"),
-							UnitsManager.GetString("steradian.symbol"), UnitsManager.GetString("steradian.desc"));
+					uom = CreateScalarUOM(UnitType.SOLID_ANGLE, Unit.STERADIAN, MeasurementSystem.GetUnitString("steradian.name"),
+							MeasurementSystem.GetUnitString("steradian.symbol"), MeasurementSystem.GetUnitString("steradian.desc"));
 					uom.SetConversion(GetOne());
 					break;
 
 				case Unit.DEGREE:
 					// degree of arc
-					uom = CreateScalarUOM(UnitType.PLANE_ANGLE, Unit.DEGREE, UnitsManager.GetString("degree.name"),
-							UnitsManager.GetString("degree.symbol"), UnitsManager.GetString("degree.desc"));
+					uom = CreateScalarUOM(UnitType.PLANE_ANGLE, Unit.DEGREE, MeasurementSystem.GetUnitString("degree.name"),
+							MeasurementSystem.GetUnitString("degree.symbol"), MeasurementSystem.GetUnitString("degree.desc"));
 					uom.SetConversion(Math.PI / (double)180, GetUOM(Unit.RADIAN));
 					break;
 
 				case Unit.ARC_SECOND:
 					// degree of arc
-					uom = CreateScalarUOM(UnitType.PLANE_ANGLE, Unit.ARC_SECOND, UnitsManager.GetString("arcsec.name"),
-							UnitsManager.GetString("arcsec.symbol"), UnitsManager.GetString("arcsec.desc"));
+					uom = CreateScalarUOM(UnitType.PLANE_ANGLE, Unit.ARC_SECOND, MeasurementSystem.GetUnitString("arcsec.name"),
+							MeasurementSystem.GetUnitString("arcsec.symbol"), MeasurementSystem.GetUnitString("arcsec.desc"));
 					uom.SetConversion(Math.PI / (double)648000, GetUOM(Unit.RADIAN));
 					break;
 
 				case Unit.METRE:
 					// fundamental length
-					uom = CreateScalarUOM(UnitType.LENGTH, Unit.METRE, UnitsManager.GetString("m.name"),
-							UnitsManager.GetString("m.symbol"), UnitsManager.GetString("m.desc"));
+					uom = CreateScalarUOM(UnitType.LENGTH, Unit.METRE, MeasurementSystem.GetUnitString("m.name"),
+							MeasurementSystem.GetUnitString("m.symbol"), MeasurementSystem.GetUnitString("m.desc"));
 					break;
 
 				case Unit.DIOPTER:
 					// per metre
-					uom = CreateQuotientUOM(UnitType.RECIPROCAL_LENGTH, Unit.DIOPTER, UnitsManager.GetString("diopter.name"),
-							UnitsManager.GetString("diopter.symbol"), UnitsManager.GetString("diopter.desc"), GetOne(),
+					uom = CreateQuotientUOM(UnitType.RECIPROCAL_LENGTH, Unit.DIOPTER, MeasurementSystem.GetUnitString("diopter.name"),
+							MeasurementSystem.GetUnitString("diopter.symbol"), MeasurementSystem.GetUnitString("diopter.desc"), GetOne(),
 							GetUOM(Unit.METRE));
 					break;
 
 				case Unit.KILOGRAM:
 					// fundamental mass
-					uom = CreateScalarUOM(UnitType.MASS, Unit.KILOGRAM, UnitsManager.GetString("kg.name"),
-							UnitsManager.GetString("kg.symbol"), UnitsManager.GetString("kg.desc"));
+					uom = CreateScalarUOM(UnitType.MASS, Unit.KILOGRAM, MeasurementSystem.GetUnitString("kg.name"),
+							MeasurementSystem.GetUnitString("kg.symbol"), MeasurementSystem.GetUnitString("kg.desc"));
 					break;
 
 				case Unit.TONNE:
 					// mass
-					uom = CreateScalarUOM(UnitType.MASS, Unit.TONNE, UnitsManager.GetString("tonne.name"),
-							UnitsManager.GetString("tonne.symbol"), UnitsManager.GetString("tonne.desc"));
+					uom = CreateScalarUOM(UnitType.MASS, Unit.TONNE, MeasurementSystem.GetUnitString("tonne.name"),
+							MeasurementSystem.GetUnitString("tonne.symbol"), MeasurementSystem.GetUnitString("tonne.desc"));
 					uom.SetConversion(Prefix.KILO.Factor, GetUOM(Unit.KILOGRAM));
 					break;
 
 				case Unit.KELVIN:
 					// fundamental temperature
-					uom = CreateScalarUOM(UnitType.TEMPERATURE, Unit.KELVIN, UnitsManager.GetString("kelvin.name"),
-							UnitsManager.GetString("kelvin.symbol"), UnitsManager.GetString("kelvin.desc"));
+					uom = CreateScalarUOM(UnitType.TEMPERATURE, Unit.KELVIN, MeasurementSystem.GetUnitString("kelvin.name"),
+							MeasurementSystem.GetUnitString("kelvin.symbol"), MeasurementSystem.GetUnitString("kelvin.desc"));
 					break;
 
 				case Unit.AMPERE:
 					// electric current
-					uom = CreateScalarUOM(UnitType.ELECTRIC_CURRENT, Unit.AMPERE, UnitsManager.GetString("amp.name"),
-							UnitsManager.GetString("amp.symbol"), UnitsManager.GetString("amp.desc"));
+					uom = CreateScalarUOM(UnitType.ELECTRIC_CURRENT, Unit.AMPERE, MeasurementSystem.GetUnitString("amp.name"),
+							MeasurementSystem.GetUnitString("amp.symbol"), MeasurementSystem.GetUnitString("amp.desc"));
 					break;
 
 				case Unit.CANDELA:
 					// luminosity
-					uom = CreateScalarUOM(UnitType.LUMINOSITY, Unit.CANDELA, UnitsManager.GetString("cd.name"),
-							UnitsManager.GetString("cd.symbol"), UnitsManager.GetString("cd.desc"));
+					uom = CreateScalarUOM(UnitType.LUMINOSITY, Unit.CANDELA, MeasurementSystem.GetUnitString("cd.name"),
+							MeasurementSystem.GetUnitString("cd.symbol"), MeasurementSystem.GetUnitString("cd.desc"));
 					break;
 
 				case Unit.MOLARITY:
 					// molar concentration
-					uom = CreateQuotientUOM(UnitType.MOLAR_CONCENTRATION, Unit.MOLARITY, UnitsManager.GetString("molarity.name"),
-							UnitsManager.GetString("molarity.symbol"), UnitsManager.GetString("molarity.desc"), GetUOM(Unit.MOLE),
+					uom = CreateQuotientUOM(UnitType.MOLAR_CONCENTRATION, Unit.MOLARITY, MeasurementSystem.GetUnitString("molarity.name"),
+							MeasurementSystem.GetUnitString("molarity.symbol"), MeasurementSystem.GetUnitString("molarity.desc"), GetUOM(Unit.MOLE),
 							GetUOM(Unit.LITRE));
 					break;
 
-				case Unit.GRAM: 
+				case Unit.GRAM:
 					// gram
-					uom = CreateScalarUOM(UnitType.MASS, Unit.GRAM, UnitsManager.GetString("gram.name"),
-							UnitsManager.GetString("gram.symbol"), UnitsManager.GetString("gram.desc"));
+					uom = CreateScalarUOM(UnitType.MASS, Unit.GRAM, MeasurementSystem.GetUnitString("gram.name"),
+							MeasurementSystem.GetUnitString("gram.symbol"), MeasurementSystem.GetUnitString("gram.desc"));
 					uom.SetConversion(Prefix.MILLI.Factor, GetUOM(Unit.KILOGRAM));
 					break;
 
 				case Unit.CARAT:
 					// carat
-					uom = CreateScalarUOM(UnitType.MASS, Unit.CARAT, UnitsManager.GetString("carat.name"),
-							UnitsManager.GetString("carat.symbol"), UnitsManager.GetString("carat.desc"));
+					uom = CreateScalarUOM(UnitType.MASS, Unit.CARAT, MeasurementSystem.GetUnitString("carat.name"),
+							MeasurementSystem.GetUnitString("carat.symbol"), MeasurementSystem.GetUnitString("carat.desc"));
 					uom.SetConversion(0.2, GetUOM(Unit.GRAM));
 					break;
 
 				case Unit.SQUARE_METRE:
 					// square metre
-					uom = CreatePowerUOM(UnitType.AREA, Unit.SQUARE_METRE, UnitsManager.GetString("m2.name"),
-							UnitsManager.GetString("m2.symbol"), UnitsManager.GetString("m2.desc"), GetUOM(Unit.METRE), 2);
+					uom = CreatePowerUOM(UnitType.AREA, Unit.SQUARE_METRE, MeasurementSystem.GetUnitString("m2.name"),
+							MeasurementSystem.GetUnitString("m2.symbol"), MeasurementSystem.GetUnitString("m2.desc"), GetUOM(Unit.METRE), 2);
 					break;
 
 				case Unit.HECTARE:
 					// hectare
-					uom = CreateScalarUOM(UnitType.AREA, Unit.HECTARE, UnitsManager.GetString("hectare.name"),
-							UnitsManager.GetString("hectare.symbol"), UnitsManager.GetString("hectare.desc"));
+					uom = CreateScalarUOM(UnitType.AREA, Unit.HECTARE, MeasurementSystem.GetUnitString("hectare.name"),
+							MeasurementSystem.GetUnitString("hectare.symbol"), MeasurementSystem.GetUnitString("hectare.desc"));
 					uom.SetConversion(10000, GetUOM(Unit.SQUARE_METRE));
 					break;
 
 				case Unit.METRE_PER_SEC:
 					// velocity
-					uom = CreateQuotientUOM(UnitType.VELOCITY, Unit.METRE_PER_SEC, UnitsManager.GetString("mps.name"),
-							UnitsManager.GetString("mps.symbol"), UnitsManager.GetString("mps.desc"), GetUOM(Unit.METRE), GetSecond());
+					uom = CreateQuotientUOM(UnitType.VELOCITY, Unit.METRE_PER_SEC, MeasurementSystem.GetUnitString("mps.name"),
+							MeasurementSystem.GetUnitString("mps.symbol"), MeasurementSystem.GetUnitString("mps.desc"), GetUOM(Unit.METRE), GetSecond());
 					break;
 
 				case Unit.METRE_PER_SEC_SQUARED:
 					// acceleration
-					uom = CreateQuotientUOM(UnitType.ACCELERATION, Unit.METRE_PER_SEC_SQUARED, UnitsManager.GetString("mps2.name"),
-							UnitsManager.GetString("mps2.symbol"), UnitsManager.GetString("mps2.desc"), GetUOM(Unit.METRE),
+					uom = CreateQuotientUOM(UnitType.ACCELERATION, Unit.METRE_PER_SEC_SQUARED, MeasurementSystem.GetUnitString("mps2.name"),
+							MeasurementSystem.GetUnitString("mps2.symbol"), MeasurementSystem.GetUnitString("mps2.desc"), GetUOM(Unit.METRE),
 							GetUOM(Unit.SQUARE_SECOND));
 					break;
 
 				case Unit.CUBIC_METRE:
 					// cubic metre
-					uom = CreatePowerUOM(UnitType.VOLUME, Unit.CUBIC_METRE, UnitsManager.GetString("m3.name"),
-							UnitsManager.GetString("m3.symbol"), UnitsManager.GetString("m3.desc"), GetUOM(Unit.METRE), 3);
+					uom = CreatePowerUOM(UnitType.VOLUME, Unit.CUBIC_METRE, MeasurementSystem.GetUnitString("m3.name"),
+							MeasurementSystem.GetUnitString("m3.symbol"), MeasurementSystem.GetUnitString("m3.desc"), GetUOM(Unit.METRE), 3);
 					break;
 
 				case Unit.LITRE:
 					// litre
-					uom = CreateScalarUOM(UnitType.VOLUME, Unit.LITRE, UnitsManager.GetString("litre.name"),
-							UnitsManager.GetString("litre.symbol"), UnitsManager.GetString("litre.desc"));
+					uom = CreateScalarUOM(UnitType.VOLUME, Unit.LITRE, MeasurementSystem.GetUnitString("litre.name"),
+							MeasurementSystem.GetUnitString("litre.symbol"), MeasurementSystem.GetUnitString("litre.desc"));
 					uom.SetConversion(Prefix.MILLI.Factor, GetUOM(Unit.CUBIC_METRE));
 					break;
 
 				case Unit.CUBIC_METRE_PER_SEC:
 					// flow (volume)
 					uom = CreateQuotientUOM(UnitType.VOLUMETRIC_FLOW, Unit.CUBIC_METRE_PER_SEC,
-							UnitsManager.GetString("m3PerSec.name"), UnitsManager.GetString("m3PerSec.symbol"),
-							UnitsManager.GetString("m3PerSec.desc"), GetUOM(Unit.CUBIC_METRE), GetSecond());
+							MeasurementSystem.GetUnitString("m3PerSec.name"), MeasurementSystem.GetUnitString("m3PerSec.symbol"),
+							MeasurementSystem.GetUnitString("m3PerSec.desc"), GetUOM(Unit.CUBIC_METRE), GetSecond());
 					break;
 
 				case Unit.KILOGRAM_PER_SEC:
 					// flow (mass)
-					uom = CreateQuotientUOM(UnitType.MASS_FLOW, Unit.KILOGRAM_PER_SEC, UnitsManager.GetString("kgPerSec.name"),
-							UnitsManager.GetString("kgPerSec.symbol"), UnitsManager.GetString("kgPerSec.desc"), GetUOM(Unit.KILOGRAM),
+					uom = CreateQuotientUOM(UnitType.MASS_FLOW, Unit.KILOGRAM_PER_SEC, MeasurementSystem.GetUnitString("kgPerSec.name"),
+							MeasurementSystem.GetUnitString("kgPerSec.symbol"), MeasurementSystem.GetUnitString("kgPerSec.desc"), GetUOM(Unit.KILOGRAM),
 							GetSecond());
 					break;
 
 				case Unit.KILOGRAM_PER_CU_METRE:
 					// kg/m^3
-					uom = CreateQuotientUOM(UnitType.DENSITY, Unit.KILOGRAM_PER_CU_METRE, UnitsManager.GetString("kg_m3.name"),
-							UnitsManager.GetString("kg_m3.symbol"), UnitsManager.GetString("kg_m3.desc"), GetUOM(Unit.KILOGRAM),
+					uom = CreateQuotientUOM(UnitType.DENSITY, Unit.KILOGRAM_PER_CU_METRE, MeasurementSystem.GetUnitString("kg_m3.name"),
+							MeasurementSystem.GetUnitString("kg_m3.symbol"), MeasurementSystem.GetUnitString("kg_m3.desc"), GetUOM(Unit.KILOGRAM),
 							GetUOM(Unit.CUBIC_METRE));
 					break;
 
 				case Unit.PASCAL_SECOND:
 					// dynamic viscosity
-					uom = CreateProductUOM(UnitType.DYNAMIC_VISCOSITY, Unit.PASCAL_SECOND, UnitsManager.GetString("pascal_sec.name"),
-							UnitsManager.GetString("pascal_sec.symbol"), UnitsManager.GetString("pascal_sec.desc"), GetUOM(Unit.PASCAL),
+					uom = CreateProductUOM(UnitType.DYNAMIC_VISCOSITY, Unit.PASCAL_SECOND, MeasurementSystem.GetUnitString("pascal_sec.name"),
+							MeasurementSystem.GetUnitString("pascal_sec.symbol"), MeasurementSystem.GetUnitString("pascal_sec.desc"), GetUOM(Unit.PASCAL),
 							GetSecond());
 					break;
 
 				case Unit.SQUARE_METRE_PER_SEC:
 					// kinematic viscosity
 					uom = CreateQuotientUOM(UnitType.KINEMATIC_VISCOSITY, Unit.SQUARE_METRE_PER_SEC,
-							UnitsManager.GetString("m2PerSec.name"), UnitsManager.GetString("m2PerSec.symbol"),
-							UnitsManager.GetString("m2PerSec.desc"), GetUOM(Unit.SQUARE_METRE), GetSecond());
+							MeasurementSystem.GetUnitString("m2PerSec.name"), MeasurementSystem.GetUnitString("m2PerSec.symbol"),
+							MeasurementSystem.GetUnitString("m2PerSec.desc"), GetUOM(Unit.SQUARE_METRE), GetSecond());
 					break;
 
 				case Unit.CALORIE:
 					// thermodynamic calorie
-					uom = CreateScalarUOM(UnitType.ENERGY, Unit.CALORIE, UnitsManager.GetString("calorie.name"),
-							UnitsManager.GetString("calorie.symbol"), UnitsManager.GetString("calorie.desc"));
+					uom = CreateScalarUOM(UnitType.ENERGY, Unit.CALORIE, MeasurementSystem.GetUnitString("calorie.name"),
+							MeasurementSystem.GetUnitString("calorie.symbol"), MeasurementSystem.GetUnitString("calorie.desc"));
 					uom.SetConversion(4.184, GetUOM(Unit.JOULE));
 					break;
 
 				case Unit.NEWTON:
 					// force F = m·A (newton)
-					uom = CreateProductUOM(UnitType.FORCE, Unit.NEWTON, UnitsManager.GetString("newton.name"),
-							UnitsManager.GetString("newton.symbol"), UnitsManager.GetString("newton.desc"), GetUOM(Unit.KILOGRAM),
+					uom = CreateProductUOM(UnitType.FORCE, Unit.NEWTON, MeasurementSystem.GetUnitString("newton.name"),
+							MeasurementSystem.GetUnitString("newton.symbol"), MeasurementSystem.GetUnitString("newton.desc"), GetUOM(Unit.KILOGRAM),
 							GetUOM(Unit.METRE_PER_SEC_SQUARED));
 					break;
 
 				case Unit.NEWTON_METRE:
 					// newton-metre
-					uom = CreateProductUOM(UnitType.ENERGY, Unit.NEWTON_METRE, UnitsManager.GetString("n_m.name"),
-							UnitsManager.GetString("n_m.symbol"), UnitsManager.GetString("n_m.desc"), GetUOM(Unit.NEWTON),
+					uom = CreateProductUOM(UnitType.ENERGY, Unit.NEWTON_METRE, MeasurementSystem.GetUnitString("n_m.name"),
+							MeasurementSystem.GetUnitString("n_m.symbol"), MeasurementSystem.GetUnitString("n_m.desc"), GetUOM(Unit.NEWTON),
 							GetUOM(Unit.METRE));
 					break;
 
 				case Unit.JOULE:
 					// energy (joule)
-					uom = CreateProductUOM(UnitType.ENERGY, Unit.JOULE, UnitsManager.GetString("joule.name"),
-							UnitsManager.GetString("joule.symbol"), UnitsManager.GetString("joule.desc"), GetUOM(Unit.NEWTON),
+					uom = CreateProductUOM(UnitType.ENERGY, Unit.JOULE, MeasurementSystem.GetUnitString("joule.name"),
+							MeasurementSystem.GetUnitString("joule.symbol"), MeasurementSystem.GetUnitString("joule.desc"), GetUOM(Unit.NEWTON),
 							GetUOM(Unit.METRE));
 					break;
 
 				case Unit.ELECTRON_VOLT:
 					// ev
 					Quantity e = this.GetQuantity(Constant.ELEMENTARY_CHARGE);
-					uom = CreateProductUOM(UnitType.ENERGY, Unit.ELECTRON_VOLT, UnitsManager.GetString("ev.name"),
-								UnitsManager.GetString("ev.symbol"), UnitsManager.GetString("ev.desc"), e.UOM, GetUOM(Unit.VOLT));
+					uom = CreateProductUOM(UnitType.ENERGY, Unit.ELECTRON_VOLT, MeasurementSystem.GetUnitString("ev.name"),
+								MeasurementSystem.GetUnitString("ev.symbol"), MeasurementSystem.GetUnitString("ev.desc"), e.UOM, GetUOM(Unit.VOLT));
 					uom.ScalingFactor = e.Amount;
 					break;
 
 				case Unit.WATT_HOUR:
 					// watt-hour
-					uom = CreateProductUOM(UnitType.ENERGY, Unit.WATT_HOUR, UnitsManager.GetString("wh.name"),
-							UnitsManager.GetString("wh.symbol"), UnitsManager.GetString("wh.desc"), GetUOM(Unit.WATT), GetHour());
+					uom = CreateProductUOM(UnitType.ENERGY, Unit.WATT_HOUR, MeasurementSystem.GetUnitString("wh.name"),
+							MeasurementSystem.GetUnitString("wh.symbol"), MeasurementSystem.GetUnitString("wh.desc"), GetUOM(Unit.WATT), GetHour());
 					break;
 
 				case Unit.WATT:
 					// power (watt)
-					uom = CreateQuotientUOM(UnitType.POWER, Unit.WATT, UnitsManager.GetString("watt.name"),
-							UnitsManager.GetString("watt.symbol"), UnitsManager.GetString("watt.desc"), GetUOM(Unit.JOULE), GetSecond());
+					uom = CreateQuotientUOM(UnitType.POWER, Unit.WATT, MeasurementSystem.GetUnitString("watt.name"),
+							MeasurementSystem.GetUnitString("watt.symbol"), MeasurementSystem.GetUnitString("watt.desc"), GetUOM(Unit.JOULE), GetSecond());
 					break;
 
 				case Unit.HERTZ:
 					// frequency (hertz)
-					uom = CreateQuotientUOM(UnitType.FREQUENCY, Unit.HERTZ, UnitsManager.GetString("hertz.name"),
-							UnitsManager.GetString("hertz.symbol"), UnitsManager.GetString("hertz.desc"), GetOne(), GetSecond());
+					uom = CreateQuotientUOM(UnitType.FREQUENCY, Unit.HERTZ, MeasurementSystem.GetUnitString("hertz.name"),
+							MeasurementSystem.GetUnitString("hertz.symbol"), MeasurementSystem.GetUnitString("hertz.desc"), GetOne(), GetSecond());
 					break;
 
 				case Unit.RAD_PER_SEC:
 					// angular frequency
-					uom = CreateQuotientUOM(UnitType.FREQUENCY, Unit.RAD_PER_SEC, UnitsManager.GetString("radpers.name"),
-							UnitsManager.GetString("radpers.symbol"), UnitsManager.GetString("radpers.desc"), GetUOM(Unit.RADIAN),
+					uom = CreateQuotientUOM(UnitType.FREQUENCY, Unit.RAD_PER_SEC, MeasurementSystem.GetUnitString("radpers.name"),
+							MeasurementSystem.GetUnitString("radpers.symbol"), MeasurementSystem.GetUnitString("radpers.desc"), GetUOM(Unit.RADIAN),
 							GetSecond());
 					uom.SetConversion((double)1 / ((double)2 * Math.PI), GetUOM(Unit.HERTZ));
 					break;
 
 				case Unit.PASCAL:
 					// pressure
-					uom = CreateQuotientUOM(UnitType.PRESSURE, Unit.PASCAL, UnitsManager.GetString("pascal.name"),
-							UnitsManager.GetString("pascal.symbol"), UnitsManager.GetString("pascal.desc"), GetUOM(Unit.NEWTON),
+					uom = CreateQuotientUOM(UnitType.PRESSURE, Unit.PASCAL, MeasurementSystem.GetUnitString("pascal.name"),
+							MeasurementSystem.GetUnitString("pascal.symbol"), MeasurementSystem.GetUnitString("pascal.desc"), GetUOM(Unit.NEWTON),
 							GetUOM(Unit.SQUARE_METRE));
 					break;
 
 				case Unit.ATMOSPHERE:
 					// pressure
-					uom = CreateScalarUOM(UnitType.PRESSURE, Unit.ATMOSPHERE, UnitsManager.GetString("atm.name"),
-							UnitsManager.GetString("atm.symbol"), UnitsManager.GetString("atm.desc"));
+					uom = CreateScalarUOM(UnitType.PRESSURE, Unit.ATMOSPHERE, MeasurementSystem.GetUnitString("atm.name"),
+							MeasurementSystem.GetUnitString("atm.symbol"), MeasurementSystem.GetUnitString("atm.desc"));
 					uom.SetConversion(101325, GetUOM(Unit.PASCAL));
 					break;
 
 				case Unit.BAR:
 					// pressure
-					uom = CreateScalarUOM(UnitType.PRESSURE, Unit.BAR, UnitsManager.GetString("bar.name"),
-							UnitsManager.GetString("bar.symbol"), UnitsManager.GetString("bar.desc"));
+					uom = CreateScalarUOM(UnitType.PRESSURE, Unit.BAR, MeasurementSystem.GetUnitString("bar.name"),
+							MeasurementSystem.GetUnitString("bar.symbol"), MeasurementSystem.GetUnitString("bar.desc"));
 					uom.SetConversion(1, GetUOM(Unit.PASCAL), 1.0E+05);
 					break;
 
 				case Unit.COULOMB:
 					// charge (coulomb)
-					uom = CreateProductUOM(UnitType.ELECTRIC_CHARGE, Unit.COULOMB, UnitsManager.GetString("coulomb.name"),
-							UnitsManager.GetString("coulomb.symbol"), UnitsManager.GetString("coulomb.desc"), GetUOM(Unit.AMPERE),
+					uom = CreateProductUOM(UnitType.ELECTRIC_CHARGE, Unit.COULOMB, MeasurementSystem.GetUnitString("coulomb.name"),
+							MeasurementSystem.GetUnitString("coulomb.symbol"), MeasurementSystem.GetUnitString("coulomb.desc"), GetUOM(Unit.AMPERE),
 							GetSecond());
 					break;
 
 				case Unit.VOLT:
 					// voltage (volt)
-					uom = CreateQuotientUOM(UnitType.ELECTROMOTIVE_FORCE, Unit.VOLT, UnitsManager.GetString("volt.name"),
-							UnitsManager.GetString("volt.symbol"), UnitsManager.GetString("volt.desc"), GetUOM(Unit.WATT),
+					uom = CreateQuotientUOM(UnitType.ELECTROMOTIVE_FORCE, Unit.VOLT, MeasurementSystem.GetUnitString("volt.name"),
+							MeasurementSystem.GetUnitString("volt.symbol"), MeasurementSystem.GetUnitString("volt.desc"), GetUOM(Unit.WATT),
 							GetUOM(Unit.AMPERE));
 					break;
 
 				case Unit.OHM:
 					// resistance (ohm)
-					uom = CreateQuotientUOM(UnitType.ELECTRIC_RESISTANCE, Unit.OHM, UnitsManager.GetString("ohm.name"),
-							UnitsManager.GetString("ohm.symbol"), UnitsManager.GetString("ohm.desc"), GetUOM(Unit.VOLT),
+					uom = CreateQuotientUOM(UnitType.ELECTRIC_RESISTANCE, Unit.OHM, MeasurementSystem.GetUnitString("ohm.name"),
+							MeasurementSystem.GetUnitString("ohm.symbol"), MeasurementSystem.GetUnitString("ohm.desc"), GetUOM(Unit.VOLT),
 							GetUOM(Unit.AMPERE));
 					break;
 
 				case Unit.FARAD:
 					// capacitance (farad)
-					uom = CreateQuotientUOM(UnitType.ELECTRIC_CAPACITANCE, Unit.FARAD, UnitsManager.GetString("farad.name"),
-							UnitsManager.GetString("farad.symbol"), UnitsManager.GetString("farad.desc"), GetUOM(Unit.COULOMB),
+					uom = CreateQuotientUOM(UnitType.ELECTRIC_CAPACITANCE, Unit.FARAD, MeasurementSystem.GetUnitString("farad.name"),
+							MeasurementSystem.GetUnitString("farad.symbol"), MeasurementSystem.GetUnitString("farad.desc"), GetUOM(Unit.COULOMB),
 							GetUOM(Unit.VOLT));
 					break;
 
 				case Unit.FARAD_PER_METRE:
 					// electric permittivity (farad/metre)
 					uom = CreateQuotientUOM(UnitType.ELECTRIC_PERMITTIVITY, Unit.FARAD_PER_METRE,
-							UnitsManager.GetString("fperm.name"), UnitsManager.GetString("fperm.symbol"), UnitsManager.GetString("fperm.desc"),
+							MeasurementSystem.GetUnitString("fperm.name"), MeasurementSystem.GetUnitString("fperm.symbol"), MeasurementSystem.GetUnitString("fperm.desc"),
 							GetUOM(Unit.FARAD), GetUOM(Unit.METRE));
 					break;
 
 				case Unit.AMPERE_PER_METRE:
 					// electric field strength(ampere/metre)
 					uom = CreateQuotientUOM(UnitType.ELECTRIC_FIELD_STRENGTH, Unit.AMPERE_PER_METRE,
-							UnitsManager.GetString("aperm.name"), UnitsManager.GetString("aperm.symbol"), UnitsManager.GetString("aperm.desc"),
+							MeasurementSystem.GetUnitString("aperm.name"), MeasurementSystem.GetUnitString("aperm.symbol"), MeasurementSystem.GetUnitString("aperm.desc"),
 							GetUOM(Unit.AMPERE), GetUOM(Unit.METRE));
 					break;
 
 				case Unit.WEBER:
 					// magnetic flux (weber)
-					uom = CreateProductUOM(UnitType.MAGNETIC_FLUX, Unit.WEBER, UnitsManager.GetString("weber.name"),
-							UnitsManager.GetString("weber.symbol"), UnitsManager.GetString("weber.desc"), GetUOM(Unit.VOLT), GetSecond());
+					uom = CreateProductUOM(UnitType.MAGNETIC_FLUX, Unit.WEBER, MeasurementSystem.GetUnitString("weber.name"),
+							MeasurementSystem.GetUnitString("weber.symbol"), MeasurementSystem.GetUnitString("weber.desc"), GetUOM(Unit.VOLT), GetSecond());
 					break;
 
 				case Unit.TESLA:
 					// magnetic flux density (tesla)
-					uom = CreateQuotientUOM(UnitType.MAGNETIC_FLUX_DENSITY, Unit.TESLA, UnitsManager.GetString("tesla.name"),
-							UnitsManager.GetString("tesla.symbol"), UnitsManager.GetString("tesla.desc"), GetUOM(Unit.WEBER),
+					uom = CreateQuotientUOM(UnitType.MAGNETIC_FLUX_DENSITY, Unit.TESLA, MeasurementSystem.GetUnitString("tesla.name"),
+							MeasurementSystem.GetUnitString("tesla.symbol"), MeasurementSystem.GetUnitString("tesla.desc"), GetUOM(Unit.WEBER),
 							GetUOM(Unit.SQUARE_METRE));
 					break;
 
 				case Unit.HENRY:
 					// inductance (henry)
-					uom = CreateQuotientUOM(UnitType.ELECTRIC_INDUCTANCE, Unit.HENRY, UnitsManager.GetString("henry.name"),
-							UnitsManager.GetString("henry.symbol"), UnitsManager.GetString("henry.desc"), GetUOM(Unit.WEBER),
+					uom = CreateQuotientUOM(UnitType.ELECTRIC_INDUCTANCE, Unit.HENRY, MeasurementSystem.GetUnitString("henry.name"),
+							MeasurementSystem.GetUnitString("henry.symbol"), MeasurementSystem.GetUnitString("henry.desc"), GetUOM(Unit.WEBER),
 							GetUOM(Unit.AMPERE));
 					break;
 
 				case Unit.SIEMENS:
 					// electrical conductance (siemens)
-					uom = CreateQuotientUOM(UnitType.ELECTRIC_CONDUCTANCE, Unit.SIEMENS, UnitsManager.GetString("siemens.name"),
-							UnitsManager.GetString("siemens.symbol"), UnitsManager.GetString("siemens.desc"), GetUOM(Unit.AMPERE),
+					uom = CreateQuotientUOM(UnitType.ELECTRIC_CONDUCTANCE, Unit.SIEMENS, MeasurementSystem.GetUnitString("siemens.name"),
+							MeasurementSystem.GetUnitString("siemens.symbol"), MeasurementSystem.GetUnitString("siemens.desc"), GetUOM(Unit.AMPERE),
 							GetUOM(Unit.VOLT));
 					break;
 
 				case Unit.CELSIUS:
 					// °C = °K - 273.15
-					uom = CreateScalarUOM(UnitType.TEMPERATURE, Unit.CELSIUS, UnitsManager.GetString("celsius.name"),
-							UnitsManager.GetString("celsius.symbol"), UnitsManager.GetString("celsius.desc"));
+					uom = CreateScalarUOM(UnitType.TEMPERATURE, Unit.CELSIUS, MeasurementSystem.GetUnitString("celsius.name"),
+							MeasurementSystem.GetUnitString("celsius.symbol"), MeasurementSystem.GetUnitString("celsius.desc"));
 					uom.SetConversion(1, GetUOM(Unit.KELVIN), 273.15);
 					break;
 
 				case Unit.LUMEN:
 					// luminous flux (lumen)
-					uom = CreateProductUOM(UnitType.LUMINOUS_FLUX, Unit.LUMEN, UnitsManager.GetString("lumen.name"),
-							UnitsManager.GetString("lumen.symbol"), UnitsManager.GetString("lumen.desc"), GetUOM(Unit.CANDELA),
+					uom = CreateProductUOM(UnitType.LUMINOUS_FLUX, Unit.LUMEN, MeasurementSystem.GetUnitString("lumen.name"),
+							MeasurementSystem.GetUnitString("lumen.symbol"), MeasurementSystem.GetUnitString("lumen.desc"), GetUOM(Unit.CANDELA),
 							GetUOM(Unit.STERADIAN));
 					break;
 
 				case Unit.LUX:
 					// illuminance (lux)
-					uom = CreateQuotientUOM(UnitType.ILLUMINANCE, Unit.LUX, UnitsManager.GetString("lux.name"),
-							UnitsManager.GetString("lux.symbol"), UnitsManager.GetString("lux.desc"), GetUOM(Unit.LUMEN),
+					uom = CreateQuotientUOM(UnitType.ILLUMINANCE, Unit.LUX, MeasurementSystem.GetUnitString("lux.name"),
+							MeasurementSystem.GetUnitString("lux.symbol"), MeasurementSystem.GetUnitString("lux.desc"), GetUOM(Unit.LUMEN),
 							GetUOM(Unit.SQUARE_METRE));
 					break;
 
 				case Unit.BECQUEREL:
 					// radioactivity (becquerel). Same base symbol as Hertz
-					uom = CreateQuotientUOM(UnitType.RADIOACTIVITY, Unit.BECQUEREL, UnitsManager.GetString("becquerel.name"),
-							UnitsManager.GetString("becquerel.symbol"), UnitsManager.GetString("becquerel.desc"), GetOne(), GetSecond());
+					uom = CreateQuotientUOM(UnitType.RADIOACTIVITY, Unit.BECQUEREL, MeasurementSystem.GetUnitString("becquerel.name"),
+							MeasurementSystem.GetUnitString("becquerel.symbol"), MeasurementSystem.GetUnitString("becquerel.desc"), GetOne(), GetSecond());
 					break;
 
 				case Unit.GRAY:
 					// gray (Gy)
-					uom = CreateQuotientUOM(UnitType.RADIATION_DOSE_ABSORBED, Unit.GRAY, UnitsManager.GetString("gray.name"),
-							UnitsManager.GetString("gray.symbol"), UnitsManager.GetString("gray.desc"), GetUOM(Unit.JOULE),
+					uom = CreateQuotientUOM(UnitType.RADIATION_DOSE_ABSORBED, Unit.GRAY, MeasurementSystem.GetUnitString("gray.name"),
+							MeasurementSystem.GetUnitString("gray.symbol"), MeasurementSystem.GetUnitString("gray.desc"), GetUOM(Unit.JOULE),
 							GetUOM(Unit.KILOGRAM));
 					break;
 
 				case Unit.SIEVERT:
 					// sievert (Sv)
-					uom = CreateQuotientUOM(UnitType.RADIATION_DOSE_EFFECTIVE, Unit.SIEVERT, UnitsManager.GetString("sievert.name"),
-							UnitsManager.GetString("sievert.symbol"), UnitsManager.GetString("sievert.desc"), GetUOM(Unit.JOULE),
+					uom = CreateQuotientUOM(UnitType.RADIATION_DOSE_EFFECTIVE, Unit.SIEVERT, MeasurementSystem.GetUnitString("sievert.name"),
+							MeasurementSystem.GetUnitString("sievert.symbol"), MeasurementSystem.GetUnitString("sievert.desc"), GetUOM(Unit.JOULE),
 							GetUOM(Unit.KILOGRAM));
 					break;
 
 				case Unit.SIEVERTS_PER_HOUR:
-					uom = CreateQuotientUOM(UnitType.RADIATION_DOSE_RATE, Unit.SIEVERTS_PER_HOUR, UnitsManager.GetString("sph.name"),
-							UnitsManager.GetString("sph.symbol"), UnitsManager.GetString("sph.desc"), GetUOM(Unit.SIEVERT), GetHour());
+					uom = CreateQuotientUOM(UnitType.RADIATION_DOSE_RATE, Unit.SIEVERTS_PER_HOUR, MeasurementSystem.GetUnitString("sph.name"),
+							MeasurementSystem.GetUnitString("sph.symbol"), MeasurementSystem.GetUnitString("sph.desc"), GetUOM(Unit.SIEVERT), GetHour());
 					break;
 
 				case Unit.KATAL:
 					// katal (kat)
-					uom = CreateQuotientUOM(UnitType.CATALYTIC_ACTIVITY, Unit.KATAL, UnitsManager.GetString("katal.name"),
-							UnitsManager.GetString("katal.symbol"), UnitsManager.GetString("katal.desc"), GetUOM(Unit.MOLE), GetSecond());
+					uom = CreateQuotientUOM(UnitType.CATALYTIC_ACTIVITY, Unit.KATAL, MeasurementSystem.GetUnitString("katal.name"),
+							MeasurementSystem.GetUnitString("katal.symbol"), MeasurementSystem.GetUnitString("katal.desc"), GetUOM(Unit.MOLE), GetSecond());
 					break;
 
 				case Unit.UNIT:
 					// Unit (U)
-					uom = CreateScalarUOM(UnitType.CATALYTIC_ACTIVITY, Unit.UNIT, UnitsManager.GetString("unit.name"),
-							UnitsManager.GetString("unit.symbol"), UnitsManager.GetString("unit.desc"));
+					uom = CreateScalarUOM(UnitType.CATALYTIC_ACTIVITY, Unit.UNIT, MeasurementSystem.GetUnitString("unit.name"),
+							MeasurementSystem.GetUnitString("unit.symbol"), MeasurementSystem.GetUnitString("unit.desc"));
 					uom.SetConversion(1.0E-06 / (double)60, GetUOM(Unit.KATAL));
 					break;
 
 				case Unit.INTERNATIONAL_UNIT:
-					uom = CreateScalarUOM(UnitType.SUBSTANCE_AMOUNT, Unit.INTERNATIONAL_UNIT, UnitsManager.GetString("iu.name"),
-							UnitsManager.GetString("iu.symbol"), UnitsManager.GetString("iu.desc"));
+					uom = CreateScalarUOM(UnitType.SUBSTANCE_AMOUNT, Unit.INTERNATIONAL_UNIT, MeasurementSystem.GetUnitString("iu.name"),
+							MeasurementSystem.GetUnitString("iu.symbol"), MeasurementSystem.GetUnitString("iu.desc"));
 					break;
 
 				case Unit.ANGSTROM:
 					// length
-					uom = CreateScalarUOM(UnitType.LENGTH, Unit.ANGSTROM, UnitsManager.GetString("angstrom.name"),
-							UnitsManager.GetString("angstrom.symbol"), UnitsManager.GetString("angstrom.desc"));
+					uom = CreateScalarUOM(UnitType.LENGTH, Unit.ANGSTROM, MeasurementSystem.GetUnitString("angstrom.name"),
+							MeasurementSystem.GetUnitString("angstrom.symbol"), MeasurementSystem.GetUnitString("angstrom.desc"));
 					uom.SetConversion(0.1, GetUOM(Prefix.NANO, GetUOM(Unit.METRE)));
 					break;
 
 				case Unit.BIT:
 					// computer bit
-					uom = CreateScalarUOM(UnitType.COMPUTER_SCIENCE, Unit.BIT, UnitsManager.GetString("bit.name"),
-							UnitsManager.GetString("bit.symbol"), UnitsManager.GetString("bit.desc"));
+					uom = CreateScalarUOM(UnitType.COMPUTER_SCIENCE, Unit.BIT, MeasurementSystem.GetUnitString("bit.name"),
+							MeasurementSystem.GetUnitString("bit.symbol"), MeasurementSystem.GetUnitString("bit.desc"));
 					break;
 
 				case Unit.BYTE:
 					// computer byte
-					uom = CreateScalarUOM(UnitType.COMPUTER_SCIENCE, Unit.BYTE, UnitsManager.GetString("byte.name"),
-							UnitsManager.GetString("byte.symbol"), UnitsManager.GetString("byte.desc"));
+					uom = CreateScalarUOM(UnitType.COMPUTER_SCIENCE, Unit.BYTE, MeasurementSystem.GetUnitString("byte.name"),
+							MeasurementSystem.GetUnitString("byte.symbol"), MeasurementSystem.GetUnitString("byte.desc"));
 					uom.SetConversion(8, GetUOM(Unit.BIT));
 					break;
 
 				case Unit.WATTS_PER_SQ_METRE:
-					uom = CreateQuotientUOM(UnitType.IRRADIANCE, Unit.WATTS_PER_SQ_METRE, UnitsManager.GetString("wsm.name"),
-							UnitsManager.GetString("wsm.symbol"), UnitsManager.GetString("wsm.desc"), GetUOM(Unit.WATT),
+					uom = CreateQuotientUOM(UnitType.IRRADIANCE, Unit.WATTS_PER_SQ_METRE, MeasurementSystem.GetUnitString("wsm.name"),
+							MeasurementSystem.GetUnitString("wsm.symbol"), MeasurementSystem.GetUnitString("wsm.desc"), GetUOM(Unit.WATT),
 							GetUOM(Unit.SQUARE_METRE));
 					break;
 
 				case Unit.PARSEC:
-					uom = CreateScalarUOM(UnitType.LENGTH, Unit.PARSEC, UnitsManager.GetString("parsec.name"),
-							UnitsManager.GetString("parsec.symbol"), UnitsManager.GetString("parsec.desc"));
+					uom = CreateScalarUOM(UnitType.LENGTH, Unit.PARSEC, MeasurementSystem.GetUnitString("parsec.name"),
+							MeasurementSystem.GetUnitString("parsec.symbol"), MeasurementSystem.GetUnitString("parsec.desc"));
 					uom.SetConversion(3.08567758149137E+16, GetUOM(Unit.METRE));
 					break;
 
 				case Unit.ASTRONOMICAL_UNIT:
-					uom = CreateScalarUOM(UnitType.LENGTH, Unit.ASTRONOMICAL_UNIT, UnitsManager.GetString("au.name"),
-							UnitsManager.GetString("au.symbol"), UnitsManager.GetString("au.desc"));
+					uom = CreateScalarUOM(UnitType.LENGTH, Unit.ASTRONOMICAL_UNIT, MeasurementSystem.GetUnitString("au.name"),
+							MeasurementSystem.GetUnitString("au.symbol"), MeasurementSystem.GetUnitString("au.desc"));
 					uom.SetConversion(1.49597870700E+11, GetUOM(Unit.METRE));
 					break;
 
@@ -853,8 +836,8 @@ namespace Point85.Caliper.UnitOfMeasure
 			{
 				case Unit.RANKINE:
 					// Rankine (base)
-					uom = CreateScalarUOM(UnitType.TEMPERATURE, Unit.RANKINE, UnitsManager.GetString("rankine.name"),
-							UnitsManager.GetString("rankine.symbol"), UnitsManager.GetString("rankine.desc"));
+					uom = CreateScalarUOM(UnitType.TEMPERATURE, Unit.RANKINE, MeasurementSystem.GetUnitString("rankine.name"),
+							MeasurementSystem.GetUnitString("rankine.symbol"), MeasurementSystem.GetUnitString("rankine.desc"));
 
 					// create bridge to SI
 					uom.SetBridgeConversion((double)5 / (double)9, GetUOM(Unit.KELVIN), null);
@@ -862,15 +845,15 @@ namespace Point85.Caliper.UnitOfMeasure
 
 				case Unit.FAHRENHEIT:
 					// Fahrenheit
-					uom = CreateScalarUOM(UnitType.TEMPERATURE, Unit.FAHRENHEIT, UnitsManager.GetString("fahrenheit.name"),
-							UnitsManager.GetString("fahrenheit.symbol"), UnitsManager.GetString("fahrenheit.desc"));
+					uom = CreateScalarUOM(UnitType.TEMPERATURE, Unit.FAHRENHEIT, MeasurementSystem.GetUnitString("fahrenheit.name"),
+							MeasurementSystem.GetUnitString("fahrenheit.symbol"), MeasurementSystem.GetUnitString("fahrenheit.desc"));
 					uom.SetConversion(1, GetUOM(Unit.RANKINE), 459.67);
 					break;
 
 				case Unit.POUND_MASS:
 					// lb mass (base)
-					uom = CreateScalarUOM(UnitType.MASS, Unit.POUND_MASS, UnitsManager.GetString("lbm.name"),
-							UnitsManager.GetString("lbm.symbol"), UnitsManager.GetString("lbm.desc"));
+					uom = CreateScalarUOM(UnitType.MASS, Unit.POUND_MASS, MeasurementSystem.GetUnitString("lbm.name"),
+							MeasurementSystem.GetUnitString("lbm.symbol"), MeasurementSystem.GetUnitString("lbm.desc"));
 
 					// create bridge to SI
 					uom.SetBridgeConversion(0.45359237, GetUOM(Unit.KILOGRAM), null);
@@ -878,30 +861,30 @@ namespace Point85.Caliper.UnitOfMeasure
 
 				case Unit.OUNCE:
 					// ounce
-					uom = CreateScalarUOM(UnitType.MASS, Unit.OUNCE, UnitsManager.GetString("ounce.name"),
-							UnitsManager.GetString("ounce.symbol"), UnitsManager.GetString("ounce.desc"));
+					uom = CreateScalarUOM(UnitType.MASS, Unit.OUNCE, MeasurementSystem.GetUnitString("ounce.name"),
+							MeasurementSystem.GetUnitString("ounce.symbol"), MeasurementSystem.GetUnitString("ounce.desc"));
 					uom.SetConversion(0.0625, GetUOM(Unit.POUND_MASS));
 					break;
 
 				case Unit.TROY_OUNCE:
 					// troy ounce
-					uom = CreateScalarUOM(UnitType.MASS, Unit.TROY_OUNCE, UnitsManager.GetString("troy_oz.name"),
-							UnitsManager.GetString("troy_oz.symbol"), UnitsManager.GetString("troy_oz.desc"));
+					uom = CreateScalarUOM(UnitType.MASS, Unit.TROY_OUNCE, MeasurementSystem.GetUnitString("troy_oz.name"),
+							MeasurementSystem.GetUnitString("troy_oz.symbol"), MeasurementSystem.GetUnitString("troy_oz.desc"));
 					uom.SetConversion(0.06857142857, GetUOM(Unit.POUND_MASS));
 					break;
 
 				case Unit.SLUG:
 					// slug
-					uom = CreateScalarUOM(UnitType.MASS, Unit.SLUG, UnitsManager.GetString("slug.name"),
-							UnitsManager.GetString("slug.symbol"), UnitsManager.GetString("slug.desc"));
+					uom = CreateScalarUOM(UnitType.MASS, Unit.SLUG, MeasurementSystem.GetUnitString("slug.name"),
+							MeasurementSystem.GetUnitString("slug.symbol"), MeasurementSystem.GetUnitString("slug.desc"));
 					Quantity g = GetQuantity(Constant.GRAVITY).Convert(GetUOM(Unit.FEET_PER_SEC_SQUARED));
 					uom.SetConversion(g.Amount, GetUOM(Unit.POUND_MASS));
 					break;
 
 				case Unit.FOOT:
 					// foot (foot is base conversion unit)
-					uom = CreateScalarUOM(UnitType.LENGTH, Unit.FOOT, UnitsManager.GetString("foot.name"),
-							UnitsManager.GetString("foot.symbol"), UnitsManager.GetString("foot.desc"));
+					uom = CreateScalarUOM(UnitType.LENGTH, Unit.FOOT, MeasurementSystem.GetUnitString("foot.name"),
+							MeasurementSystem.GetUnitString("foot.symbol"), MeasurementSystem.GetUnitString("foot.desc"));
 
 					// bridge to SI
 					uom.SetBridgeConversion(0.3048, GetUOM(Unit.METRE), null);
@@ -909,65 +892,65 @@ namespace Point85.Caliper.UnitOfMeasure
 
 				case Unit.INCH:
 					// inch
-					uom = CreateScalarUOM(UnitType.LENGTH, Unit.INCH, UnitsManager.GetString("inch.name"),
-							UnitsManager.GetString("inch.symbol"), UnitsManager.GetString("inch.desc"));
+					uom = CreateScalarUOM(UnitType.LENGTH, Unit.INCH, MeasurementSystem.GetUnitString("inch.name"),
+							MeasurementSystem.GetUnitString("inch.symbol"), MeasurementSystem.GetUnitString("inch.desc"));
 					uom.SetConversion((double)1 / (double)12, GetUOM(Unit.FOOT));
 					break;
 
 				case Unit.MIL:
 					// inch
-					uom = CreateScalarUOM(UnitType.LENGTH, Unit.MIL, UnitsManager.GetString("mil.name"),
-							UnitsManager.GetString("mil.symbol"), UnitsManager.GetString("mil.desc"));
+					uom = CreateScalarUOM(UnitType.LENGTH, Unit.MIL, MeasurementSystem.GetUnitString("mil.name"),
+							MeasurementSystem.GetUnitString("mil.symbol"), MeasurementSystem.GetUnitString("mil.desc"));
 					uom.SetConversion(Prefix.MILLI.Factor, GetUOM(Unit.INCH));
 					break;
 
 				case Unit.POINT:
 					// point
-					uom = CreateScalarUOM(UnitType.LENGTH, Unit.POINT, UnitsManager.GetString("point.name"),
-							UnitsManager.GetString("point.symbol"), UnitsManager.GetString("point.desc"));
+					uom = CreateScalarUOM(UnitType.LENGTH, Unit.POINT, MeasurementSystem.GetUnitString("point.name"),
+							MeasurementSystem.GetUnitString("point.symbol"), MeasurementSystem.GetUnitString("point.desc"));
 					uom.SetConversion((double)1 / (double)72, GetUOM(Unit.INCH));
 					break;
 
 				case Unit.YARD:
 					// yard
-					uom = CreateScalarUOM(UnitType.LENGTH, Unit.YARD, UnitsManager.GetString("yard.name"),
-							UnitsManager.GetString("yard.symbol"), UnitsManager.GetString("yard.desc"));
+					uom = CreateScalarUOM(UnitType.LENGTH, Unit.YARD, MeasurementSystem.GetUnitString("yard.name"),
+							MeasurementSystem.GetUnitString("yard.symbol"), MeasurementSystem.GetUnitString("yard.desc"));
 					uom.SetConversion(3, GetUOM(Unit.FOOT));
 					break;
 
 				case Unit.MILE:
 					// mile
-					uom = CreateScalarUOM(UnitType.LENGTH, Unit.MILE, UnitsManager.GetString("mile.name"),
-							UnitsManager.GetString("mile.symbol"), UnitsManager.GetString("mile.desc"));
+					uom = CreateScalarUOM(UnitType.LENGTH, Unit.MILE, MeasurementSystem.GetUnitString("mile.name"),
+							MeasurementSystem.GetUnitString("mile.symbol"), MeasurementSystem.GetUnitString("mile.desc"));
 					uom.SetConversion(5280, GetUOM(Unit.FOOT));
 					break;
 
 				case Unit.NAUTICAL_MILE:
 					// nautical mile
-					uom = CreateScalarUOM(UnitType.LENGTH, Unit.NAUTICAL_MILE, UnitsManager.GetString("NM.name"),
-							UnitsManager.GetString("NM.symbol"), UnitsManager.GetString("NM.desc"));
+					uom = CreateScalarUOM(UnitType.LENGTH, Unit.NAUTICAL_MILE, MeasurementSystem.GetUnitString("NM.name"),
+							MeasurementSystem.GetUnitString("NM.symbol"), MeasurementSystem.GetUnitString("NM.desc"));
 					uom.SetConversion(6080, GetUOM(Unit.FOOT));
 					break;
 
 				case Unit.FATHOM:
 					// fathom
-					uom = CreateScalarUOM(UnitType.LENGTH, Unit.FATHOM, UnitsManager.GetString("fth.name"),
-							UnitsManager.GetString("fth.symbol"), UnitsManager.GetString("fth.desc"));
+					uom = CreateScalarUOM(UnitType.LENGTH, Unit.FATHOM, MeasurementSystem.GetUnitString("fth.name"),
+							MeasurementSystem.GetUnitString("fth.symbol"), MeasurementSystem.GetUnitString("fth.desc"));
 					uom.SetConversion(6, GetUOM(Unit.FOOT));
 
 					break;
 
 				case Unit.PSI:
 					// psi
-					uom = CreateQuotientUOM(UnitType.PRESSURE, Unit.PSI, UnitsManager.GetString("psi.name"),
-							UnitsManager.GetString("psi.symbol"), UnitsManager.GetString("psi.desc"), GetUOM(Unit.POUND_FORCE),
+					uom = CreateQuotientUOM(UnitType.PRESSURE, Unit.PSI, MeasurementSystem.GetUnitString("psi.name"),
+							MeasurementSystem.GetUnitString("psi.symbol"), MeasurementSystem.GetUnitString("psi.desc"), GetUOM(Unit.POUND_FORCE),
 							GetUOM(Unit.SQUARE_INCH));
 					break;
 
 				case Unit.IN_HG:
 					// inches of Mercury
-					uom = CreateScalarUOM(UnitType.PRESSURE, Unit.IN_HG, UnitsManager.GetString("inhg.name"),
-							UnitsManager.GetString("inhg.symbol"), UnitsManager.GetString("inhg.desc"));
+					uom = CreateScalarUOM(UnitType.PRESSURE, Unit.IN_HG, MeasurementSystem.GetUnitString("inhg.name"),
+							MeasurementSystem.GetUnitString("inhg.symbol"), MeasurementSystem.GetUnitString("inhg.desc"));
 					UnitOfMeasure u1 = CreateProductUOM(GetUOM(Unit.FOOT), GetUOM(Unit.SQUARE_SECOND));
 					UnitOfMeasure u2 = CreateQuotientUOM(GetUOM(Unit.POUND_MASS), u1);
 					uom.SetConversion(2275.520677, u2);
@@ -975,109 +958,109 @@ namespace Point85.Caliper.UnitOfMeasure
 
 				case Unit.SQUARE_INCH:
 					// square inch
-					uom = CreatePowerUOM(UnitType.AREA, Unit.SQUARE_INCH, UnitsManager.GetString("in2.name"),
-							UnitsManager.GetString("in2.symbol"), UnitsManager.GetString("in2.desc"), GetUOM(Unit.INCH), 2);
+					uom = CreatePowerUOM(UnitType.AREA, Unit.SQUARE_INCH, MeasurementSystem.GetUnitString("in2.name"),
+							MeasurementSystem.GetUnitString("in2.symbol"), MeasurementSystem.GetUnitString("in2.desc"), GetUOM(Unit.INCH), 2);
 					uom.SetConversion((double)1 / (double)144, GetUOM(Unit.SQUARE_FOOT));
 					break;
 
 				case Unit.SQUARE_FOOT:
 					// square foot
-					uom = CreatePowerUOM(UnitType.AREA, Unit.SQUARE_FOOT, UnitsManager.GetString("ft2.name"),
-							UnitsManager.GetString("ft2.symbol"), UnitsManager.GetString("ft2.desc"), GetUOM(Unit.FOOT), 2);
+					uom = CreatePowerUOM(UnitType.AREA, Unit.SQUARE_FOOT, MeasurementSystem.GetUnitString("ft2.name"),
+							MeasurementSystem.GetUnitString("ft2.symbol"), MeasurementSystem.GetUnitString("ft2.desc"), GetUOM(Unit.FOOT), 2);
 					break;
 
 				case Unit.SQUARE_YARD:
 					// square yard
-					uom = CreatePowerUOM(UnitType.AREA, Unit.SQUARE_YARD, UnitsManager.GetString("yd2.name"),
-							UnitsManager.GetString("yd2.symbol"), UnitsManager.GetString("yd2.desc"), GetUOM(Unit.YARD), 2);
+					uom = CreatePowerUOM(UnitType.AREA, Unit.SQUARE_YARD, MeasurementSystem.GetUnitString("yd2.name"),
+							MeasurementSystem.GetUnitString("yd2.symbol"), MeasurementSystem.GetUnitString("yd2.desc"), GetUOM(Unit.YARD), 2);
 					break;
 
 				case Unit.ACRE:
 					// acre
-					uom = CreateScalarUOM(UnitType.AREA, Unit.ACRE, UnitsManager.GetString("acre.name"),
-							UnitsManager.GetString("acre.symbol"), UnitsManager.GetString("acre.desc"));
+					uom = CreateScalarUOM(UnitType.AREA, Unit.ACRE, MeasurementSystem.GetUnitString("acre.name"),
+							MeasurementSystem.GetUnitString("acre.symbol"), MeasurementSystem.GetUnitString("acre.desc"));
 					uom.SetConversion(43560, GetUOM(Unit.SQUARE_FOOT));
 					break;
 
 				case Unit.CUBIC_INCH:
 					// cubic inch
-					uom = CreatePowerUOM(UnitType.VOLUME, Unit.CUBIC_INCH, UnitsManager.GetString("in3.name"),
-							UnitsManager.GetString("in3.symbol"), UnitsManager.GetString("in3.desc"), GetUOM(Unit.INCH), 3);
+					uom = CreatePowerUOM(UnitType.VOLUME, Unit.CUBIC_INCH, MeasurementSystem.GetUnitString("in3.name"),
+							MeasurementSystem.GetUnitString("in3.symbol"), MeasurementSystem.GetUnitString("in3.desc"), GetUOM(Unit.INCH), 3);
 					uom.SetConversion((double)1 / (double)1728, GetUOM(Unit.CUBIC_FOOT));
 					break;
 
 				case Unit.CUBIC_FOOT:
 					// cubic feet
-					uom = CreatePowerUOM(UnitType.VOLUME, Unit.CUBIC_FOOT, UnitsManager.GetString("ft3.name"),
-							UnitsManager.GetString("ft3.symbol"), UnitsManager.GetString("ft3.desc"), GetUOM(Unit.FOOT), 3);
+					uom = CreatePowerUOM(UnitType.VOLUME, Unit.CUBIC_FOOT, MeasurementSystem.GetUnitString("ft3.name"),
+							MeasurementSystem.GetUnitString("ft3.symbol"), MeasurementSystem.GetUnitString("ft3.desc"), GetUOM(Unit.FOOT), 3);
 					break;
 
 				case Unit.CUBIC_FEET_PER_SEC:
 					// flow (volume)
 					uom = CreateQuotientUOM(UnitType.VOLUMETRIC_FLOW, Unit.CUBIC_FEET_PER_SEC,
-							UnitsManager.GetString("ft3PerSec.name"), UnitsManager.GetString("ft3PerSec.symbol"),
-							UnitsManager.GetString("ft3PerSec.desc"), GetUOM(Unit.CUBIC_FOOT), GetSecond());
+							MeasurementSystem.GetUnitString("ft3PerSec.name"), MeasurementSystem.GetUnitString("ft3PerSec.symbol"),
+							MeasurementSystem.GetUnitString("ft3PerSec.desc"), GetUOM(Unit.CUBIC_FOOT), GetSecond());
 					break;
 
 				case Unit.CORD:
 					// cord
-					uom = CreateScalarUOM(UnitType.VOLUME, Unit.CORD, UnitsManager.GetString("cord.name"),
-							UnitsManager.GetString("cord.symbol"), UnitsManager.GetString("cord.desc"));
+					uom = CreateScalarUOM(UnitType.VOLUME, Unit.CORD, MeasurementSystem.GetUnitString("cord.name"),
+							MeasurementSystem.GetUnitString("cord.symbol"), MeasurementSystem.GetUnitString("cord.desc"));
 					uom.SetConversion(128, GetUOM(Unit.CUBIC_FOOT));
 					break;
 
 				case Unit.CUBIC_YARD:
 					// cubic yard
-					uom = CreatePowerUOM(UnitType.VOLUME, Unit.CUBIC_YARD, UnitsManager.GetString("yd3.name"),
-							UnitsManager.GetString("yd3.symbol"), UnitsManager.GetString("yd3.desc"), GetUOM(Unit.YARD), 3);
+					uom = CreatePowerUOM(UnitType.VOLUME, Unit.CUBIC_YARD, MeasurementSystem.GetUnitString("yd3.name"),
+							MeasurementSystem.GetUnitString("yd3.symbol"), MeasurementSystem.GetUnitString("yd3.desc"), GetUOM(Unit.YARD), 3);
 					break;
 
 				case Unit.FEET_PER_SEC:
 					// feet/sec
-					uom = CreateQuotientUOM(UnitType.VELOCITY, Unit.FEET_PER_SEC, UnitsManager.GetString("fps.name"),
-							UnitsManager.GetString("fps.symbol"), UnitsManager.GetString("fps.desc"), GetUOM(Unit.FOOT), GetSecond());
+					uom = CreateQuotientUOM(UnitType.VELOCITY, Unit.FEET_PER_SEC, MeasurementSystem.GetUnitString("fps.name"),
+							MeasurementSystem.GetUnitString("fps.symbol"), MeasurementSystem.GetUnitString("fps.desc"), GetUOM(Unit.FOOT), GetSecond());
 					break;
 
 				case Unit.KNOT:
 					// knot
-					uom = CreateScalarUOM(UnitType.VELOCITY, Unit.KNOT, UnitsManager.GetString("knot.name"),
-							UnitsManager.GetString("knot.symbol"), UnitsManager.GetString("knot.desc"));
+					uom = CreateScalarUOM(UnitType.VELOCITY, Unit.KNOT, MeasurementSystem.GetUnitString("knot.name"),
+							MeasurementSystem.GetUnitString("knot.symbol"), MeasurementSystem.GetUnitString("knot.desc"));
 					uom.SetConversion((double)6080 / (double)3600, GetUOM(Unit.FEET_PER_SEC));
 					break;
 
 				case Unit.FEET_PER_SEC_SQUARED:
 					// acceleration
-					uom = CreateQuotientUOM(UnitType.ACCELERATION, Unit.FEET_PER_SEC_SQUARED, UnitsManager.GetString("ftps2.name"),
-							UnitsManager.GetString("ftps2.symbol"), UnitsManager.GetString("ftps2.desc"), GetUOM(Unit.FOOT),
+					uom = CreateQuotientUOM(UnitType.ACCELERATION, Unit.FEET_PER_SEC_SQUARED, MeasurementSystem.GetUnitString("ftps2.name"),
+							MeasurementSystem.GetUnitString("ftps2.symbol"), MeasurementSystem.GetUnitString("ftps2.desc"), GetUOM(Unit.FOOT),
 							GetUOM(Unit.SQUARE_SECOND));
 					break;
 
 				case Unit.HP:
 					// HP (mechanical)
-					uom = CreateProductUOM(UnitType.POWER, Unit.HP, UnitsManager.GetString("hp.name"),
-							UnitsManager.GetString("hp.symbol"), UnitsManager.GetString("hp.desc"), GetUOM(Unit.POUND_FORCE),
+					uom = CreateProductUOM(UnitType.POWER, Unit.HP, MeasurementSystem.GetUnitString("hp.name"),
+							MeasurementSystem.GetUnitString("hp.symbol"), MeasurementSystem.GetUnitString("hp.desc"), GetUOM(Unit.POUND_FORCE),
 							GetUOM(Unit.FEET_PER_SEC));
 					uom.ScalingFactor = 550d;
 					break;
 
 				case Unit.BTU:
 					// BTU = 1055.056 Joules (778.169 ft-lbf)
-					uom = CreateScalarUOM(UnitType.ENERGY, Unit.BTU, UnitsManager.GetString("btu.name"),
-							UnitsManager.GetString("btu.symbol"), UnitsManager.GetString("btu.desc"));
+					uom = CreateScalarUOM(UnitType.ENERGY, Unit.BTU, MeasurementSystem.GetUnitString("btu.name"),
+							MeasurementSystem.GetUnitString("btu.symbol"), MeasurementSystem.GetUnitString("btu.desc"));
 					uom.SetConversion(778.1692622659652, GetUOM(Unit.FOOT_POUND_FORCE));
 					break;
 
 				case Unit.FOOT_POUND_FORCE:
 					// ft-lbf
-					uom = CreateProductUOM(UnitType.ENERGY, Unit.FOOT_POUND_FORCE, UnitsManager.GetString("ft_lbf.name"),
-							UnitsManager.GetString("ft_lbf.symbol"), UnitsManager.GetString("ft_lbf.desc"), GetUOM(Unit.FOOT),
+					uom = CreateProductUOM(UnitType.ENERGY, Unit.FOOT_POUND_FORCE, MeasurementSystem.GetUnitString("ft_lbf.name"),
+							MeasurementSystem.GetUnitString("ft_lbf.symbol"), MeasurementSystem.GetUnitString("ft_lbf.desc"), GetUOM(Unit.FOOT),
 							GetUOM(Unit.POUND_FORCE));
 					break;
 
 				case Unit.POUND_FORCE:
 					// force F = m·A (lbf)
-					uom = CreateProductUOM(UnitType.FORCE, Unit.POUND_FORCE, UnitsManager.GetString("lbf.name"),
-							UnitsManager.GetString("lbf.symbol"), UnitsManager.GetString("lbf.desc"), GetUOM(Unit.POUND_MASS),
+					uom = CreateProductUOM(UnitType.FORCE, Unit.POUND_FORCE, MeasurementSystem.GetUnitString("lbf.name"),
+							MeasurementSystem.GetUnitString("lbf.symbol"), MeasurementSystem.GetUnitString("lbf.desc"), GetUOM(Unit.POUND_MASS),
 							GetUOM(Unit.FEET_PER_SEC_SQUARED));
 
 					// factor is acceleration of gravity
@@ -1087,22 +1070,22 @@ namespace Point85.Caliper.UnitOfMeasure
 
 				case Unit.GRAIN:
 					// mass
-					uom = CreateScalarUOM(UnitType.MASS, Unit.GRAIN, UnitsManager.GetString("grain.name"),
-							UnitsManager.GetString("grain.symbol"), UnitsManager.GetString("grain.desc"));
+					uom = CreateScalarUOM(UnitType.MASS, Unit.GRAIN, MeasurementSystem.GetUnitString("grain.name"),
+							MeasurementSystem.GetUnitString("grain.symbol"), MeasurementSystem.GetUnitString("grain.desc"));
 					uom.SetConversion((double)1 / (double)7000, GetUOM(Unit.POUND_MASS));
 					break;
 
 				case Unit.MILES_PER_HOUR:
 					// velocity
-					uom = CreateScalarUOM(UnitType.VELOCITY, Unit.MILES_PER_HOUR, UnitsManager.GetString("mph.name"),
-							UnitsManager.GetString("mph.symbol"), UnitsManager.GetString("mph.desc"));
+					uom = CreateScalarUOM(UnitType.VELOCITY, Unit.MILES_PER_HOUR, MeasurementSystem.GetUnitString("mph.name"),
+							MeasurementSystem.GetUnitString("mph.symbol"), MeasurementSystem.GetUnitString("mph.desc"));
 					uom.SetConversion((double)5280 / (double)3600, GetUOM(Unit.FEET_PER_SEC));
 					break;
 
 				case Unit.REV_PER_MIN:
 					// rpm
-					uom = CreateQuotientUOM(UnitType.FREQUENCY, Unit.REV_PER_MIN, UnitsManager.GetString("rpm.name"),
-							UnitsManager.GetString("rpm.symbol"), UnitsManager.GetString("rpm.desc"), GetOne(), GetMinute());
+					uom = CreateQuotientUOM(UnitType.FREQUENCY, Unit.REV_PER_MIN, MeasurementSystem.GetUnitString("rpm.name"),
+							MeasurementSystem.GetUnitString("rpm.symbol"), MeasurementSystem.GetUnitString("rpm.desc"), GetOne(), GetMinute());
 					break;
 
 				default:
@@ -1121,71 +1104,71 @@ namespace Point85.Caliper.UnitOfMeasure
 
 				case Unit.US_GALLON:
 					// gallon
-					uom = CreateScalarUOM(UnitType.VOLUME, Unit.US_GALLON, UnitsManager.GetString("us_gallon.name"),
-							UnitsManager.GetString("us_gallon.symbol"), UnitsManager.GetString("us_gallon.desc"));
+					uom = CreateScalarUOM(UnitType.VOLUME, Unit.US_GALLON, MeasurementSystem.GetUnitString("us_gallon.name"),
+							MeasurementSystem.GetUnitString("us_gallon.symbol"), MeasurementSystem.GetUnitString("us_gallon.desc"));
 					uom.SetConversion(231, GetUOM(Unit.CUBIC_INCH));
 					break;
 
 				case Unit.US_BARREL:
 					// barrel
-					uom = CreateScalarUOM(UnitType.VOLUME, Unit.US_BARREL, UnitsManager.GetString("us_bbl.name"),
-							UnitsManager.GetString("us_bbl.symbol"), UnitsManager.GetString("us_bbl.desc"));
+					uom = CreateScalarUOM(UnitType.VOLUME, Unit.US_BARREL, MeasurementSystem.GetUnitString("us_bbl.name"),
+							MeasurementSystem.GetUnitString("us_bbl.symbol"), MeasurementSystem.GetUnitString("us_bbl.desc"));
 					uom.SetConversion(42, GetUOM(Unit.US_GALLON));
 					break;
 
 				case Unit.US_BUSHEL:
 					// bushel
-					uom = CreateScalarUOM(UnitType.VOLUME, Unit.US_BUSHEL, UnitsManager.GetString("us_bu.name"),
-							UnitsManager.GetString("us_bu.symbol"), UnitsManager.GetString("us_bu.desc"));
+					uom = CreateScalarUOM(UnitType.VOLUME, Unit.US_BUSHEL, MeasurementSystem.GetUnitString("us_bu.name"),
+							MeasurementSystem.GetUnitString("us_bu.symbol"), MeasurementSystem.GetUnitString("us_bu.desc"));
 					uom.SetConversion(2150.42058, GetUOM(Unit.CUBIC_INCH));
 					break;
 
 				case Unit.US_FLUID_OUNCE:
 					// fluid ounce
-					uom = CreateScalarUOM(UnitType.VOLUME, Unit.US_FLUID_OUNCE, UnitsManager.GetString("us_fl_oz.name"),
-							UnitsManager.GetString("us_fl_oz.symbol"), UnitsManager.GetString("us_fl_oz.desc"));
+					uom = CreateScalarUOM(UnitType.VOLUME, Unit.US_FLUID_OUNCE, MeasurementSystem.GetUnitString("us_fl_oz.name"),
+							MeasurementSystem.GetUnitString("us_fl_oz.symbol"), MeasurementSystem.GetUnitString("us_fl_oz.desc"));
 					uom.SetConversion(0.0078125, GetUOM(Unit.US_GALLON));
 					break;
 
 				case Unit.US_CUP:
 					// cup
-					uom = CreateScalarUOM(UnitType.VOLUME, Unit.US_CUP, UnitsManager.GetString("us_cup.name"),
-							UnitsManager.GetString("us_cup.symbol"), UnitsManager.GetString("us_cup.desc"));
+					uom = CreateScalarUOM(UnitType.VOLUME, Unit.US_CUP, MeasurementSystem.GetUnitString("us_cup.name"),
+							MeasurementSystem.GetUnitString("us_cup.symbol"), MeasurementSystem.GetUnitString("us_cup.desc"));
 					uom.SetConversion(8, GetUOM(Unit.US_FLUID_OUNCE));
 					break;
 
 				case Unit.US_PINT:
 					// pint
-					uom = CreateScalarUOM(UnitType.VOLUME, Unit.US_PINT, UnitsManager.GetString("us_pint.name"),
-							UnitsManager.GetString("us_pint.symbol"), UnitsManager.GetString("us_pint.desc"));
+					uom = CreateScalarUOM(UnitType.VOLUME, Unit.US_PINT, MeasurementSystem.GetUnitString("us_pint.name"),
+							MeasurementSystem.GetUnitString("us_pint.symbol"), MeasurementSystem.GetUnitString("us_pint.desc"));
 					uom.SetConversion(16, GetUOM(Unit.US_FLUID_OUNCE));
 					break;
 
 				case Unit.US_QUART:
 					// quart
-					uom = CreateScalarUOM(UnitType.VOLUME, Unit.US_QUART, UnitsManager.GetString("us_quart.name"),
-							UnitsManager.GetString("us_quart.symbol"), UnitsManager.GetString("us_quart.desc"));
+					uom = CreateScalarUOM(UnitType.VOLUME, Unit.US_QUART, MeasurementSystem.GetUnitString("us_quart.name"),
+							MeasurementSystem.GetUnitString("us_quart.symbol"), MeasurementSystem.GetUnitString("us_quart.desc"));
 					uom.SetConversion(32, GetUOM(Unit.US_FLUID_OUNCE));
 					break;
 
 				case Unit.US_TABLESPOON:
 					// tablespoon
-					uom = CreateScalarUOM(UnitType.VOLUME, Unit.US_TABLESPOON, UnitsManager.GetString("us_tbsp.name"),
-							UnitsManager.GetString("us_tbsp.symbol"), UnitsManager.GetString("us_tbsp.desc"));
+					uom = CreateScalarUOM(UnitType.VOLUME, Unit.US_TABLESPOON, MeasurementSystem.GetUnitString("us_tbsp.name"),
+							MeasurementSystem.GetUnitString("us_tbsp.symbol"), MeasurementSystem.GetUnitString("us_tbsp.desc"));
 					uom.SetConversion(0.5, GetUOM(Unit.US_FLUID_OUNCE));
 					break;
 
 				case Unit.US_TEASPOON:
 					// teaspoon
-					uom = CreateScalarUOM(UnitType.VOLUME, Unit.US_TEASPOON, UnitsManager.GetString("us_tsp.name"),
-							UnitsManager.GetString("us_tsp.symbol"), UnitsManager.GetString("us_tsp.desc"));
+					uom = CreateScalarUOM(UnitType.VOLUME, Unit.US_TEASPOON, MeasurementSystem.GetUnitString("us_tsp.name"),
+							MeasurementSystem.GetUnitString("us_tsp.symbol"), MeasurementSystem.GetUnitString("us_tsp.desc"));
 					uom.SetConversion((double)1 / (double)6, GetUOM(Unit.US_FLUID_OUNCE));
 					break;
 
 				case Unit.US_TON:
 					// ton
-					uom = CreateScalarUOM(UnitType.MASS, Unit.US_TON, UnitsManager.GetString("us_ton.name"),
-							UnitsManager.GetString("us_ton.symbol"), UnitsManager.GetString("us_ton.desc"));
+					uom = CreateScalarUOM(UnitType.MASS, Unit.US_TON, MeasurementSystem.GetUnitString("us_ton.name"),
+							MeasurementSystem.GetUnitString("us_ton.symbol"), MeasurementSystem.GetUnitString("us_ton.desc"));
 					uom.SetConversion(2000, GetUOM(Unit.POUND_MASS));
 					break;
 
@@ -1204,64 +1187,64 @@ namespace Point85.Caliper.UnitOfMeasure
 			{
 				case Unit.BR_GALLON:
 					// gallon
-					uom = CreateScalarUOM(UnitType.VOLUME, Unit.BR_GALLON, UnitsManager.GetString("br_gallon.name"),
-							UnitsManager.GetString("br_gallon.symbol"), UnitsManager.GetString("br_gallon.desc"));
+					uom = CreateScalarUOM(UnitType.VOLUME, Unit.BR_GALLON, MeasurementSystem.GetUnitString("br_gallon.name"),
+							MeasurementSystem.GetUnitString("br_gallon.symbol"), MeasurementSystem.GetUnitString("br_gallon.desc"));
 					uom.SetConversion(277.4194327916215, GetUOM(Unit.CUBIC_INCH));
 					break;
 
 				case Unit.BR_BUSHEL:
 					// bushel
-					uom = CreateScalarUOM(UnitType.VOLUME, Unit.BR_BUSHEL, UnitsManager.GetString("br_bu.name"),
-							UnitsManager.GetString("br_bu.symbol"), UnitsManager.GetString("br_bu.desc"));
+					uom = CreateScalarUOM(UnitType.VOLUME, Unit.BR_BUSHEL, MeasurementSystem.GetUnitString("br_bu.name"),
+							MeasurementSystem.GetUnitString("br_bu.symbol"), MeasurementSystem.GetUnitString("br_bu.desc"));
 					uom.SetConversion(8, GetUOM(Unit.BR_GALLON));
 					break;
 
 				case Unit.BR_FLUID_OUNCE:
 					// fluid ounce
-					uom = CreateScalarUOM(UnitType.VOLUME, Unit.BR_FLUID_OUNCE, UnitsManager.GetString("br_fl_oz.name"),
-							UnitsManager.GetString("br_fl_oz.symbol"), UnitsManager.GetString("br_fl_oz.desc"));
+					uom = CreateScalarUOM(UnitType.VOLUME, Unit.BR_FLUID_OUNCE, MeasurementSystem.GetUnitString("br_fl_oz.name"),
+							MeasurementSystem.GetUnitString("br_fl_oz.symbol"), MeasurementSystem.GetUnitString("br_fl_oz.desc"));
 					uom.SetConversion(0.00625, GetUOM(Unit.BR_GALLON));
 					break;
 
 				case Unit.BR_CUP:
 					// cup
-					uom = CreateScalarUOM(UnitType.VOLUME, Unit.BR_CUP, UnitsManager.GetString("br_cup.name"),
-							UnitsManager.GetString("br_cup.symbol"), UnitsManager.GetString("br_cup.desc"));
+					uom = CreateScalarUOM(UnitType.VOLUME, Unit.BR_CUP, MeasurementSystem.GetUnitString("br_cup.name"),
+							MeasurementSystem.GetUnitString("br_cup.symbol"), MeasurementSystem.GetUnitString("br_cup.desc"));
 					uom.SetConversion(8, GetUOM(Unit.BR_FLUID_OUNCE));
 					break;
 
 				case Unit.BR_PINT:
 					// pint
-					uom = CreateScalarUOM(UnitType.VOLUME, Unit.BR_PINT, UnitsManager.GetString("br_pint.name"),
-							UnitsManager.GetString("br_pint.symbol"), UnitsManager.GetString("br_pint.desc"));
+					uom = CreateScalarUOM(UnitType.VOLUME, Unit.BR_PINT, MeasurementSystem.GetUnitString("br_pint.name"),
+							MeasurementSystem.GetUnitString("br_pint.symbol"), MeasurementSystem.GetUnitString("br_pint.desc"));
 					uom.SetConversion(20, GetUOM(Unit.BR_FLUID_OUNCE));
 					break;
 
 				case Unit.BR_QUART:
 					// quart
-					uom = CreateScalarUOM(UnitType.VOLUME, Unit.BR_QUART, UnitsManager.GetString("br_quart.name"),
-							UnitsManager.GetString("br_quart.symbol"), UnitsManager.GetString("br_quart.desc"));
+					uom = CreateScalarUOM(UnitType.VOLUME, Unit.BR_QUART, MeasurementSystem.GetUnitString("br_quart.name"),
+							MeasurementSystem.GetUnitString("br_quart.symbol"), MeasurementSystem.GetUnitString("br_quart.desc"));
 					uom.SetConversion(40, GetUOM(Unit.BR_FLUID_OUNCE));
 					break;
 
 				case Unit.BR_TABLESPOON:
 					// tablespoon
-					uom = CreateScalarUOM(UnitType.VOLUME, Unit.BR_TABLESPOON, UnitsManager.GetString("br_tbsp.name"),
-							UnitsManager.GetString("br_tbsp.symbol"), UnitsManager.GetString("br_tbsp.desc"));
+					uom = CreateScalarUOM(UnitType.VOLUME, Unit.BR_TABLESPOON, MeasurementSystem.GetUnitString("br_tbsp.name"),
+							MeasurementSystem.GetUnitString("br_tbsp.symbol"), MeasurementSystem.GetUnitString("br_tbsp.desc"));
 					uom.SetConversion(0.625, GetUOM(Unit.BR_FLUID_OUNCE));
 					break;
 
 				case Unit.BR_TEASPOON:
 					// teaspoon
-					uom = CreateScalarUOM(UnitType.VOLUME, Unit.BR_TEASPOON, UnitsManager.GetString("br_tsp.name"),
-							UnitsManager.GetString("br_tsp.symbol"), UnitsManager.GetString("br_tsp.desc"));
+					uom = CreateScalarUOM(UnitType.VOLUME, Unit.BR_TEASPOON, MeasurementSystem.GetUnitString("br_tsp.name"),
+							MeasurementSystem.GetUnitString("br_tsp.symbol"), MeasurementSystem.GetUnitString("br_tsp.desc"));
 					uom.SetConversion((double)5 / (double)24, GetUOM(Unit.BR_FLUID_OUNCE));
 					break;
 
 				case Unit.BR_TON:
 					// ton
-					uom = CreateScalarUOM(UnitType.MASS, Unit.BR_TON, UnitsManager.GetString("br_ton.name"),
-							UnitsManager.GetString("br_ton.symbol"), UnitsManager.GetString("br_ton.desc"));
+					uom = CreateScalarUOM(UnitType.MASS, Unit.BR_TON, MeasurementSystem.GetUnitString("br_ton.name"),
+							MeasurementSystem.GetUnitString("br_ton.symbol"), MeasurementSystem.GetUnitString("br_ton.desc"));
 					uom.SetConversion(2240, GetUOM(Unit.POUND_MASS));
 					break;
 
@@ -1280,18 +1263,18 @@ namespace Point85.Caliper.UnitOfMeasure
 			{
 
 				case Unit.US_DOLLAR:
-					uom = CreateScalarUOM(UnitType.CURRENCY, Unit.US_DOLLAR, UnitsManager.GetString("us_dollar.name"),
-							UnitsManager.GetString("us_dollar.symbol"), UnitsManager.GetString("us_dollar.desc"));
+					uom = CreateScalarUOM(UnitType.CURRENCY, Unit.US_DOLLAR, MeasurementSystem.GetUnitString("us_dollar.name"),
+							MeasurementSystem.GetUnitString("us_dollar.symbol"), MeasurementSystem.GetUnitString("us_dollar.desc"));
 					break;
 
 				case Unit.EURO:
-					uom = CreateScalarUOM(UnitType.CURRENCY, Unit.EURO, UnitsManager.GetString("euro.name"),
-							UnitsManager.GetString("euro.symbol"), UnitsManager.GetString("euro.desc"));
+					uom = CreateScalarUOM(UnitType.CURRENCY, Unit.EURO, MeasurementSystem.GetUnitString("euro.name"),
+							MeasurementSystem.GetUnitString("euro.symbol"), MeasurementSystem.GetUnitString("euro.desc"));
 					break;
 
 				case Unit.YUAN:
-					uom = CreateScalarUOM(UnitType.CURRENCY, Unit.YUAN, UnitsManager.GetString("yuan.name"),
-							UnitsManager.GetString("yuan.symbol"), UnitsManager.GetString("yuan.desc"));
+					uom = CreateScalarUOM(UnitType.CURRENCY, Unit.YUAN, MeasurementSystem.GetUnitString("yuan.name"),
+							MeasurementSystem.GetUnitString("yuan.symbol"), MeasurementSystem.GetUnitString("yuan.desc"));
 					break;
 
 				default:
@@ -1409,7 +1392,7 @@ namespace Point85.Caliper.UnitOfMeasure
 		/// <param name="multiplier">UnitOfMeasure multiplier</param>          
 		/// <param name="multiplicand">UnitOfMeasure multiplicand</param>
 		///                     
-		/// <returns>UnitOfMeasure>/
+		/// <returns>UnitOfMeasure</returns>
 		///
 		public UnitOfMeasure CreateProductUOM(UnitType type, Unit? id, string name, string symbol, string description,
 				UnitOfMeasure multiplier, UnitOfMeasure multiplicand)
@@ -1551,82 +1534,82 @@ namespace Point85.Caliper.UnitOfMeasure
 			{
 				case Constant.LIGHT_VELOCITY:
 					named = new Quantity(299792458, GetUOM(Unit.METRE_PER_SEC));
-					named.Name = UnitsManager.GetString("light.name");
-					named.Symbol = UnitsManager.GetString("light.symbol");
-					named.Description = UnitsManager.GetString("light.desc");
+					named.Name = MeasurementSystem.GetUnitString("light.name");
+					named.Symbol = MeasurementSystem.GetUnitString("light.symbol");
+					named.Description = MeasurementSystem.GetUnitString("light.desc");
 					break;
 
 				case Constant.LIGHT_YEAR:
 					Quantity year = new Quantity(1, GetUOM(Unit.JULIAN_YEAR));
 					named = GetQuantity(Constant.LIGHT_VELOCITY).Multiply(year);
-					named.Name = UnitsManager.GetString("ly.name");
-					named.Symbol = UnitsManager.GetString("ly.symbol");
-					named.Description = UnitsManager.GetString("ly.desc");
+					named.Name = MeasurementSystem.GetUnitString("ly.name");
+					named.Symbol = MeasurementSystem.GetUnitString("ly.symbol");
+					named.Description = MeasurementSystem.GetUnitString("ly.desc");
 					break;
 
 				case Constant.GRAVITY:
 					named = new Quantity(9.80665, GetUOM(Unit.METRE_PER_SEC_SQUARED));
-					named.Name = UnitsManager.GetString("gravity.name");
-					named.Symbol = UnitsManager.GetString("gravity.symbol");
-					named.Description = UnitsManager.GetString("gravity.desc");
+					named.Name = MeasurementSystem.GetUnitString("gravity.name");
+					named.Symbol = MeasurementSystem.GetUnitString("gravity.symbol");
+					named.Description = MeasurementSystem.GetUnitString("gravity.desc");
 					break;
 
 				case Constant.PLANCK_CONSTANT:
 					UnitOfMeasure js = CreateProductUOM(GetUOM(Unit.JOULE), GetSecond());
 					named = new Quantity(6.62607015E-34, js);
-					named.Name = UnitsManager.GetString("planck.name");
-					named.Symbol = UnitsManager.GetString("planck.symbol");
-					named.Description = UnitsManager.GetString("planck.desc");
+					named.Name = MeasurementSystem.GetUnitString("planck.name");
+					named.Symbol = MeasurementSystem.GetUnitString("planck.symbol");
+					named.Description = MeasurementSystem.GetUnitString("planck.desc");
 					break;
 
 				case Constant.BOLTZMANN_CONSTANT:
 					UnitOfMeasure jk = CreateQuotientUOM(GetUOM(Unit.JOULE), GetUOM(Unit.KELVIN));
 					named = new Quantity(1.380649E-23, jk);
-					named.Name = UnitsManager.GetString("boltzmann.name");
-					named.Symbol = UnitsManager.GetString("boltzmann.symbol");
-					named.Description = UnitsManager.GetString("boltzmann.desc");
+					named.Name = MeasurementSystem.GetUnitString("boltzmann.name");
+					named.Symbol = MeasurementSystem.GetUnitString("boltzmann.symbol");
+					named.Description = MeasurementSystem.GetUnitString("boltzmann.desc");
 					break;
 
 				case Constant.AVAGADRO_CONSTANT:
 					// NA
 					named = new Quantity(6.02214076E+23, GetOne());
-					named.Name = UnitsManager.GetString("avo.name");
-					named.Symbol = UnitsManager.GetString("avo.symbol");
-					named.Description = UnitsManager.GetString("avo.desc");
+					named.Name = MeasurementSystem.GetUnitString("avo.name");
+					named.Symbol = MeasurementSystem.GetUnitString("avo.symbol");
+					named.Description = MeasurementSystem.GetUnitString("avo.desc");
 					break;
 
 				case Constant.GAS_CONSTANT:
 					// R
 					named = GetQuantity(Constant.BOLTZMANN_CONSTANT).Multiply(GetQuantity(Constant.AVAGADRO_CONSTANT));
-					named.Name = UnitsManager.GetString("gas.name");
-					named.Symbol = UnitsManager.GetString("gas.symbol");
-					named.Description = UnitsManager.GetString("gas.desc");
+					named.Name = MeasurementSystem.GetUnitString("gas.name");
+					named.Symbol = MeasurementSystem.GetUnitString("gas.symbol");
+					named.Description = MeasurementSystem.GetUnitString("gas.desc");
 					break;
 
 				case Constant.ELEMENTARY_CHARGE:
 					// e
 					named = new Quantity(1.602176634E-19, GetUOM(Unit.COULOMB));
-					named.Name = UnitsManager.GetString("e.name");
-					named.Symbol = UnitsManager.GetString("e.symbol");
-					named.Description = UnitsManager.GetString("e.desc");
+					named.Name = MeasurementSystem.GetUnitString("e.name");
+					named.Symbol = MeasurementSystem.GetUnitString("e.symbol");
+					named.Description = MeasurementSystem.GetUnitString("e.desc");
 					break;
 
 				case Constant.FARADAY_CONSTANT:
 					// F = e.NA
 					Quantity qe = GetQuantity(Constant.ELEMENTARY_CHARGE);
 					named = qe.Multiply(GetQuantity(Constant.AVAGADRO_CONSTANT));
-					named.Name = UnitsManager.GetString("faraday.name");
-					named.Symbol = UnitsManager.GetString("faraday.symbol");
-					named.Description = UnitsManager.GetString("faraday.desc");
+					named.Name = MeasurementSystem.GetUnitString("faraday.name");
+					named.Symbol = MeasurementSystem.GetUnitString("faraday.symbol");
+					named.Description = MeasurementSystem.GetUnitString("faraday.desc");
 					break;
 
 				case Constant.ELECTRIC_PERMITTIVITY:
 					// epsilon0 = 1/(mu0*c^2)
 					Quantity vc = GetQuantity(Constant.LIGHT_VELOCITY);
 					named = GetQuantity(Constant.MAGNETIC_PERMEABILITY).Multiply(vc).Multiply(vc).Invert();
-					named.Name = UnitsManager.GetString("eps0.name");
-					named.Symbol = UnitsManager.GetString("eps0.symbol");
-					named.Description = UnitsManager.GetString("eps0.desc");
+					named.Name = MeasurementSystem.GetUnitString("eps0.name");
+					named.Symbol = MeasurementSystem.GetUnitString("eps0.symbol");
+					named.Description = MeasurementSystem.GetUnitString("eps0.desc");
 					break;
 
 				case Constant.MAGNETIC_PERMEABILITY:
@@ -1634,34 +1617,34 @@ namespace Point85.Caliper.UnitOfMeasure
 					UnitOfMeasure hm = CreateQuotientUOM(GetUOM(Unit.HENRY), GetUOM(Unit.METRE));
 					double fourPi = 4.0E-07 * Math.PI;
 					named = new Quantity(fourPi, hm);
-					named.Name = UnitsManager.GetString("mu0.name");
-					named.Symbol = UnitsManager.GetString("mu0.symbol");
-					named.Description = UnitsManager.GetString("mu0.desc");
+					named.Name = MeasurementSystem.GetUnitString("mu0.name");
+					named.Symbol = MeasurementSystem.GetUnitString("mu0.symbol");
+					named.Description = MeasurementSystem.GetUnitString("mu0.desc");
 					break;
 
 				case Constant.ELECTRON_MASS:
 					// me
 					named = new Quantity(9.1093835611E-28, GetUOM(Unit.GRAM));
-					named.Name = UnitsManager.GetString("me.name");
-					named.Symbol = UnitsManager.GetString("me.symbol");
-					named.Description = UnitsManager.GetString("me.desc");
+					named.Name = MeasurementSystem.GetUnitString("me.name");
+					named.Symbol = MeasurementSystem.GetUnitString("me.symbol");
+					named.Description = MeasurementSystem.GetUnitString("me.desc");
 					break;
 
 				case Constant.PROTON_MASS:
 					// mp
 					named = new Quantity(1.67262189821E-24, GetUOM(Unit.GRAM));
-					named.Name = UnitsManager.GetString("mp.name");
-					named.Symbol = UnitsManager.GetString("mp.symbol");
-					named.Description = UnitsManager.GetString("mp.desc");
+					named.Name = MeasurementSystem.GetUnitString("mp.name");
+					named.Symbol = MeasurementSystem.GetUnitString("mp.symbol");
+					named.Description = MeasurementSystem.GetUnitString("mp.desc");
 					break;
 
 				case Constant.STEFAN_BOLTZMANN:
 					UnitOfMeasure k4 = CreatePowerUOM(GetUOM(Unit.KELVIN), 4);
 					UnitOfMeasure sb = CreateQuotientUOM(GetUOM(Unit.WATTS_PER_SQ_METRE), k4);
 					named = new Quantity(5.67036713E-08, sb);
-					named.Name = UnitsManager.GetString("sb.name");
-					named.Symbol = UnitsManager.GetString("sb.symbol");
-					named.Description = UnitsManager.GetString("sb.desc");
+					named.Name = MeasurementSystem.GetUnitString("sb.name");
+					named.Symbol = MeasurementSystem.GetUnitString("sb.symbol");
+					named.Description = MeasurementSystem.GetUnitString("sb.desc");
 					break;
 
 				case Constant.HUBBLE_CONSTANT:
@@ -1669,24 +1652,24 @@ namespace Point85.Caliper.UnitOfMeasure
 					UnitOfMeasure mpc = GetUOM(Prefix.MEGA, GetUOM(Unit.PARSEC));
 					UnitOfMeasure hubble = CreateQuotientUOM(kps, mpc);
 					named = new Quantity(71.9, hubble);
-					named.Name = UnitsManager.GetString("hubble.name");
-					named.Symbol = UnitsManager.GetString("hubble.symbol");
-					named.Description = UnitsManager.GetString("hubble.desc");
+					named.Name = MeasurementSystem.GetUnitString("hubble.name");
+					named.Symbol = MeasurementSystem.GetUnitString("hubble.symbol");
+					named.Description = MeasurementSystem.GetUnitString("hubble.desc");
 					break;
 
 				case Constant.CAESIUM_FREQUENCY:
 					named = new Quantity(9192631770d, GetUOM(Unit.HERTZ));
-					named.Name = UnitsManager.GetString("caesium.name");
-					named.Symbol = UnitsManager.GetString("caesium.symbol");
-					named.Description = UnitsManager.GetString("caesium.desc");
+					named.Name = MeasurementSystem.GetUnitString("caesium.name");
+					named.Symbol = MeasurementSystem.GetUnitString("caesium.symbol");
+					named.Description = MeasurementSystem.GetUnitString("caesium.desc");
 					break;
 
 				case Constant.LUMINOUS_EFFICACY:
 					UnitOfMeasure kcd = CreateQuotientUOM(GetUOM(Unit.LUMEN), GetUOM(Unit.WATT));
 					named = new Quantity(683d, kcd);
-					named.Name = UnitsManager.GetString("kcd.name");
-					named.Symbol = UnitsManager.GetString("kcd.symbol");
-					named.Description = UnitsManager.GetString("kcd.desc");
+					named.Name = MeasurementSystem.GetUnitString("kcd.name");
+					named.Symbol = MeasurementSystem.GetUnitString("kcd.symbol");
+					named.Description = MeasurementSystem.GetUnitString("kcd.desc");
 					break;
 
 				default:

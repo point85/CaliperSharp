@@ -22,29 +22,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
-using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Text;
 
 namespace Point85.Caliper.UnitOfMeasure
 {
 	/// <summary>
-	/// <p>
 	/// A UnitOfMeasure can have a linear conversion (y = ax + b) to another unit of
 	/// measure in the same internationally recognized measurement system of
 	/// International Customary, SI, US or British Imperial. Or, the unit of measure
 	/// can have a conversion to another custom unit of measure. It is owned by the
-	/// unified MeasurementSystem defined by this project.
-	/// </p>
-	/// <p>
+	/// unified MeasurementSystem defined by this project. 
+	/// 
 	/// A unit of measure is categorized by scalar (simple unit), quotient (divisor
 	/// and dividend units), product (multiplier and multiplicand units) or power
 	/// (unit with an integral exponent). More than one representation of a unit of
 	/// measure is possible. For example, a unit of "per second" could be a quotient
 	/// of "1/s" (e.g. an inverted second) or a power of s^-1.
-	/// </p>
-	/// <p>
+	/// 
 	/// A unit of measure also has an enumerated UnitType (for example LENGTH
 	/// or MASS) and a unique Unit discriminator (for example METRE).
 	/// A basic unit (a.k.a fundamental unit in the SI system) can have a bridge
@@ -52,8 +47,7 @@ namespace Point85.Caliper.UnitOfMeasure
 	/// This conversion is defined unidirectionally. For example, an International
 	/// Customary foot is 0.3048 SI metres. The conversion from metre to foot is just
 	/// the inverse of this relationship.
-	/// </p>
-	/// <p>
+	///
 	/// A unit of measure has a base symbol, for example 'm' for metre. A base symbol
 	/// is one that consists only of the symbols for the base units of measure. In
 	/// the SI system, the base units are well-defined. The derived units such as
@@ -63,14 +57,12 @@ namespace Point85.Caliper.UnitOfMeasure
 	/// US and British systems, base units are not defined. Caliper uses foot for
 	/// length, pound mass for mass and Rankine for temperature. This base symbol is
 	/// used in unit of measure conversions to uniquely identify the target unit.
-	/// </p>
-	/// <p>
+	/// 
 	/// The SI system has defined prefixes (e.g. "centi") for 1/100th of another unit
 	/// (e.g. metre). Instead of defining all the possible unit of measure
 	/// combinations, the MeasurementSystem is able to create units by
 	/// specifying the Prefix and target unit of measure. Similarly, computer
 	/// science has defined prefixes for bytes (e.g. "mega").
-	/// </p>
 	/// </summary>
 	public class UnitOfMeasure : Symbolic, IComparable<UnitOfMeasure>
 	{
@@ -693,7 +685,7 @@ namespace Point85.Caliper.UnitOfMeasure
 		/// <returns>Hash code</returns>
 		public override int GetHashCode()
 		{
-			int hashName = Name == null ? 0 : Name.GetHashCode();
+			int hashName = Name == null  ? 0 : Name.GetHashCode();
 			int hashSymbol = Symbol.GetHashCode();
 
 			return hashName ^ hashSymbol;
@@ -753,7 +745,6 @@ namespace Point85.Caliper.UnitOfMeasure
 		/// 
 		public int CompareTo(UnitOfMeasure other)
 		{
-			//return Symbol.CompareTo(other.Symbol);
 			return Compare(other);
 		}
 
@@ -764,7 +755,7 @@ namespace Point85.Caliper.UnitOfMeasure
 		/// <returns>-1 if less than, 0 if equal and 1 if greater than</returns>
 		protected int Compare(UnitOfMeasure other)
 		{
-			return Symbol.CompareTo(other.Symbol);
+			return other !=null  ? Symbol.CompareTo(other.Symbol) : 1;
 		}
 
 		private static void CheckTypes(UnitOfMeasure uom1, UnitOfMeasure uom2)
@@ -1027,17 +1018,17 @@ namespace Point85.Caliper.UnitOfMeasure
 			StringBuilder sb = new StringBuilder();
 
 			// type
-			sb.Append(MeasurementSystem.UnitsManager.GetString("unit.type.text")).Append(' ').Append(UOMType.ToString()).Append(", ");
+			sb.Append(MeasurementSystem.GetUnitString("unit.type.text")).Append(' ').Append(UOMType.ToString()).Append(", ");
 
 			// unit enumeration
 			if (Enumeration.HasValue)
 			{
-				sb.Append(MeasurementSystem.UnitsManager.GetString("enum.text")).Append(' ').Append(Enumeration.ToString()).Append(", ");
+				sb.Append(MeasurementSystem.GetUnitString("enum.text")).Append(' ').Append(Enumeration.ToString()).Append(", ");
 			}
 
 			// symbol
-			sb.Append(MeasurementSystem.UnitsManager.GetString("symbol.text")).Append(' ').Append(Symbol);
-			sb.Append(", ").Append(MeasurementSystem.UnitsManager.GetString("conversion.text")).Append(' ');
+			sb.Append(MeasurementSystem.GetUnitString("symbol.text")).Append(' ').Append(Symbol);
+			sb.Append(", ").Append(MeasurementSystem.GetUnitString("conversion.text")).Append(' ');
 
 			// scaling factor
 			if (ScalingFactor.CompareTo(1) != 0)
@@ -1057,7 +1048,7 @@ namespace Point85.Caliper.UnitOfMeasure
 				sb.Append(" + ").Append(Offset.ToString());
 			}
 
-			sb.Append(", ").Append(MeasurementSystem.UnitsManager.GetString("base.text")).Append(' ');
+			sb.Append(", ").Append(MeasurementSystem.GetUnitString("base.text")).Append(' ');
 
 			// base symbol
 			sb.Append(GetBaseSymbol());
@@ -1090,7 +1081,8 @@ namespace Point85.Caliper.UnitOfMeasure
 		/// <returns>Unit of measure</returns>
 		public UnitOfMeasure Classify()
 		{
-			if (!UOMType.Equals(UnitType.UNCLASSIFIED)) {
+			if (!UOMType.Equals(UnitType.UNCLASSIFIED))
+			{
 				// already classified
 				return this;
 			}
@@ -1101,10 +1093,12 @@ namespace Point85.Caliper.UnitOfMeasure
 			// try to find this map in the unit types
 			UnitType matchedType = UnitType.UNCLASSIFIED;
 
-			foreach (UnitType unitType in UnitType.GetValues(typeof(UnitType))) {
+			foreach (UnitType unitType in UnitType.GetValues(typeof(UnitType)))
+			{
 				ConcurrentDictionary<UnitType, int> unitTypeMap = MeasurementSystem.GetSystem().GetTypeMap(unitType);
 
-				if (unitTypeMap.Count != uomBaseMap.Count) {
+				if (unitTypeMap.Count != uomBaseMap.Count)
+				{
 					// not a match
 					continue;
 				}
@@ -1112,11 +1106,13 @@ namespace Point85.Caliper.UnitOfMeasure
 				Boolean match = true;
 
 				// same size, now check base unit types and exponents
-				foreach (KeyValuePair<UnitOfMeasure, int> kvp in uomBaseMap) {
+				foreach (KeyValuePair<UnitOfMeasure, int> kvp in uomBaseMap)
+				{
 					UnitType uomBaseType = kvp.Key.UOMType;
 					int uomBaseExponent = kvp.Value;
 
-					if (unitTypeMap.TryGetValue(uomBaseType, out int unitExponent)) {
+					if (unitTypeMap.TryGetValue(uomBaseType, out int unitExponent))
+					{
 						// value is in map, check exponents
 						if (unitExponent != uomBaseExponent)
 						{
@@ -1124,7 +1120,8 @@ namespace Point85.Caliper.UnitOfMeasure
 							match = false;
 							break;
 						}
-					} else
+					}
+					else
 					{
 						// value not in map
 						match = false;
@@ -1132,21 +1129,23 @@ namespace Point85.Caliper.UnitOfMeasure
 					}
 				}
 
-				if (match) {
+				if (match)
+				{
 					matchedType = unitType;
 					break;
 				}
 			}
 
-			if (!matchedType.Equals(UnitType.UNCLASSIFIED)) {
+			if (!matchedType.Equals(UnitType.UNCLASSIFIED))
+			{
 				this.UOMType = matchedType;
 			}
 
 			return this;
 		}
 
-	// reduce a unit of measure to its most basic scalar units of measure.
-	internal class Reducer
+		// reduce a unit of measure to its most basic scalar units of measure.
+		internal class Reducer
 		{
 			private const int MAX_RECURSIONS = 100;
 
@@ -1246,7 +1245,7 @@ namespace Point85.Caliper.UnitOfMeasure
 							pathExponent = pathExponent * exp;
 						}
 
-						bool invert = pathExponent < 0 ? true : false;
+						bool invert = pathExponent < 0  ? true : false;
 
 						for (int i = 0; i < Math.Abs(pathExponent); i++)
 						{

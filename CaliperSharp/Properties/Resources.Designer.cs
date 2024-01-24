@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Point85.Caliper.UnitOfMeasure.Properties {
+namespace CaliperSharp.Properties {
     using System;
     
     
@@ -22,7 +22,7 @@ namespace Point85.Caliper.UnitOfMeasure.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Resources {
+    internal class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,10 +36,10 @@ namespace Point85.Caliper.UnitOfMeasure.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Point85.Caliper.UnitOfMeasure.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CaliperSharp.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,12 +51,4251 @@ namespace Point85.Caliper.UnitOfMeasure.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to acre (international).
+        /// </summary>
+        internal static string acre_desc {
+            get {
+                return ResourceManager.GetString("acre.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to acre.
+        /// </summary>
+        internal static string acre_name {
+            get {
+                return ResourceManager.GetString("acre.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ac.
+        /// </summary>
+        internal static string acre_symbol {
+            get {
+                return ResourceManager.GetString("acre.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The amount cannot be null..
+        /// </summary>
+        internal static string amount_cannot_be_null {
+            get {
+                return ResourceManager.GetString("amount.cannot.be.null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The constant current needed to produce a force of 2×10-7 newton per metre between two straight parallel conductors of infinite length and negligible circular cross-section placed one metre apart in a vacuum..
+        /// </summary>
+        internal static string amp_desc {
+            get {
+                return ResourceManager.GetString("amp.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ampere.
+        /// </summary>
+        internal static string amp_name {
+            get {
+                return ResourceManager.GetString("amp.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A.
+        /// </summary>
+        internal static string amp_symbol {
+            get {
+                return ResourceManager.GetString("amp.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 0.1 nanometres.
+        /// </summary>
+        internal static string angstrom_desc {
+            get {
+                return ResourceManager.GetString("angstrom.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Angstrom.
+        /// </summary>
+        internal static string angstrom_name {
+            get {
+                return ResourceManager.GetString("angstrom.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ao.
+        /// </summary>
+        internal static string angstrom_symbol {
+            get {
+                return ResourceManager.GetString("angstrom.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to magnetic field strength.
+        /// </summary>
+        internal static string aperm_desc {
+            get {
+                return ResourceManager.GetString("aperm.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ampere per metre.
+        /// </summary>
+        internal static string aperm_name {
+            get {
+                return ResourceManager.GetString("aperm.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A/m.
+        /// </summary>
+        internal static string aperm_symbol {
+            get {
+                return ResourceManager.GetString("aperm.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1/3600 of a degree.
+        /// </summary>
+        internal static string arcsec_desc {
+            get {
+                return ResourceManager.GetString("arcsec.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to arc second.
+        /// </summary>
+        internal static string arcsec_name {
+            get {
+                return ResourceManager.GetString("arcsec.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;&apos;.
+        /// </summary>
+        internal static string arcsec_symbol {
+            get {
+                return ResourceManager.GetString("arcsec.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to standard atmosphere.
+        /// </summary>
+        internal static string atm_desc {
+            get {
+                return ResourceManager.GetString("atm.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to atmosphere.
+        /// </summary>
+        internal static string atm_name {
+            get {
+                return ResourceManager.GetString("atm.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to atm.
+        /// </summary>
+        internal static string atm_symbol {
+            get {
+                return ResourceManager.GetString("atm.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to roughly the distance from Earth to the Sun.
+        /// </summary>
+        internal static string au_desc {
+            get {
+                return ResourceManager.GetString("au.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to astronomical unit.
+        /// </summary>
+        internal static string au_name {
+            get {
+                return ResourceManager.GetString("au.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to au.
+        /// </summary>
+        internal static string au_symbol {
+            get {
+                return ResourceManager.GetString("au.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Avogadro&apos;s number.
+        /// </summary>
+        internal static string avo_desc {
+            get {
+                return ResourceManager.GetString("avo.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Avogadro&apos;s constant.
+        /// </summary>
+        internal static string avo_name {
+            get {
+                return ResourceManager.GetString("avo.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NA.
+        /// </summary>
+        internal static string avo_symbol {
+            get {
+                return ResourceManager.GetString("avo.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 10^5 Pascal.
+        /// </summary>
+        internal static string bar_desc {
+            get {
+                return ResourceManager.GetString("bar.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to bar.
+        /// </summary>
+        internal static string bar_name {
+            get {
+                return ResourceManager.GetString("bar.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to bar.
+        /// </summary>
+        internal static string bar_symbol {
+            get {
+                return ResourceManager.GetString("bar.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The base cannot be null for the power unit of measure with symbol {0}..
+        /// </summary>
+        internal static string base_cannot_be_null {
+            get {
+                return ResourceManager.GetString("base.cannot.be.null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Base Symbol:.
+        /// </summary>
+        internal static string base_text {
+            get {
+                return ResourceManager.GetString("base.text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to radioactivity (decays per unit time).
+        /// </summary>
+        internal static string becquerel_desc {
+            get {
+                return ResourceManager.GetString("becquerel.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to becquerel.
+        /// </summary>
+        internal static string becquerel_name {
+            get {
+                return ResourceManager.GetString("becquerel.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bq.
+        /// </summary>
+        internal static string becquerel_symbol {
+            get {
+                return ResourceManager.GetString("becquerel.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to basic amount of information.
+        /// </summary>
+        internal static string bit_desc {
+            get {
+                return ResourceManager.GetString("bit.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to bit.
+        /// </summary>
+        internal static string bit_name {
+            get {
+                return ResourceManager.GetString("bit.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to bit.
+        /// </summary>
+        internal static string bit_symbol {
+            get {
+                return ResourceManager.GetString("bit.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Boltzmann&apos;s constant.
+        /// </summary>
+        internal static string boltzmann_desc {
+            get {
+                return ResourceManager.GetString("boltzmann.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Boltzmann&apos;s constant.
+        /// </summary>
+        internal static string boltzmann_name {
+            get {
+                return ResourceManager.GetString("boltzmann.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to k.
+        /// </summary>
+        internal static string boltzmann_symbol {
+            get {
+                return ResourceManager.GetString("boltzmann.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Imperial bushel.
+        /// </summary>
+        internal static string br_bu_desc {
+            get {
+                return ResourceManager.GetString("br_bu.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Imperial bushel.
+        /// </summary>
+        internal static string br_bu_name {
+            get {
+                return ResourceManager.GetString("br_bu.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to br bu.
+        /// </summary>
+        internal static string br_bu_symbol {
+            get {
+                return ResourceManager.GetString("br_bu.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to cup  (Imperial).
+        /// </summary>
+        internal static string br_cup_desc {
+            get {
+                return ResourceManager.GetString("br_cup.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Imperial cup.
+        /// </summary>
+        internal static string br_cup_name {
+            get {
+                return ResourceManager.GetString("br_cup.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to br cup.
+        /// </summary>
+        internal static string br_cup_symbol {
+            get {
+                return ResourceManager.GetString("br_cup.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1/160 of an Imperial gallon.
+        /// </summary>
+        internal static string br_fl_oz_desc {
+            get {
+                return ResourceManager.GetString("br_fl_oz.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Imperial fluid ounce.
+        /// </summary>
+        internal static string br_fl_oz_name {
+            get {
+                return ResourceManager.GetString("br_fl_oz.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to br fl oz.
+        /// </summary>
+        internal static string br_fl_oz_symbol {
+            get {
+                return ResourceManager.GetString("br_fl_oz.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 4.54609 litres.
+        /// </summary>
+        internal static string br_gallon_desc {
+            get {
+                return ResourceManager.GetString("br_gallon.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Imperial gallon.
+        /// </summary>
+        internal static string br_gallon_name {
+            get {
+                return ResourceManager.GetString("br_gallon.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to br gal.
+        /// </summary>
+        internal static string br_gallon_symbol {
+            get {
+                return ResourceManager.GetString("br_gallon.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Imperial pint.
+        /// </summary>
+        internal static string br_pint_desc {
+            get {
+                return ResourceManager.GetString("br_pint.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Imperial pint.
+        /// </summary>
+        internal static string br_pint_name {
+            get {
+                return ResourceManager.GetString("br_pint.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to br pt.
+        /// </summary>
+        internal static string br_pint_symbol {
+            get {
+                return ResourceManager.GetString("br_pint.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Imperial quart.
+        /// </summary>
+        internal static string br_quart_desc {
+            get {
+                return ResourceManager.GetString("br_quart.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Imperial quart.
+        /// </summary>
+        internal static string br_quart_name {
+            get {
+                return ResourceManager.GetString("br_quart.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to br qt.
+        /// </summary>
+        internal static string br_quart_symbol {
+            get {
+                return ResourceManager.GetString("br_quart.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to tablespoon (Imperial).
+        /// </summary>
+        internal static string br_tbsp_desc {
+            get {
+                return ResourceManager.GetString("br_tbsp.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to tablespoon.
+        /// </summary>
+        internal static string br_tbsp_name {
+            get {
+                return ResourceManager.GetString("br_tbsp.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to br tbsp.
+        /// </summary>
+        internal static string br_tbsp_symbol {
+            get {
+                return ResourceManager.GetString("br_tbsp.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to long ton.
+        /// </summary>
+        internal static string br_ton_desc {
+            get {
+                return ResourceManager.GetString("br_ton.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to long ton.
+        /// </summary>
+        internal static string br_ton_name {
+            get {
+                return ResourceManager.GetString("br_ton.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to long tn.
+        /// </summary>
+        internal static string br_ton_symbol {
+            get {
+                return ResourceManager.GetString("br_ton.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to teaspoon (Imperial).
+        /// </summary>
+        internal static string br_tsp_desc {
+            get {
+                return ResourceManager.GetString("br_tsp.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to teaspoon.
+        /// </summary>
+        internal static string br_tsp_name {
+            get {
+                return ResourceManager.GetString("br_tsp.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to br tsp.
+        /// </summary>
+        internal static string br_tsp_symbol {
+            get {
+                return ResourceManager.GetString("br_tsp.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The amount of heat required to raise the temperature of 1 avoirdupois pound of liquid water by 1 degree Fahrenheit at a constant pressure of one atmosphere..
+        /// </summary>
+        internal static string btu_desc {
+            get {
+                return ResourceManager.GetString("btu.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to British Thermal Unit ISO.
+        /// </summary>
+        internal static string btu_name {
+            get {
+                return ResourceManager.GetString("btu.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BTU.
+        /// </summary>
+        internal static string btu_symbol {
+            get {
+                return ResourceManager.GetString("btu.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 8 bits of information.
+        /// </summary>
+        internal static string byte_desc {
+            get {
+                return ResourceManager.GetString("byte.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to byte.
+        /// </summary>
+        internal static string byte_name {
+            get {
+                return ResourceManager.GetString("byte.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to B.
+        /// </summary>
+        internal static string byte_symbol {
+            get {
+                return ResourceManager.GetString("byte.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to basis of second.
+        /// </summary>
+        internal static string caesium_desc {
+            get {
+                return ResourceManager.GetString("caesium.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to hyperfine transition frequency of Cs.
+        /// </summary>
+        internal static string caesium_name {
+            get {
+                return ResourceManager.GetString("caesium.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \u0394\u03BDCs.
+        /// </summary>
+        internal static string caesium_symbol {
+            get {
+                return ResourceManager.GetString("caesium.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to calorie (thermochemical).
+        /// </summary>
+        internal static string calorie_desc {
+            get {
+                return ResourceManager.GetString("calorie.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Calorie.
+        /// </summary>
+        internal static string calorie_name {
+            get {
+                return ResourceManager.GetString("calorie.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cal.
+        /// </summary>
+        internal static string calorie_symbol {
+            get {
+                return ResourceManager.GetString("calorie.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to metric carat is defined as 200 mg exactly.
+        /// </summary>
+        internal static string carat_desc {
+            get {
+                return ResourceManager.GetString("carat.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to carat.
+        /// </summary>
+        internal static string carat_name {
+            get {
+                return ResourceManager.GetString("carat.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ctm.
+        /// </summary>
+        internal static string carat_symbol {
+            get {
+                return ResourceManager.GetString("carat.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The luminous intensity of a source that emits monochromatic radiation of frequency 540\u00D710^12 hertz and that has a radiant intensity in that direction of 1/683 watt per steradian..
+        /// </summary>
+        internal static string cd_desc {
+            get {
+                return ResourceManager.GetString("cd.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to candela.
+        /// </summary>
+        internal static string cd_name {
+            get {
+                return ResourceManager.GetString("cd.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to cd.
+        /// </summary>
+        internal static string cd_symbol {
+            get {
+                return ResourceManager.GetString("cd.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The scale of temperature in which water freezes at 0\u00B0 and boils at 100\u00B0 under standard conditions..
+        /// </summary>
+        internal static string celsius_desc {
+            get {
+                return ResourceManager.GetString("celsius.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Degrees Celsius.
+        /// </summary>
+        internal static string celsius_name {
+            get {
+                return ResourceManager.GetString("celsius.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \u00B0C.
+        /// </summary>
+        internal static string celsius_symbol {
+            get {
+                return ResourceManager.GetString("celsius.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The unit of measure with symbol {0} has circular references and cannot be created..
+        /// </summary>
+        internal static string circular_references {
+            get {
+                return ResourceManager.GetString("circular.references", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The scaling factor must be 1 and the offset must be 0..
+        /// </summary>
+        internal static string conversion_not_allowed {
+            get {
+                return ResourceManager.GetString("conversion.not.allowed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Conversion:.
+        /// </summary>
+        internal static string conversion_text {
+            get {
+                return ResourceManager.GetString("conversion.text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 128 cubic feet (US customary).
+        /// </summary>
+        internal static string cord_desc {
+            get {
+                return ResourceManager.GetString("cord.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to US cord.
+        /// </summary>
+        internal static string cord_name {
+            get {
+                return ResourceManager.GetString("cord.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to cord.
+        /// </summary>
+        internal static string cord_symbol {
+            get {
+                return ResourceManager.GetString("cord.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The amount of electricity carried in one second of time by one ampere of current..
+        /// </summary>
+        internal static string coulomb_desc {
+            get {
+                return ResourceManager.GetString("coulomb.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to coulomb.
+        /// </summary>
+        internal static string coulomb_name {
+            get {
+                return ResourceManager.GetString("coulomb.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to C.
+        /// </summary>
+        internal static string coulomb_symbol {
+            get {
+                return ResourceManager.GetString("coulomb.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 24 hours.
+        /// </summary>
+        internal static string day_desc {
+            get {
+                return ResourceManager.GetString("day.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to day.
+        /// </summary>
+        internal static string day_name {
+            get {
+                return ResourceManager.GetString("day.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to d.
+        /// </summary>
+        internal static string day_symbol {
+            get {
+                return ResourceManager.GetString("day.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A logarithmic unit used to express the ratio of two values of a physical quantity, often power or intensity..
+        /// </summary>
+        internal static string db_desc {
+            get {
+                return ResourceManager.GetString("db.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to decibel.
+        /// </summary>
+        internal static string db_name {
+            get {
+                return ResourceManager.GetString("db.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to dB.
+        /// </summary>
+        internal static string db_symbol {
+            get {
+                return ResourceManager.GetString("db.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System.
+        /// </summary>
+        internal static string default_category_text {
+            get {
+                return ResourceManager.GetString("default.category.text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1/360 of a revolution.
+        /// </summary>
+        internal static string degree_desc {
+            get {
+                return ResourceManager.GetString("degree.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to degree of arc.
+        /// </summary>
+        internal static string degree_name {
+            get {
+                return ResourceManager.GetString("degree.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \u00B0.
+        /// </summary>
+        internal static string degree_symbol {
+            get {
+                return ResourceManager.GetString("degree.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A unit of refractive power that is equal to the reciprocal of the focal length (in meters) of a given lens..
+        /// </summary>
+        internal static string diopter_desc {
+            get {
+                return ResourceManager.GetString("diopter.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to diopter.
+        /// </summary>
+        internal static string diopter_name {
+            get {
+                return ResourceManager.GetString("diopter.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to dpt.
+        /// </summary>
+        internal static string diopter_symbol {
+            get {
+                return ResourceManager.GetString("diopter.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The dividend cannot be null for the quotient unit of measure with symbol {0}..
+        /// </summary>
+        internal static string dividend_cannot_be_null {
+            get {
+                return ResourceManager.GetString("dividend.cannot.be.null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The divisor cannot be null for the quotient unit of measure with symbol {0}..
+        /// </summary>
+        internal static string divisor_cannot_be_null {
+            get {
+                return ResourceManager.GetString("divisor.cannot.be.null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The amount to divide by must not be zero..
+        /// </summary>
+        internal static string divisor_cannot_be_zero {
+            get {
+                return ResourceManager.GetString("divisor.cannot.be.zero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The charge of a single electron..
+        /// </summary>
+        internal static string e_desc {
+            get {
+                return ResourceManager.GetString("e.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to elementary charge.
+        /// </summary>
+        internal static string e_name {
+            get {
+                return ResourceManager.GetString("e.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to e.
+        /// </summary>
+        internal static string e_symbol {
+            get {
+                return ResourceManager.GetString("e.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enumeration:.
+        /// </summary>
+        internal static string enum_text {
+            get {
+                return ResourceManager.GetString("enum.text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to electric permittivity of a vacuum.
+        /// </summary>
+        internal static string eps0_desc {
+            get {
+                return ResourceManager.GetString("eps0.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Epsilon Zero.
+        /// </summary>
+        internal static string eps0_name {
+            get {
+                return ResourceManager.GetString("eps0.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to eps0.
+        /// </summary>
+        internal static string eps0_symbol {
+            get {
+                return ResourceManager.GetString("eps0.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The amount of a substance that reacts with (or is equivalent to) an arbitrary amount of another substance in a given chemical reaction..
+        /// </summary>
+        internal static string equivalent_desc {
+            get {
+                return ResourceManager.GetString("equivalent.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to equivalent.
+        /// </summary>
+        internal static string equivalent_name {
+            get {
+                return ResourceManager.GetString("equivalent.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Eq.
+        /// </summary>
+        internal static string equivalent_symbol {
+            get {
+                return ResourceManager.GetString("equivalent.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to euro.
+        /// </summary>
+        internal static string euro_desc {
+            get {
+                return ResourceManager.GetString("euro.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to euro.
+        /// </summary>
+        internal static string euro_name {
+            get {
+                return ResourceManager.GetString("euro.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \u20AC.
+        /// </summary>
+        internal static string euro_symbol {
+            get {
+                return ResourceManager.GetString("euro.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The amount of energy gained (or lost) by the charge of a single electron moving across an electric potential difference of one volt..
+        /// </summary>
+        internal static string ev_desc {
+            get {
+                return ResourceManager.GetString("ev.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to electron-volt.
+        /// </summary>
+        internal static string ev_name {
+            get {
+                return ResourceManager.GetString("ev.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to eV.
+        /// </summary>
+        internal static string ev_symbol {
+            get {
+                return ResourceManager.GetString("ev.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pure water is defined to freeze at 32 \u00B0F.
+        /// </summary>
+        internal static string fahrenheit_desc {
+            get {
+                return ResourceManager.GetString("fahrenheit.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Degrees Fahrenheit.
+        /// </summary>
+        internal static string fahrenheit_name {
+            get {
+                return ResourceManager.GetString("fahrenheit.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \u00B0F.
+        /// </summary>
+        internal static string fahrenheit_symbol {
+            get {
+                return ResourceManager.GetString("fahrenheit.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The capacitance between two parallel plates that results in one volt of potential difference when charged by one coulomb of electricity..
+        /// </summary>
+        internal static string farad_desc {
+            get {
+                return ResourceManager.GetString("farad.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to farad.
+        /// </summary>
+        internal static string farad_name {
+            get {
+                return ResourceManager.GetString("farad.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to F.
+        /// </summary>
+        internal static string farad_symbol {
+            get {
+                return ResourceManager.GetString("farad.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The magnitude of electric charge per mole of electrons..
+        /// </summary>
+        internal static string faraday_desc {
+            get {
+                return ResourceManager.GetString("faraday.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Faraday constant.
+        /// </summary>
+        internal static string faraday_name {
+            get {
+                return ResourceManager.GetString("faraday.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fc.
+        /// </summary>
+        internal static string faraday_symbol {
+            get {
+                return ResourceManager.GetString("faraday.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Farad per metre.
+        /// </summary>
+        internal static string fm_desc {
+            get {
+                return ResourceManager.GetString("fm.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Farad per metre.
+        /// </summary>
+        internal static string fm_name {
+            get {
+                return ResourceManager.GetString("fm.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to F/m.
+        /// </summary>
+        internal static string fm_symbol {
+            get {
+                return ResourceManager.GetString("fm.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to international foot.
+        /// </summary>
+        internal static string foot_desc {
+            get {
+                return ResourceManager.GetString("foot.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to foot.
+        /// </summary>
+        internal static string foot_name {
+            get {
+                return ResourceManager.GetString("foot.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ft.
+        /// </summary>
+        internal static string foot_symbol {
+            get {
+                return ResourceManager.GetString("foot.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Electric permittivity.
+        /// </summary>
+        internal static string fperm_desc {
+            get {
+                return ResourceManager.GetString("fperm.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to farad per metre.
+        /// </summary>
+        internal static string fperm_name {
+            get {
+                return ResourceManager.GetString("fperm.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to F/m.
+        /// </summary>
+        internal static string fperm_symbol {
+            get {
+                return ResourceManager.GetString("fperm.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to velocity in feet/sec.
+        /// </summary>
+        internal static string fps_desc {
+            get {
+                return ResourceManager.GetString("fps.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to feet per second.
+        /// </summary>
+        internal static string fps_name {
+            get {
+                return ResourceManager.GetString("fps.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ft/s.
+        /// </summary>
+        internal static string fps_symbol {
+            get {
+                return ResourceManager.GetString("fps.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to torque.
+        /// </summary>
+        internal static string ft_lbf_desc {
+            get {
+                return ResourceManager.GetString("ft_lbf.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to foot-pound force.
+        /// </summary>
+        internal static string ft_lbf_name {
+            get {
+                return ResourceManager.GetString("ft_lbf.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ft\u00B7lbf.
+        /// </summary>
+        internal static string ft_lbf_symbol {
+            get {
+                return ResourceManager.GetString("ft_lbf.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to area in square feet.
+        /// </summary>
+        internal static string ft2_desc {
+            get {
+                return ResourceManager.GetString("ft2.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to square feet.
+        /// </summary>
+        internal static string ft2_name {
+            get {
+                return ResourceManager.GetString("ft2.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ft\u00B2.
+        /// </summary>
+        internal static string ft2_symbol {
+            get {
+                return ResourceManager.GetString("ft2.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to volume in cubic feet.
+        /// </summary>
+        internal static string ft3_desc {
+            get {
+                return ResourceManager.GetString("ft3.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to cubic feet.
+        /// </summary>
+        internal static string ft3_name {
+            get {
+                return ResourceManager.GetString("ft3.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ft\u00B3.
+        /// </summary>
+        internal static string ft3_symbol {
+            get {
+                return ResourceManager.GetString("ft3.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to volumetric flow.
+        /// </summary>
+        internal static string ft3PerSec_desc {
+            get {
+                return ResourceManager.GetString("ft3PerSec.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to cubic feet per second.
+        /// </summary>
+        internal static string ft3PerSec_name {
+            get {
+                return ResourceManager.GetString("ft3PerSec.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ft\u00B3/s.
+        /// </summary>
+        internal static string ft3PerSec_symbol {
+            get {
+                return ResourceManager.GetString("ft3PerSec.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to depth of water.
+        /// </summary>
+        internal static string fth_desc {
+            get {
+                return ResourceManager.GetString("fth.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to fathom.
+        /// </summary>
+        internal static string fth_name {
+            get {
+                return ResourceManager.GetString("fth.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to fth.
+        /// </summary>
+        internal static string fth_symbol {
+            get {
+                return ResourceManager.GetString("fth.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to acceleration in feet/second squared.
+        /// </summary>
+        internal static string ftps2_desc {
+            get {
+                return ResourceManager.GetString("ftps2.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to foot per second squared.
+        /// </summary>
+        internal static string ftps2_name {
+            get {
+                return ResourceManager.GetString("ftps2.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ft/s\u00B2.
+        /// </summary>
+        internal static string ftps2_symbol {
+            get {
+                return ResourceManager.GetString("ftps2.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Molar, universal, or ideal gas constant.
+        /// </summary>
+        internal static string gas_desc {
+            get {
+                return ResourceManager.GetString("gas.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gas constant.
+        /// </summary>
+        internal static string gas_name {
+            get {
+                return ResourceManager.GetString("gas.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rc.
+        /// </summary>
+        internal static string gas_symbol {
+            get {
+                return ResourceManager.GetString("gas.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to grain mass avoirdupois.
+        /// </summary>
+        internal static string grain_desc {
+            get {
+                return ResourceManager.GetString("grain.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to grain.
+        /// </summary>
+        internal static string grain_name {
+            get {
+                return ResourceManager.GetString("grain.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to gr.
+        /// </summary>
+        internal static string grain_symbol {
+            get {
+                return ResourceManager.GetString("grain.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1/1000 kilogram.
+        /// </summary>
+        internal static string gram_desc {
+            get {
+                return ResourceManager.GetString("gram.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to gram.
+        /// </summary>
+        internal static string gram_name {
+            get {
+                return ResourceManager.GetString("gram.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to g.
+        /// </summary>
+        internal static string gram_symbol {
+            get {
+                return ResourceManager.GetString("gram.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to standard acceleration of gravity.
+        /// </summary>
+        internal static string gravity_desc {
+            get {
+                return ResourceManager.GetString("gravity.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gn.
+        /// </summary>
+        internal static string gravity_name {
+            get {
+                return ResourceManager.GetString("gravity.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to gn.
+        /// </summary>
+        internal static string gravity_symbol {
+            get {
+                return ResourceManager.GetString("gravity.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to absorbed dose (of ionizing radiation).
+        /// </summary>
+        internal static string gray_desc {
+            get {
+                return ResourceManager.GetString("gray.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to gray.
+        /// </summary>
+        internal static string gray_name {
+            get {
+                return ResourceManager.GetString("gray.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gy.
+        /// </summary>
+        internal static string gray_symbol {
+            get {
+                return ResourceManager.GetString("gray.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 10,000 square metres.
+        /// </summary>
+        internal static string hectare_desc {
+            get {
+                return ResourceManager.GetString("hectare.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to hectare.
+        /// </summary>
+        internal static string hectare_name {
+            get {
+                return ResourceManager.GetString("hectare.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ha.
+        /// </summary>
+        internal static string hectare_symbol {
+            get {
+                return ResourceManager.GetString("hectare.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The inductance of a closed circuit that produces one volt of electromotive force when the current in the circuit varies at a uniform rate of one ampere per second.
+        /// </summary>
+        internal static string henry_desc {
+            get {
+                return ResourceManager.GetString("henry.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to henry.
+        /// </summary>
+        internal static string henry_name {
+            get {
+                return ResourceManager.GetString("henry.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to H.
+        /// </summary>
+        internal static string henry_symbol {
+            get {
+                return ResourceManager.GetString("henry.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to frequency.
+        /// </summary>
+        internal static string hertz_desc {
+            get {
+                return ResourceManager.GetString("hertz.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to hertz.
+        /// </summary>
+        internal static string hertz_name {
+            get {
+                return ResourceManager.GetString("hertz.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hz.
+        /// </summary>
+        internal static string hertz_symbol {
+            get {
+                return ResourceManager.GetString("hertz.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mechanical horsepower.
+        /// </summary>
+        internal static string hp_desc {
+            get {
+                return ResourceManager.GetString("hp.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to horsepower.
+        /// </summary>
+        internal static string hp_name {
+            get {
+                return ResourceManager.GetString("hp.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to hp.
+        /// </summary>
+        internal static string hp_symbol {
+            get {
+                return ResourceManager.GetString("hp.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 60 minutes.
+        /// </summary>
+        internal static string hr_desc {
+            get {
+                return ResourceManager.GetString("hr.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to hour.
+        /// </summary>
+        internal static string hr_name {
+            get {
+                return ResourceManager.GetString("hr.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to hr.
+        /// </summary>
+        internal static string hr_symbol {
+            get {
+                return ResourceManager.GetString("hr.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The constant of proportionality between the distance to a galaxy and its velocity.
+        /// </summary>
+        internal static string hubble_desc {
+            get {
+                return ResourceManager.GetString("hubble.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hubble constant.
+        /// </summary>
+        internal static string hubble_name {
+            get {
+                return ResourceManager.GetString("hubble.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to H0.
+        /// </summary>
+        internal static string hubble_symbol {
+            get {
+                return ResourceManager.GetString("hubble.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to area in square inches.
+        /// </summary>
+        internal static string in2_desc {
+            get {
+                return ResourceManager.GetString("in2.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to square inches.
+        /// </summary>
+        internal static string in2_name {
+            get {
+                return ResourceManager.GetString("in2.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to in\u00B2.
+        /// </summary>
+        internal static string in2_symbol {
+            get {
+                return ResourceManager.GetString("in2.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to volume in cubic inches.
+        /// </summary>
+        internal static string in3_desc {
+            get {
+                return ResourceManager.GetString("in3.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to cubic inches.
+        /// </summary>
+        internal static string in3_name {
+            get {
+                return ResourceManager.GetString("in3.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to in\u00B3.
+        /// </summary>
+        internal static string in3_symbol {
+            get {
+                return ResourceManager.GetString("in3.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to international inch.
+        /// </summary>
+        internal static string inch_desc {
+            get {
+                return ResourceManager.GetString("inch.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to inch.
+        /// </summary>
+        internal static string inch_name {
+            get {
+                return ResourceManager.GetString("inch.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to in.
+        /// </summary>
+        internal static string inch_symbol {
+            get {
+                return ResourceManager.GetString("inch.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The unit of measure {0} cannot be converted to {1}..
+        /// </summary>
+        internal static string incompatible_units {
+            get {
+                return ResourceManager.GetString("incompatible.units", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to inches of Mercury pressure.
+        /// </summary>
+        internal static string inhg_desc {
+            get {
+                return ResourceManager.GetString("inhg.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to inches of Mercury.
+        /// </summary>
+        internal static string inhg_name {
+            get {
+                return ResourceManager.GetString("inhg.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to in Hg.
+        /// </summary>
+        internal static string inhg_symbol {
+            get {
+                return ResourceManager.GetString("inhg.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The amount of a substance.
+        /// </summary>
+        internal static string iu_desc {
+            get {
+                return ResourceManager.GetString("iu.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to International Unit.
+        /// </summary>
+        internal static string iu_name {
+            get {
+                return ResourceManager.GetString("iu.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IU.
+        /// </summary>
+        internal static string iu_symbol {
+            get {
+                return ResourceManager.GetString("iu.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The work done when a force of one newton moves the point of its application a distance of one metre in the direction of the force..
+        /// </summary>
+        internal static string joule_desc {
+            get {
+                return ResourceManager.GetString("joule.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to joule.
+        /// </summary>
+        internal static string joule_name {
+            get {
+                return ResourceManager.GetString("joule.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to J.
+        /// </summary>
+        internal static string joule_symbol {
+            get {
+                return ResourceManager.GetString("joule.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 365.25 weeks.
+        /// </summary>
+        internal static string jyear_desc {
+            get {
+                return ResourceManager.GetString("jyear.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Julian year.
+        /// </summary>
+        internal static string jyear_name {
+            get {
+                return ResourceManager.GetString("jyear.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to jyr.
+        /// </summary>
+        internal static string jyear_symbol {
+            get {
+                return ResourceManager.GetString("jyear.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to catalytic activity.
+        /// </summary>
+        internal static string katal_desc {
+            get {
+                return ResourceManager.GetString("katal.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to katal.
+        /// </summary>
+        internal static string katal_name {
+            get {
+                return ResourceManager.GetString("katal.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to kat.
+        /// </summary>
+        internal static string katal_symbol {
+            get {
+                return ResourceManager.GetString("katal.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to a measure of how well a light source produces visible light.
+        /// </summary>
+        internal static string kcd_desc {
+            get {
+                return ResourceManager.GetString("kcd.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to luminous efficacy.
+        /// </summary>
+        internal static string kcd_name {
+            get {
+                return ResourceManager.GetString("kcd.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kcd.
+        /// </summary>
+        internal static string kcd_symbol {
+            get {
+                return ResourceManager.GetString("kcd.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The fraction 1/273.16 of the thermodynamic temperature of the triple point of water..
+        /// </summary>
+        internal static string kelvin_desc {
+            get {
+                return ResourceManager.GetString("kelvin.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Degrees Kelvin.
+        /// </summary>
+        internal static string kelvin_name {
+            get {
+                return ResourceManager.GetString("kelvin.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \u00B0K.
+        /// </summary>
+        internal static string kelvin_symbol {
+            get {
+                return ResourceManager.GetString("kelvin.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The mass of the international prototype of the kilogram..
+        /// </summary>
+        internal static string kg_desc {
+            get {
+                return ResourceManager.GetString("kg.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to density.
+        /// </summary>
+        internal static string kg_m3_desc {
+            get {
+                return ResourceManager.GetString("kg_m3.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to kilograms per cubic metre.
+        /// </summary>
+        internal static string kg_m3_name {
+            get {
+                return ResourceManager.GetString("kg_m3.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to kg/m\u00B3.
+        /// </summary>
+        internal static string kg_m3_symbol {
+            get {
+                return ResourceManager.GetString("kg_m3.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to kilogram.
+        /// </summary>
+        internal static string kg_name {
+            get {
+                return ResourceManager.GetString("kg.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to kg.
+        /// </summary>
+        internal static string kg_symbol {
+            get {
+                return ResourceManager.GetString("kg.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to mass flow.
+        /// </summary>
+        internal static string kgPerSec_desc {
+            get {
+                return ResourceManager.GetString("kgPerSec.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to kilograms per second.
+        /// </summary>
+        internal static string kgPerSec_name {
+            get {
+                return ResourceManager.GetString("kgPerSec.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to kg/s.
+        /// </summary>
+        internal static string kgPerSec_symbol {
+            get {
+                return ResourceManager.GetString("kgPerSec.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to knot (Admiralty).
+        /// </summary>
+        internal static string knot_desc {
+            get {
+                return ResourceManager.GetString("knot.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to knot.
+        /// </summary>
+        internal static string knot_name {
+            get {
+                return ResourceManager.GetString("knot.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to kn.
+        /// </summary>
+        internal static string knot_symbol {
+            get {
+                return ResourceManager.GetString("knot.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The pound-force is equal to the gravitational force exerted on a mass of one avoirdupois pound on the surface of Earth..
+        /// </summary>
+        internal static string lbf_desc {
+            get {
+                return ResourceManager.GetString("lbf.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to pound force.
+        /// </summary>
+        internal static string lbf_name {
+            get {
+                return ResourceManager.GetString("lbf.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to lbf.
+        /// </summary>
+        internal static string lbf_symbol {
+            get {
+                return ResourceManager.GetString("lbf.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to pound mass avoirdupois.
+        /// </summary>
+        internal static string lbm_desc {
+            get {
+                return ResourceManager.GetString("lbm.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to pound.
+        /// </summary>
+        internal static string lbm_name {
+            get {
+                return ResourceManager.GetString("lbm.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to lbm.
+        /// </summary>
+        internal static string lbm_symbol {
+            get {
+                return ResourceManager.GetString("lbm.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to velocity of light in a vacuum.
+        /// </summary>
+        internal static string light_desc {
+            get {
+                return ResourceManager.GetString("light.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vc.
+        /// </summary>
+        internal static string light_name {
+            get {
+                return ResourceManager.GetString("light.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to c.
+        /// </summary>
+        internal static string light_symbol {
+            get {
+                return ResourceManager.GetString("light.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 0.001 cubic metres.
+        /// </summary>
+        internal static string litre_desc {
+            get {
+                return ResourceManager.GetString("litre.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to litre.
+        /// </summary>
+        internal static string litre_name {
+            get {
+                return ResourceManager.GetString("litre.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to L.
+        /// </summary>
+        internal static string litre_symbol {
+            get {
+                return ResourceManager.GetString("litre.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Luminous flux.
+        /// </summary>
+        internal static string lumen_desc {
+            get {
+                return ResourceManager.GetString("lumen.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to lumen.
+        /// </summary>
+        internal static string lumen_name {
+            get {
+                return ResourceManager.GetString("lumen.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to lm.
+        /// </summary>
+        internal static string lumen_symbol {
+            get {
+                return ResourceManager.GetString("lumen.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Illuminance.
+        /// </summary>
+        internal static string lux_desc {
+            get {
+                return ResourceManager.GetString("lux.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to lux.
+        /// </summary>
+        internal static string lux_name {
+            get {
+                return ResourceManager.GetString("lux.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to lx.
+        /// </summary>
+        internal static string lux_symbol {
+            get {
+                return ResourceManager.GetString("lux.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The distance that light travels in a vacuum in one Julian year.
+        /// </summary>
+        internal static string ly_desc {
+            get {
+                return ResourceManager.GetString("ly.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to light-year.
+        /// </summary>
+        internal static string ly_name {
+            get {
+                return ResourceManager.GetString("ly.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ly.
+        /// </summary>
+        internal static string ly_symbol {
+            get {
+                return ResourceManager.GetString("ly.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The length of the path travelled by light in vacuum during a time interval of 1/299792458 of a second..
+        /// </summary>
+        internal static string m_desc {
+            get {
+                return ResourceManager.GetString("m.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to metre.
+        /// </summary>
+        internal static string m_name {
+            get {
+                return ResourceManager.GetString("m.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to m.
+        /// </summary>
+        internal static string m_symbol {
+            get {
+                return ResourceManager.GetString("m.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to metres squared.
+        /// </summary>
+        internal static string m2_desc {
+            get {
+                return ResourceManager.GetString("m2.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to square meters.
+        /// </summary>
+        internal static string m2_name {
+            get {
+                return ResourceManager.GetString("m2.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to m\u00B2.
+        /// </summary>
+        internal static string m2_symbol {
+            get {
+                return ResourceManager.GetString("m2.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to kinematic viscosity.
+        /// </summary>
+        internal static string m2PerSec_desc {
+            get {
+                return ResourceManager.GetString("m2PerSec.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to square metre per second.
+        /// </summary>
+        internal static string m2PerSec_name {
+            get {
+                return ResourceManager.GetString("m2PerSec.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to m\u00B2/s.
+        /// </summary>
+        internal static string m2PerSec_symbol {
+            get {
+                return ResourceManager.GetString("m2PerSec.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to metres cubed.
+        /// </summary>
+        internal static string m3_desc {
+            get {
+                return ResourceManager.GetString("m3.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to cubic meters.
+        /// </summary>
+        internal static string m3_name {
+            get {
+                return ResourceManager.GetString("m3.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to m\u00B3.
+        /// </summary>
+        internal static string m3_symbol {
+            get {
+                return ResourceManager.GetString("m3.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to volumetric flow.
+        /// </summary>
+        internal static string m3PerSec_desc {
+            get {
+                return ResourceManager.GetString("m3PerSec.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to cubic metres per second.
+        /// </summary>
+        internal static string m3PerSec_name {
+            get {
+                return ResourceManager.GetString("m3PerSec.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to m\u00B3/s.
+        /// </summary>
+        internal static string m3PerSec_symbol {
+            get {
+                return ResourceManager.GetString("m3PerSec.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mass of an electron.
+        /// </summary>
+        internal static string me_desc {
+            get {
+                return ResourceManager.GetString("me.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to electron mass.
+        /// </summary>
+        internal static string me_name {
+            get {
+                return ResourceManager.GetString("me.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to me.
+        /// </summary>
+        internal static string me_symbol {
+            get {
+                return ResourceManager.GetString("me.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 10-\u00B3 inches.
+        /// </summary>
+        internal static string mil_desc {
+            get {
+                return ResourceManager.GetString("mil.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to mil.
+        /// </summary>
+        internal static string mil_name {
+            get {
+                return ResourceManager.GetString("mil.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to mil.
+        /// </summary>
+        internal static string mil_symbol {
+            get {
+                return ResourceManager.GetString("mil.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to international mile.
+        /// </summary>
+        internal static string mile_desc {
+            get {
+                return ResourceManager.GetString("mile.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to mile.
+        /// </summary>
+        internal static string mile_name {
+            get {
+                return ResourceManager.GetString("mile.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to mi.
+        /// </summary>
+        internal static string mile_symbol {
+            get {
+                return ResourceManager.GetString("mile.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 60 seconds.
+        /// </summary>
+        internal static string min_desc {
+            get {
+                return ResourceManager.GetString("min.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to minute.
+        /// </summary>
+        internal static string min_name {
+            get {
+                return ResourceManager.GetString("min.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to min.
+        /// </summary>
+        internal static string min_symbol {
+            get {
+                return ResourceManager.GetString("min.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of moles of solute per litre of solution..
+        /// </summary>
+        internal static string molarity_desc {
+            get {
+                return ResourceManager.GetString("molarity.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to molarity.
+        /// </summary>
+        internal static string molarity_name {
+            get {
+                return ResourceManager.GetString("molarity.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mly.
+        /// </summary>
+        internal static string molarity_symbol {
+            get {
+                return ResourceManager.GetString("molarity.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The amount of substance which contains as many elementary entities as there are atoms in 0.012 kilogram of carbon 12, defined to be 6.022 x 10^23 molecules, atoms, or some other unit..
+        /// </summary>
+        internal static string mole_desc {
+            get {
+                return ResourceManager.GetString("mole.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to mole.
+        /// </summary>
+        internal static string mole_name {
+            get {
+                return ResourceManager.GetString("mole.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to mol.
+        /// </summary>
+        internal static string mole_symbol {
+            get {
+                return ResourceManager.GetString("mole.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mass of a proton.
+        /// </summary>
+        internal static string mp_desc {
+            get {
+                return ResourceManager.GetString("mp.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to proton mass.
+        /// </summary>
+        internal static string mp_name {
+            get {
+                return ResourceManager.GetString("mp.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to mp.
+        /// </summary>
+        internal static string mp_symbol {
+            get {
+                return ResourceManager.GetString("mp.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to velocity in mi/hr.
+        /// </summary>
+        internal static string mph_desc {
+            get {
+                return ResourceManager.GetString("mph.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to miles per hour.
+        /// </summary>
+        internal static string mph_name {
+            get {
+                return ResourceManager.GetString("mph.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to mph.
+        /// </summary>
+        internal static string mph_symbol {
+            get {
+                return ResourceManager.GetString("mph.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to velocity.
+        /// </summary>
+        internal static string mps_desc {
+            get {
+                return ResourceManager.GetString("mps.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to metre per second.
+        /// </summary>
+        internal static string mps_name {
+            get {
+                return ResourceManager.GetString("mps.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to m/s.
+        /// </summary>
+        internal static string mps_symbol {
+            get {
+                return ResourceManager.GetString("mps.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to acceleration.
+        /// </summary>
+        internal static string mps2_desc {
+            get {
+                return ResourceManager.GetString("mps2.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to metre per second squared.
+        /// </summary>
+        internal static string mps2_name {
+            get {
+                return ResourceManager.GetString("mps2.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to m/s\u00B2.
+        /// </summary>
+        internal static string mps2_symbol {
+            get {
+                return ResourceManager.GetString("mps2.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to permeability of a vacuum.
+        /// </summary>
+        internal static string mu0_desc {
+            get {
+                return ResourceManager.GetString("mu0.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mu Zero.
+        /// </summary>
+        internal static string mu0_name {
+            get {
+                return ResourceManager.GetString("mu0.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to mu0.
+        /// </summary>
+        internal static string mu0_symbol {
+            get {
+                return ResourceManager.GetString("mu0.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The multiplicand cannot be null for the product unit of measure with symbol {0}..
+        /// </summary>
+        internal static string multiplicand_cannot_be_null {
+            get {
+                return ResourceManager.GetString("multiplicand.cannot.be.null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The multiplier cannot be null for the product unit of measure with symbol {0}..
+        /// </summary>
+        internal static string multiplier_cannot_be_null {
+            get {
+                return ResourceManager.GetString("multiplier.cannot.be.null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The unit of measure {0} of type {1} must be the same as {2} of type {3}..
+        /// </summary>
+        internal static string must_be_same_as {
+            get {
+                return ResourceManager.GetString("must.be.same.as", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to torque.
+        /// </summary>
+        internal static string n_m_desc {
+            get {
+                return ResourceManager.GetString("n_m.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to newton-metre.
+        /// </summary>
+        internal static string n_m_name {
+            get {
+                return ResourceManager.GetString("n_m.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to N\u00B7m.
+        /// </summary>
+        internal static string n_m_symbol {
+            get {
+                return ResourceManager.GetString("n_m.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to force.
+        /// </summary>
+        internal static string newton_desc {
+            get {
+                return ResourceManager.GetString("newton.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to newton.
+        /// </summary>
+        internal static string newton_name {
+            get {
+                return ResourceManager.GetString("newton.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to N.
+        /// </summary>
+        internal static string newton_symbol {
+            get {
+                return ResourceManager.GetString("newton.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to nautical mile (international).
+        /// </summary>
+        internal static string NM_desc {
+            get {
+                return ResourceManager.GetString("NM.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to nautical mile.
+        /// </summary>
+        internal static string NM_name {
+            get {
+                return ResourceManager.GetString("NM.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NMi.
+        /// </summary>
+        internal static string NM_symbol {
+            get {
+                return ResourceManager.GetString("NM.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The unit of measure {0} cannot have an offset..
+        /// </summary>
+        internal static string offset_not_supported {
+            get {
+                return ResourceManager.GetString("offset.not.supported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The resistance between two points in a conductor when one volt of electric potential difference, applied to these points, produces one ampere of current in the conductor..
+        /// </summary>
+        internal static string ohm_desc {
+            get {
+                return ResourceManager.GetString("ohm.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ohm.
+        /// </summary>
+        internal static string ohm_name {
+            get {
+                return ResourceManager.GetString("ohm.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ohm.
+        /// </summary>
+        internal static string ohm_symbol {
+            get {
+                return ResourceManager.GetString("ohm.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dimension-less one.
+        /// </summary>
+        internal static string one_desc {
+            get {
+                return ResourceManager.GetString("one.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to one.
+        /// </summary>
+        internal static string one_name {
+            get {
+                return ResourceManager.GetString("one.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1.
+        /// </summary>
+        internal static string one_symbol {
+            get {
+                return ResourceManager.GetString("one.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1/16 pound mass avoirdupois.
+        /// </summary>
+        internal static string ounce_desc {
+            get {
+                return ResourceManager.GetString("ounce.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ounce.
+        /// </summary>
+        internal static string ounce_name {
+            get {
+                return ResourceManager.GetString("ounce.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to oz.
+        /// </summary>
+        internal static string ounce_symbol {
+            get {
+                return ResourceManager.GetString("ounce.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The distance at which one astronomical unit subtends an angle of one arcsecond.
+        /// </summary>
+        internal static string parsec_desc {
+            get {
+                return ResourceManager.GetString("parsec.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to parsec.
+        /// </summary>
+        internal static string parsec_name {
+            get {
+                return ResourceManager.GetString("parsec.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to pc.
+        /// </summary>
+        internal static string parsec_symbol {
+            get {
+                return ResourceManager.GetString("parsec.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to pressure.
+        /// </summary>
+        internal static string pascal_desc {
+            get {
+                return ResourceManager.GetString("pascal.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to pascal.
+        /// </summary>
+        internal static string pascal_name {
+            get {
+                return ResourceManager.GetString("pascal.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to dynamic viscosity.
+        /// </summary>
+        internal static string pascal_sec_desc {
+            get {
+                return ResourceManager.GetString("pascal_sec.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to pascal second.
+        /// </summary>
+        internal static string pascal_sec_name {
+            get {
+                return ResourceManager.GetString("pascal_sec.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pa\u00B7s.
+        /// </summary>
+        internal static string pascal_sec_symbol {
+            get {
+                return ResourceManager.GetString("pascal_sec.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pa.
+        /// </summary>
+        internal static string pascal_symbol {
+            get {
+                return ResourceManager.GetString("pascal.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to percentage.
+        /// </summary>
+        internal static string percent_desc {
+            get {
+                return ResourceManager.GetString("percent.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to percent.
+        /// </summary>
+        internal static string percent_name {
+            get {
+                return ResourceManager.GetString("percent.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to %.
+        /// </summary>
+        internal static string percent_symbol {
+            get {
+                return ResourceManager.GetString("percent.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Planck&apos;s constant.
+        /// </summary>
+        internal static string planck_desc {
+            get {
+                return ResourceManager.GetString("planck.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Planck&apos;s constant.
+        /// </summary>
+        internal static string planck_name {
+            get {
+                return ResourceManager.GetString("planck.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to hc.
+        /// </summary>
+        internal static string planck_symbol {
+            get {
+                return ResourceManager.GetString("planck.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to typesetting point.
+        /// </summary>
+        internal static string point_desc {
+            get {
+                return ResourceManager.GetString("point.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to point.
+        /// </summary>
+        internal static string point_name {
+            get {
+                return ResourceManager.GetString("point.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to pnt.
+        /// </summary>
+        internal static string point_symbol {
+            get {
+                return ResourceManager.GetString("point.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to pound force per square inch.
+        /// </summary>
+        internal static string psi_desc {
+            get {
+                return ResourceManager.GetString("psi.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to psi.
+        /// </summary>
+        internal static string psi_name {
+            get {
+                return ResourceManager.GetString("psi.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to psi.
+        /// </summary>
+        internal static string psi_symbol {
+            get {
+                return ResourceManager.GetString("psi.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The plane angle subtended by a circular arc as the length of the arc divided by the radius of the arc.  1 rad.
+        /// </summary>
+        internal static string radian_desc {
+            get {
+                return ResourceManager.GetString("radian.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to radian.
+        /// </summary>
+        internal static string radian_name {
+            get {
+                return ResourceManager.GetString("radian.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to rad.
+        /// </summary>
+        internal static string radian_symbol {
+            get {
+                return ResourceManager.GetString("radian.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to angular velocity.
+        /// </summary>
+        internal static string radpers_desc {
+            get {
+                return ResourceManager.GetString("radpers.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to radians per second.
+        /// </summary>
+        internal static string radpers_name {
+            get {
+                return ResourceManager.GetString("radpers.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to rad/s.
+        /// </summary>
+        internal static string radpers_symbol {
+            get {
+                return ResourceManager.GetString("radpers.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scale of absolute temperature primarily used in thermodynamics..
+        /// </summary>
+        internal static string rankine_desc {
+            get {
+                return ResourceManager.GetString("rankine.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Degrees Rankine.
+        /// </summary>
+        internal static string rankine_name {
+            get {
+                return ResourceManager.GetString("rankine.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \u00B0R.
+        /// </summary>
+        internal static string rankine_symbol {
+            get {
+                return ResourceManager.GetString("rankine.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The rotational speed of a mechanical component..
+        /// </summary>
+        internal static string rpm_desc {
+            get {
+                return ResourceManager.GetString("rpm.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to revolutions per minute.
+        /// </summary>
+        internal static string rpm_name {
+            get {
+                return ResourceManager.GetString("rpm.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to rpm.
+        /// </summary>
+        internal static string rpm_symbol {
+            get {
+                return ResourceManager.GetString("rpm.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to seconds squared.
+        /// </summary>
+        internal static string s2_desc {
+            get {
+                return ResourceManager.GetString("s2.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to square seconds.
+        /// </summary>
+        internal static string s2_name {
+            get {
+                return ResourceManager.GetString("s2.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to s\u00B2.
+        /// </summary>
+        internal static string s2_symbol {
+            get {
+                return ResourceManager.GetString("s2.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stefan-Boltzmann constant.
+        /// </summary>
+        internal static string sb_desc {
+            get {
+                return ResourceManager.GetString("sb.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stefan-Boltzmann.
+        /// </summary>
+        internal static string sb_name {
+            get {
+                return ResourceManager.GetString("sb.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \u03C3.
+        /// </summary>
+        internal static string sb_symbol {
+            get {
+                return ResourceManager.GetString("sb.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time of 9192631770 periods of the radiation corresponding to the transition between the two hyperfine levels of the ground state of the Cesium 133 atom at 0 \u00B0K..
+        /// </summary>
+        internal static string sec_desc {
+            get {
+                return ResourceManager.GetString("sec.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to second.
+        /// </summary>
+        internal static string sec_name {
+            get {
+                return ResourceManager.GetString("sec.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to s.
+        /// </summary>
+        internal static string sec_symbol {
+            get {
+                return ResourceManager.GetString("sec.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Electrical conductance.
+        /// </summary>
+        internal static string siemens_desc {
+            get {
+                return ResourceManager.GetString("siemens.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to siemens.
+        /// </summary>
+        internal static string siemens_name {
+            get {
+                return ResourceManager.GetString("siemens.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S.
+        /// </summary>
+        internal static string siemens_symbol {
+            get {
+                return ResourceManager.GetString("siemens.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to equivalent dose (of ionizing radiation).
+        /// </summary>
+        internal static string sievert_desc {
+            get {
+                return ResourceManager.GetString("sievert.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to sievert.
+        /// </summary>
+        internal static string sievert_name {
+            get {
+                return ResourceManager.GetString("sievert.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sv.
+        /// </summary>
+        internal static string sievert_symbol {
+            get {
+                return ResourceManager.GetString("sievert.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A mass that accelerates by 1 ft/s\u00B2 when a force of one pound (lbf) is exerted on it..
+        /// </summary>
+        internal static string slug_desc {
+            get {
+                return ResourceManager.GetString("slug.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to slug.
+        /// </summary>
+        internal static string slug_name {
+            get {
+                return ResourceManager.GetString("slug.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to slug.
+        /// </summary>
+        internal static string slug_symbol {
+            get {
+                return ResourceManager.GetString("slug.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sieverts per hour.
+        /// </summary>
+        internal static string sph_desc {
+            get {
+                return ResourceManager.GetString("sph.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sieverts per hour.
+        /// </summary>
+        internal static string sph_name {
+            get {
+                return ResourceManager.GetString("sph.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sv/h.
+        /// </summary>
+        internal static string sph_symbol {
+            get {
+                return ResourceManager.GetString("sph.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The solid angle subtended at the center of a sphere of radius r by a portion of the surface of the sphere having an area r\u00B2. A sphere encompasses 4\u03C0 sr..
+        /// </summary>
+        internal static string steradian_desc {
+            get {
+                return ResourceManager.GetString("steradian.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to steradian.
+        /// </summary>
+        internal static string steradian_name {
+            get {
+                return ResourceManager.GetString("steradian.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to sr.
+        /// </summary>
+        internal static string steradian_symbol {
+            get {
+                return ResourceManager.GetString("steradian.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The symbol cannot be null..
+        /// </summary>
+        internal static string symbol_cannot_be_null {
+            get {
+                return ResourceManager.GetString("symbol.cannot.be.null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Symbol:.
+        /// </summary>
+        internal static string symbol_text {
+            get {
+                return ResourceManager.GetString("symbol.text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Webers per square metre.
+        /// </summary>
+        internal static string tesla_desc {
+            get {
+                return ResourceManager.GetString("tesla.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to tesla.
+        /// </summary>
+        internal static string tesla_name {
+            get {
+                return ResourceManager.GetString("tesla.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to T.
+        /// </summary>
+        internal static string tesla_symbol {
+            get {
+                return ResourceManager.GetString("tesla.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1000 kilograms.
+        /// </summary>
+        internal static string tonne_desc {
+            get {
+                return ResourceManager.GetString("tonne.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to tonne.
+        /// </summary>
+        internal static string tonne_name {
+            get {
+                return ResourceManager.GetString("tonne.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to tn.
+        /// </summary>
+        internal static string tonne_symbol {
+            get {
+                return ResourceManager.GetString("tonne.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Commonly used to measure the mass of precious metals.
+        /// </summary>
+        internal static string troy_oz_desc {
+            get {
+                return ResourceManager.GetString("troy_oz.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to troy ounce.
+        /// </summary>
+        internal static string troy_oz_name {
+            get {
+                return ResourceManager.GetString("troy_oz.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to oz t.
+        /// </summary>
+        internal static string troy_oz_symbol {
+            get {
+                return ResourceManager.GetString("troy_oz.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The unit of measure cannot be null..
+        /// </summary>
+        internal static string unit_cannot_be_null {
+            get {
+                return ResourceManager.GetString("unit.cannot.be.null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The amount that catalyzes the conversion of 1 micro mole of substrate per minute.
+        /// </summary>
+        internal static string unit_desc {
+            get {
+                return ResourceManager.GetString("unit.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to unit.
+        /// </summary>
+        internal static string unit_name {
+            get {
+                return ResourceManager.GetString("unit.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to U.
+        /// </summary>
+        internal static string unit_symbol {
+            get {
+                return ResourceManager.GetString("unit.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The type of the unit of measure cannot be null..
+        /// </summary>
+        internal static string unit_type_cannot_be_null {
+            get {
+                return ResourceManager.GetString("unit.type.cannot.be.null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type:.
+        /// </summary>
+        internal static string unit_type_text {
+            get {
+                return ResourceManager.GetString("unit.type.text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 42 gallons (US customary).
+        /// </summary>
+        internal static string us_bbl_desc {
+            get {
+                return ResourceManager.GetString("us_bbl.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to US barrel.
+        /// </summary>
+        internal static string us_bbl_name {
+            get {
+                return ResourceManager.GetString("us_bbl.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to bbl.
+        /// </summary>
+        internal static string us_bbl_symbol {
+            get {
+                return ResourceManager.GetString("us_bbl.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to US bushel.
+        /// </summary>
+        internal static string us_bu_desc {
+            get {
+                return ResourceManager.GetString("us_bu.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to US bushel.
+        /// </summary>
+        internal static string us_bu_name {
+            get {
+                return ResourceManager.GetString("us_bu.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to us bu.
+        /// </summary>
+        internal static string us_bu_symbol {
+            get {
+                return ResourceManager.GetString("us_bu.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to cup  (US customary).
+        /// </summary>
+        internal static string us_cup_desc {
+            get {
+                return ResourceManager.GetString("us_cup.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to US cup.
+        /// </summary>
+        internal static string us_cup_name {
+            get {
+                return ResourceManager.GetString("us_cup.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to us cup.
+        /// </summary>
+        internal static string us_cup_symbol {
+            get {
+                return ResourceManager.GetString("us_cup.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to US dollar.
+        /// </summary>
+        internal static string us_dollar_desc {
+            get {
+                return ResourceManager.GetString("us_dollar.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to US dollar.
+        /// </summary>
+        internal static string us_dollar_name {
+            get {
+                return ResourceManager.GetString("us_dollar.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to $.
+        /// </summary>
+        internal static string us_dollar_symbol {
+            get {
+                return ResourceManager.GetString("us_dollar.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1/128 of a US gallon.
+        /// </summary>
+        internal static string us_fl_oz_desc {
+            get {
+                return ResourceManager.GetString("us_fl_oz.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to US fluid ounce.
+        /// </summary>
+        internal static string us_fl_oz_name {
+            get {
+                return ResourceManager.GetString("us_fl_oz.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to us fl oz.
+        /// </summary>
+        internal static string us_fl_oz_symbol {
+            get {
+                return ResourceManager.GetString("us_fl_oz.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Queen Anne&apos;s wine gallon (US customary).
+        /// </summary>
+        internal static string us_gallon_desc {
+            get {
+                return ResourceManager.GetString("us_gallon.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to US gallon.
+        /// </summary>
+        internal static string us_gallon_name {
+            get {
+                return ResourceManager.GetString("us_gallon.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to us gal.
+        /// </summary>
+        internal static string us_gallon_symbol {
+            get {
+                return ResourceManager.GetString("us_gallon.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to pint (US customary).
+        /// </summary>
+        internal static string us_pint_desc {
+            get {
+                return ResourceManager.GetString("us_pint.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to US pint.
+        /// </summary>
+        internal static string us_pint_name {
+            get {
+                return ResourceManager.GetString("us_pint.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to us pt.
+        /// </summary>
+        internal static string us_pint_symbol {
+            get {
+                return ResourceManager.GetString("us_pint.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to quart (US customary).
+        /// </summary>
+        internal static string us_quart_desc {
+            get {
+                return ResourceManager.GetString("us_quart.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to US quart.
+        /// </summary>
+        internal static string us_quart_name {
+            get {
+                return ResourceManager.GetString("us_quart.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to us qt.
+        /// </summary>
+        internal static string us_quart_symbol {
+            get {
+                return ResourceManager.GetString("us_quart.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to tablespoon (US customary).
+        /// </summary>
+        internal static string us_tbsp_desc {
+            get {
+                return ResourceManager.GetString("us_tbsp.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to tablespoon.
+        /// </summary>
+        internal static string us_tbsp_name {
+            get {
+                return ResourceManager.GetString("us_tbsp.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to us tbsp.
+        /// </summary>
+        internal static string us_tbsp_symbol {
+            get {
+                return ResourceManager.GetString("us_tbsp.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to US short ton.
+        /// </summary>
+        internal static string us_ton_desc {
+            get {
+                return ResourceManager.GetString("us_ton.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to short ton.
+        /// </summary>
+        internal static string us_ton_name {
+            get {
+                return ResourceManager.GetString("us_ton.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to sh tn.
+        /// </summary>
+        internal static string us_ton_symbol {
+            get {
+                return ResourceManager.GetString("us_ton.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to teaspoon (US customary).
+        /// </summary>
+        internal static string us_tsp_desc {
+            get {
+                return ResourceManager.GetString("us_tsp.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to US teaspoon.
+        /// </summary>
+        internal static string us_tsp_name {
+            get {
+                return ResourceManager.GetString("us_tsp.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to us tsp.
+        /// </summary>
+        internal static string us_tsp_symbol {
+            get {
+                return ResourceManager.GetString("us_tsp.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The difference in electric potential across two points along a conducting wire carrying one ampere of constant current when the power dissipated between the points equals one watt..
+        /// </summary>
+        internal static string volt_desc {
+            get {
+                return ResourceManager.GetString("volt.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to volt.
+        /// </summary>
+        internal static string volt_name {
+            get {
+                return ResourceManager.GetString("volt.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to V.
+        /// </summary>
+        internal static string volt_symbol {
+            get {
+                return ResourceManager.GetString("volt.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The power which in one second of time gives rise to one joule of energy..
+        /// </summary>
+        internal static string watt_desc {
+            get {
+                return ResourceManager.GetString("watt.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to watt.
+        /// </summary>
+        internal static string watt_name {
+            get {
+                return ResourceManager.GetString("watt.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to W.
+        /// </summary>
+        internal static string watt_symbol {
+            get {
+                return ResourceManager.GetString("watt.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Magnetic flux which, linking a circuit of one turn, would produce in it an electromotive force of 1 volt if it were reduced to zero at a uniform rate in 1 second..
+        /// </summary>
+        internal static string weber_desc {
+            get {
+                return ResourceManager.GetString("weber.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to weber.
+        /// </summary>
+        internal static string weber_name {
+            get {
+                return ResourceManager.GetString("weber.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wb.
+        /// </summary>
+        internal static string weber_symbol {
+            get {
+                return ResourceManager.GetString("weber.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 7 days.
+        /// </summary>
+        internal static string week_desc {
+            get {
+                return ResourceManager.GetString("week.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to week.
+        /// </summary>
+        internal static string week_name {
+            get {
+                return ResourceManager.GetString("week.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to wk.
+        /// </summary>
+        internal static string week_symbol {
+            get {
+                return ResourceManager.GetString("week.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to One watt consumed in one hour.
+        /// </summary>
+        internal static string wh_desc {
+            get {
+                return ResourceManager.GetString("wh.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to watt-hour.
+        /// </summary>
+        internal static string wh_name {
+            get {
+                return ResourceManager.GetString("wh.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wh.
+        /// </summary>
+        internal static string wh_symbol {
+            get {
+                return ResourceManager.GetString("wh.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to power per unit area.
+        /// </summary>
+        internal static string wsm_desc {
+            get {
+                return ResourceManager.GetString("wsm.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to irradiance.
+        /// </summary>
+        internal static string wsm_name {
+            get {
+                return ResourceManager.GetString("wsm.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ee.
+        /// </summary>
+        internal static string wsm_symbol {
+            get {
+                return ResourceManager.GetString("wsm.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to international yard.
+        /// </summary>
+        internal static string yard_desc {
+            get {
+                return ResourceManager.GetString("yard.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to yard.
+        /// </summary>
+        internal static string yard_name {
+            get {
+                return ResourceManager.GetString("yard.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to yd.
+        /// </summary>
+        internal static string yard_symbol {
+            get {
+                return ResourceManager.GetString("yard.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to area in square yards.
+        /// </summary>
+        internal static string yd2_desc {
+            get {
+                return ResourceManager.GetString("yd2.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to square yard.
+        /// </summary>
+        internal static string yd2_name {
+            get {
+                return ResourceManager.GetString("yd2.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to yd\u00B2.
+        /// </summary>
+        internal static string yd2_symbol {
+            get {
+                return ResourceManager.GetString("yd2.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to volume in cubic yards.
+        /// </summary>
+        internal static string yd3_desc {
+            get {
+                return ResourceManager.GetString("yd3.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to cubic yard.
+        /// </summary>
+        internal static string yd3_name {
+            get {
+                return ResourceManager.GetString("yd3.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to yd\u00B3.
+        /// </summary>
+        internal static string yd3_symbol {
+            get {
+                return ResourceManager.GetString("yd3.symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chinese yuan.
+        /// </summary>
+        internal static string yuan_desc {
+            get {
+                return ResourceManager.GetString("yuan.desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to yuan.
+        /// </summary>
+        internal static string yuan_name {
+            get {
+                return ResourceManager.GetString("yuan.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \u00a5.
+        /// </summary>
+        internal static string yuan_symbol {
+            get {
+                return ResourceManager.GetString("yuan.symbol", resourceCulture);
             }
         }
     }
