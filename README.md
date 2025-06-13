@@ -415,5 +415,8 @@ and for an exception:
 already.created = The unit of measure with symbol {0} has already been created by {1}.  Did you intend to scale this unit with a linear conversion?
 ```
 
+## NuGet
+To download the nuget package, the command is: "dotnet add package CaliperSharp --version 2.0.1".
+
 ## Project Structure
 The CaliperSharp library depends on .NET 8.0+.
