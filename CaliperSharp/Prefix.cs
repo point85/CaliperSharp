@@ -21,6 +21,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+using System.Collections.Concurrent;
+
 namespace Point85.Caliper.UnitOfMeasure
 {
 	/// <summary>
@@ -30,7 +32,7 @@ namespace Point85.Caliper.UnitOfMeasure
 	public class Prefix
 	{
 		// list of pre-defined prefixes
-		private static List<Prefix> prefixes = new List<Prefix>();
+		private static readonly ConcurrentBag<Prefix> prefixes = new ConcurrentBag<Prefix>();
 
 		/// <summary> SI prefix 10^24 </summary>
 		public static readonly Prefix YOTTA = new Prefix("yotta", "Y", 1.0E+24);
@@ -122,18 +124,11 @@ namespace Point85.Caliper.UnitOfMeasure
 		/// <returns> Prefix </returns>
 		public static Prefix FromName(string name)
 		{
-			Prefix prefix = null;
+			if (string.IsNullOrEmpty(name))
+				return null;
 
-			foreach (Prefix p in prefixes)
-			{
-				if (p.Name.Equals(name))
-				{
-					prefix = p;
-					break;
-				}
-			}
-
-			return prefix;
+			return prefixes.FirstOrDefault(p =>
+				string.Equals(p.Name, name, StringComparison.OrdinalIgnoreCase));
 		}
 
 		/// Find the prefix with the specified scaling factor
@@ -142,26 +137,15 @@ namespace Point85.Caliper.UnitOfMeasure
 		/// <returns> Prefix </returns>
 		public static Prefix FromFactor(double factor)
 		{
-			Prefix prefix = null;
-
-			foreach (Prefix p in prefixes)
-			{
-				if (p.Factor.CompareTo(factor) == 0)
-				{
-					prefix = p;
-					break;
-				}
-			}
-
-			return prefix;
+			return prefixes.FirstOrDefault(p => Math.Abs(p.Factor - factor) < MeasurementSystem.EPSILON);
 		}
 
 		/// <summary>Get the list of pre-defined prefixes</summary>
 		/// 
 		/// <returns> Prefix list</returns>
-		public static List<Prefix> GetDefinedPrefixes()
+		public static IReadOnlyList<Prefix> GetDefinedPrefixes()
 		{
-			return prefixes;
+			return prefixes.ToList().AsReadOnly();
 		}
 
 		/// <summary>

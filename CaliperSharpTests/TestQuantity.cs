@@ -35,7 +35,7 @@ namespace CaliperSharpTests
 			// faraday
 			Quantity f = sys.GetQuantity(Constant.FARADAY_CONSTANT);
 			Quantity qe = sys.GetQuantity(Constant.ELEMENTARY_CHARGE);
-			Quantity na = sys.GetQuantity(Constant.AVAGADRO_CONSTANT);
+			Quantity na = sys.GetQuantity(Constant.AVOGADRO_CONSTANT);
 			Quantity eNA = qe.Multiply(na);
 			Assert.IsTrue(IsCloseTo(f.Amount, eNA.Amount, DELTA6));
 			Assert.IsTrue(IsCloseTo(f.Amount, 96485.332123, DELTA5));
@@ -462,7 +462,7 @@ namespace CaliperSharpTests
 
 			// Boltzmann and Avogadro
 			Quantity boltzmann = sys.GetQuantity(Constant.BOLTZMANN_CONSTANT);
-			Quantity avogadro = sys.GetQuantity(Constant.AVAGADRO_CONSTANT);
+			Quantity avogadro = sys.GetQuantity(Constant.AVOGADRO_CONSTANT);
 			Quantity gas = sys.GetQuantity(Constant.GAS_CONSTANT);
 			Quantity qR = boltzmann.Multiply(avogadro);
 			Assert.IsTrue(IsCloseTo(qR.UOM.ScalingFactor, gas.UOM.ScalingFactor, DELTA6));

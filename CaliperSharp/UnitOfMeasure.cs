@@ -66,6 +66,9 @@ namespace Point85.Caliper.UnitOfMeasure
 	/// </summary>
 	public class UnitOfMeasure : Symbolic, IComparable<UnitOfMeasure>
 	{
+		// instance lock object
+		private readonly object _instanceLock = new object();
+
 		/// <summary>
 		/// Unit of measure types
 		/// </summary>
@@ -88,7 +91,7 @@ namespace Point85.Caliper.UnitOfMeasure
 		private const char ONE_CHAR = '1';
 
 		// registry of unit conversion factor
-		private Dictionary<UnitOfMeasure, double> ConversionRegistry = new Dictionary<UnitOfMeasure, double>();
+		private ConcurrentDictionary<UnitOfMeasure, double> ConversionRegistry = new ConcurrentDictionary<UnitOfMeasure, double>();
 
 		/// <summary>
 		/// conversion to another Unit of Measure in the same recognized measurement system (y = ax + b)
@@ -124,7 +127,7 @@ namespace Point85.Caliper.UnitOfMeasure
 		/// <summary>
 		/// offset (b)
 		/// </summary>
-		public double BridgeOffset { get; private set; } = double.MinValue;
+		public double BridgeOffset { get; private set; }
 
 		/// <summary>
 		/// x-axis unit
@@ -208,7 +211,7 @@ namespace Point85.Caliper.UnitOfMeasure
 
 		private Reducer GetReducer()
 		{
-			lock (new object())
+			lock (_instanceLock)
 			{
 				Reducer reducer = new Reducer();
 				reducer.Explode(this);
@@ -222,7 +225,7 @@ namespace Point85.Caliper.UnitOfMeasure
 		/// <returns> Base symbol</returns>
 		public string GetBaseSymbol()
 		{
-			lock (new object())
+			lock (_instanceLock)
 			{
 				if (BaseSymbol == null)
 				{
@@ -625,22 +628,23 @@ namespace Point85.Caliper.UnitOfMeasure
 				}
 			}
 
-			// unit has been previously cached, so first remove it, then cache again
-			MeasurementSystem.GetSystem().UnregisterUnit(this);
-			SetBaseSymbol(null);
-
-			ScalingFactor = scalingFactor;
-			AbscissaUnit = abscissaUnit;
-			Offset = offset;
-
-			// re-cache
-			MeasurementSystem.GetSystem().RegisterUnit(this);
-
-
-			// remove from conversion registry
-			if (ConversionRegistry.ContainsKey(abscissaUnit))
+			lock (_instanceLock)
 			{
-				ConversionRegistry.Remove(abscissaUnit);
+
+				// unit has been previously cached, so first remove it, then cache again
+				MeasurementSystem.GetSystem().UnregisterUnit(this);
+				SetBaseSymbol(null);
+
+				ScalingFactor = scalingFactor;
+				AbscissaUnit = abscissaUnit;
+				Offset = offset;
+
+				// re-cache
+				MeasurementSystem.GetSystem().RegisterUnit(this);
+
+
+				// remove from conversion registry
+				ConversionRegistry.TryRemove(abscissaUnit, out _);
 			}
 		}
 
@@ -818,7 +822,7 @@ namespace Point85.Caliper.UnitOfMeasure
 
 		private double GetBridgeFactor(UnitOfMeasure uom)
 		{
-			double factor = 1;
+			double factor = 1.0;
 
 			// check for our bridge
 			if (BridgeAbscissaUnit != null)
@@ -834,7 +838,7 @@ namespace Point85.Caliper.UnitOfMeasure
 
 					if (toUOM.Equals(this))
 					{
-						factor = (double)1 / uom.BridgeScalingFactor;
+						factor = 1.0 / uom.BridgeScalingFactor;
 					}
 				}
 			}
@@ -855,11 +859,11 @@ namespace Point85.Caliper.UnitOfMeasure
 			UnitOfMeasure targetBase = targetParameters.PathUOM;
 
 			// check for a base conversion unit bridge
-			double? bridgeFactor = thisBase.GetBridgeFactor(targetBase);
+			double bridgeFactor = thisBase.GetBridgeFactor(targetBase);
 
-			if (bridgeFactor.HasValue)
+			if (bridgeFactor != 1.0)
 			{
-				thisPathFactor = thisPathFactor * bridgeFactor.Value;
+				thisPathFactor = thisPathFactor * bridgeFactor;
 			}
 
 			// new path amount
@@ -941,7 +945,7 @@ namespace Point85.Caliper.UnitOfMeasure
 			cachedFactor = factor * (fromFactor / toFactor);
 
 			// cache it
-			ConversionRegistry[targetUOM] = cachedFactor;
+			ConversionRegistry.TryAdd(targetUOM, cachedFactor);
 
 			return cachedFactor;
 		}
@@ -1245,7 +1249,7 @@ namespace Point85.Caliper.UnitOfMeasure
 							pathExponent = pathExponent * exp;
 						}
 
-						bool invert = pathExponent < 0  ? true : false;
+						bool invert = pathExponent < 0;
 
 						for (int i = 0; i < Math.Abs(pathExponent); i++)
 						{

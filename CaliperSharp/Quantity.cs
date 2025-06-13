@@ -22,6 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System;
 using System.Text;
 
 namespace Point85.Caliper.UnitOfMeasure
@@ -96,21 +97,13 @@ namespace Point85.Caliper.UnitOfMeasure
 		/// <returns>True if equal</returns>
 		public override bool Equals(Object other)
 		{
-			bool answer = false;
-
 			if (other == null || GetType() != other.GetType())
-			{
-				return answer;
-			}
+				return false;
 
 			Quantity otherQuantity = (Quantity)other;
 
-			// same amount and same unit of measure
-			if (Amount.CompareTo(otherQuantity.Amount) == 0 && UOM.Equals(otherQuantity.UOM))
-			{
-				answer = true;
-			}
-			return answer;
+			return Math.Abs(Amount - otherQuantity.Amount) < MeasurementSystem.EPSILON &&
+				   UOM.Equals(otherQuantity.UOM);
 		}
 
 		/// <summary>Create an amount of a quantity that adheres to precision and rounding
@@ -179,10 +172,11 @@ namespace Point85.Caliper.UnitOfMeasure
 		/// 
 		public Quantity Divide(Quantity other)
 		{
-			Quantity toDivide = other;
+			if (other.Amount == 0.0)
+				throw new Exception(MeasurementSystem.GetMessage("amount.cannot.be.null"));
 
-			double amount = Amount / toDivide.Amount;
-			UnitOfMeasure newUOM = UOM.Divide(toDivide.UOM);
+			double amount = Amount / other.Amount;
+			UnitOfMeasure newUOM = UOM.Divide(other.UOM);
 
 			Quantity quantity = new Quantity(amount, newUOM);
 			return quantity;
@@ -197,6 +191,9 @@ namespace Point85.Caliper.UnitOfMeasure
 		/// 
 		public Quantity Divide(double divisor)
 		{
+			if (divisor == 0.0)
+				throw new Exception(MeasurementSystem.GetMessage("amount.cannot.be.null"));
+
 			double amount = Amount / divisor;
 			Quantity quantity = new Quantity(amount, UOM);
 			return quantity;
@@ -253,6 +250,9 @@ namespace Point85.Caliper.UnitOfMeasure
 		/// 
 		public Quantity Invert()
 		{
+			if (Amount == 0.0)
+				throw new Exception(MeasurementSystem.GetMessage("amount.cannot.be.null"));
+
 			double amount = 1 / Amount;
 			UnitOfMeasure uom = UOM.Invert();
 

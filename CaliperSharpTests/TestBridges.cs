@@ -37,7 +37,7 @@ namespace CaliperSharpTests
 			UnitOfMeasure psi = sys.GetUOM(Unit.PSI);
 			UnitOfMeasure fahrenheit = sys.GetUOM(Unit.FAHRENHEIT);
 
-			Assert.IsTrue(ft.BridgeOffset == double.MinValue);
+			Assert.IsTrue(ft.BridgeOffset == 0.0);
 
 			Quantity q1 = new Quantity(10, ft);
 			Quantity q2 = q1.Convert(m);

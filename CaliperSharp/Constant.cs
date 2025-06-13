@@ -1,7 +1,7 @@
 ﻿/*
 MIT License
 
-Copyright (c) 2016 Kent Randall
+Copyright (c) 2016-2025 Kent Randall
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@ namespace Point85.Caliper.UnitOfMeasure
 	/// </summary>
 	public enum Constant
 	{
-		LIGHT_VELOCITY, LIGHT_YEAR, GRAVITY, PLANCK_CONSTANT, BOLTZMANN_CONSTANT, AVAGADRO_CONSTANT, GAS_CONSTANT,
+		LIGHT_VELOCITY, LIGHT_YEAR, GRAVITY, PLANCK_CONSTANT, BOLTZMANN_CONSTANT, AVOGADRO_CONSTANT, GAS_CONSTANT,
 		ELEMENTARY_CHARGE, ELECTRIC_PERMITTIVITY, MAGNETIC_PERMEABILITY, FARADAY_CONSTANT, ELECTRON_MASS, PROTON_MASS,
 		STEFAN_BOLTZMANN, HUBBLE_CONSTANT, CAESIUM_FREQUENCY, LUMINOUS_EFFICACY
 	}

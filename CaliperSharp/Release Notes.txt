@@ -1,0 +1,10 @@
+				   CaliperSharp Units of Measurement
+						   RELEASE NOTES
+	
+(1)  2.0.1, June 13, 2025: 	
+	- Constant: fixed AVOGADRO typo
+	- MeasurementSytem: defined EPSILON for floating point precision; implemented locks for thread synchronization
+	- Prefix:  made prefixes a ConcurrentBag; simplified FromFactor() and FromName(); GetDefinedPrefixes() returns read only list
+	- Quantity: used EPSILON in Equals() comparison and simplified it; checked for division by 0 in Divide() methods; check for zero amount in Invert()
+	- UnitOfMeasure: use ConcurrentDictionary;  implemented locks for thread synchronization; simplefied ConvertUnit()
+		

@@ -1,7 +1,7 @@
 ﻿/*
 MIT License
 
-Copyright (c) 2016 - 2024 Kent Randall Point85
+Copyright (c) 2016 - 2025 Kent Randall Point85
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -79,6 +79,12 @@ namespace Point85.Caliper.UnitOfMeasure
 
 		// registry for base UOM map by unit type
 		private ConcurrentDictionary<UnitType, ConcurrentDictionary<UnitType, int>> UnitTypeRegistry = new ConcurrentDictionary<UnitType, ConcurrentDictionary<UnitType, int>>();
+
+		// floating point precision comparison
+		public static double EPSILON = 1e-10;
+
+		// instance lock object
+		private readonly object _instanceLock = new object();
 
 		private MeasurementSystem()
 		{
@@ -1570,7 +1576,7 @@ namespace Point85.Caliper.UnitOfMeasure
 					named.Description = MeasurementSystem.GetUnitString("boltzmann.desc");
 					break;
 
-				case Constant.AVAGADRO_CONSTANT:
+				case Constant.AVOGADRO_CONSTANT:
 					// NA
 					named = new Quantity(6.02214076E+23, GetOne());
 					named.Name = MeasurementSystem.GetUnitString("avo.name");
@@ -1580,7 +1586,7 @@ namespace Point85.Caliper.UnitOfMeasure
 
 				case Constant.GAS_CONSTANT:
 					// R
-					named = GetQuantity(Constant.BOLTZMANN_CONSTANT).Multiply(GetQuantity(Constant.AVAGADRO_CONSTANT));
+					named = GetQuantity(Constant.BOLTZMANN_CONSTANT).Multiply(GetQuantity(Constant.AVOGADRO_CONSTANT));
 					named.Name = MeasurementSystem.GetUnitString("gas.name");
 					named.Symbol = MeasurementSystem.GetUnitString("gas.symbol");
 					named.Description = MeasurementSystem.GetUnitString("gas.desc");
@@ -1597,7 +1603,7 @@ namespace Point85.Caliper.UnitOfMeasure
 				case Constant.FARADAY_CONSTANT:
 					// F = e.NA
 					Quantity qe = GetQuantity(Constant.ELEMENTARY_CHARGE);
-					named = qe.Multiply(GetQuantity(Constant.AVAGADRO_CONSTANT));
+					named = qe.Multiply(GetQuantity(Constant.AVOGADRO_CONSTANT));
 					named.Name = MeasurementSystem.GetUnitString("faraday.name");
 					named.Symbol = MeasurementSystem.GetUnitString("faraday.symbol");
 					named.Description = MeasurementSystem.GetUnitString("faraday.desc");
@@ -1725,7 +1731,7 @@ namespace Point85.Caliper.UnitOfMeasure
 				return;
 			}
 
-			lock (new object())
+			lock (_instanceLock)
 			{
 				UnitOfMeasure removedUOM;
 				if (uom.Enumeration.HasValue)
