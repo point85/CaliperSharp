@@ -1281,53 +1281,34 @@ namespace Point85.Caliper.UnitOfMeasure
 			private void AddTerm(UnitOfMeasure uom, bool invert)
 			{
 				int unitPower = 1;
-				int power = 0;
+				int power;
 
-				if (!invert)
+				// Check if this is the 'one' unit early to avoid unnecessary operations
+				if (uom.Equals(MeasurementSystem.GetSystem().GetOne()))
 				{
-					// get existing power
-					if (!Terms.ContainsKey(uom))
-					{
-						// add first time
-						power = unitPower;
-					}
-					else
-					{
-						// increment existing power
-						if (!uom.Equals(MeasurementSystem.GetSystem().GetOne()))
-						{
-							power = Terms[uom] + unitPower;
-						}
-					}
+					return;
+				}
+
+				// Use TryGetValue for single dictionary lookup instead of ContainsKey + indexer
+				if (Terms.TryGetValue(uom, out int existingPower))
+				{
+					// Update existing power
+					power = invert ? existingPower - unitPower : existingPower + unitPower;
 				}
 				else
 				{
-					// denominator with negative powers
-					if (!Terms.ContainsKey(uom))
-					{
-						// add first time
-						power = -unitPower;
-					}
-					else
-					{
-						// decrement existing power
-						if (!uom.Equals(MeasurementSystem.GetSystem().GetOne()))
-						{
-							power = Terms[uom] - unitPower;
-						}
-					}
+					// Add first time
+					power = invert ? -unitPower : unitPower;
 				}
 
+				// Update or remove the term based on the power
 				if (power == 0)
 				{
 					Terms.Remove(uom);
 				}
 				else
 				{
-					if (!uom.Equals(MeasurementSystem.GetSystem().GetOne()))
-					{
-						Terms[uom] = power;
-					}
+					Terms[uom] = power;
 				}
 			}
 

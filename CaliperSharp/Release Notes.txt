@@ -7,4 +7,23 @@
 	- Prefix:  made prefixes a ConcurrentBag; simplified FromFactor() and FromName(); GetDefinedPrefixes() returns read only list
 	- Quantity: used EPSILON in Equals() comparison and simplified it; checked for division by 0 in Divide() methods; check for zero amount in Invert()
 	- UnitOfMeasure: use ConcurrentDictionary;  implemented locks for thread synchronization; simplefied ConvertUnit()
+	
+(2)  2.1.0, February 15, 2016: 		
+	- Claude Sonnet 4.5
+Bugs Fixed:
+Division by Zero Error Messages (Quantity.cs)
+Fixed error message in Divide(Quantity) method - changed from "amount.cannot.be.null" to "divisor.cannot.be.zero"
+Fixed error message in Divide(double) method - same correction
+Fixed error message in Invert() method - same correction
+Impact: Users now receive accurate error messages when attempting division by zero
+Unbalanced Parentheses (Symbolic.cs)
+Fixed ToString() method that was opening '(' when Symbol existed but only closing ')' when Description existed
+Impact: Prevents malformed string output with unbalanced parentheses
+Performance Improvements:
+Dictionary Lookup Optimization (UnitOfMeasure.cs)
+Optimized Reducer.AddTerm() method 
+Replaced ContainsKey followed by [] indexer (2 lookups) with single TryGetValue call
+Added early return for 'one' unit to avoid unnecessary operations
+Simplified logic using ternary operators
+Impact: Reduces dictionary lookups by 50% in unit reduction operations, which are called frequently during unit conversions
 		

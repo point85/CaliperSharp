@@ -173,7 +173,7 @@ namespace Point85.Caliper.UnitOfMeasure
 		public Quantity Divide(Quantity other)
 		{
 			if (other.Amount == 0.0)
-				throw new Exception(MeasurementSystem.GetMessage("amount.cannot.be.null"));
+				throw new Exception(MeasurementSystem.GetMessage("divisor.cannot.be.zero"));
 
 			double amount = Amount / other.Amount;
 			UnitOfMeasure newUOM = UOM.Divide(other.UOM);
@@ -192,7 +192,7 @@ namespace Point85.Caliper.UnitOfMeasure
 		public Quantity Divide(double divisor)
 		{
 			if (divisor == 0.0)
-				throw new Exception(MeasurementSystem.GetMessage("amount.cannot.be.null"));
+				throw new Exception(MeasurementSystem.GetMessage("divisor.cannot.be.zero"));
 
 			double amount = Amount / divisor;
 			Quantity quantity = new Quantity(amount, UOM);
@@ -251,7 +251,7 @@ namespace Point85.Caliper.UnitOfMeasure
 		public Quantity Invert()
 		{
 			if (Amount == 0.0)
-				throw new Exception(MeasurementSystem.GetMessage("amount.cannot.be.null"));
+				throw new Exception(MeasurementSystem.GetMessage("divisor.cannot.be.zero"));
 
 			double amount = 1 / Amount;
 			UnitOfMeasure uom = UOM.Invert();

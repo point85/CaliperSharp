@@ -73,22 +73,53 @@ namespace Point85.Caliper.UnitOfMeasure
 		{
 			StringBuilder sb = new StringBuilder();
 
+			bool hasContent = false;
+
 			// symbol
 			if (Symbol != null)
 			{
-				sb.Append(" (").Append(Symbol);
+				if (!hasContent)
+				{
+					sb.Append(" (");
+					hasContent = true;
+				}
+				sb.Append(Symbol);
 			}
 
 			// name
 			if (Name != null)
 			{
-				sb.Append(", ").Append(Name);
+				if (!hasContent)
+				{
+					sb.Append(" (");
+					hasContent = true;
+				}
+				else
+				{
+					sb.Append(", ");
+				}
+				sb.Append(Name);
 			}
 
 			// description
 			if (Description != null)
 			{
-				sb.Append(", ").Append(Description).Append(')');
+				if (!hasContent)
+				{
+					sb.Append(" (");
+					hasContent = true;
+				}
+				else
+				{
+					sb.Append(", ");
+				}
+				sb.Append(Description);
+			}
+
+			// close parenthesis if we opened one
+			if (hasContent)
+			{
+				sb.Append(')');
 			}
 
 			return sb.ToString();
