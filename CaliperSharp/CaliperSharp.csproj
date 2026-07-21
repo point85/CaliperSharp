@@ -38,7 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\OEE-Designer\src\main\resources\images\UOM.png">
+    <None Include="UOM.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>

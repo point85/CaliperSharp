@@ -23,6 +23,8 @@ SOFTWARE.
 */
 
 using System.Collections.Concurrent;
+// ReSharper disable ArrangeStaticMemberQualifier
+// ReSharper disable RedundantCast
 
 namespace Point85.Caliper.UnitOfMeasure
 {
@@ -81,12 +83,14 @@ namespace Point85.Caliper.UnitOfMeasure
 		private ConcurrentDictionary<UnitType, ConcurrentDictionary<UnitType, int>> UnitTypeRegistry = new ConcurrentDictionary<UnitType, ConcurrentDictionary<UnitType, int>>();
 
 		// floating point precision comparison
-		public static double EPSILON = 1e-10;
+		public const double EPSILON = 1e-10;
+
+		public double Epsilon { get; set; } = EPSILON;
 
 		// instance lock object
 		private readonly object _instanceLock = new object();
 
-		private MeasurementSystem()
+		public MeasurementSystem()
 		{
 		}
 
@@ -138,10 +142,12 @@ namespace Point85.Caliper.UnitOfMeasure
 		/// 
 		/// <returns>MeasurementSystem</returns>
 		/// 
+		/*
 		public static MeasurementSystem GetSystem()
 		{
 			return UnifiedSystem;
 		}
+		*/
 
 		/// <summary>Get the unit of measure for unity 'one'</summary>
 		/// 
@@ -271,7 +277,7 @@ namespace Point85.Caliper.UnitOfMeasure
 		///
 		public UnitOfMeasure GetUOM(Prefix prefix, Unit unit)
 		{
-			return GetUOM(prefix, MeasurementSystem.GetSystem().GetUOM(unit));
+			return GetUOM(prefix, GetUOM(unit));
 		}
 
 
@@ -1302,7 +1308,7 @@ namespace Point85.Caliper.UnitOfMeasure
 			if (uom == null)
 			{
 				// create a new one
-				uom = new UnitOfMeasure(type, name, symbol, description);
+				uom = new UnitOfMeasure(this, type, name, symbol, description);
 			}
 			return uom;
 		}
@@ -1534,15 +1540,17 @@ namespace Point85.Caliper.UnitOfMeasure
 		///
 		public Quantity GetQuantity(Constant constant)
 		{
-			Quantity named = null;
+			Quantity named;
 
 			switch (constant)
 			{
 				case Constant.LIGHT_VELOCITY:
-					named = new Quantity(299792458, GetUOM(Unit.METRE_PER_SEC));
-					named.Name = MeasurementSystem.GetUnitString("light.name");
-					named.Symbol = MeasurementSystem.GetUnitString("light.symbol");
-					named.Description = MeasurementSystem.GetUnitString("light.desc");
+					named = new Quantity(299792458, GetUOM(Unit.METRE_PER_SEC))
+					{
+						Name = MeasurementSystem.GetUnitString("light.name"),
+						Symbol = MeasurementSystem.GetUnitString("light.symbol"),
+						Description = MeasurementSystem.GetUnitString("light.desc")
+					};
 					break;
 
 				case Constant.LIGHT_YEAR:
@@ -1554,34 +1562,42 @@ namespace Point85.Caliper.UnitOfMeasure
 					break;
 
 				case Constant.GRAVITY:
-					named = new Quantity(9.80665, GetUOM(Unit.METRE_PER_SEC_SQUARED));
-					named.Name = MeasurementSystem.GetUnitString("gravity.name");
-					named.Symbol = MeasurementSystem.GetUnitString("gravity.symbol");
-					named.Description = MeasurementSystem.GetUnitString("gravity.desc");
+					named = new Quantity(9.80665, GetUOM(Unit.METRE_PER_SEC_SQUARED))
+					{
+						Name = MeasurementSystem.GetUnitString("gravity.name"),
+						Symbol = MeasurementSystem.GetUnitString("gravity.symbol"),
+						Description = MeasurementSystem.GetUnitString("gravity.desc")
+					};
 					break;
 
 				case Constant.PLANCK_CONSTANT:
 					UnitOfMeasure js = CreateProductUOM(GetUOM(Unit.JOULE), GetSecond());
-					named = new Quantity(6.62607015E-34, js);
-					named.Name = MeasurementSystem.GetUnitString("planck.name");
-					named.Symbol = MeasurementSystem.GetUnitString("planck.symbol");
-					named.Description = MeasurementSystem.GetUnitString("planck.desc");
+					named = new Quantity(6.62607015E-34, js)
+					{
+						Name = MeasurementSystem.GetUnitString("planck.name"),
+						Symbol = MeasurementSystem.GetUnitString("planck.symbol"),
+						Description = MeasurementSystem.GetUnitString("planck.desc")
+					};
 					break;
 
 				case Constant.BOLTZMANN_CONSTANT:
 					UnitOfMeasure jk = CreateQuotientUOM(GetUOM(Unit.JOULE), GetUOM(Unit.KELVIN));
-					named = new Quantity(1.380649E-23, jk);
-					named.Name = MeasurementSystem.GetUnitString("boltzmann.name");
-					named.Symbol = MeasurementSystem.GetUnitString("boltzmann.symbol");
-					named.Description = MeasurementSystem.GetUnitString("boltzmann.desc");
+					named = new Quantity(1.380649E-23, jk)
+					{
+						Name = MeasurementSystem.GetUnitString("boltzmann.name"),
+						Symbol = MeasurementSystem.GetUnitString("boltzmann.symbol"),
+						Description = MeasurementSystem.GetUnitString("boltzmann.desc")
+					};
 					break;
 
 				case Constant.AVOGADRO_CONSTANT:
 					// NA
-					named = new Quantity(6.02214076E+23, GetOne());
-					named.Name = MeasurementSystem.GetUnitString("avo.name");
-					named.Symbol = MeasurementSystem.GetUnitString("avo.symbol");
-					named.Description = MeasurementSystem.GetUnitString("avo.desc");
+					named = new Quantity(6.02214076E+23, GetOne())
+					{
+						Name = MeasurementSystem.GetUnitString("avo.name"),
+						Symbol = MeasurementSystem.GetUnitString("avo.symbol"),
+						Description = MeasurementSystem.GetUnitString("avo.desc")
+					};
 					break;
 
 				case Constant.GAS_CONSTANT:
@@ -1594,10 +1610,12 @@ namespace Point85.Caliper.UnitOfMeasure
 
 				case Constant.ELEMENTARY_CHARGE:
 					// e
-					named = new Quantity(1.602176634E-19, GetUOM(Unit.COULOMB));
-					named.Name = MeasurementSystem.GetUnitString("e.name");
-					named.Symbol = MeasurementSystem.GetUnitString("e.symbol");
-					named.Description = MeasurementSystem.GetUnitString("e.desc");
+					named = new Quantity(1.602176634E-19, GetUOM(Unit.COULOMB))
+					{
+						Name = MeasurementSystem.GetUnitString("e.name"),
+						Symbol = MeasurementSystem.GetUnitString("e.symbol"),
+						Description = MeasurementSystem.GetUnitString("e.desc")
+					};
 					break;
 
 				case Constant.FARADAY_CONSTANT:
@@ -1622,64 +1640,78 @@ namespace Point85.Caliper.UnitOfMeasure
 					// mu0
 					UnitOfMeasure hm = CreateQuotientUOM(GetUOM(Unit.HENRY), GetUOM(Unit.METRE));
 					double fourPi = 4.0E-07 * Math.PI;
-					named = new Quantity(fourPi, hm);
-					named.Name = MeasurementSystem.GetUnitString("mu0.name");
-					named.Symbol = MeasurementSystem.GetUnitString("mu0.symbol");
-					named.Description = MeasurementSystem.GetUnitString("mu0.desc");
+					named = new Quantity(fourPi, hm)
+					{
+						Name = MeasurementSystem.GetUnitString("mu0.name"),
+						Symbol = MeasurementSystem.GetUnitString("mu0.symbol"),
+						Description = MeasurementSystem.GetUnitString("mu0.desc")
+					};
 					break;
 
 				case Constant.ELECTRON_MASS:
 					// me
-					named = new Quantity(9.1093835611E-28, GetUOM(Unit.GRAM));
-					named.Name = MeasurementSystem.GetUnitString("me.name");
-					named.Symbol = MeasurementSystem.GetUnitString("me.symbol");
-					named.Description = MeasurementSystem.GetUnitString("me.desc");
+					named = new Quantity(9.1093835611E-28, GetUOM(Unit.GRAM))
+					{
+						Name = MeasurementSystem.GetUnitString("me.name"),
+						Symbol = MeasurementSystem.GetUnitString("me.symbol"),
+						Description = MeasurementSystem.GetUnitString("me.desc")
+					};
 					break;
 
 				case Constant.PROTON_MASS:
 					// mp
-					named = new Quantity(1.67262189821E-24, GetUOM(Unit.GRAM));
-					named.Name = MeasurementSystem.GetUnitString("mp.name");
-					named.Symbol = MeasurementSystem.GetUnitString("mp.symbol");
-					named.Description = MeasurementSystem.GetUnitString("mp.desc");
+					named = new Quantity(1.67262189821E-24, GetUOM(Unit.GRAM))
+					{
+						Name = MeasurementSystem.GetUnitString("mp.name"),
+						Symbol = MeasurementSystem.GetUnitString("mp.symbol"),
+						Description = MeasurementSystem.GetUnitString("mp.desc")
+					};
 					break;
 
 				case Constant.STEFAN_BOLTZMANN:
 					UnitOfMeasure k4 = CreatePowerUOM(GetUOM(Unit.KELVIN), 4);
 					UnitOfMeasure sb = CreateQuotientUOM(GetUOM(Unit.WATTS_PER_SQ_METRE), k4);
-					named = new Quantity(5.67036713E-08, sb);
-					named.Name = MeasurementSystem.GetUnitString("sb.name");
-					named.Symbol = MeasurementSystem.GetUnitString("sb.symbol");
-					named.Description = MeasurementSystem.GetUnitString("sb.desc");
+					named = new Quantity(5.67036713E-08, sb)
+					{
+						Name = MeasurementSystem.GetUnitString("sb.name"),
+						Symbol = MeasurementSystem.GetUnitString("sb.symbol"),
+						Description = MeasurementSystem.GetUnitString("sb.desc")
+					};
 					break;
 
 				case Constant.HUBBLE_CONSTANT:
 					UnitOfMeasure kps = GetUOM(Prefix.KILO, GetUOM(Unit.METRE_PER_SEC));
 					UnitOfMeasure mpc = GetUOM(Prefix.MEGA, GetUOM(Unit.PARSEC));
 					UnitOfMeasure hubble = CreateQuotientUOM(kps, mpc);
-					named = new Quantity(71.9, hubble);
-					named.Name = MeasurementSystem.GetUnitString("hubble.name");
-					named.Symbol = MeasurementSystem.GetUnitString("hubble.symbol");
-					named.Description = MeasurementSystem.GetUnitString("hubble.desc");
+					named = new Quantity(71.9, hubble)
+					{
+						Name = MeasurementSystem.GetUnitString("hubble.name"),
+						Symbol = MeasurementSystem.GetUnitString("hubble.symbol"),
+						Description = MeasurementSystem.GetUnitString("hubble.desc")
+					};
 					break;
 
 				case Constant.CAESIUM_FREQUENCY:
-					named = new Quantity(9192631770d, GetUOM(Unit.HERTZ));
-					named.Name = MeasurementSystem.GetUnitString("caesium.name");
-					named.Symbol = MeasurementSystem.GetUnitString("caesium.symbol");
-					named.Description = MeasurementSystem.GetUnitString("caesium.desc");
+					named = new Quantity(9192631770d, GetUOM(Unit.HERTZ))
+					{
+						Name = MeasurementSystem.GetUnitString("caesium.name"),
+						Symbol = MeasurementSystem.GetUnitString("caesium.symbol"),
+						Description = MeasurementSystem.GetUnitString("caesium.desc")
+					};
 					break;
 
 				case Constant.LUMINOUS_EFFICACY:
 					UnitOfMeasure kcd = CreateQuotientUOM(GetUOM(Unit.LUMEN), GetUOM(Unit.WATT));
-					named = new Quantity(683d, kcd);
-					named.Name = MeasurementSystem.GetUnitString("kcd.name");
-					named.Symbol = MeasurementSystem.GetUnitString("kcd.symbol");
-					named.Description = MeasurementSystem.GetUnitString("kcd.desc");
+					named = new Quantity(683d, kcd)
+					{
+						Name = MeasurementSystem.GetUnitString("kcd.name"),
+						Symbol = MeasurementSystem.GetUnitString("kcd.symbol"),
+						Description = MeasurementSystem.GetUnitString("kcd.desc")
+					};
 					break;
 
 				default:
-					break;
+					throw new ArgumentOutOfRangeException(nameof(constant));
 			}
 
 			return named;

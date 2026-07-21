@@ -17,7 +17,7 @@ namespace CaliperSharpTests
 		protected static double DELTA0 = 1;
 		protected static double DELTA_10 = 10;
 
-		protected static MeasurementSystem sys = MeasurementSystem.GetSystem();
+		protected static MeasurementSystem sys = new();
 
 		protected BaseTest()
 		{

@@ -153,7 +153,7 @@ namespace CaliperSharpTests
 
 			try
 			{
-				Quantity q = new Quantity(10, Unit.METRE);
+				Quantity q = new Quantity(10, sys.GetUOM(Unit.METRE));
 				q.Convert(Unit.SECOND);
 				Assert.Fail("no conversion");
 			}
@@ -644,8 +644,8 @@ namespace CaliperSharpTests
 			Assert.IsTrue(vInvert.ScalingFactor.Equals(1));
 
 			// max symbol length
-			Quantity v = null;
-			Quantity h = null;
+			Quantity v = default;
+			Quantity h = default;
 			UnitOfMeasure mpc = sys.GetUOM(Prefix.MEGA, sys.GetUOM(Unit.PARSEC));
 			Quantity d = new Quantity(10, mpc);
 			Quantity h0 = sys.GetQuantity(Constant.HUBBLE_CONSTANT);
@@ -1139,7 +1139,7 @@ namespace CaliperSharpTests
 			UnitOfMeasure inHg = sys.CreateScalarUOM(UnitType.PRESSURE, "inHg", "inHg", "inHg");
 			inHg.SetConversion(3386.389, pascal);
 
-			Quantity atm = new Quantity(1, Unit.ATMOSPHERE).Convert(Unit.PASCAL);
+			Quantity atm = new Quantity(1, sys.GetUOM(Unit.ATMOSPHERE)).Convert(Unit.PASCAL);
 			Assert.IsTrue(IsCloseTo(atm.Amount, 101325, DELTA6));
 
 			UnitOfMeasure ft2ft = sys.CreateProductUOM(UnitType.VOLUME, "ft2ft", "ft2ft", null, ft2, ft);
@@ -1489,8 +1489,8 @@ namespace CaliperSharpTests
 
 			double bd;
 
-			Quantity q1 = null;
-			Quantity q2 = null;
+			Quantity q1;
+			Quantity q2;
 
 			UnitType t;
 

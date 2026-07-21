@@ -17,7 +17,7 @@ namespace CaliperSharpTests
 		{
 			try
 			{
-				MeasurementSystem sys = MeasurementSystem.GetSystem();
+				MeasurementSystem sys = new MeasurementSystem();
 
 				foreach (Unit u in Enum.GetValues(typeof(Unit)))
 				{

@@ -29,7 +29,7 @@ namespace CaliperSharpTests
 		[TestMethod]
 		public void TestNamedQuantity()
 		{
-			Quantity q = new Quantity(10, Unit.CELSIUS);
+			Quantity q = new Quantity(10, sys.GetUOM(Unit.CELSIUS));
 			Assert.IsTrue(q.ToString() != null);
 
 			// faraday
@@ -60,12 +60,12 @@ namespace CaliperSharpTests
 
 			// caesium
 			Quantity cs = sys.GetQuantity(Constant.CAESIUM_FREQUENCY);
-			Quantity periods = cs.Multiply(new Quantity(1, Unit.SECOND));
+			Quantity periods = cs.Multiply(new Quantity(1, sys.GetUOM(Unit.SECOND)));
 			Assert.IsTrue(IsCloseTo(periods.Amount, 9192631770d, DELTA0));
 
 			// luminous efficacy
 			Quantity kcd = sys.GetQuantity(Constant.LUMINOUS_EFFICACY);
-			Quantity lum = kcd.Multiply(new Quantity(1, Unit.WATT));
+			Quantity lum = kcd.Multiply(new Quantity(1, sys.GetUOM(Unit.WATT)));
 			Assert.IsTrue(IsCloseTo(lum.Amount, 683d, DELTA0));
 		}
 
@@ -304,11 +304,11 @@ namespace CaliperSharpTests
 			Assert.IsTrue(IsCloseTo(q2.Amount, 8.928571428, DELTA6));
 
 			// troy ounce to ounce
-			q1 = new Quantity(10, Unit.TROY_OUNCE);
+			q1 = new Quantity(10, sys.GetUOM(Unit.TROY_OUNCE));
 			Assert.IsTrue(IsCloseTo(q1.Convert(Unit.OUNCE).Amount, 10.971, DELTA3));
 
 			// deci-litre to quart
-			q1 = new Quantity(10, Prefix.DECI, Unit.LITRE);
+			q1 = new Quantity(10, sys.GetUOM(Prefix.DECI, Unit.LITRE));
 			q2 = q1.Convert(Unit.US_QUART);
 			Assert.IsTrue(IsCloseTo(q2.Amount, 1.0566882, DELTA6));
 		}
@@ -687,8 +687,8 @@ namespace CaliperSharpTests
 			// A cylinder of argon gas contains 50.0 L of Ar at 18.4 atm and 127 °C.
 			// How many moles of argon are in the cylinder?
 			Quantity p = new Quantity(18.4, sys.GetUOM(Unit.ATMOSPHERE)).Convert(Unit.PASCAL);
-			Quantity v = new Quantity(50, Unit.LITRE).Convert(Unit.CUBIC_METRE);
-			Quantity t = new Quantity(127, Unit.CELSIUS).Convert(Unit.KELVIN);
+			Quantity v = new Quantity(50, sys.GetUOM(Unit.LITRE)).Convert(Unit.CUBIC_METRE);
+			Quantity t = new Quantity(127, sys.GetUOM(Unit.CELSIUS)).Convert(Unit.KELVIN);
 			Quantity n = p.Multiply(v).Divide(sys.GetQuantity(Constant.GAS_CONSTANT).Multiply(t));
 			Assert.IsTrue(IsCloseTo(n.Amount, 28.018664, DELTA6));
 
@@ -703,7 +703,7 @@ namespace CaliperSharpTests
 			Assert.IsTrue(IsCloseTo(wavelength.Amount, 749.48, DELTA2));
 
 			// Newton's second law of motion (F = ma). Weight of 1 kg in lbf
-			Quantity mkg = new Quantity(1, Unit.KILOGRAM);
+			Quantity mkg = new Quantity(1, sys.GetUOM(Unit.KILOGRAM));
 			Quantity f = mkg.Multiply(sys.GetQuantity(Constant.GRAVITY)).Convert(Unit.POUND_FORCE);
 			Assert.IsTrue(IsCloseTo(f.Amount, 2.20462, DELTA5));
 
@@ -714,12 +714,12 @@ namespace CaliperSharpTests
 
 			// calculate concentration
 			Quantity activity = new Quantity(1, activityUnit);
-			Quantity grams = new Quantity(1, Unit.GRAM).Convert(Prefix.MILLI, Unit.GRAM);
+			Quantity grams = new Quantity(1, sys.GetUOM(Unit.GRAM)).Convert(Prefix.MILLI, Unit.GRAM);
 			Quantity volume = new Quantity(1, sys.GetUOM(Prefix.MILLI, Unit.LITRE));
 			Quantity concentration = activity.Multiply(grams.Divide(volume));
 			Assert.IsTrue(IsCloseTo(concentration.Amount, 1000, DELTA6));
 
-			Quantity katals = concentration.Multiply(new Quantity(1, Unit.LITRE)).Convert(Unit.KATAL);
+			Quantity katals = concentration.Multiply(new Quantity(1, sys.GetUOM(Unit.LITRE))).Convert(Unit.KATAL);
 			Assert.IsTrue(IsCloseTo(katals.Amount, 0.01666667, DELTA6));
 
 			// The Stefan–Boltzmann law states that the power emitted per unit area
@@ -727,7 +727,7 @@ namespace CaliperSharpTests
 			// power of its absolute temperature: sigma * T^4
 
 			// calculate at 1000 Kelvin
-			Quantity temp = new Quantity(1000, Unit.KELVIN);
+			Quantity temp = new Quantity(1000, sys.GetUOM(Unit.KELVIN));
 			Quantity intensity = sys.GetQuantity(Constant.STEFAN_BOLTZMANN).Multiply(temp.Power(4));
 			Assert.IsTrue(IsCloseTo(intensity.Amount, 56703.67, DELTA2));
 
@@ -746,21 +746,21 @@ namespace CaliperSharpTests
 			// Convert the Boltzman constant from J/K to eV/K for the Arrhenius
 			// equation
 			// eV per Joule
-			Quantity j = new Quantity(1, Unit.JOULE);
+			Quantity j = new Quantity(1, sys.GetUOM(Unit.JOULE));
 			Quantity eV = j.Convert(Unit.ELECTRON_VOLT);
 			// Boltzmann constant
 			Quantity Kb = sys.GetQuantity(Constant.BOLTZMANN_CONSTANT).Multiply(eV.Amount);
 			// accelerated temperature
-			Quantity Ta = new Quantity(150, Unit.CELSIUS);
+			Quantity Ta = new Quantity(150, sys.GetUOM(Unit.CELSIUS));
 			// expected use temperature
-			Quantity Tu = new Quantity(85, Unit.CELSIUS);
+			Quantity Tu = new Quantity(85, sys.GetUOM(Unit.CELSIUS));
 			// calculate the acceleration factor
 			Quantity factor1 = Tu.Convert(Unit.KELVIN).Invert().Subtract(Ta.Convert(Unit.KELVIN).Invert());
 			Quantity factor2 = Kb.Invert().Multiply(0.5);
 			Quantity factor3 = factor1.Multiply(factor2);
 			double AF = Math.Exp(factor3.Amount);
 			// calculate longer life at expected use temperature
-			Quantity life85 = new Quantity(2750, Unit.HOUR);
+			Quantity life85 = new Quantity(2750, sys.GetUOM(Unit.HOUR));
 			Quantity life150 = life85.Multiply(AF);
 			Assert.IsTrue(IsCloseTo(life150.Amount, 33121.4, DELTA1));
 		}
@@ -987,6 +987,8 @@ namespace CaliperSharpTests
 			Quantity q4 = q5.Divide(q3);
 			Assert.IsTrue(q4.UOM.GetBaseSymbol().Equals(sys.GetOne().Symbol));
 			Assert.IsTrue(q4.Amount.Equals(amount));
+			Assert.IsTrue(q4.Equals(amount));
+			Assert.IsTrue(q4.CompareTo(amount) == 0);
 
 			// Newton-metre (Joules)
 			q4 = q1.Multiply(q2);
@@ -1070,8 +1072,8 @@ namespace CaliperSharpTests
 		[TestMethod]
 		public void TestFinancial()
 		{
-			Quantity q1 = new Quantity(10, Unit.US_DOLLAR);
-			Quantity q2 = new Quantity(12, Unit.US_DOLLAR);
+			Quantity q1 = new Quantity(10, sys.GetUOM(Unit.US_DOLLAR));
+			Quantity q2 = new Quantity(12, sys.GetUOM(Unit.US_DOLLAR));
 			Quantity q3 = q2.Subtract(q1).Divide(q1).Convert(Unit.PERCENT);
 			Assert.IsTrue(IsCloseTo(q3.Amount, 20, DELTA6));
 		}
