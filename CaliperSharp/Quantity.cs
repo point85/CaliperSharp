@@ -416,11 +416,13 @@ namespace Point85.Caliper.UnitOfMeasure
 		public static Quantity operator +(double left, Quantity right) => right.Add(left);
 		public static Quantity operator -(Quantity left, Quantity right) => left.Subtract(right);
 		public static Quantity operator -(Quantity left, double right) => left.Subtract(right);
+		public static Quantity operator -(double left, Quantity right) => new Quantity(left, right.UOM).Subtract(right);
 
 		public static Quantity operator *(Quantity left, Quantity right) => left.Multiply(right);
-		public static Quantity operator /(Quantity left, Quantity right) => left.Divide(right);
 		public static Quantity operator *(Quantity left, double right) => left.Multiply(right);
 		public static Quantity operator *(double left, Quantity right) => right.Multiply(left);
+		public static Quantity operator /(Quantity left, Quantity right) => left.Divide(right);
 		public static Quantity operator /(Quantity left, double right) => left.Divide(right);
+		public static Quantity operator /(double left, Quantity right) => new Quantity(left, right.UOM).Divide(right);
 	}
 }

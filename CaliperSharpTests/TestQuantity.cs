@@ -8,6 +8,95 @@ namespace CaliperSharpTests
 	public class TestQuantity : BaseTest
 	{
 		[TestMethod]
+		public void TestOperators()
+		{
+			const int amount1 = 10;
+			const int amount2 = 20;
+			const int sum1And2 = amount1 + amount2;
+			const int sub2And1 = amount2 - amount1;
+			const int mul1And2 = amount1 * amount2;
+			const int div2And1 = amount2 / amount1;
+			
+			UnitOfMeasure unitMetre = sys.GetUOM(Unit.METRE);
+
+			var qMetre1 = new Quantity(amount1, unitMetre);
+			var qMetre2 = new Quantity(amount2, unitMetre);
+
+			Assert.AreEqual((int)(qMetre1 + qMetre2).Amount, sum1And2);
+			Assert.AreEqual((int)(qMetre1 + amount2).Amount, sum1And2);
+			Assert.AreEqual((int)(amount1 + qMetre2).Amount, sum1And2);
+			
+			Assert.AreEqual((int)(qMetre2 - qMetre1).Amount, sub2And1);
+			Assert.AreEqual((int)(qMetre2 - amount1).Amount, sub2And1);
+			Assert.AreEqual((int)(amount2 - qMetre1).Amount, sub2And1);
+			
+			Assert.AreEqual((int)(qMetre1 * qMetre2).Amount, mul1And2);
+			Assert.AreEqual((int)(qMetre1 * amount2).Amount, mul1And2);
+			Assert.AreEqual((int)(amount1 * qMetre2).Amount, mul1And2);
+
+			Assert.AreEqual((int)(qMetre2 / qMetre1).Amount, div2And1);
+			Assert.AreEqual((int)(qMetre2 / amount1).Amount, div2And1);
+			Assert.AreEqual((int)(amount2 / qMetre1).Amount, div2And1);
+
+			Assert.IsTrue(qMetre1 == qMetre1);
+			Assert.IsTrue(qMetre1 != qMetre2);
+			Assert.IsTrue(qMetre1 == amount1);
+			Assert.IsTrue(amount1 == qMetre1);
+			Assert.IsTrue(qMetre1 != amount2);
+			Assert.IsTrue(amount2 != qMetre1);
+
+			Assert.IsTrue(qMetre1 < qMetre2);
+			Assert.IsTrue(qMetre1 < amount2);
+			Assert.IsTrue(amount1 < qMetre2);
+
+			Assert.IsFalse(qMetre1 > qMetre2);
+			Assert.IsFalse(qMetre1 > amount2);
+			Assert.IsFalse(amount1 > qMetre2);
+			
+			Assert.IsTrue(qMetre1 == amount1 + sys.Epsilon / 2);
+			Assert.IsTrue(amount1 + sys.Epsilon / 2 == qMetre1);
+			Assert.IsFalse(qMetre1 != amount1 + sys.Epsilon / 2);
+			Assert.IsFalse(amount1 + sys.Epsilon / 2 != qMetre1);
+			Assert.IsFalse(qMetre1 < amount1 + sys.Epsilon / 2);
+			Assert.IsFalse(qMetre1 > amount1 + sys.Epsilon / 2);
+			Assert.IsFalse(amount1 + sys.Epsilon / 2 > qMetre1);
+			Assert.IsFalse(amount1 + sys.Epsilon / 2 < qMetre1);
+			
+			Assert.IsTrue(qMetre1 != amount1 + sys.Epsilon * 2);
+			Assert.IsTrue(amount1 + sys.Epsilon * 2 != qMetre1);
+			Assert.IsFalse(qMetre1 == amount1 + sys.Epsilon * 2);
+			Assert.IsFalse(amount1 + sys.Epsilon * 2 == qMetre1);
+			Assert.IsTrue(qMetre1 < amount1 + sys.Epsilon * 2);
+			Assert.IsTrue(amount1 + sys.Epsilon * 2 > qMetre1);
+			Assert.IsFalse(qMetre1 > amount1 + sys.Epsilon * 2);
+			Assert.IsFalse(amount1 + sys.Epsilon * 2 < qMetre1);
+		}
+
+		[TestMethod]
+		public void TestSort() 
+		{
+			const int amount1 = 10;
+			const int amount2 = 20;
+			const int amount3 = 30;
+			
+			UnitOfMeasure unitMetre = sys.GetUOM(Unit.METRE);
+
+			var qMetre1 = new Quantity(amount1, unitMetre);
+			var qMetre2 = new Quantity(amount2, unitMetre);
+			var qMetre3 = new Quantity(amount3, unitMetre);
+			var qMetre4 = new Quantity(amount2 + sys.Epsilon / 2, unitMetre); // This value is too close to qMetre2
+
+			var list = new List<Quantity> { qMetre4, qMetre3, qMetre1, qMetre2 };
+
+			list.Sort();
+			
+			Assert.AreEqual((int)list[0].Amount, amount1);
+			Assert.AreEqual((int)list[1].Amount, amount2);
+			Assert.AreEqual((int)list[2].Amount, amount2);
+			Assert.AreEqual((int)list[3].Amount, amount3);
+		}
+		
+		[TestMethod]
 		public void TestCurrencyConversion()
 		{
 			UnitOfMeasure usd_uom = sys.CreateScalarUOM(UnitType.CURRENCY, "US-Dollar", "USD", "US 'paper' dollar");
