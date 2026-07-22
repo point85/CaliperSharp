@@ -23,6 +23,7 @@ SOFTWARE.
 */
 
 using System;
+using System.Globalization;
 using System.Text;
 
 namespace Point85.Caliper.UnitOfMeasure
@@ -33,7 +34,7 @@ namespace Point85.Caliper.UnitOfMeasure
 	/// The amount is expressed internally as a double.
 	/// </summary>
 	///
-	public class Quantity : Symbolic
+	public struct Quantity : ISymbolic, IEquatable<Quantity>, IEquatable<double>, IComparable<Quantity>, IComparable<double>
 	{
 		/// <summary>
 		/// the amount
@@ -44,11 +45,6 @@ namespace Point85.Caliper.UnitOfMeasure
 		/// unit of measure
 		/// </summary>
 		public UnitOfMeasure UOM { get; private set; }
-
-		/// <summary>Default constructor</summary>		
-		public Quantity() : base()
-		{
-		}
 
 		/// <summary>Create a quantity with an amount and unit of measure</summary>
 		/// 
@@ -61,26 +57,6 @@ namespace Point85.Caliper.UnitOfMeasure
 			UOM = uom;
 		}
 
-		/// <summary>Create a quantity with an amount, prefix and unit</summary>
-		/// 
-		/// <param name="amount">Amount</param>          
-		/// <param name="prefix">Prefix</param>
-		/// <param name="unit">Unit</param>
-		/// 
-		public Quantity(double amount, Prefix prefix, Unit unit) : this(amount, MeasurementSystem.GetSystem().GetUOM(prefix, unit))
-		{
-		}
-
-		/// <summary>Create a quantity with an amount and unit</summary>
-		/// 
-		/// <param name="amount">Amount</param>
-		///            
-		/// <param name="unit">Unit</param>
-		/// 
-		public Quantity(double amount, Unit unit) : this(amount, MeasurementSystem.GetSystem().GetUOM(unit))
-		{
-		}
-
 		/// <summary>
 		/// Compute a hash code
 		/// </summary>
@@ -90,20 +66,42 @@ namespace Point85.Caliper.UnitOfMeasure
 			return Amount.GetHashCode() ^ UOM.GetHashCode();
 		}
 
-		/// <summary>
-		/// Check for equality
-		/// </summary>
-		/// <param name="other">other Quantity</param>
-		/// <returns>True if equal</returns>
-		public override bool Equals(Object other)
+		/// <inheritdoc />
+		public int CompareTo(Quantity other) => CompareTo(other.ConvertValue(UOM));
+
+		/// <inheritdoc />
+		public int CompareTo(double other)
 		{
-			if (other == null || GetType() != other.GetType())
-				return false;
+			double delta = Amount - other;
+			if (Math.Abs(delta) < UOM.MeasurementSystem.Epsilon)
+				return 0;
+			if (delta < 0)
+				return -1;
+			return 1;
+		}
 
-			Quantity otherQuantity = (Quantity)other;
+		/// <inheritdoc />
+		public bool Equals(Quantity other)
+		{
+			return Equals(other.Amount) && UOM.Equals(other.UOM); 
+		}
 
-			return Math.Abs(Amount - otherQuantity.Amount) < MeasurementSystem.EPSILON &&
-				   UOM.Equals(otherQuantity.UOM);
+		/// <inheritdoc />
+		public bool Equals(double other)
+		{
+			return Math.Abs(Amount - other) < UOM.MeasurementSystem.Epsilon;
+		}
+
+		/// <inheritdoc />
+		public override bool Equals(object other)
+		{
+			return other switch
+			{
+				null => false,
+				double dv => Equals(dv),
+				Quantity qv => Equals(qv),
+				_ => false
+			};
 		}
 
 		/// <summary>Create an amount of a quantity that adheres to precision and rounding
@@ -144,10 +142,17 @@ namespace Point85.Caliper.UnitOfMeasure
 		/// 
 		public Quantity Subtract(Quantity other)
 		{
-			Quantity toSubtract = other.Convert(UOM);
-			double amount = Amount - toSubtract.Amount;
-			Quantity quantity = new Quantity(amount, this.UOM);
-			return quantity;
+			return Subtract(other.Convert(UOM).Amount);
+		}
+		
+		/// <summary>
+		/// Subtracts a value from this quantity.
+		/// </summary>
+		/// <param name="value">Value to subtract.</param>
+		/// <returns>Subtracted quantity.</returns>
+		public Quantity Subtract(double value)
+		{
+			return new Quantity(Amount - value, UOM);
 		}
 
 		/// <summary>Add two quantities</summary>
@@ -157,13 +162,19 @@ namespace Point85.Caliper.UnitOfMeasure
 		/// 
 		public Quantity Add(Quantity other)
 		{
-			Quantity toAdd = other.Convert(UOM);
-			double amount = Amount + toAdd.Amount;
-			Quantity quantity = new Quantity(amount, this.UOM);
-			return quantity;
+			return Add(other.Convert(UOM).Amount);
 		}
 
-
+		/// <summary>
+		/// Adds a value to this quantity.
+		/// </summary>
+		/// <param name="value">Value to add.</param>
+		/// <returns>Sum quantity.</returns>
+		public Quantity Add(double value)
+		{
+			return new Quantity(Amount + value, UOM);
+		}
+		
 		/// <summary>Divide two quantities to create a third quantity</summary>
 		/// 
 		/// <param name="other">Quantity</param>
@@ -225,7 +236,7 @@ namespace Point85.Caliper.UnitOfMeasure
 		public Quantity Power(int exponent)
 		{
 			double amount = Math.Pow(Amount, exponent);
-			UnitOfMeasure newUOM = MeasurementSystem.GetSystem().CreatePowerUOM(UOM, exponent);
+			UnitOfMeasure newUOM = UOM.MeasurementSystem.CreatePowerUOM(UOM, exponent);
 
 			Quantity quantity = new Quantity(amount, newUOM);
 			return quantity;
@@ -268,6 +279,16 @@ namespace Point85.Caliper.UnitOfMeasure
 		/// 
 		public Quantity Convert(UnitOfMeasure toUOM)
 		{
+			return new Quantity(ConvertValue(toUOM), toUOM);
+		}
+
+		/// <summary>
+		/// Converts this quantity to the target UOM.
+		/// </summary>
+		/// <param name="toUOM">UOM to convert this quantity to.</param>
+		/// <returns>Converted quantity as double value.</returns>
+		public double ConvertValue(UnitOfMeasure toUOM)
+		{
 			double multiplier = UOM.GetConversionFactor(toUOM);
 			double thisOffset = UOM.Offset;
 			double targetOffset = toUOM.Offset;
@@ -279,10 +300,7 @@ namespace Point85.Caliper.UnitOfMeasure
 			double newAmount = offsetAmount * multiplier;
 
 			// adjust for non-zero target offset
-			newAmount = newAmount - targetOffset;
-
-			// create the quantity now
-			return new Quantity(newAmount, toUOM);
+			return newAmount - targetOffset;
 		}
 
 		/// <summary>Convert this quantity with a product or quotient unit of measure to the
@@ -322,7 +340,7 @@ namespace Point85.Caliper.UnitOfMeasure
 		/// 
 		public Quantity Convert(Unit unit)
 		{
-			return Convert(MeasurementSystem.GetSystem().GetUOM(unit));
+			return Convert(UOM.MeasurementSystem.GetUOM(unit));
 		}
 
 		/// <summary>Convert this quantity to the target unit with the specified prefix</summary>
@@ -334,7 +352,7 @@ namespace Point85.Caliper.UnitOfMeasure
 		/// 
 		public Quantity Convert(Prefix prefix, Unit unit)
 		{
-			return Convert(MeasurementSystem.GetSystem().GetUOM(prefix, unit));
+			return Convert(UOM.MeasurementSystem.GetUOM(prefix, unit));
 		}
 
 		/// <summary>
@@ -344,8 +362,8 @@ namespace Point85.Caliper.UnitOfMeasure
 		public override string ToString()
 		{
 			StringBuilder sb = new StringBuilder();
-			sb.Append(Amount.ToString()).Append(", [").Append(UOM.ToString()).Append("] ");
-			sb.Append(base.ToString());
+			sb.Append(Amount.ToString(CultureInfo.CurrentCulture)).Append(", [").Append(UOM).Append("] ");
+			sb.Append(Symbolic.ToString(Name, Symbol, Description));
 			return sb.ToString();
 		}
 
@@ -368,5 +386,43 @@ namespace Point85.Caliper.UnitOfMeasure
 			return Amount.CompareTo(toCompare.Amount);
 		}
 
+		/// <inheritdoc />
+		public string Name { get; set; }
+
+		/// <inheritdoc />
+		public string Symbol { get; set; }
+
+		/// <inheritdoc />
+		public string Description { get; set; }
+		
+		
+		public static bool operator == (Quantity left, Quantity right) => left.Equals(right);
+		public static bool operator !=(Quantity left, Quantity right) => !left.Equals(right);
+		public static bool operator <(Quantity left, Quantity right) => left.CompareTo(right) < 0;
+		public static bool operator >(Quantity left, Quantity right) => left.CompareTo(right) > 0;
+		
+		public static bool operator == (Quantity left, double right) => left.Equals(right);
+		public static bool operator !=(Quantity left, double right) => !left.Equals(right);
+		public static bool operator <(Quantity left, double right) => left.CompareTo(right) < 0;
+		public static bool operator >(Quantity left, double right) => left.CompareTo(right) > 0;
+		
+		public static bool operator == (double left, Quantity right) => right.Equals(left);
+		public static bool operator !=(double left, Quantity right) => !right.Equals(left);
+		public static bool operator <(double left, Quantity right) => right.CompareTo(left) > 0;
+		public static bool operator >(double left, Quantity right) => right.CompareTo(left) < 0;
+
+		public static Quantity operator +(Quantity left, Quantity right) => left.Add(right);
+		public static Quantity operator +(Quantity left, double right) => left.Add(right);
+		public static Quantity operator +(double left, Quantity right) => right.Add(left);
+		public static Quantity operator -(Quantity left, Quantity right) => left.Subtract(right);
+		public static Quantity operator -(Quantity left, double right) => left.Subtract(right);
+		public static Quantity operator -(double left, Quantity right) => new Quantity(left, right.UOM).Subtract(right);
+
+		public static Quantity operator *(Quantity left, Quantity right) => left.Multiply(right);
+		public static Quantity operator *(Quantity left, double right) => left.Multiply(right);
+		public static Quantity operator *(double left, Quantity right) => right.Multiply(left);
+		public static Quantity operator /(Quantity left, Quantity right) => left.Divide(right);
+		public static Quantity operator /(Quantity left, double right) => left.Divide(right);
+		public static Quantity operator /(double left, Quantity right) => new Quantity(left, right.UOM).Divide(right);
 	}
 }

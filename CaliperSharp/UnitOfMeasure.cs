@@ -155,14 +155,21 @@ namespace Point85.Caliper.UnitOfMeasure
 		// second exponent
 		private int? Exponent2;
 
+		/// <summary>
+		/// The measurement system this unit belongs to.
+		/// </summary>
+		public MeasurementSystem MeasurementSystem { get; }
+
 		/// <summary>Construct a default unit of measure</summary>
-		public UnitOfMeasure() : base()
+		public UnitOfMeasure(MeasurementSystem measurementSystem) : base()
 		{
 			this.AbscissaUnit = this;
+			this.MeasurementSystem = measurementSystem;
 		}
 
-		internal UnitOfMeasure(UnitType type, string name, string symbol, string description) : base(name, symbol, description)
+		internal UnitOfMeasure(MeasurementSystem measurementSystem, UnitType type, string name, string symbol, string description) : base(name, symbol, description)
 		{
+			this.MeasurementSystem = measurementSystem;
 			this.AbscissaUnit = this;
 			UOMType = type;
 		}
@@ -213,7 +220,7 @@ namespace Point85.Caliper.UnitOfMeasure
 		{
 			lock (_instanceLock)
 			{
-				Reducer reducer = new Reducer();
+				Reducer reducer = new Reducer(MeasurementSystem);
 				reducer.Explode(this);
 				return reducer;
 			}
@@ -284,7 +291,7 @@ namespace Point85.Caliper.UnitOfMeasure
 			// special cases
 			if (exponent == -1)
 			{
-				SetPowerProduct(MeasurementSystem.GetSystem().GetOne(), 1, baseUOM, -1);
+				SetPowerProduct(MeasurementSystem.GetOne(), 1, baseUOM, -1);
 			}
 			else
 			{
@@ -331,7 +338,7 @@ namespace Point85.Caliper.UnitOfMeasure
 
 		internal UnitOfMeasure ClonePower(UnitOfMeasure uom)
 		{
-			UnitOfMeasure newUOM = new UnitOfMeasure();
+			UnitOfMeasure newUOM = new UnitOfMeasure(MeasurementSystem);
 			newUOM.UOMType = UOMType;
 
 			// check if quotient
@@ -341,7 +348,7 @@ namespace Point85.Caliper.UnitOfMeasure
 				exponent = GetPowerExponent().Value;
 			}
 
-			UnitOfMeasure one = MeasurementSystem.GetSystem().GetOne();
+			UnitOfMeasure one = MeasurementSystem.GetOne();
 			if (GetMeasurementType().Equals(MeasurementType.QUOTIENT))
 			{
 				if (GetDividend().Equals(one))
@@ -365,7 +372,7 @@ namespace Point85.Caliper.UnitOfMeasure
 		internal UnitOfMeasure ClonePowerProduct(UnitOfMeasure uom1, UnitOfMeasure uom2)
 		{
 			bool invert = false;
-			UnitOfMeasure one = MeasurementSystem.GetSystem().GetOne();
+			UnitOfMeasure one = MeasurementSystem.GetOne();
 
 			// check if quotient
 			if (GetMeasurementType().Equals(MeasurementType.QUOTIENT))
@@ -513,11 +520,11 @@ namespace Point85.Caliper.UnitOfMeasure
 			}
 
 			// get the base symbol and possibly base UOM
-			Reducer resultReducer = new Reducer();
+			Reducer resultReducer = new Reducer(MeasurementSystem);
 			resultReducer.Terms = resultMap;
 
 			// product or quotient
-			UnitOfMeasure result = new UnitOfMeasure();
+			UnitOfMeasure result = new UnitOfMeasure(MeasurementSystem);
 
 			if (!invert)
 			{
@@ -544,7 +551,7 @@ namespace Point85.Caliper.UnitOfMeasure
 			}
 
 			String baseSymbol = resultReducer.BuildBaseString();
-			UnitOfMeasure baseUOM = MeasurementSystem.GetSystem().GetBaseUOM(baseSymbol);
+			UnitOfMeasure baseUOM = MeasurementSystem.GetBaseUOM(baseSymbol);
 
 			if (baseUOM != null)
 			{
@@ -632,7 +639,7 @@ namespace Point85.Caliper.UnitOfMeasure
 			{
 
 				// unit has been previously cached, so first remove it, then cache again
-				MeasurementSystem.GetSystem().UnregisterUnit(this);
+				MeasurementSystem.UnregisterUnit(this);
 				SetBaseSymbol(null);
 
 				ScalingFactor = scalingFactor;
@@ -640,7 +647,7 @@ namespace Point85.Caliper.UnitOfMeasure
 				Offset = offset;
 
 				// re-cache
-				MeasurementSystem.GetSystem().RegisterUnit(this);
+				MeasurementSystem.RegisterUnit(this);
 
 
 				// remove from conversion registry
@@ -964,7 +971,7 @@ namespace Point85.Caliper.UnitOfMeasure
 			}
 			else
 			{
-				inverted = MeasurementSystem.GetSystem().GetOne().Divide(this);
+				inverted = MeasurementSystem.GetOne().Divide(this);
 			}
 
 			return inverted;
@@ -1001,7 +1008,7 @@ namespace Point85.Caliper.UnitOfMeasure
 		public UnitOfMeasure GetBaseUOM()
 		{
 			string baseSymbol = GetBaseSymbol();
-			return MeasurementSystem.GetSystem().GetBaseUOM(baseSymbol);
+			return MeasurementSystem.GetBaseUOM(baseSymbol);
 		}
 
 		/// <summary>Get the base unit of measure for the power</summary>
@@ -1076,7 +1083,7 @@ namespace Point85.Caliper.UnitOfMeasure
 		/// <returns>Power unit of measure</returns>
 		public UnitOfMeasure Power(int exponent)
 		{
-			return MeasurementSystem.GetSystem().CreatePowerUOM(this, exponent);
+			return MeasurementSystem.CreatePowerUOM(this, exponent);
 		}
 
 		/// <summary>
@@ -1099,7 +1106,7 @@ namespace Point85.Caliper.UnitOfMeasure
 
 			foreach (UnitType unitType in UnitType.GetValues(typeof(UnitType)))
 			{
-				ConcurrentDictionary<UnitType, int> unitTypeMap = MeasurementSystem.GetSystem().GetTypeMap(unitType);
+				ConcurrentDictionary<UnitType, int> unitTypeMap = MeasurementSystem.GetTypeMap(unitType);
 
 				if (unitTypeMap.Count != uomBaseMap.Count)
 				{
@@ -1168,9 +1175,11 @@ namespace Point85.Caliper.UnitOfMeasure
 			// recursion Counter
 			private int Counter = 0;
 
-			internal Reducer()
+			private readonly MeasurementSystem MeasurementSystem;
+			
+			internal Reducer(MeasurementSystem measurementSystem)
 			{
-
+				MeasurementSystem = measurementSystem;
 			}
 
 			internal void Explode(UnitOfMeasure unit)
@@ -1284,7 +1293,7 @@ namespace Point85.Caliper.UnitOfMeasure
 				int power;
 
 				// Check if this is the 'one' unit early to avoid unnecessary operations
-				if (uom.Equals(MeasurementSystem.GetSystem().GetOne()))
+				if (uom.Equals(MeasurementSystem.GetOne()))
 				{
 					return;
 				}
@@ -1337,7 +1346,7 @@ namespace Point85.Caliper.UnitOfMeasure
 							denominator.Append(MULT);
 						}
 
-						if (!unit.Equals(MeasurementSystem.GetSystem().GetOne()))
+						if (!unit.Equals(MeasurementSystem.GetOne()))
 						{
 							denominator.Append(unit.Symbol);
 							denominatorCount++;
@@ -1359,7 +1368,7 @@ namespace Point85.Caliper.UnitOfMeasure
 							}
 						}
 					}
-					else if (power >= 1 && !unit.Equals(MeasurementSystem.GetSystem().GetOne()))
+					else if (power >= 1 && !unit.Equals(MeasurementSystem.GetOne()))
 					{
 						// positive, put in numerator
 						if (numerator.Length > 0)

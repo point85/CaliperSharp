@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Globalization;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Point85.Caliper.UnitOfMeasure;
 
 namespace CaliperSharpTests
@@ -14,11 +15,11 @@ namespace CaliperSharpTests
 			// dollar is worth 0.94 euros?
 			UnitOfMeasure euro = sys.GetUOM(Unit.EURO);
 			UnitOfMeasure usd = sys.GetUOM(Unit.US_DOLLAR);
-			usd.SetConversion("0.94", euro);
+			usd.SetConversion((0.94).ToString(CultureInfo.CurrentCulture), euro);
 
 			UnitOfMeasure googl = sys.CreateScalarUOM(UnitType.CURRENCY, "Alphabet A", "GOOGL",
 					"Alphabet (formerly Google) Class A shares");
-			googl.SetConversion("838.96", usd);
+			googl.SetConversion((838.96).ToString(CultureInfo.CurrentCulture), usd);
 			Quantity portfolio = new Quantity(100, googl);
 			Quantity value = portfolio.Convert(euro);
 			Assert.IsTrue(IsCloseTo(value.Amount, 78862.24, DELTA6));

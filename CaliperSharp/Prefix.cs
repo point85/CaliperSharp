@@ -132,12 +132,12 @@ namespace Point85.Caliper.UnitOfMeasure
 		}
 
 		/// Find the prefix with the specified scaling factor
-		/// 
+		/// <param name="measurementSystem">The measurement system</param>
 		/// <param name="factor">Scaling factor</param>         
 		/// <returns> Prefix </returns>
-		public static Prefix FromFactor(double factor)
+		public static Prefix FromFactor(MeasurementSystem measurementSystem, double factor)
 		{
-			return prefixes.FirstOrDefault(p => Math.Abs(p.Factor - factor) < MeasurementSystem.EPSILON);
+			return prefixes.FirstOrDefault(p => Math.Abs(p.Factor - factor) < measurementSystem.Epsilon);
 		}
 
 		/// <summary>Get the list of pre-defined prefixes</summary>

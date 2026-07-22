@@ -1,7 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Point85.Caliper.UnitOfMeasure;
-using System;
-using System.Collections.Generic;
+﻿using Point85.Caliper.UnitOfMeasure;
 
 namespace CaliperSharpTests
 {
@@ -74,7 +71,7 @@ namespace CaliperSharpTests
 			// constants
 			foreach (Constant c in Enum.GetValues(typeof(Constant)))
 			{
-				Assert.IsTrue(sys.GetQuantity(c) != null);
+				Assert.IsNotNull(sys.GetQuantity(c).Name);
 			}
 		}
 

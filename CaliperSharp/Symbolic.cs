@@ -26,12 +26,29 @@ using System.Text;
 
 namespace Point85.Caliper.UnitOfMeasure
 {
+	public interface ISymbolic
+	{
+		/// <summary>
+		/// name, for example "speed of light"
+		/// </summary>
+		public string Name { get; set; }
+
+		/// <summary>
+		/// symbol or abbreviation, e.g. "Vc"
+		/// </summary>
+		public string Symbol { get; set; }
+
+		/// <summary>
+		/// description
+		/// </summary>
+		public string Description { get; set; }
+	}
 
 	/// <summary>
 	/// This class represents an object that is identified by a name and symbol with
 	/// an optional description. Units of measure are such objects.
 	/// </summary>
-	public abstract class Symbolic
+	public abstract class Symbolic : ISymbolic
 	{
 		/// <summary>
 		/// name, for example "speed of light"
@@ -65,29 +82,31 @@ namespace Point85.Caliper.UnitOfMeasure
 			this.Description = description;
 		}
 
+		public override string ToString() => ToString(Name, Symbol, Description);
+
 		/// <summary>
 		/// Build a string representation of a Symbolic object
 		/// </summary>
 		/// <returns>String value</returns>
-		public override string ToString()
+		public static string ToString(string? name, string? symbol, string? description)
 		{
 			StringBuilder sb = new StringBuilder();
 
 			bool hasContent = false;
 
 			// symbol
-			if (Symbol != null)
+			if (symbol != null)
 			{
 				if (!hasContent)
 				{
 					sb.Append(" (");
 					hasContent = true;
 				}
-				sb.Append(Symbol);
+				sb.Append(symbol);
 			}
 
 			// name
-			if (Name != null)
+			if (name != null)
 			{
 				if (!hasContent)
 				{
@@ -98,11 +117,11 @@ namespace Point85.Caliper.UnitOfMeasure
 				{
 					sb.Append(", ");
 				}
-				sb.Append(Name);
+				sb.Append(name);
 			}
 
 			// description
-			if (Description != null)
+			if (description != null)
 			{
 				if (!hasContent)
 				{
@@ -113,7 +132,7 @@ namespace Point85.Caliper.UnitOfMeasure
 				{
 					sb.Append(", ");
 				}
-				sb.Append(Description);
+				sb.Append(description);
 			}
 
 			// close parenthesis if we opened one
